@@ -39,7 +39,7 @@ through — that overrun is data about the plan, not a personal failing.
 ---
 
 # PHASE 1 — Core Engine
-**Milestone M1 · 2026-09-29 → 2026-10-08 · ~40 hours**
+**Milestone M1 · 2026-09-29 → Due 2026-10-04 (target, D-007); fallback 2026-10-08 · ~40 hours**
 
 The deliverable that makes this a portfolio piece. Phase 1 is independently sufficient: if
 the project stopped here, it would still be a credible interview showcase.
@@ -105,8 +105,10 @@ the project stopped here, it would still be a credible interview showcase.
 - **Plain-prompt baseline:** same model, same 50 JDs, asked in natural language with no
   schema, no evidence requirement, no verification — i.e. what a scheduled assistant prompt
   would do. Scored with the same harness. See PRD §1a.
-- **Acceptance:** numbers recorded for all four tiers for **both** the plain-prompt baseline
-  and the 投投乐 pipeline; failure cases listed individually with field, expected, actual
+- **Acceptance:** numbers recorded for the three extraction tiers (critical, important,
+  reference) for **both** the plain-prompt baseline and the 投投乐 pipeline; failure cases
+  listed individually with field, expected, actual. The scoring tier is added at Task 1.9
+  (D-006)
 
 **Task 1.8 — Iteration to target** · `fix` · 5h
 - Improve prompts and rules against observed failures
@@ -150,7 +152,7 @@ the project stopped here, it would still be a credible interview showcase.
 ---
 
 ## 🏁 MILESTONE M1 — Core Engine
-**Due 2026-10-08**
+**Due 2026-10-04 (target, D-007); fallback 2026-10-08**
 
 - [ ] Paste-to-decision loop works end to end
 - [ ] Critical-field hallucination rate: 0% on 50 cases

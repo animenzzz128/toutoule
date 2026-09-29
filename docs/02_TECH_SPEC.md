@@ -57,7 +57,7 @@ toutoule/
 │   └── cli.py
 ├── app/streamlit_app.py
 ├── data/
-│   ├── profile/                    # resume versions (real ones gitignored)
+│   ├── profile/                    # redacted sample resume versions (real ones in data/private/, gitignored)
 │   ├── eval/                       # 50 JDs + labels (committed)
 │   └── prompts/                    # versioned prompt templates
 ├── tests/
@@ -281,7 +281,7 @@ reportable metric and an interview answer. Confirm current model pricing at
 | Item | Handling |
 |---|---|
 | API keys | `.env` locally, GitHub Actions secrets in CI. Never in code, never in logs. |
-| Real resume | `data/profile/` gitignored. A redacted sample is committed for the demo. |
+| Real resume | Real resumes live in `data/private/` (gitignored). `data/profile/` holds only the redacted sample, which is committed for the demo. |
 | Database | Gitignored locally; Phase 2 hosted DB uses a connection string from secrets. |
 | Approve links | HMAC-signed, single-use, 7-day expiry. |
 | Public demo | Runs on the sample resume and sample jobs only. The owner's real application history is never publicly reachable. |

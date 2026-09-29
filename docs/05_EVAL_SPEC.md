@@ -61,10 +61,10 @@ target: extra plausible skills cost the reader nothing.
 
 | Segment | Count | Why |
 |---|---|---|
-| China platform / e-commerce | 15 | Primary target; bilingual postings |
+| China platform / e-commerce | 20 | Primary target; bilingual postings (see D-005) |
 | China campus programs | 10 | Where application caps appear |
 | US consulting / finance | 10 | Where sponsorship clauses appear |
-| US tech | 5 | — |
+| US tech | 10 | AI PM roles (see D-005) |
 | **Postings with no stated deadline** | 5 | Tests the `Not stated` path — the most common hallucination trigger |
 | **Bilingual or Chinese-only postings** | 5 | Tests language handling |
 
@@ -172,5 +172,7 @@ State these limits plainly. Volunteering them is more persuasive than being caug
   boundary (PD-6). Coverage is high-value, not exhaustive.
 - **No claim of generalization beyond campus recruiting.** The eval set is one candidate's
   target market in one cycle.
+- **The eval set skews toward China platform / e-commerce** (20 of 50, see D-005). Results
+  weight the owner's primary market and may not reflect performance on other segments.
 - **Match scoring is calibrated to one person.** It reflects the owner's judgment, including
   its biases. Phase 3's external pilot is the first real test of whether it transfers.
