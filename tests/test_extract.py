@@ -1,10 +1,10 @@
 import json
 from collections.abc import Iterator
 from pathlib import Path
-from types import SimpleNamespace
 from typing import Any
 
 import pytest
+from fakes import FakeClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -24,39 +24,15 @@ FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
 MODEL = "claude-test-model"
 
 
-class FakeClient:
-    """Stands in for anthropic.Anthropic. No network: it returns the answers it was given,
-    in order, and records every request so tests can inspect what would have been sent."""
-
-    def __init__(self, *answers: str) -> None:
-        self.answers = list(answers)
-        self.requests: list[dict[str, Any]] = []
-        self.messages = self  # so that client.messages.create(...) lands on create below
-
-    def create(self, **kwargs: Any) -> SimpleNamespace:
-        self.requests.append(kwargs)
-        return SimpleNamespace(
-            content=[SimpleNamespace(type="text", text=self.answers.pop(0))],
-            usage=SimpleNamespace(input_tokens=1000, output_tokens=300),
-            stop_reason="end_turn",
-        )
-
-
 @pytest.fixture
 def valid_answer() -> dict[str, Any]:
     """The valid extraction fixture as a dict, for tests to modify."""
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
-# A posting that contains every quote in the fixture, with the formatting noise real pages
-# have: line breaks inside sentences and a non-breaking space.
-SOURCE = """Hexa Commerce (fictional) 2027届校招 - AI产品经理 / AI Product Manager, Campus 2027
-网申截止时间：2026年10月31日
-Open to candidates graduating between September 2026 and
-August 2027. Each candidate may apply to at most 2 positions.
-Base: Hangzhou. This is an on-site role at our Hangzhou campus.
-Requirements: Master's degree or above. Fluent in Mandarin and English.
-"""
+# A posting that contains every quote in extraction_valid.json, with the formatting noise
+# real pages have: line breaks inside sentences and a non-breaking space.
+SOURCE = (Path(__file__).parent / "fixtures" / "jd_valid.txt").read_text(encoding="utf-8")
 
 
 @pytest.fixture

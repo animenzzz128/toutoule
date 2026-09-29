@@ -4,6 +4,7 @@ The model reads a job posting and returns an Extraction. Code, not the prompt, t
 that every quoted piece of evidence really appears in the posting.
 """
 
+import hashlib
 import logging
 import re
 import unicodedata
@@ -12,6 +13,7 @@ from typing import Any, Protocol
 
 from anthropic import transform_schema
 from pydantic import ValidationError
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from toutoule import models, schemas
@@ -58,6 +60,32 @@ def normalize_text(s: str) -> str:
 def quote_in_source(quote: str, source: str) -> bool:
     """True if the quote appears, after normalization, somewhere in the source."""
     return normalize_text(quote) in normalize_text(source)
+
+
+def hash_content(raw_text: str) -> str:
+    """SHA-256 of the normalized text: formatting-only changes keep the same hash."""
+    return hashlib.sha256(normalize_text(raw_text).encode("utf-8")).hexdigest()
+
+
+def find_cached(
+    session: Session, content_hash: str, prompt_version: str, model: str
+) -> models.Extraction | None:
+    """The newest stored extraction of this exact text by this prompt and model, if any.
+
+    All three are the cache key: a new prompt version or model must re-extract, so that
+    evaluation runs (Task 1.8) can compare versions on the same postings.
+    """
+    query = (
+        select(models.Extraction)
+        .join(models.Job, models.Job.id == models.Extraction.job_id)
+        .where(
+            models.Job.content_hash == content_hash,
+            models.Extraction.prompt_version == prompt_version,
+            models.Extraction.model == model,
+        )
+        .order_by(models.Extraction.id.desc())
+    )
+    return session.scalars(query).first()
 
 
 # --- The model call ----------------------------------------------------------------------
