@@ -27,6 +27,10 @@ dev = [
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.format]
+# Leave code examples inside Markdown docs exactly as written.
+exclude = ["*.md"]
+
 [tool.ruff.lint]
 # E/W: style errors, F: bugs like unused imports, I: import order,
 # UP: modern Python syntax, B: common bug patterns.
