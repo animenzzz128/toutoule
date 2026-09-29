@@ -1,13 +1,19 @@
 import json
+from collections.abc import Iterator
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
 import pytest
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
+from toutoule import models, schemas
+from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.extract import (
     PROMPT_VERSION,
     ExtractionFailed,
+    extract_job,
     load_prompt,
     normalize_text,
     quote_in_source,
@@ -40,6 +46,46 @@ class FakeClient:
 def valid_answer() -> dict[str, Any]:
     """The valid extraction fixture as a dict, for tests to modify."""
     return json.loads(FIXTURE.read_text(encoding="utf-8"))
+
+
+# A posting that contains every quote in the fixture, with the formatting noise real pages
+# have: line breaks inside sentences and a non-breaking space.
+SOURCE = """Hexa Commerce (fictional) 2027届校招 - AI产品经理 / AI Product Manager, Campus 2027
+网申截止时间：2026年10月31日
+Open to candidates graduating between September 2026 and
+August 2027. Each candidate may apply to at most 2 positions.
+Base: Hangzhou. This is an on-site role at our Hangzhou campus.
+Requirements: Master's degree or above. Fluent in Mandarin and English.
+"""
+
+
+@pytest.fixture
+def session(tmp_path: Path) -> Iterator[Session]:
+    """A fresh SQLite file per test, with the tables created. Never the real database.
+
+    The test runs at the `yield`; the session is closed afterwards, even if the test fails.
+    """
+    engine = get_engine(f"sqlite:///{tmp_path / 'test.db'}")
+    init_db(engine)
+    with get_session_factory(engine)() as session:
+        yield session
+
+
+def add_job(session: Session, raw_text: str = SOURCE) -> models.Job:
+    source = models.Source(name="manual", tier=3, url="", adapter="manual")
+    session.add(source)
+    session.flush()  # sends the insert now, so source.id is filled in
+    job = models.Job(
+        source_id=source.id,
+        company="",
+        title="",
+        url="file:///jd.txt",
+        raw_text=raw_text,
+        content_hash="not-checked-here",
+    )
+    session.add(job)
+    session.commit()
+    return job
 
 
 def break_statedness(answer: dict[str, Any]) -> str:
@@ -152,3 +198,98 @@ def test_every_call_logs_its_tokens(
     token_lines = [r.message for r in caplog.records if "input_tokens=1000" in r.message]
     assert len(token_lines) == 2
     assert "output_tokens=300" in token_lines[0] and "stop_reason=end_turn" in token_lines[0]
+
+
+# --- (b), (c), (e), (f) verification and saving ------------------------------------------
+
+
+def test_happy_path_saves_one_extraction_and_no_violations(
+    session: Session, valid_answer: dict[str, Any]
+) -> None:
+    job = add_job(session)
+
+    result = extract_job(session, job, FakeClient(json.dumps(valid_answer)), MODEL)
+
+    assert result.critical.deadline.stated is True
+    assert session.scalars(select(models.ExtractionViolation)).all() == []
+    row = session.scalars(select(models.Extraction)).one()
+    assert (row.job_id, row.model, row.prompt_version) == (job.id, MODEL, PROMPT_VERSION)
+    assert (row.input_tokens, row.output_tokens) == (1000, 300)
+    assert row.payload_json == result.model_dump(mode="json")
+    assert job.status == models.JobStatus.EXTRACTED
+
+
+def test_fabricated_quote_is_downgraded_and_logged(
+    session: Session, valid_answer: dict[str, Any]
+) -> None:
+    job = add_job(
+        session, raw_text=SOURCE.replace("网申截止时间：2026年10月31日", "网申截止时间：待定")
+    )
+
+    result = extract_job(session, job, FakeClient(json.dumps(valid_answer)), MODEL)
+
+    deadline = result.critical.deadline
+    assert (deadline.stated, deadline.value, deadline.evidence) == (False, None, None)
+    violation = session.scalars(select(models.ExtractionViolation)).one()
+    assert violation.field_path == "critical.deadline"
+    assert "网申截止时间：2026年10月31日" in violation.reason
+    # Every other field is exactly what the model returned.
+    expected = json.loads(json.dumps(valid_answer))
+    expected["critical"]["deadline"] = {"value": None, "stated": False, "evidence": None}
+    saved = session.scalars(select(models.Extraction)).one().payload_json
+    assert saved == expected  # the saved payload is the verified one
+
+
+def test_downgraded_field_keeps_its_class(session: Session, valid_answer: dict[str, Any]) -> None:
+    valid_answer["critical"]["visa_sponsorship"] = {
+        "value": "yes",
+        "stated": True,
+        "evidence": "We sponsor visas",  # not in SOURCE
+    }
+    job = add_job(session)
+
+    result = extract_job(session, job, FakeClient(json.dumps(valid_answer)), MODEL)
+
+    assert type(result.critical.visa_sponsorship) is schemas.VisaSponsorshipField
+    assert result.critical.visa_sponsorship.stated is False
+
+
+def test_violation_reason_cuts_long_quote(session: Session, valid_answer: dict[str, Any]) -> None:
+    valid_answer["important"]["location"]["evidence"] = "x" * 500
+    job = add_job(session)
+
+    extract_job(session, job, FakeClient(json.dumps(valid_answer)), MODEL)
+
+    reason = session.scalars(select(models.ExtractionViolation)).one().reason
+    assert "x" * 200 in reason and "x" * 201 not in reason
+
+
+def test_two_failures_mark_job_failed_and_save_nothing(
+    session: Session, valid_answer: dict[str, Any]
+) -> None:
+    job = add_job(session)
+    client = FakeClient(break_statedness(valid_answer), break_statedness(valid_answer))
+
+    with pytest.raises(ExtractionFailed):
+        extract_job(session, job, client, MODEL)
+
+    session.refresh(job)  # re-read from the database: the status must really be saved
+    assert job.status == models.JobStatus.EXTRACTION_FAILED
+    assert session.scalars(select(models.Extraction)).all() == []
+
+
+def test_model_supplied_versions_are_overwritten(
+    session: Session, valid_answer: dict[str, Any]
+) -> None:
+    valid_answer["prompt_version"] = "made_up_v99"
+    valid_answer["schema_version"] = "9.9"
+    job = add_job(session)
+
+    result = extract_job(session, job, FakeClient(json.dumps(valid_answer)), MODEL)
+
+    assert (result.prompt_version, result.schema_version) == (
+        PROMPT_VERSION,
+        schemas.SCHEMA_VERSION,
+    )
+    row = session.scalars(select(models.Extraction)).one()
+    assert row.payload_json["prompt_version"] == PROMPT_VERSION

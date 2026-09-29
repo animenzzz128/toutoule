@@ -12,8 +12,9 @@ from typing import Any, Protocol
 
 from anthropic import transform_schema
 from pydantic import ValidationError
+from sqlalchemy.orm import Session
 
-from toutoule import schemas
+from toutoule import models, schemas
 
 logger = logging.getLogger(__name__)
 
@@ -137,3 +138,73 @@ def request_extraction(
                 },
             ]
     raise AssertionError("unreachable")  # the loop always returns or raises
+
+
+# --- Verification and saving -------------------------------------------------------------
+
+# The groups whose fields carry evidence. Reference fields have no quotes to check.
+EVIDENCE_GROUPS = ("critical", "important")
+REASON_QUOTE_LIMIT = 200
+
+
+def verify_evidence(
+    extraction: schemas.Extraction, raw_text: str
+) -> tuple[schemas.Extraction, list[tuple[str, str]]]:
+    """Downgrade every stated field whose quote is not in the source (tech spec §3 rule 2).
+
+    Returns (verified copy, [(field_path, reason), ...]). A downgraded field keeps its class,
+    so a VisaSponsorshipField stays one. The input extraction is not changed.
+    """
+    violations: list[tuple[str, str]] = []
+    new_groups: dict[str, Any] = {}
+    for group_name in EVIDENCE_GROUPS:
+        group = getattr(extraction, group_name)
+        downgraded: dict[str, schemas.ExtractedField] = {}
+        for field_name in type(group).model_fields:
+            field = getattr(group, field_name)
+            quote = field.evidence or ""  # never empty when stated: the schema forbids it
+            if field.stated and not quote_in_source(quote, raw_text):
+                downgraded[field_name] = type(field)(value=None, stated=False, evidence=None)
+                reason = f"quote not found in source: {quote[:REASON_QUOTE_LIMIT]!r}"
+                violations.append((f"{group_name}.{field_name}", reason))
+        new_groups[group_name] = group.model_copy(update=downgraded)
+    return extraction.model_copy(update=new_groups), violations
+
+
+def extract_job(
+    session: Session, job: models.Job, client: ModelClient, model: str
+) -> schemas.Extraction:
+    """Extract, verify and save one job. Commits the session.
+
+    On success: one extractions row, one extraction_violations row per rejected quote, and
+    job.status "extracted". On ExtractionFailed: job.status "extraction_failed", no
+    extractions row, and the error is raised again for the caller to report.
+    """
+    try:
+        extraction, input_tokens, output_tokens = request_extraction(client, model, job.raw_text)
+    except ExtractionFailed:
+        job.status = models.JobStatus.EXTRACTION_FAILED
+        session.commit()
+        raise
+    # Versions describe our code, so code sets them; whatever the model wrote is ignored.
+    extraction = extraction.model_copy(
+        update={"schema_version": schemas.SCHEMA_VERSION, "prompt_version": PROMPT_VERSION}
+    )
+    extraction, violations = verify_evidence(extraction, job.raw_text)
+    for field_path, reason in violations:
+        logger.warning("job %s: %s downgraded, %s", job.id, field_path, reason)
+        session.add(models.ExtractionViolation(job_id=job.id, field_path=field_path, reason=reason))
+    session.add(
+        models.Extraction(
+            job_id=job.id,
+            prompt_version=extraction.prompt_version,
+            schema_version=extraction.schema_version,
+            payload_json=extraction.model_dump(mode="json"),
+            model=model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+        )
+    )
+    job.status = models.JobStatus.EXTRACTED
+    session.commit()
+    return extraction
