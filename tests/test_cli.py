@@ -4,9 +4,15 @@ import sys
 from pathlib import Path
 
 import pytest
+from fakes import FakeClient
+from sqlalchemy import select
 
+from toutoule import extract, models
 from toutoule.cli import main
 from toutoule.config import Settings
+from toutoule.db import get_engine, get_session_factory
+
+FIXTURES = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture(autouse=True)
@@ -76,3 +82,203 @@ def test_init_db_without_settings_gives_one_line_error(
     error_output = capsys.readouterr().err
     assert error_output.count("\n") == 1
     assert error_output.startswith("Config error:")
+
+
+# --- extract -----------------------------------------------------------------------------
+
+
+@pytest.fixture
+def jd_file(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    """A posting on disk and a throwaway database; settings come from valid_env."""
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'cli.db'}")
+    path = tmp_path / "jd.txt"
+    path.write_text((FIXTURES / "jd_valid.txt").read_text(encoding="utf-8"), encoding="utf-8")
+    return path
+
+
+def use_fake_client(monkeypatch: pytest.MonkeyPatch, *answers: str) -> FakeClient:
+    """Make the CLI build our fake instead of the real Anthropic client."""
+    fake = FakeClient(*answers)
+    monkeypatch.setattr("toutoule.cli.Anthropic", lambda **_: fake)
+    return fake
+
+
+def valid_answer() -> str:
+    return (FIXTURES / "extraction_valid.json").read_text(encoding="utf-8")
+
+
+def read_jobs(tmp_path: Path) -> list[models.Job]:
+    with get_session_factory(get_engine(f"sqlite:///{tmp_path / 'cli.db'}"))() as session:
+        return list(session.scalars(select(models.Job)))
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_prints_fields_violations_and_tokens(
+    jd_file: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    fake = use_fake_client(monkeypatch, valid_answer())
+
+    assert main(["extract", str(jd_file)]) == 0
+
+    out = capsys.readouterr().out
+    assert "critical.deadline" in out and "2026-10-31" in out
+    assert "critical.visa_sponsorship        False   Not stated" in out
+    assert "Violations: none" in out
+    assert "Tokens: input 1000, output 300" in out
+    assert len(fake.requests) == 1
+    (job,) = read_jobs(tmp_path)
+    assert job.status == models.JobStatus.EXTRACTED
+    assert job.company == "Hexa Commerce (fictional)"
+    assert job.url.startswith("file:///")
+    assert job.content_hash == extract.hash_content(jd_file.read_text(encoding="utf-8"))
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_same_text_prompt_and_model_makes_no_call(
+    jd_file: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])
+    second = use_fake_client(monkeypatch)  # no answers: any call would fail
+
+    assert main(["extract", str(jd_file)]) == 0
+
+    assert second.requests == []
+    assert "no API call" in capsys.readouterr().out
+    assert len(read_jobs(tmp_path)) == 1
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_cached_run_labels_tokens_as_stored(
+    jd_file: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])
+    first = capsys.readouterr().out
+    use_fake_client(monkeypatch)
+
+    main(["extract", str(jd_file)])
+
+    second = capsys.readouterr().out
+    assert "Tokens: input 1000, output 300" in first  # a real call: plain label
+    assert "Tokens (from the stored run): input 1000, output 300" in second
+    assert "Tokens: input" not in second  # nothing that reads as new spend
+
+
+@pytest.mark.usefixtures("valid_env")
+@pytest.mark.parametrize("change", ["model", "prompt_version"])
+def test_new_model_or_prompt_version_re_extracts(
+    change: str, jd_file: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])
+    if change == "model":
+        monkeypatch.setenv("EXTRACTION_MODEL", "claude-sonnet-5")
+    else:
+        monkeypatch.setattr(extract, "PROMPT_VERSION", "extract_v2")
+    second = use_fake_client(monkeypatch, valid_answer())
+
+    assert main(["extract", str(jd_file)]) == 0
+
+    assert len(second.requests) == 1
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_failure_exits_1_and_marks_job(
+    jd_file: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    use_fake_client(monkeypatch, "not json", "still not json")
+
+    assert main(["extract", str(jd_file)]) == 1
+
+    assert "Extraction failed" in capsys.readouterr().err
+    (job,) = read_jobs(tmp_path)
+    assert job.status == models.JobStatus.EXTRACTION_FAILED
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_missing_file_exits_1(capsys: pytest.CaptureFixture[str]) -> None:
+    assert main(["extract", "no_such_file.txt"]) == 1
+    assert "no_such_file.txt" in capsys.readouterr().err
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_output_survives_a_non_utf8_pipe(
+    jd_file: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Chinese evidence must print even where Python would default to cp1252 (Windows).
+
+    Forcing PYTHONIOENCODING=cp1252 reproduces that failure on any OS, including Linux CI.
+    """
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])  # in-process, with the fake: fills the cache
+    env = {k: v for k, v in os.environ.items() if k.lower() not in Settings.model_fields}
+    env |= {
+        "ANTHROPIC_API_KEY": "sk-ant-fake-test-key",
+        "DATABASE_URL": f"sqlite:///{tmp_path / 'cli.db'}",
+        "MATCH_THRESHOLD": "65",
+        "PYTHONIOENCODING": "cp1252",
+        # Belt and braces: if the cache ever missed, a call would fail locally, not bill.
+        "ANTHROPIC_BASE_URL": "http://127.0.0.1:9",
+    }
+
+    result = subprocess.run(
+        [sys.executable, "-m", "toutoule.cli", "extract", str(jd_file)],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+    )
+
+    assert result.returncode == 0, result.stderr.decode("utf-8", errors="replace")
+    out = result.stdout.decode("utf-8")
+    assert "no API call" in out
+    assert "网申截止时间：2026年10月31日" in out
+
+
+@pytest.mark.usefixtures("valid_env")
+@pytest.mark.parametrize(
+    ("content", "length"),
+    [
+        ("", 0),
+        (" \n\t\u00a0\n", 0),  # only whitespace, including a non-breaking space
+        ("x" * 199, 199),
+        ("word \n" * 40, 199),  # 240 raw characters, 199 after normalization
+    ],
+)
+def test_extract_refuses_empty_or_short_file(
+    content: str,
+    length: int,
+    jd_file: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    jd_file.write_text(content, encoding="utf-8")
+    fake = use_fake_client(monkeypatch)  # no answers: any call would fail
+
+    assert main(["extract", str(jd_file)]) == 1
+
+    assert capsys.readouterr().err == f"File looks empty or too short: {length} characters\n"
+    assert fake.requests == []
+    assert not (tmp_path / "cli.db").exists()  # stopped before even opening the database
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_accepts_file_at_the_minimum_length(
+    jd_file: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    jd_file.write_text("x" * 200, encoding="utf-8")
+    fake = use_fake_client(monkeypatch, valid_answer())
+
+    assert main(["extract", str(jd_file)]) == 0  # quotes are then rejected, but it runs
+
+    assert len(fake.requests) == 1
