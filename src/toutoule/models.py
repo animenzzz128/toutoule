@@ -120,3 +120,87 @@ class Extraction(Base):
     input_tokens: Mapped[int]
     output_tokens: Mapped[int]
     created_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class ExtractionViolation(Base):
+    """A quote the model cited that is not in the source text (a hallucination)."""
+
+    __tablename__ = "extraction_violations"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
+    field_path: Mapped[str]  # e.g. "critical.visa_sponsorship"
+    reason: Mapped[str] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class Score(Base):
+    __tablename__ = "scores"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
+    resume_version: Mapped[str]
+    score: Mapped[int]  # 0-100, compared against MATCH_THRESHOLD
+    payload_json: Mapped[dict[str, Any]]
+    created_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class RedFlag(Base):
+    __tablename__ = "red_flags"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
+    rule_id: Mapped[str]  # "R1" ... "R7"
+    severity: Mapped[str]  # a FlagSeverity value
+    evidence: Mapped[str | None] = mapped_column(Text)
+
+
+class Digest(Base):
+    __tablename__ = "digests"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sent_at: Mapped[datetime] = mapped_column(default=utc_now)
+    job_ids_json: Mapped[list[int]]
+    delivered: Mapped[bool] = mapped_column(default=False)
+    error: Mapped[str | None] = mapped_column(Text)
+
+
+class Decision(Base):
+    __tablename__ = "decisions"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
+    # Empty for jobs decided outside a digest, e.g. pasted in by hand.
+    digest_id: Mapped[int | None] = mapped_column(ForeignKey("digests.id"))
+    action: Mapped[str]  # approve | reject | snooze
+    reject_reason: Mapped[str | None] = mapped_column(Text)
+    decided_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class Rewrite(Base):
+    __tablename__ = "rewrites"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
+    payload_json: Mapped[dict[str, Any]]
+    created_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class EvalRun(Base):
+    __tablename__ = "eval_runs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    prompt_version: Mapped[str]
+    metrics_json: Mapped[dict[str, Any]]
+    created_at: Mapped[datetime] = mapped_column(default=utc_now)
+
+
+class ConfigChange(Base):
+    __tablename__ = "config_changes"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    key: Mapped[str]
+    old_value: Mapped[str | None] = mapped_column(Text)
+    new_value: Mapped[str | None] = mapped_column(Text)
+    changed_at: Mapped[datetime] = mapped_column(default=utc_now)
+    note: Mapped[str | None] = mapped_column(Text)
