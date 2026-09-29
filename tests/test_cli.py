@@ -225,3 +225,43 @@ def test_extract_output_survives_a_non_utf8_pipe(
     out = result.stdout.decode("utf-8")
     assert "no API call" in out
     assert "网申截止时间：2026年10月31日" in out
+
+
+@pytest.mark.usefixtures("valid_env")
+@pytest.mark.parametrize(
+    ("content", "length"),
+    [
+        ("", 0),
+        (" \n\t\u00a0\n", 0),  # only whitespace, including a non-breaking space
+        ("x" * 199, 199),
+        ("word \n" * 40, 199),  # 240 raw characters, 199 after normalization
+    ],
+)
+def test_extract_refuses_empty_or_short_file(
+    content: str,
+    length: int,
+    jd_file: Path,
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    jd_file.write_text(content, encoding="utf-8")
+    fake = use_fake_client(monkeypatch)  # no answers: any call would fail
+
+    assert main(["extract", str(jd_file)]) == 1
+
+    assert capsys.readouterr().err == f"File looks empty or too short: {length} characters\n"
+    assert fake.requests == []
+    assert not (tmp_path / "cli.db").exists()  # stopped before even opening the database
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_accepts_file_at_the_minimum_length(
+    jd_file: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    jd_file.write_text("x" * 200, encoding="utf-8")
+    fake = use_fake_client(monkeypatch, valid_answer())
+
+    assert main(["extract", str(jd_file)]) == 0  # quotes are then rejected, but it runs
+
+    assert len(fake.requests) == 1

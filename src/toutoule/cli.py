@@ -14,6 +14,10 @@ from toutoule import extract, models, schemas
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 
+# Below this, a "posting" is an empty or failed paste. Sending it would cost tokens and
+# come back all "not stated", which looks like a real answer. Counted after normalization.
+MIN_POSTING_CHARS = 200
+
 
 def check_config() -> int:
     """Validate settings and report the result. Returns the process exit code."""
@@ -48,6 +52,10 @@ def extract_file(path: str) -> int:
         raw_text = Path(path).read_text(encoding="utf-8")
     except (ConfigError, OSError) as error:
         print(error, file=sys.stderr)
+        return 1
+    length = len(extract.normalize_text(raw_text))
+    if length < MIN_POSTING_CHARS:
+        print(f"File looks empty or too short: {length} characters", file=sys.stderr)
         return 1
     engine = get_engine(settings.database_url)
     init_db(engine)
