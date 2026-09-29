@@ -2,7 +2,9 @@
 
 import pytest
 
-SETTING_NAMES = ["ANTHROPIC_API_KEY", "DATABASE_URL", "MATCH_THRESHOLD", "DIGEST_EMAIL_TO"]
+from toutoule.config import Settings
+
+SETTING_NAMES = [name.upper() for name in Settings.model_fields]
 
 
 @pytest.fixture(autouse=True)
