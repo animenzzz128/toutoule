@@ -15,6 +15,7 @@ _RULES: dict[str, str] = {
     "ANTHROPIC_API_KEY": "must be your Anthropic API key",
     "DATABASE_URL": "must be a database URL, e.g. sqlite:///data/toutoule.db",
     "MATCH_THRESHOLD": "must be a whole number from 0 to 100",
+    "EXTRACTION_MODEL": "must be a Claude model id, e.g. claude-haiku-4-5",
     "DIGEST_EMAIL_TO": "must be an email address",
 }
 
@@ -32,6 +33,8 @@ class Settings(BaseSettings):
     anthropic_api_key: SecretStr = Field(min_length=1)
     database_url: str = Field(min_length=1)
     match_threshold: int = Field(ge=0, le=100)
+    # Small, cheap model for extraction (tech spec §10). It must support structured output.
+    extraction_model: str = Field(default="claude-haiku-4-5", min_length=1)
     # Optional until the mailer lands in Task 2.6.
     digest_email_to: str | None = None
 

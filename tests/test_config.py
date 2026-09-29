@@ -16,6 +16,18 @@ def test_valid_settings_load() -> None:
 
 
 @pytest.mark.usefixtures("valid_env")
+def test_extraction_model_has_a_default() -> None:
+    assert get_settings(env_file=None).extraction_model == "claude-haiku-4-5"
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extraction_model_can_be_overridden(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("EXTRACTION_MODEL", "claude-sonnet-5")
+
+    assert get_settings(env_file=None).extraction_model == "claude-sonnet-5"
+
+
+@pytest.mark.usefixtures("valid_env")
 def test_api_key_is_hidden_when_printed() -> None:
     settings = get_settings(env_file=None)
 
