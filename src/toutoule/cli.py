@@ -1,6 +1,7 @@
 """Command-line entry point. Run: uv run python -m toutoule.cli <command>"""
 
 import argparse
+import io
 import logging
 import sys
 from pathlib import Path
@@ -117,7 +118,19 @@ def _print_report(session: Session, row: models.Extraction) -> None:
     print(f"Tokens: input {row.input_tokens}, output {row.output_tokens}")
 
 
+def _use_utf8_output() -> None:
+    """Write stdout and stderr as UTF-8, so Chinese text prints on every platform.
+
+    On Windows, output sent to a pipe or file defaults to cp1252, which cannot encode
+    Chinese, and print() would crash after the extraction was already saved.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        if isinstance(stream, io.TextIOWrapper):  # test capture objects may not be
+            stream.reconfigure(encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
+    _use_utf8_output()
     parser = argparse.ArgumentParser(prog="python -m toutoule.cli")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("check-config", help="validate settings in .env")

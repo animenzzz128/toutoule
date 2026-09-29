@@ -192,3 +192,36 @@ def test_extract_failure_exits_1_and_marks_job(
 def test_extract_missing_file_exits_1(capsys: pytest.CaptureFixture[str]) -> None:
     assert main(["extract", "no_such_file.txt"]) == 1
     assert "no_such_file.txt" in capsys.readouterr().err
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_extract_output_survives_a_non_utf8_pipe(
+    jd_file: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Chinese evidence must print even where Python would default to cp1252 (Windows).
+
+    Forcing PYTHONIOENCODING=cp1252 reproduces that failure on any OS, including Linux CI.
+    """
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])  # in-process, with the fake: fills the cache
+    env = {k: v for k, v in os.environ.items() if k.lower() not in Settings.model_fields}
+    env |= {
+        "ANTHROPIC_API_KEY": "sk-ant-fake-test-key",
+        "DATABASE_URL": f"sqlite:///{tmp_path / 'cli.db'}",
+        "MATCH_THRESHOLD": "65",
+        "PYTHONIOENCODING": "cp1252",
+        # Belt and braces: if the cache ever missed, a call would fail locally, not bill.
+        "ANTHROPIC_BASE_URL": "http://127.0.0.1:9",
+    }
+
+    result = subprocess.run(
+        [sys.executable, "-m", "toutoule.cli", "extract", str(jd_file)],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+    )
+
+    assert result.returncode == 0, result.stderr.decode("utf-8", errors="replace")
+    out = result.stdout.decode("utf-8")
+    assert "no API call" in out
+    assert "网申截止时间：2026年10月31日" in out
