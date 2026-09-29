@@ -107,6 +107,10 @@ class Extraction(BaseModel):
     reference: ReferenceFields
 ```
 
+In code, `visa_sponsorship` and `work_model` use the subclasses `VisaSponsorshipField` and
+`WorkModelField`, whose `value` is a `Literal` of the values above. The vocabulary is then
+enforced by validation and shown to the model in the JSON schema. Case is strict.
+
 **Validation rules enforced in code, not trusted to the model:**
 
 1. `stated is False` ⟹ `value is None` and `evidence is None`.

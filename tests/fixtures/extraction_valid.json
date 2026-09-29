@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Hexa Commerce (fictional)",
+  "title": "2027届校招 - AI产品经理 / AI Product Manager, Campus 2027",
+  "critical": {
+    "deadline": {
+      "value": "2026-10-31",
+      "stated": true,
+      "evidence": "网申截止时间：2026年10月31日"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-09 to 2027-08",
+      "stated": true,
+      "evidence": "Open to candidates graduating between September 2026 and August 2027"
+    },
+    "application_cap": {
+      "value": "2 per candidate",
+      "stated": true,
+      "evidence": "Each candidate may apply to at most 2 positions"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hangzhou",
+      "stated": true,
+      "evidence": "Base: Hangzhou"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "This is an on-site role at our Hangzhou campus"
+    },
+    "language_requirement": {
+      "value": "Fluent Mandarin and English",
+      "stated": true,
+      "evidence": "Fluent in Mandarin and English"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Master's or above",
+      "stated": true,
+      "evidence": "Master's degree or above"
+    }
+  },
+  "reference": {
+    "skills": ["LLM product design", "SQL", "A/B testing", "user research"],
+    "responsibilities": [
+      "Define AI features for merchant tools",
+      "Work with algorithm teams to evaluate model quality"
+    ],
+    "team_or_function": null
+  }
+}
