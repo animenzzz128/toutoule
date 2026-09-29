@@ -1,6 +1,6 @@
 [project]
 name = "toutoule"
-version = "0.1.0"
+version = "0.0.2"
 description = "LLM-powered job-application triage with verbatim evidence and human approval."
 readme = "README.md"
 requires-python = ">=3.12"
