@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# TouTouLe: real job-search data never leaves this machine
+data/private/
+data/toutoule.db
+data/profile/real_*

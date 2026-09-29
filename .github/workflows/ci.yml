@@ -1,0 +1,25 @@
+# Lint and test every pull request and every push to main. Needs no secrets:
+# tests use fake settings and never call the Anthropic API.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v7
+
+      # --locked fails if uv.lock is out of date with pyproject.toml.
+      - run: uv sync --locked
+
+      - run: uv run ruff check
+
+      - run: uv run ruff format --check
+
+      - run: uv run pytest
