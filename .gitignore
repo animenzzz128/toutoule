@@ -219,5 +219,6 @@ __marimo__/
 
 # TouTouLe: real job-search data never leaves this machine
 data/private/
-data/toutoule.db
+data/*.db
+data/*.db-journal
 data/profile/real_*
