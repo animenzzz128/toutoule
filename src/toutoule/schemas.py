@@ -4,7 +4,7 @@ Every field says whether the source actually stated it, and if so, quotes the so
 These rules are checked here, in code, so a model that ignores its prompt still fails.
 """
 
-from typing import Self
+from typing import Literal, Self
 
 from pydantic import BaseModel, ConfigDict, model_validator
 
@@ -40,3 +40,60 @@ class ExtractedField(_StrictModel):
         # (extract.py), because that check needs the source text, which this model
         # does not have.
         return self
+
+
+# Fields that the red-flag rules (tech spec §4) compare against a fixed vocabulary.
+# The allowed values are part of the type, so they also appear in the JSON schema the
+# model is given. Case is strict: "Yes" is rejected, not quietly lowercased.
+
+
+class VisaSponsorshipField(ExtractedField):
+    """Visa sponsorship: "yes", "no" or "conditional" when stated."""
+
+    value: Literal["yes", "no", "conditional"] | None
+
+
+class WorkModelField(ExtractedField):
+    """Work model: "onsite", "hybrid" or "remote" when stated."""
+
+    value: Literal["onsite", "hybrid", "remote"] | None
+
+
+class CriticalFields(_StrictModel):
+    """Fields where a wrong value can cost an application. Target: 0% hallucination."""
+
+    deadline: ExtractedField
+    visa_sponsorship: VisaSponsorshipField
+    graduation_window: ExtractedField
+    application_cap: ExtractedField
+    materials_required: ExtractedField
+
+
+class ImportantFields(_StrictModel):
+    """Fields that shape fit and logistics."""
+
+    location: ExtractedField
+    work_model: WorkModelField
+    language_requirement: ExtractedField
+    start_date: ExtractedField
+    degree_requirement: ExtractedField
+
+
+class ReferenceFields(_StrictModel):
+    """Context for scoring and rewrites. No evidence needed; measured by recall."""
+
+    skills: list[str]
+    responsibilities: list[str]
+    team_or_function: str | None
+
+
+class Extraction(_StrictModel):
+    """Everything extracted from one job posting. Stored in extractions.payload_json."""
+
+    schema_version: str
+    prompt_version: str
+    company: str
+    title: str
+    critical: CriticalFields
+    important: ImportantFields
+    reference: ReferenceFields
