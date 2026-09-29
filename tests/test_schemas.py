@@ -1,12 +1,26 @@
+import json
+from pathlib import Path
+from typing import Any
+
 import pytest
 from pydantic import ValidationError
 
 from toutoule.schemas import (
+    SCHEMA_VERSION,
     ExtractedField,
+    Extraction,
     ReferenceFields,
     VisaSponsorshipField,
     WorkModelField,
 )
+
+FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
+
+
+@pytest.fixture
+def valid_payload() -> dict[str, Any]:
+    """A fresh copy of the valid fixture, so a test can modify it without affecting others."""
+    return json.loads(FIXTURE.read_text(encoding="utf-8"))
 
 
 def test_stated_field_with_value_and_evidence_is_accepted() -> None:
@@ -97,3 +111,49 @@ def test_unknown_key_on_reference_fields_is_rejected() -> None:
         ReferenceFields.model_validate(
             {"skills": [], "responsibilities": [], "team_or_function": None, "salary": "1"}
         )
+
+
+# (a) The valid fixture loads.
+def test_valid_fixture_loads(valid_payload: dict[str, Any]) -> None:
+    extraction = Extraction.model_validate(valid_payload)
+    assert extraction.schema_version == SCHEMA_VERSION
+    assert extraction.critical.deadline.evidence == "网申截止时间：2026年10月31日"
+    assert extraction.critical.visa_sponsorship.stated is False
+    assert extraction.important.work_model.value == "onsite"
+
+
+def test_unknown_top_level_key_is_rejected(valid_payload: dict[str, Any]) -> None:
+    valid_payload["salary"] = "30k"
+    with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+        Extraction.model_validate(valid_payload)
+
+
+def test_unknown_field_inside_critical_is_rejected(valid_payload: dict[str, Any]) -> None:
+    valid_payload["critical"]["referral_bonus"] = {"value": None, "stated": False, "evidence": None}
+    with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+        Extraction.model_validate(valid_payload)
+
+
+def test_invalid_visa_value_inside_payload_is_rejected(valid_payload: dict[str, Any]) -> None:
+    valid_payload["critical"]["visa_sponsorship"] = {
+        "value": "maybe",
+        "stated": True,
+        "evidence": "Sponsorship may be considered",
+    }
+    with pytest.raises(ValidationError, match="critical.visa_sponsorship.value"):
+        Extraction.model_validate(valid_payload)
+
+
+# (g) Round trip through JSON, the way it is stored in extractions.payload_json.
+def test_json_round_trip_gives_equal_object(valid_payload: dict[str, Any]) -> None:
+    original = Extraction.model_validate(valid_payload)
+    restored = Extraction.model_validate_json(original.model_dump_json())
+    assert restored == original
+
+
+# (h) The JSON schema builds. Task 1.4 hands it to the API.
+def test_json_schema_builds_with_vocabulary_and_no_extra_keys() -> None:
+    schema = Extraction.model_json_schema()
+    text = json.dumps(schema)
+    assert '"conditional"' in text and '"hybrid"' in text
+    assert schema["additionalProperties"] is False
