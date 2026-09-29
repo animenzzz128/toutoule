@@ -77,6 +77,55 @@ happens when it doesn't."
 
 ---
 
+## D-005 · 2026-09-29 · Fill the eval set's unassigned 10 slots
+
+**Context.** `05_EVAL_SPEC.md` §3 targets 50 job descriptions, but the four primary segments
+sum to 40 (15 + 10 + 10 + 5). The "no stated deadline" and "bilingual" segments overlap the
+others, so 10 slots had no assigned segment.
+
+**Options.** (a) Shrink the set to 40. (b) Leave the 10 unassigned and fill ad hoc.
+(c) Assign them to the segments closest to the owner's real applications.
+
+**Decision.** (c): +5 China platform / e-commerce (primary target market) and +5 US tech
+(AI PM roles). New composition: China platform 20, China campus 10, US consulting/finance
+10, US tech 10. The ≥5 no-deadline and ≥5 bilingual guarantees are unchanged.
+
+**Consequences.** The eval weights the markets the owner is actually applying to. The set
+still skews toward China platform, which is stated as a limit in `05_EVAL_SPEC.md` §7.
+
+---
+
+## D-006 · 2026-09-29 · Report the scoring tier at Task 1.9, not 1.7
+
+**Context.** Task 1.7's acceptance asks for "all four tiers" for both systems, but the fourth
+tier (match-score agreement) depends on match scoring, which is built in Task 1.9.
+
+**Decision.** Task 1.7 reports the three extraction tiers (critical, important, reference)
+for both the plain-prompt baseline and the pipeline. The scoring tier is reported when
+Task 1.9 lands, and the README shows all four at M1.
+
+**Consequences.** Task 1.7 acceptance amended. No change to targets or to what M1 claims.
+
+---
+
+## D-007 · 2026-09-29 · Pull the M1 target forward to 2026-10-04
+
+**Context.** The ByteDance TikTok Shop AI PM window opens 2026-10-06. The owner wants M1
+done, and the resume bullet written from real numbers, before that window opens.
+
+**Options.** (a) Keep 10-08 and apply late in the window. (b) Target 10-04 with a
+pre-agreed cut and keep 10-08 as the fallback.
+
+**Decision.** (b). M1 target 2026-10-04. Pre-agreed first cut: Task 1.10 (rewrite
+suggestions, P1) moves to after M1 if the schedule slips; ADR-007 is still written. The
+evaluation chain (1.4, 1.6, 1.7, 1.8) is never cut. If M1 is not done by 10-04, the
+original 10-08 date is the fallback, and the application goes in no later than 10-11.
+
+**Consequences.** ~40 hours in 6 days, about 6–7 hours a day. Any task over 2× its
+estimate triggers a re-plan, not longer nights.
+
+---
+
 ## Template for new entries
 
 ```markdown

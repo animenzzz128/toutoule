@@ -9,7 +9,7 @@ human-in-the-loop approval.**
 | Owner | Jiaqi Yao (Jacky) |
 | Status | Pre-development |
 | Start date | 2026-09-29 |
-| Target M1 | 2026-10-08 |
+| Target M1 | 2026-10-04 (fallback 2026-10-08, see D-007) |
 | Target M2 | 2026-10-20 |
 | Primary purpose | Portfolio showcase for AI Product Manager applications |
 | Secondary purpose | Reduce the owner's own application triage time |
