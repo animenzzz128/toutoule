@@ -269,3 +269,32 @@ def test_model_supplied_versions_are_overwritten(
     )
     row = session.scalars(select(models.Extraction)).one()
     assert row.payload_json["prompt_version"] == PROMPT_VERSION
+
+
+def test_retry_message_names_each_field_and_its_rule(valid_answer: dict[str, Any]) -> None:
+    broken = json.loads(break_statedness(valid_answer))
+    broken["important"]["work_model"]["value"] = "Onsite"  # case is strict
+    client = FakeClient(json.dumps(broken, ensure_ascii=False), json.dumps(valid_answer))
+
+    request_extraction(client, MODEL, "posting")
+
+    retry_text = client.requests[1]["messages"][2]["content"]
+    assert (
+        "- critical.deadline: Value error, stated is false, so value and evidence must both "
+        "be null" in retry_text
+    )
+    assert "- important.work_model.value: Input should be 'onsite', 'hybrid' or 'remote'" in (
+        retry_text
+    )
+    assert "errors.pydantic.dev" not in retry_text  # the noise is gone
+
+
+def test_retry_message_for_invalid_json_names_the_whole_answer(
+    valid_answer: dict[str, Any],
+) -> None:
+    client = FakeClient('{"company": "cut off', json.dumps(valid_answer))
+
+    request_extraction(client, MODEL, "posting")
+
+    retry_text = client.requests[1]["messages"][2]["content"]
+    assert "- (whole answer): Invalid JSON:" in retry_text

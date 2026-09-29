@@ -134,6 +134,19 @@ def _call_model(
     return text, usage.input_tokens, usage.output_tokens
 
 
+def describe_errors(error: ValidationError) -> str:
+    """One line per problem, "- field.path: message", for the retry message to the model.
+
+    Pydantic's own message is kept word for word. Its input echo and docs URL are left out:
+    the model gets its whole previous answer back anyway.
+    """
+    lines = []
+    for problem in error.errors():
+        where = ".".join(str(part) for part in problem["loc"]) or "(whole answer)"
+        lines.append(f"- {where}: {problem['msg']}")
+    return "\n".join(lines)
+
+
 def request_extraction(
     client: ModelClient, model: str, raw_text: str
 ) -> tuple[schemas.Extraction, int, int]:
@@ -161,7 +174,7 @@ def request_extraction(
                 {"role": "assistant", "content": text or "(empty response)"},
                 {
                     "role": "user",
-                    "content": f"Your answer failed validation:\n{error}\n"
+                    "content": f"Your answer failed validation:\n{describe_errors(error)}\n"
                     "Return the corrected JSON object for the same posting.",
                 },
             ]
