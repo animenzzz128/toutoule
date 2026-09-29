@@ -52,3 +52,27 @@ def test_real_command_exits_without_traceback(tmp_path: Path) -> None:
     assert result.returncode == 1
     assert "Traceback" not in result.stderr
     assert result.stderr.startswith("Config error: ANTHROPIC_API_KEY is missing.")
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_init_db_creates_tables_then_reports_none_new(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'cli.db'}")
+
+    assert main(["init-db"]) == 0
+    first = capsys.readouterr().out
+    assert first.startswith("Created tables: ")
+    assert "jobs" in first and "extractions" in first
+
+    assert main(["init-db"]) == 0
+    assert capsys.readouterr().out == "All tables already exist.\n"
+
+
+def test_init_db_without_settings_gives_one_line_error(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert main(["init-db"]) == 1
+    error_output = capsys.readouterr().err
+    assert error_output.count("\n") == 1
+    assert error_output.startswith("Config error:")
