@@ -155,6 +155,23 @@ def test_same_text_prompt_and_model_makes_no_call(
 
 
 @pytest.mark.usefixtures("valid_env")
+def test_cached_run_labels_tokens_as_stored(
+    jd_file: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    use_fake_client(monkeypatch, valid_answer())
+    main(["extract", str(jd_file)])
+    first = capsys.readouterr().out
+    use_fake_client(monkeypatch)
+
+    main(["extract", str(jd_file)])
+
+    second = capsys.readouterr().out
+    assert "Tokens: input 1000, output 300" in first  # a real call: plain label
+    assert "Tokens (from the stored run): input 1000, output 300" in second
+    assert "Tokens: input" not in second  # nothing that reads as new spend
+
+
+@pytest.mark.usefixtures("valid_env")
 @pytest.mark.parametrize("change", ["model", "prompt_version"])
 def test_new_model_or_prompt_version_re_extracts(
     change: str, jd_file: Path, monkeypatch: pytest.MonkeyPatch

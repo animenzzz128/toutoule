@@ -66,7 +66,7 @@ def extract_file(path: str) -> int:
         stored = extract.find_cached(session, content_hash, extract.PROMPT_VERSION, model)
         if stored is not None:
             print("Same text, prompt and model as before: showing the stored result, no API call.")
-            _print_report(session, stored)
+            _print_report(session, stored, cached=True)
             return 0
 
         job = models.Job(
@@ -103,8 +103,11 @@ def _manual_source(session: Session) -> models.Source:
     return source
 
 
-def _print_report(session: Session, row: models.Extraction) -> None:
-    """Print the 10 evidence fields, the violations and the token counts."""
+def _print_report(session: Session, row: models.Extraction, cached: bool = False) -> None:
+    """Print the 10 evidence fields, the violations and the token counts.
+
+    cached=True labels the tokens as the stored run's, so they don't read as new spend.
+    """
     result = schemas.Extraction.model_validate(row.payload_json)
     print(f"{result.company} | {result.title}\n")
     print(f"{'field':<32} {'stated':<7} {'value':<24} evidence")
@@ -123,7 +126,8 @@ def _print_report(session: Session, row: models.Extraction) -> None:
     for violation in violations:
         print(f"  {violation.field_path}: {violation.reason}")
     print(f"\nModel {row.model}, prompt {row.prompt_version}")
-    print(f"Tokens: input {row.input_tokens}, output {row.output_tokens}")
+    label = "Tokens (from the stored run)" if cached else "Tokens"
+    print(f"{label}: input {row.input_tokens}, output {row.output_tokens}")
 
 
 def _use_utf8_output() -> None:
