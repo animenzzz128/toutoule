@@ -9,12 +9,18 @@ A field with stated=False never fires a rule. Unknown is shown to the human, nev
 exclude a job.
 """
 
+import logging
+import re
+from datetime import date
 from typing import Literal, Self
 
 from pydantic import BaseModel
 
 from toutoule.config import Settings
+from toutoule.extract import normalize_text
 from toutoule.schemas import ExtractedField, Extraction
+
+logger = logging.getLogger(__name__)
 
 Market = Literal["US", "CN"] | None  # None means unknown, and never fires R1
 RuleId = Literal["R1", "R2", "R3", "R4", "R5", "R6"]
@@ -72,6 +78,46 @@ def _flag(
     )
 
 
+# The two date formats extract_v1.txt asks for: "2026-10-31", or "2026-09" for a month.
+_ISO_DAY = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+_ISO_MONTH = re.compile(r"^(\d{4})-(\d{2})$")
+# Range separators: " to " (tech spec §3) or " - " (dashes are "-" after normalize_text).
+_RANGE_SEPARATOR = re.compile(r" (?:to|-) ")
+
+
+def _parse_date(text: str) -> date | None:
+    """Parse "2026-10-31" into a date. Anything else, e.g. "rolling basis", gives None."""
+    # Checked first because fromisoformat also accepts forms like "20261031".
+    if not _ISO_DAY.match(text):
+        return None
+    try:
+        return date.fromisoformat(text)
+    except ValueError:  # the right shape but an impossible day, e.g. "2026-02-30"
+        return None
+
+
+def _parse_month(text: str) -> tuple[int, int] | None:
+    """Parse "2026-09" or "2026-09-15" into (2026, 9). Anything else gives None."""
+    day = _parse_date(text)
+    if day is not None:
+        return day.year, day.month
+    match = _ISO_MONTH.match(text)
+    if match is None or not 1 <= int(match[2]) <= 12:
+        return None
+    return int(match[1]), int(match[2])
+
+
+def _parse_window(value: str) -> tuple[tuple[int, int], tuple[int, int]] | None:
+    """Parse "2026-09 to 2027-08" or "2026-09 - 2027-08" into ((2026, 9), (2027, 8))."""
+    parts = _RANGE_SEPARATOR.split(normalize_text(value))
+    if len(parts) != 2:
+        return None
+    start, end = _parse_month(parts[0]), _parse_month(parts[1])
+    if start is None or end is None or start > end:
+        return None
+    return start, end
+
+
 def rule_r1_visa(extraction: Extraction, profile: OwnerProfile, market: Market) -> RedFlag | None:
     """R1 HARD: the posting says "no" sponsorship, the job is in the US, the owner needs it."""
     field = extraction.critical.visa_sponsorship
@@ -87,6 +133,30 @@ def rule_r1_visa(extraction: Extraction, profile: OwnerProfile, market: Market) 
             "The posting says it does not sponsor visas, and you need sponsorship for a US role.",
         )
     return None
+
+
+def rule_r2_graduation(extraction: Extraction, profile: OwnerProfile) -> RedFlag | None:
+    """R2 HARD: the owner's graduation month is outside the stated window (ends included)."""
+    field = extraction.critical.graduation_window
+    if not field.stated:
+        return None
+    value = _stated_value(field)
+    window = _parse_window(value)
+    if window is None:
+        # Could be "2027-06" alone or "before 2027-06": too ambiguous to exclude a job on.
+        logger.warning("R2 skipped: cannot read graduation window %r", value)
+        return None
+    start, end = window
+    if start <= profile.graduation <= end:
+        return None
+    year, month = profile.graduation
+    return _flag(
+        "R2",
+        "HARD",
+        "critical.graduation_window",
+        field,
+        f"You graduate in {year}-{month:02d}, outside the posting's window of {value}.",
+    )
 
 
 def rule_r4_cap(extraction: Extraction) -> RedFlag | None:

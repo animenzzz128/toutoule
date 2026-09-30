@@ -1,10 +1,11 @@
 import json
+import logging
 from pathlib import Path
 from typing import Any
 
 import pytest
 
-from toutoule.redflags import Market, OwnerProfile, rule_r1_visa, rule_r4_cap
+from toutoule.redflags import Market, OwnerProfile, rule_r1_visa, rule_r2_graduation, rule_r4_cap
 from toutoule.schemas import Extraction
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
@@ -76,3 +77,47 @@ def test_r4_fires_when_cap_is_stated() -> None:
 def test_r4_does_not_fire_when_cap_is_not_stated() -> None:
     # R4 fires on any stated cap, so its only negative case is an unstated one.
     assert rule_r4_cap(make_extraction(application_cap=NOT_STATED)) is None
+
+
+# --- R2: graduation window (owner graduates 2027-05) ----------------------------------
+
+
+@pytest.mark.parametrize(
+    "window",
+    [
+        "2026-09 to 2027-04",  # ends the month before
+        "2027-06 to 2028-05",  # starts the month after
+        "2026-09 – 2027-04",  # en dash, which normalize_text turns into "-"
+    ],
+)
+def test_r2_fires_when_graduation_is_outside_window(window: str) -> None:
+    flag = rule_r2_graduation(make_extraction(graduation_window=stated(window)), PROFILE)
+
+    assert flag is not None
+    assert (flag.rule_id, flag.severity) == ("R2", "HARD")
+    assert flag.field_path == "critical.graduation_window"
+
+
+@pytest.mark.parametrize(
+    "window",
+    [
+        "2027-05 to 2027-08",  # inclusive start edge
+        "2026-09 to 2027-05",  # inclusive end edge
+        "2026-09 - 2027-08",  # the " - " form
+        "2027-05-31 to 2027-08-31",  # days are reduced to their month
+    ],
+)
+def test_r2_does_not_fire_when_graduation_is_inside_window(window: str) -> None:
+    assert rule_r2_graduation(make_extraction(graduation_window=stated(window)), PROFILE) is None
+
+
+@pytest.mark.parametrize("window", ["2027-06", "before 2027-06", "2028-08 to 2027-09"])
+def test_r2_unreadable_window_warns_and_does_not_fire(
+    window: str, caplog: pytest.LogCaptureFixture
+) -> None:
+    # caplog is a pytest fixture that records log messages so the test can inspect them.
+    with caplog.at_level(logging.WARNING):
+        flag = rule_r2_graduation(make_extraction(graduation_window=stated(window)), PROFILE)
+
+    assert flag is None
+    assert "R2 skipped" in caplog.text
