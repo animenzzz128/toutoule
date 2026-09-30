@@ -1,31 +1,41 @@
 Summer 2027 - Associate Product Manager (New Grad)
-Mountain View, CA 
+Mountain View, CA
+Company Overview
+ID.me is the next-generation digital identity wallet that simplifies how individuals securely prove their identity online. Consumers can verify their identity with ID.me once and seamlessly login across websites without having to create a new login and verify their identity again. Over 152 million users experience streamlined login and identity verification with ID.me at 20 federal agencies, 45 state government agencies, and 70+ healthcare organizations. More than 600+ consumer brands use ID.me to verify communities and user segments to honor service and build more authentic relationships. ID.me’s technology meets the federal standards for consumer authentication set by the Commerce Department and is approved as a NIST 800-63-3 IAL2 / AAL2 credential service provider by the Kantara Initiative. ID.me is committed to “No Identity Left Behind” to enable all people to have a secure digital identity. To learn more, visit https://network.id.me/.
 
-<div class="content-intro"><h2><strong>Company Overview</strong></h2>
-<p>ID.me is the next-generation digital identity wallet that simplifies how individuals securely prove their identity online. Consumers can verify their identity with ID.me once and seamlessly login across websites without having to create a new login and verify their identity again. Over 152 million users experience streamlined login and identity verification with ID.me at 20 federal agencies, 45 state government agencies, and 70+ healthcare organizations. More than 600+ consumer brands use ID.me to verify communities and user segments to honor service and build more authentic relationships. ID.me’s technology meets the federal standards for consumer authentication set by the Commerce Department and is approved as a NIST 800-63-3 IAL2 / AAL2 credential service provider by the Kantara Initiative. ID.me is committed to “No Identity Left Behind” to enable all people to have a secure digital identity. To learn more, visit&nbsp;<a href="https://network.id.me/">https://network.id.me/</a>.</p>
-<p>ID.me is a full-time, in-office culture. Unless a specific job description explicitly states otherwise, all roles are on-site five days per week at one of our offices in McLean, VA; Mountain View, CA; New York City, NY; or Tampa, FL. Certain roles — such as field-based sales or other remote-by-design positions — may have different work arrangements as noted in their individual postings.</p>
-<p>At ID.me, we embrace the thoughtful use of AI tools in our daily work and there are even occasions where we leverage AI in our hiring process. However, during the interview process, we want to understand your individual skills and experiences. Therefore, we have guidelines on how AI can be appropriately used during your application and interviews which can be found <a href="https://insider.id.me/candidate-ai-use-in-interviewing/" target="_blank">here</a>.</p></div><p><strong>Overview</strong></p>
-<p>As an Associate Product Manager, you will support the strategy and execution of platform initiatives that operate at internet scale, working alongside senior PMs to translate requirements into shipped features. This role balances user experience, technical feasibility, and cross-functional coordination as you build the foundational skills of product management on a platform used to power trusted digital experiences across industries.&nbsp;</p>
-<p>This is a high-growth early-career role where you'll get hands-on ownership of discrete product surfaces, work closely with engineering, design, and data, and build toward increasing autonomy over roadmap and strategy.&nbsp;</p>
-<p>This role is based out of our Mountain View, CA or McLean, VA offices and requires full-time in-office attendance.&nbsp;</p>
-<p><strong>Why This Role </strong></p>
-<p>This role is a launchpad into product management at the intersection of technology, trust, and identity. You'll get direct ownership earlier than most APM programs, mentorship from senior platform PMs, and a clear growth path as you take on more strategic scope.</p>
-<p><strong>What You'll Do</strong></p>
-<ul>
-<li><strong>Feature Ownership</strong>: Own the definition and delivery of discrete features or workflows within a larger platform roadmap, from requirements through launch.&nbsp;</li>
-<li><strong>Execution Support</strong>: Break down roadmap priorities into clear, sequenced work; write specs and acceptance criteria that engineering and design can build against.&nbsp;</li>
-<li><strong>Cross-Functional Collaboration</strong>: Partner day-to-day with engineering, design, and data to unblock delivery and ensure quality.&nbsp;</li>
-<li><strong>Data &amp; Feedback</strong>: Track launch metrics and user feedback; use them to inform iteration and surface issues early.&nbsp;</li>
-<li><strong>Stakeholder Communication</strong>: Keep your PM lead and cross-functional partners informed on status, risks, and trade-offs.&nbsp;</li>
-</ul>
-<p><strong>Qualifications</strong>&nbsp;</p>
-<ul>
-<li>Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience). Completed or conferred by start date.&nbsp;</li>
-<li>0-2 years of experience in product management, engineering, consulting, or a related field (internship experience counts).&nbsp;</li>
-<li>Hands-on experience with modern AI coding tools (e.g., Claude Code, Codex, Cursor, or similar), demonstrated through a project or coursework.&nbsp;</li>
-<li>Working familiarity with APIs and data modeling concepts.&nbsp;</li>
-<li>Strong written and verbal communicator, comfortable working directly with engineers and designers.&nbsp;</li>
-<li>Curious, detail-oriented, and comfortable operating with ambiguity in a fast-moving environment.</li>
-</ul><div class="content-conclusion"><p>ID.me maintains a work environment free from discrimination, where employees are treated with dignity and respect. All ID.me employees share in the responsibility for fulfilling our commitment to equal employment opportunity. ID.me does not discriminate against any employee or applicant on the basis of age, ancestry, color, family or medical care leave, gender identity or expression, genetic information, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran status, race, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable laws, regulations and ordinances. ID.me adheres to these principles in all aspects of employment, including recruitment, hiring, training, compensation, promotion, benefits, social and recreational programs, and discipline. In addition, ID.me's policy is to provide reasonable accommodation to qualified employees who have protected disabilities to the extent required by applicable laws, regulations and ordinances where a particular employee works. Upon request we will provide you with more information about such accommodations.</p>
-<p>Please review our Privacy Policy, including our CCPA policy, at<a href="https://insider.id.me/privacy/">&nbsp;id.me/privacy</a>. If you provide ID.me with any personally identifiable information you confirm that you have read and agree to be bound by the terms and conditions set out in our Privacy Policy.</p>
-<p>ID.me participates in E-Verify.</p></div>
+ID.me is a full-time, in-office culture. Unless a specific job description explicitly states otherwise, all roles are on-site five days per week at one of our offices in McLean, VA; Mountain View, CA; New York City, NY; or Tampa, FL. Certain roles — such as field-based sales or other remote-by-design positions — may have different work arrangements as noted in their individual postings.
+
+At ID.me, we embrace the thoughtful use of AI tools in our daily work and there are even occasions where we leverage AI in our hiring process. However, during the interview process, we want to understand your individual skills and experiences. Therefore, we have guidelines on how AI can be appropriately used during your application and interviews which can be found here.
+
+Overview
+
+As an Associate Product Manager, you will support the strategy and execution of platform initiatives that operate at internet scale, working alongside senior PMs to translate requirements into shipped features. This role balances user experience, technical feasibility, and cross-functional coordination as you build the foundational skills of product management on a platform used to power trusted digital experiences across industries. 
+
+This is a high-growth early-career role where you'll get hands-on ownership of discrete product surfaces, work closely with engineering, design, and data, and build toward increasing autonomy over roadmap and strategy. 
+
+This role is based out of our Mountain View, CA or McLean, VA offices and requires full-time in-office attendance. 
+
+Why This Role
+
+This role is a launchpad into product management at the intersection of technology, trust, and identity. You'll get direct ownership earlier than most APM programs, mentorship from senior platform PMs, and a clear growth path as you take on more strategic scope.
+
+What You'll Do
+
+Feature Ownership: Own the definition and delivery of discrete features or workflows within a larger platform roadmap, from requirements through launch. 
+Execution Support: Break down roadmap priorities into clear, sequenced work; write specs and acceptance criteria that engineering and design can build against. 
+Cross-Functional Collaboration: Partner day-to-day with engineering, design, and data to unblock delivery and ensure quality. 
+Data & Feedback: Track launch metrics and user feedback; use them to inform iteration and surface issues early. 
+Stakeholder Communication: Keep your PM lead and cross-functional partners informed on status, risks, and trade-offs. 
+Qualifications 
+
+Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience). Completed or conferred by start date. 
+0-2 years of experience in product management, engineering, consulting, or a related field (internship experience counts). 
+Hands-on experience with modern AI coding tools (e.g., Claude Code, Codex, Cursor, or similar), demonstrated through a project or coursework. 
+Working familiarity with APIs and data modeling concepts. 
+Strong written and verbal communicator, comfortable working directly with engineers and designers. 
+Curious, detail-oriented, and comfortable operating with ambiguity in a fast-moving environment.
+ID.me maintains a work environment free from discrimination, where employees are treated with dignity and respect. All ID.me employees share in the responsibility for fulfilling our commitment to equal employment opportunity. ID.me does not discriminate against any employee or applicant on the basis of age, ancestry, color, family or medical care leave, gender identity or expression, genetic information, marital status, medical condition, national origin, physical or mental disability, political affiliation, protected veteran status, race, religion, sex (including pregnancy), sexual orientation, or any other characteristic protected by applicable laws, regulations and ordinances. ID.me adheres to these principles in all aspects of employment, including recruitment, hiring, training, compensation, promotion, benefits, social and recreational programs, and discipline. In addition, ID.me's policy is to provide reasonable accommodation to qualified employees who have protected disabilities to the extent required by applicable laws, regulations and ordinances where a particular employee works. Upon request we will provide you with more information about such accommodations.
+
+Please review our Privacy Policy, including our CCPA policy, at id.me/privacy. If you provide ID.me with any personally identifiable information you confirm that you have read and agree to be bound by the terms and conditions set out in our Privacy Policy.
+
+ID.me participates in E-Verify.

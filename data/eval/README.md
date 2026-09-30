@@ -2,7 +2,43 @@
 
 50 hand-labeled job descriptions used to measure extraction quality (`05_EVAL_SPEC.md`).
 This README documents the tooling and conventions; it does not decide label values — see
-"Patterns the prompt does not define" below for the calls still open.
+## Labeling conventions
+
+Decided 2026-09-30, before any case was labeled. One principle covers all of them:
+**copy what the posting says; never complete what it leaves out** (a year, a month, a
+policy). Where `extract_v1.txt` defines a format, labels follow it exactly. Where it only
+says "a short plain value", the formats below keep labels consistent across 50 cases.
+
+### Patterns the prompt leaves open
+
+| On the page | Label | Why |
+|---|---|---|
+| "2027届" / "2027 graduates", no months | `graduation_window` stated, value `2027 graduates` | The posting states a cohort, not a month range. Turning 2027届 into `2026-09 to 2027-08` would be using outside knowledge. |
+| An explicit month range, e.g. "2026年9月-2027年8月毕业" | value `2026-09 to 2027-08` | Tech spec §3 example format; the format R2 parses. |
+| A deadline with no year, e.g. "10月15日截止" | `deadline` stated, value `October 15` (no year) | ISO needs a year the posting doesn't give. Adding one is inference. If the model writes `2026-10-15`, the eval should count it as unsupported: that is a real finding for Task 1.8, not a labeling error. |
+| "Rolling basis", "滚动招聘" | `deadline` stated, value `rolling basis` | `extract_v1.txt` line 34 keeps relative phrasing as written and uses this exact example. Such a posting does **not** count toward the ≥5 "no stated deadline" cases. |
+| "Until filled", "招满即止" | `deadline` stated, value `until filled` | Same rule as rolling basis. |
+| "Must be legally authorized to work in the US", nothing about sponsorship | `visa_sponsorship` `stated: false`, note `work authorization only` | It states a work-authorization requirement, not a sponsorship policy. An F-1/OPT holder can be authorized to work. |
+| "…without sponsorship now or in the future" | `visa_sponsorship` `no` | That is an explicit sponsorship statement. |
+| An application-form question, e.g. "Will you now or in the future require sponsorship?" | `visa_sponsorship` `stated: false`, note `question only` | A question is not a policy. |
+
+Relative-phrasing values are written in English (`rolling basis`, `until filled`) even for
+Chinese postings. The evidence keeps the original Chinese. Whether Task 1.7 should accept
+the Chinese phrasing from the model as a match is a harness decision, recorded there.
+
+### Formats for "short plain value" fields
+
+| Field | Format | Example |
+|---|---|---|
+| `materials_required` | Required items only, joined with ` + `, in the posting's order. Optional items are left out. | `resume + cover letter` |
+| `application_cap` | `N per candidate`, or the posting's unit if different | `2 per candidate`, `1 per season` |
+| `location` | City names in English, several joined with ` / ` | `Shanghai / Beijing` |
+| `language_requirement` | Short English phrase | `fluent English and Mandarin` |
+| `degree_requirement` | Short English phrase, mirroring `extract_v1.txt` line 37 | `Master's or above`, `Bachelor's or above` |
+| `start_date` | Same as `deadline` (ISO, `YYYY-MM`, or phrasing as written) | `2027-07`, `upon graduation` |
+
+When a new pattern appears that this table doesn't cover, stop, decide it once, add a row
+here, and re-check earlier labels that hit it.
 
 ## Sourcing rules (05_EVAL_SPEC.md §3)
 

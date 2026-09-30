@@ -1,0 +1,86 @@
+AI Product Manager Graduate (TikTok-Product-Content Ecosystem) - 2027 Start
+Location:
+
+San Jose
+
+Employment Type:
+
+Regular
+
+Job Code:
+
+A210608
+
+Apply to this job
+Share this listing:
+
+
+Responsibilities
+
+TikTok's Content Ecosystem team is responsible for the health and prosperity of content users and creators to improve DAU in the long term. Our team deeply dives into the following fields: tracking the whole content ecosystem and finding potential challenges and opportunities; cooperating closely with the RD team on model recognition, content understanding, and algorithms, targeting to balance the traffic in different formats, optimize traffic distribution, content diversifications, creator experience of moderation, user experience of interactions, and more problems.
+
+We are looking for talented individuals to join our team. As a graduate, you will get opportunities to pursue bold ideas, tackle complex challenges, and unlock limitless growth.
+Successful candidates must be able to commit to an onboarding date by the end of the year. Please state your availability and graduation date clearly in your resume.
+Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply. The application limit is applicable to our Company and its affiliates' jobs globally. Applications will be reviewed on a rolling basis - we encourage you to apply early.
+
+Responsibilities:
+- Drive content understanding and classification across TikTok’s global ecosystem, including moderation, labeling, and multilingual content comprehension.
+- Improve the accuracy, scalability, and coverage of AI-powered content detection systems to ensure platform safety.
+- Collaborate with cross-functional teams (Policy, Trust & Safety, Engineering, Data Science, Operations) to identify gaps and define product solutions.
+Translate business needs and regional requirements into clear product roadmaps and deliverables.
+- Build core product capabilities such as multimodal understanding, data pipelines, and annotation tools.
+- Define evaluation frameworks (e.g., precision, recall) and run experiments to continuously improve model performance.
+
+Qualifications
+
+Minimum Qualifications:
+- Individuals who are completing or have recently completed a Bachelor's degree in computer science, statistics, information management, data science or a related discipline.
+- Interest in AI products, content ecosystems, or online safety.
+- Data-driven mindset; comfortable defining metrics and using data to inform decisions.
+- Strong communication skills and experience working cross-functionally.
+
+Preferred Qualifications:
+- Prior internship experience in AI/ML products, content platforms, or trust & safety domains.
+- Familiarity with global markets or cross-cultural environments.
+
+Job Information
+
+【For Pay Transparency】Compensation Description (Annually)
+
+The base salary range for this position in the selected city is $122574 - $184000 annually.​
+
+Compensation may vary outside of this range depending on a number of factors, including a candidate’s qualifications, skills, competencies and experience, and location. Base pay is one part of the Total Package that is provided to compensate and recognize employees for their work, and this role may be eligible for additional discretionary bonuses/incentives, and restricted stock units.​
+
+Benefits may vary depending on the nature of employment and the country work location. Employees have day one access to medical, dental, and vision insurance, a 401(k) savings plan with company match, paid parental leave, short-term and long-term disability coverage, life insurance, wellbeing benefits, among others. Employees also receive 10 paid holidays per year, 10 paid sick days per year and 17 days of Paid Personal Time (prorated upon hire with increasing accruals by tenure).​
+
+The Company reserves the right to modify or change these benefits programs at any time, with or without notice.​
+
+For Los Angeles County (unincorporated) Candidates:​
+
+Qualified applicants with arrest or conviction records will be considered for employment in accordance with all federal, state, and local laws including the Los Angeles County Fair Chance Ordinance for Employers and the California Fair Chance Act. Our company believes that criminal history may have a direct, adverse and negative relationship on the following job duties, potentially resulting in the withdrawal of the conditional offer of employment:​
+
+1. Interacting and occasionally having unsupervised contact with internal/external clients and/or colleagues;​
+
+2. Appropriately handling and managing confidential information including proprietary and trade secret information and access to information technology systems; and​
+
+3. Exercising sound judgment.​
+
+About TikTok
+
+TikTok is the leading destination for short-form mobile video. At TikTok, our mission is to inspire creativity and bring joy. TikTok's global headquarters are in Los Angeles and Singapore, and we also have offices in New York City, London, Dublin, Paris, Berlin, Dubai, Jakarta, Seoul, and Tokyo.​
+
+Why Join Us
+
+Inspiring creativity is at the core of TikTok's mission. Our innovative product is built to help people authentically express themselves, discover and connect – and our global, diverse teams make that possible. Together, we create value for our communities, inspire creativity and bring joy - a mission we work towards every day.​
+
+We strive to do great things with great people. We lead with curiosity, humility, and a desire to make impact in a rapidly growing tech company. Every challenge is an opportunity to learn and innovate as one team. We're resilient and embrace challenges as they come. By constantly iterating and fostering an "Always Day 1" mindset, we achieve meaningful breakthroughs for ourselves, our company, and our users. When we create and grow together, the possibilities are limitless. Join us.​
+
+​
+
+Diversity & Inclusion​
+
+TikTok is committed to creating an inclusive space where employees are valued for their skills, experiences, and unique perspectives. Our platform connects people from across the globe and so does our workplace. At TikTok, our mission is to inspire creativity and bring joy. To achieve that goal, we are committed to celebrating our diverse voices and to creating an environment that reflects the many communities we reach. We are passionate about this and hope you are too.​
+
+TikTok Accommodation
+
+TikTok is committed to providing reasonable accommodations in our recruitment processes for candidates with disabilities, pregnancy, sincerely held religious beliefs or other reasons protected by applicable laws. If you need assistance or a reasonable accommodation, please reach out to us at https://tinyurl.com/RA-request

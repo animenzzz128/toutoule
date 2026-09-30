@@ -1,65 +1,70 @@
-(2027 Bachelor's/Master's graduates) Economics Consulting Analyst/Associate 
+(2027 Bachelor's/Master's graduates) Economics Consulting Analyst/Associate
 Boston, MA, United States; Chicago, IL, United States; Los Angeles, CA, United States; New York, NY, United States; Oakland, CA, United States; Tallahassee, FL, United States; Washington, DC, United States
+If your background is in Economics, Business, Finance, Financial Economics, Accounting, Statistics, Mathematics, Computer Science, or any other major focused on quantitative research, learn more about CRA!
 
-<p>If your background is in <strong>Economics, Business, Finance, Financial Economics, Accounting, Statistics, Mathematics, Computer Science, or any other major focused on quantitative research</strong>, learn more about CRA!</p>
-<p><strong>About Charles River Associates</strong></p>
-<p>Charles River Associates is a leading global consulting firm that provides economic, financial, and business management expertise to major law firms, corporations and governments around the world. CRA advises clients on economic and financial matters pertaining to litigation and regulatory proceedings, and guides corporations through critical business strategy and performance-related issues. Since 1965, clients have engaged CRA for its combination of industry experience and rigorous, fact-based analysis that provide clients with clear, implementable solutions to complex business concerns.</p>
-<p>Practices seeking to hire candidates with this profile include (hiring locations listed):</p>
-<ul>
-<li><a href="https://www.crai.com/services/antitrust-and-competition/">Antitrust &amp; Competition</a> (Boston, Chicago, Oakland)<br>Our Competition practice economists provide analysis and testimony in matters involving mergers and acquisitions, antitrust litigation, and global competition policy.</li>
-<li><a href="https://www.crai.com/energy-careers/">Energy</a> (Boston, New York, Washington, DC)<br>The Energy team provides expert witness services for civil litigation, international arbitration, and regulatory proceedings, much of it in the electricity and gas markets.</li>
-<li><a href="https://www.crai.com/finance-careers/">Finance</a> (Boston, Chicago)<br>Our Finance experts work on valuation issues (shareholder class actions and other corporate valuation disputes), as well as matters focused on the functioning of financial markets and institutions (alleged market manipulation and insider trading).</li>
-<li><a href="https://www.crai.com/labor-employment-careers/">Labor &amp; Employment</a> (Chicago, College Station, Los Angeles, New York, Tallahassee, Washington, DC)<br>We provide in-depth analysis, expert reports, testimony, and advisory services to clients involved in complex labor and employment issues such as wage and hour litigation and pay equity disputes.</li>
-</ul>
-<p><em>Learn more about our work by reviewing our Services and Industries on our&nbsp;<a href="https://www.crai.com/">website</a>.</em></p>
-<p><strong>Position Overview</strong></p>
-<ul>
-<li>Work alongside, and in a collaborative environment with, talented and diverse colleagues, including PhD-trained economists, finance and accounting professionals (CFAs and CPAs), and valuation experts;</li>
-<li>Conduct economic and industry research while analyzing client materials to build an understanding of a case’s issues;</li>
-<li>Perform/develop financial and economic analyses or valuation models to support case theories and present those results to colleagues and clients;</li>
-<li>Program, build models, and perform regression analyses using languages such as Excel, Stata, R, Python, SQL, or SAS; or Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS);</li>
-<li>Develop familiarity with data that serves as input to these analyses, including company transactional data (<em>e.g.</em>, confidential sales data or win/loss data), financial reporting, accounting statements, and social and economic survey data, as well as non-financial measures of organizational performance;</li>
-<li>Review and summarize analyst reports, academic literature, client documents, depositions, license agreements, and industry trade press;</li>
-<li>Assist in the production and development of research summaries, expert reports, and the presentation of findings, including creation of visuals like tables and charts;</li>
-<li>Ensure reliability of analysis through quality control review.</li>
-</ul>
-<p><em>Check out our blog about</em><a href="https://www.crai.com/cra-careers/career-blogs/?keyword=typical%20day&amp;page=1"><em> a typical day at CRA</em></a><em> and how you can make an </em><a href="https://www.youtube.com/watch?v=rBrZUyLZGz8"><em>impact</em></a><em>!</em></p>
-<p><strong>Desired Qualifications</strong></p>
-<ul>
-<li>Bachelor’s or Master’s degree candidates graduating December 2026/Summer 2027 with an academic focus on quantitative research (Economics, Business, Finance, Financial Economics, Accounting, Statistics, Mathematics, Computer Science or related field);</li>
-<li>Completion of an honors thesis, research apprenticeship, or research seminar program is highly desired;</li>
-<li>Demonstrated understanding of, and ability to explain, economic, financial and/or accounting concepts, and quantitative and qualitative analysis methods;</li>
-<li>Experience in Excel, Stata, Python, R, SQL, SAS, ArcGIS/ArcPy, or Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS);</li>
-<li>Curious and analytical thinkers who bring creative approaches to non-standard problems;</li>
-<li>Effective written and oral communication skills;</li>
-<li>Eagerness to learn new skills and programming languages;</li>
-<li>Demonstrated high level of initiative and leadership;</li>
-<li>Demonstrated attention to detail and commitment to producing accurate, high-quality work;</li>
-<li>Strong teamwork and collaboration capabilities;</li>
-<li>Excellent time management and task prioritization skills;</li>
-<li>Clear and demonstrated interest in consulting through coursework, work experience, activities, or attendance at CRA recruiting events.</li>
-</ul>
-<p><strong>To Apply</strong></p>
-<p>To be considered for a <strong>position in the United States</strong>, we require the following:</p>
-<ul>
-<li><strong>Resume</strong> – please include current address, personal email and telephone number;</li>
-<li><strong>Cover letter</strong> – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference;</li>
-<li><strong>Transcript</strong> – may be unofficial. <em>Note: you must be graduating from a bachelor's or master's degree program for this role. If you are graduating from an MBA/PhD program or have work experience, please visit our <a href="https://www.crai.com/cra-careers/">Careers site</a> to see current open roles;</em></li>
-<li><strong>Writing Sample</strong> – we prefer a sole-authored submission from an existing work (class paper, thesis, internship, or work product) that includes your commentary on a quantitative analysis and/or relevant to the field of economics.</li>
-</ul>
-<p>If you are interested in applying for one of our <strong>international locations</strong>, please visit our <a href="https://www.crai.com/cra-careers/">Careers site</a> to view and apply for available jobs.</p>
-<p>Please also note that candidate resume review will commence August 17, and continue on a rolling basis until positions are filled.</p>
-<p><strong> </strong></p>
-<p><strong>Career Growth and Benefits&nbsp;</strong></p>
-<ul>
-<li>CRA’s robust <a href="https://www.crai.com/cra-careers/talent-development/">skills development programs</a>, including a commitment to offering 100 hours of training annually through formal and informal programs, encourage you to thrive as an individual and team member. Beginning with research and analysis skill building, training continues with technical training, presentation skills, internal seminars, and career mentoring and performance coaching from an assigned senior colleague. Additional leadership and collaboration opportunities exist through internal firm development activities.</li>
-<li>We offer a comprehensive total rewards program including a superior benefits package, <a href="https://www.crai.com/benefits/">wellness programming</a> to support physical, mental, emotional and financial well-being, and in-house <a href="https://www.crai.com/cra-careers/immigration-global-mobility/">immigration support</a> for foreign nationals and international business travelers.</li>
-</ul>
-<p><strong>Work Location Flexibility</strong></p>
-<p>CRA creates a work environment that enables our colleagues to benefit from being together in the office to best deliver on our promise of career growth, mentorship and inclusivity. At the same time, we recognize that individuals realize a range of benefits when working from home periodically. We currently expect that individuals spend at least 3 to 4 days a week working in the office (which may include traveling to another CRA office or to client meetings), with specific days determined in coordination with your practice or team.</p>
-<p><strong>Our Commitment to Equal Employment Opportunity</strong></p>
-<p style="margin: 0in;"><span style="font-size: 10.0pt; font-family: 'Arial',sans-serif;">Charles River Associates is an equal opportunity employer (EOE). All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, national origin, age, disability, status as a protected veteran, or any other protected characteristic under applicable law.</span></p>
-<p style="margin: 0in;">&nbsp;</p>
-<p>&nbsp;</p>
-<p style="margin: 0in;"><em><span style="font-size: 8pt;"><strong><span style="font-family: Arial, sans-serif;">Salary and other compensation</span></strong></span></em></p>
-<p style="margin: 0in;"><em><span style="font-size: 8pt; font-family: Arial, sans-serif;">A good-faith estimate of the annual base salary range for this position is $92,500-$100,000. Starting pay within this range may vary based on factors such as education level, experience, skills, geographic location, market conditions, and other qualifications of the successful candidate. This position may be eligible for additional bonus incentive compensation. </span></em><em><span style="font-size: 8pt; font-family: Arial, sans-serif;">CRA offers a comprehensive benefits package, subject to eligibility requirements, which may include: medical, dental, and vision insurance; 401(k) retirement plan with employer match; life and disability insurance; paid time off (vacation, sick leave, holidays); paid parental leave; wellness programs and employee assistance resources; and commuter benefits.</span></em></p>
+About Charles River Associates
+
+Charles River Associates is a leading global consulting firm that provides economic, financial, and business management expertise to major law firms, corporations and governments around the world. CRA advises clients on economic and financial matters pertaining to litigation and regulatory proceedings, and guides corporations through critical business strategy and performance-related issues. Since 1965, clients have engaged CRA for its combination of industry experience and rigorous, fact-based analysis that provide clients with clear, implementable solutions to complex business concerns.
+
+Practices seeking to hire candidates with this profile include (hiring locations listed):
+
+Antitrust & Competition (Boston, Chicago, Oakland)
+Our Competition practice economists provide analysis and testimony in matters involving mergers and acquisitions, antitrust litigation, and global competition policy.
+Energy (Boston, New York, Washington, DC)
+The Energy team provides expert witness services for civil litigation, international arbitration, and regulatory proceedings, much of it in the electricity and gas markets.
+Finance (Boston, Chicago)
+Our Finance experts work on valuation issues (shareholder class actions and other corporate valuation disputes), as well as matters focused on the functioning of financial markets and institutions (alleged market manipulation and insider trading).
+Labor & Employment (Chicago, College Station, Los Angeles, New York, Tallahassee, Washington, DC)
+We provide in-depth analysis, expert reports, testimony, and advisory services to clients involved in complex labor and employment issues such as wage and hour litigation and pay equity disputes.
+Learn more about our work by reviewing our Services and Industries on our website.
+
+Position Overview
+
+Work alongside, and in a collaborative environment with, talented and diverse colleagues, including PhD-trained economists, finance and accounting professionals (CFAs and CPAs), and valuation experts;
+Conduct economic and industry research while analyzing client materials to build an understanding of a case’s issues;
+Perform/develop financial and economic analyses or valuation models to support case theories and present those results to colleagues and clients;
+Program, build models, and perform regression analyses using languages such as Excel, Stata, R, Python, SQL, or SAS; or Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS);
+Develop familiarity with data that serves as input to these analyses, including company transactional data (e.g., confidential sales data or win/loss data), financial reporting, accounting statements, and social and economic survey data, as well as non-financial measures of organizational performance;
+Review and summarize analyst reports, academic literature, client documents, depositions, license agreements, and industry trade press;
+Assist in the production and development of research summaries, expert reports, and the presentation of findings, including creation of visuals like tables and charts;
+Ensure reliability of analysis through quality control review.
+Check out our blog about a typical day at CRA and how you can make an impact!
+
+Desired Qualifications
+
+Bachelor’s or Master’s degree candidates graduating December 2026/Summer 2027 with an academic focus on quantitative research (Economics, Business, Finance, Financial Economics, Accounting, Statistics, Mathematics, Computer Science or related field);
+Completion of an honors thesis, research apprenticeship, or research seminar program is highly desired;
+Demonstrated understanding of, and ability to explain, economic, financial and/or accounting concepts, and quantitative and qualitative analysis methods;
+Experience in Excel, Stata, Python, R, SQL, SAS, ArcGIS/ArcPy, or Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS);
+Curious and analytical thinkers who bring creative approaches to non-standard problems;
+Effective written and oral communication skills;
+Eagerness to learn new skills and programming languages;
+Demonstrated high level of initiative and leadership;
+Demonstrated attention to detail and commitment to producing accurate, high-quality work;
+Strong teamwork and collaboration capabilities;
+Excellent time management and task prioritization skills;
+Clear and demonstrated interest in consulting through coursework, work experience, activities, or attendance at CRA recruiting events.
+To Apply
+
+To be considered for a position in the United States, we require the following:
+
+Resume – please include current address, personal email and telephone number;
+Cover letter – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference;
+Transcript – may be unofficial. Note: you must be graduating from a bachelor's or master's degree program for this role. If you are graduating from an MBA/PhD program or have work experience, please visit our Careers site to see current open roles;
+Writing Sample – we prefer a sole-authored submission from an existing work (class paper, thesis, internship, or work product) that includes your commentary on a quantitative analysis and/or relevant to the field of economics.
+If you are interested in applying for one of our international locations, please visit our Careers site to view and apply for available jobs.
+
+Please also note that candidate resume review will commence August 17, and continue on a rolling basis until positions are filled.
+
+
+Career Growth and Benefits 
+
+CRA’s robust skills development programs, including a commitment to offering 100 hours of training annually through formal and informal programs, encourage you to thrive as an individual and team member. Beginning with research and analysis skill building, training continues with technical training, presentation skills, internal seminars, and career mentoring and performance coaching from an assigned senior colleague. Additional leadership and collaboration opportunities exist through internal firm development activities.
+We offer a comprehensive total rewards program including a superior benefits package, wellness programming to support physical, mental, emotional and financial well-being, and in-house immigration support for foreign nationals and international business travelers.
+Work Location Flexibility
+
+CRA creates a work environment that enables our colleagues to benefit from being together in the office to best deliver on our promise of career growth, mentorship and inclusivity. At the same time, we recognize that individuals realize a range of benefits when working from home periodically. We currently expect that individuals spend at least 3 to 4 days a week working in the office (which may include traveling to another CRA office or to client meetings), with specific days determined in coordination with your practice or team.
+
+Our Commitment to Equal Employment Opportunity
+
+Charles River Associates is an equal opportunity employer (EOE). All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, national origin, age, disability, status as a protected veteran, or any other protected characteristic under applicable law.
