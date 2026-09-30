@@ -14,27 +14,27 @@ cnp-03,cn_platform,ByteDance (TikTok),AI Product Manager Graduate (TikTok-Produc
 cnp-04,cn_platform,ByteDance (TikTok),"Graduate Development Program (TikTok Shop E-commerce, Malaysia) - 2027 Start",https://lifeattiktok.com/search/7670346528779585797,2026-09-30,en,strategy_bizops; from C03
 cnp-05,cn_platform,moomoo (Futu Holdings),Strategy Analyst,https://apply.workable.com/moomoo/jobs/view/5EC1D74DD3,2026-09-30,en,strategy_bizops; from C25
 cnp-06,cn_platform,moomoo (Futu Holdings),Senior Operations Analyst,https://apply.workable.com/moomoo/jobs/view/ED7F1169B7,2026-09-30,en,other; from C26
-cnp-07,cn_platform,SHEIN,Associate Buyer,https://job-boards.greenhouse.io/shein/jobs/5357802008,2026-09-30,en,other; from C38
+cnp-07,cn_platform,SHEIN,Associate Buyer,https://job-boards.greenhouse.io/shein/jobs/5357802008,2026-09-30,en,other; from C38; raw via greenhouse api
 cnp-08,cn_platform,Lalamove (Huolala group),Global Trainee Program 2026 (Hong Kong based),https://jobs.lever.co/lalamove/d564bf80-6da2-4c0c-8db3-6abcfbb859b6,2026-09-30,en,strategy_bizops; from C51
 cnp-09,cn_platform,Lalamove (Huolala group),Business Analyst 商務分析 (Report to Managing Director/ GM),https://jobs.lever.co/lalamove/e70390de-d2e1-491a-9844-b5d0730986d0,2026-09-30,bilingual,analyst; from C52
 cnp-10,cn_platform,ZA Bank (ZA Group / ZhongAn),"Manager, Wealth Management (Marketing focus)",https://www.za.group/join-us/job?id=1,2026-09-30,bilingual,other; from C54
-usf-01,us_consulting_finance,Charles River Associates,(2027 Bachelor's/Master's graduates) Economics Consulting Analyst/Associate,https://job-boards.greenhouse.io/charlesriverassociates/jobs/7894191,2026-09-30,en,timing
+usf-01,us_consulting_finance,Charles River Associates,(2027 Bachelor's/Master's graduates) Economics Consulting Analyst/Associate,https://job-boards.greenhouse.io/charlesriverassociates/jobs/7894191,2026-09-30,en,timing; raw via greenhouse api
 usf-02,us_consulting_finance,Capital One,Strategy Consulting Associate - 2027,https://www.capitalonecareers.com/job/mclean/strategy-consulting-associate-2027/31238/96466492896,2026-09-30,en,consulting; from C13
 usf-03,us_consulting_finance,McKinsey & Company,Associate,https://www.mckinsey.com/careers/search-jobs/jobs/associate-15178?loc=Milan,2026-09-30,en,consulting; from C14
-usf-04,us_consulting_finance,BGBx Consulting (Kx Advisors),"Fall 2027 Associate Consultant, Life Sciences Strategy",https://job-boards.greenhouse.io/bgbxconsulting/jobs/8121839,2026-09-30,en,consulting; from C15
-usf-05,us_consulting_finance,Jane Street,Strategy and Product Specialist,https://job-boards.greenhouse.io/janestreet/jobs/8056116002,2026-09-30,en,strategy_bizops; from C16
+usf-04,us_consulting_finance,BGBx Consulting (Kx Advisors),"Fall 2027 Associate Consultant, Life Sciences Strategy",https://job-boards.greenhouse.io/bgbxconsulting/jobs/8121839,2026-09-30,en,consulting; from C15; raw via greenhouse api
+usf-05,us_consulting_finance,Jane Street,Strategy and Product Specialist,https://job-boards.greenhouse.io/janestreet/jobs/8056116002,2026-09-30,en,strategy_bizops; from C16; raw via greenhouse api
 usf-06,us_consulting_finance,Deloitte,Consultative Offerings - Analyst - Business Strategy,https://apply.deloitte.com/en_US/careers/JobDetail/Consultative-Offerings-Analyst-Business-Strategy/361037,2026-09-30,en,consulting; from C19
 usf-07,us_consulting_finance,EY (EY-Parthenon),USA - EY-Parthenon - Strategy and Execution - Consultant,https://usearlycareers.ey.com/job/los-angeles/usa-ey-parthenon-strategy-and-execution-consultant/39053/100310764544,2026-09-30,en,consulting; from C20
 usf-08,us_consulting_finance,BlackRock,2027 Full-Time Analyst Program - AMRS,https://careers.blackrock.com/job/new-york/2027-full-time-analyst-program-amrs/45831/97843197536,2026-09-30,en,analyst; from C22
-usf-09,us_consulting_finance,The Brattle Group,Research Analyst (Economics) - July 2027,https://job-boards.greenhouse.io/thebrattlegroup/jobs/4720833005,2026-09-30,en,consulting; from C32
-usf-10,us_consulting_finance,Charles River Associates,(2028 Bachelor's/Master's graduates) Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027),https://job-boards.greenhouse.io/charlesriverassociates/jobs/8160288,2026-09-30,en,consulting; from C42
+usf-09,us_consulting_finance,The Brattle Group,Research Analyst (Economics) - July 2027,https://job-boards.greenhouse.io/thebrattlegroup/jobs/4720833005,2026-09-30,en,consulting; from C32; raw via greenhouse api
+usf-10,us_consulting_finance,Charles River Associates,(2028 Bachelor's/Master's graduates) Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027),https://job-boards.greenhouse.io/charlesriverassociates/jobs/8160288,2026-09-30,en,consulting; from C42; raw via greenhouse api
 ust-01,us_tech,Databricks,"Associate Product Manager, New Grad (2027 Start)",https://www.databricks.com/company/careers/university-recruiting---product/associate-product-manager-new-grad-2027-start-7586263002,2026-09-30,en,timing
-ust-02,us_tech,ID.me,Summer 2027 - Associate Product Manager (New Grad),https://job-boards.greenhouse.io/idmeuniversityrecruiting/jobs/7986694003,2026-09-30,en,pm; from C04
-ust-03,us_tech,Robinhood,Associate Product Manager (New Grad),https://job-boards.greenhouse.io/robinhood/jobs/8199973?gh_jid=8199973,2026-09-30,en,pm; from C05
+ust-02,us_tech,ID.me,Summer 2027 - Associate Product Manager (New Grad),https://job-boards.greenhouse.io/idmeuniversityrecruiting/jobs/7986694003,2026-09-30,en,pm; from C04; raw via greenhouse api
+ust-03,us_tech,Robinhood,Associate Product Manager (New Grad),https://job-boards.greenhouse.io/robinhood/jobs/8199973?gh_jid=8199973,2026-09-30,en,pm; from C05; raw via greenhouse api
 ust-04,us_tech,Google,"Associate Product Manager, University Graduate, 2027 Start",https://www.google.com/about/careers/applications/jobs/results/107272685397910214-associate-product-manager-university-graduate-2027-start,2026-09-30,en,pm; from C07
 ust-05,us_tech,Stripe,Product Manager: New Grad Accelerator,https://stripe.com/careers/listing/product-manager-new-grad-accelerator/7737124,2026-09-30,en,pm; from C08
 ust-06,us_tech,Fireworks AI,Associate Product Manager,https://jobs.ashbyhq.com/fireworks/69375f41-258a-4c25-ad78-5985606c438a,2026-09-30,en,ai_pm; from C47
 ust-07,us_tech,Solace,Associate Product Manager (College Grad 2027),https://jobs.ashbyhq.com/solace/ee8ee239-ad20-4c1e-868d-3357799589ea,2026-09-30,en,pm; from C23
 ust-08,us_tech,CWILL,Product Management Trainee - Bilingual Mandarin Required,https://apply.workable.com/cwill-us/jobs/view/0AF59B8964,2026-09-30,en,pm; from C56
 ust-09,us_tech,Tellius,Business Operations Generalist (New Grad),https://job-boards.greenhouse.io/tellius/jobs/4693821007,2026-09-30,en,strategy_bizops; from C12
-ust-10,us_tech,Momentum,2027 Launch Graduate Program: Associate Strategy & Operations Analyst,https://job-boards.greenhouse.io/momentumcompany3/jobs/8607054002,2026-09-30,en,strategy_bizops; from C11
+ust-10,us_tech,Momentum,2027 Launch Graduate Program: Associate Strategy & Operations Analyst,https://job-boards.greenhouse.io/momentumcompany3/jobs/8607054002,2026-09-30,en,strategy_bizops; from C11; raw via greenhouse api
