@@ -15,7 +15,9 @@ from datetime import date
 from typing import Literal, Self
 
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
 
+from toutoule import models
 from toutoule.config import Settings
 from toutoule.extract import normalize_text
 from toutoule.schemas import ExtractedField, Extraction
@@ -274,4 +276,37 @@ def rule_r6_passed(extraction: Extraction, today: date) -> RedFlag | None:
         "critical.deadline",
         field,
         f"The deadline, {value}, has already passed.",
+    )
+
+
+def evaluate(
+    extraction: Extraction, profile: OwnerProfile, market: Market, today: date
+) -> list[RedFlag]:
+    """Run R1 to R6 in order and return the flags that fired."""
+    results = [
+        rule_r1_visa(extraction, profile, market),
+        rule_r2_graduation(extraction, profile),
+        rule_r3_degree(extraction, profile),
+        rule_r4_cap(extraction),
+        rule_r5_urgent(extraction, today),
+        rule_r6_passed(extraction, today),
+    ]
+    return [flag for flag in results if flag is not None]
+
+
+def has_hard_flag(flags: list[RedFlag]) -> bool:
+    """True if any flag excludes the job from the digest."""
+    return any(flag.severity == "HARD" for flag in flags)
+
+
+def save_red_flags(session: Session, job_id: int, flags: list[RedFlag]) -> None:
+    """Add one red_flags row per flag. The caller commits, together with its other work."""
+    session.add_all(
+        models.RedFlag(
+            job_id=job_id,
+            rule_id=flag.rule_id,
+            severity=models.FlagSeverity(flag.severity),
+            evidence=flag.evidence,
+        )
+        for flag in flags
     )

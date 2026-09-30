@@ -5,18 +5,25 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from sqlalchemy import select
 
+from toutoule import models
+from toutoule.config import get_settings
+from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.redflags import (
     Market,
     OwnerProfile,
+    evaluate,
+    has_hard_flag,
     rule_r1_visa,
     rule_r2_graduation,
     rule_r3_degree,
     rule_r4_cap,
     rule_r5_urgent,
     rule_r6_passed,
+    save_red_flags,
 )
-from toutoule.schemas import Extraction
+from toutoule.schemas import CriticalFields, Extraction, ImportantFields
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
 PROFILE = OwnerProfile(requires_sponsorship=True, graduation=(2027, 5), degree="master")
@@ -230,3 +237,117 @@ def test_month_only_deadline_in_the_current_month_gives_no_flag() -> None:
 )
 def test_unreadable_deadline_gives_no_flag(deadline: str) -> None:
     assert deadline_rules_fired(deadline) == []
+
+
+# --- evaluate and the stated=False asymmetry ------------------------------------------
+
+
+def test_evaluate_runs_the_rules_in_order() -> None:
+    extraction = make_extraction(
+        visa_sponsorship=stated("no"),
+        graduation_window=stated("2027-06 to 2028-05"),
+        degree_requirement=stated("PhD required"),
+        deadline=stated("2026-09-30"),
+    )
+
+    flags = evaluate(extraction, PROFILE, "US", TODAY)
+
+    assert [flag.rule_id for flag in flags] == ["R1", "R2", "R3", "R4", "R6"]
+    assert has_hard_flag(flags)
+
+
+def test_scarce_and_urgent_flags_are_not_hard() -> None:
+    extraction = make_extraction(deadline=stated("2026-10-02"))
+
+    flags = evaluate(extraction, PROFILE, "US", TODAY)
+
+    assert [flag.rule_id for flag in flags] == ["R4", "R5"]
+    assert not has_hard_flag(flags)
+
+
+def test_not_stated_never_triggers_hard() -> None:
+    # Every critical and important field, read from the schema so a new field is covered too.
+    names = [*CriticalFields.model_fields, *ImportantFields.model_fields]
+    extraction = make_extraction(**dict.fromkeys(names, NOT_STATED))
+
+    flags = evaluate(extraction, PROFILE, "US", today=date(2100, 1, 1))
+
+    assert not has_hard_flag(flags)
+    assert flags == []
+
+
+# Each HARD rule's positive case. Flipping only that field to stated=False must stop it.
+HARD_CASES = [
+    ("R1", "visa_sponsorship", stated("no")),
+    ("R2", "graduation_window", stated("2027-06 to 2028-05")),
+    ("R3", "degree_requirement", stated("PhD required")),
+    ("R6", "deadline", stated("2026-09-30")),
+]
+
+
+@pytest.mark.parametrize(("rule_id", "name", "positive"), HARD_CASES)
+def test_hard_rule_stops_when_its_field_is_not_stated(
+    rule_id: str, name: str, positive: dict[str, Any]
+) -> None:
+    fired = evaluate(make_extraction(**{name: positive}), PROFILE, "US", TODAY)
+    assert rule_id in [flag.rule_id for flag in fired]  # the positive case really fires
+
+    flipped = evaluate(make_extraction(**{name: NOT_STATED}), PROFILE, "US", TODAY)
+    assert rule_id not in [flag.rule_id for flag in flipped]
+
+
+# --- save_red_flags -------------------------------------------------------------------
+
+
+def test_save_red_flags_round_trip(tmp_path: Path) -> None:
+    engine = get_engine(f"sqlite:///{tmp_path / 'test.db'}")
+    init_db(engine)
+    extraction = make_extraction(visa_sponsorship=stated("no", "We do not sponsor visas."))
+    flags = evaluate(extraction, PROFILE, "US", TODAY)  # R1 and R4
+
+    with get_session_factory(engine)() as session:
+        source = models.Source(name="Acme", tier=1, url="https://example.com", adapter="gh")
+        session.add(source)
+        session.flush()  # sends the INSERT so source.id is filled in
+        job = models.Job(
+            source_id=source.id,
+            company="Acme",
+            title="AI Product Manager",
+            url="https://example.com/jobs/1",
+            raw_text="We do not sponsor visas.",
+            content_hash="a" * 64,
+        )
+        session.add(job)
+        session.flush()
+        save_red_flags(session, job.id, flags)
+        session.commit()
+        job_id = job.id
+
+    with get_session_factory(engine)() as session:
+        rows = session.scalars(select(models.RedFlag).order_by(models.RedFlag.id)).all()
+
+    assert [(r.job_id, r.rule_id, r.severity, r.evidence) for r in rows] == [
+        (job_id, "R1", "HARD", "We do not sponsor visas."),
+        (job_id, "R4", "SCARCE", "Each candidate may apply to at most 2 positions"),
+    ]
+
+
+# --- OwnerProfile.from_settings -------------------------------------------------------
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_owner_profile_from_default_settings() -> None:
+    profile = OwnerProfile.from_settings(get_settings(env_file=None))
+
+    assert profile == OwnerProfile(requires_sponsorship=True, graduation=(2027, 5), degree="master")
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_owner_profile_from_overridden_settings(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("OWNER_REQUIRES_SPONSORSHIP", "false")
+    monkeypatch.setenv("OWNER_GRADUATION", "2026-12")
+    monkeypatch.setenv("OWNER_DEGREE", "phd")
+
+    profile = OwnerProfile.from_settings(get_settings(env_file=None))
+
+    assert profile == OwnerProfile(requires_sponsorship=False, graduation=(2026, 12), degree="phd")
