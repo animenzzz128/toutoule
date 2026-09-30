@@ -159,6 +159,62 @@ def rule_r2_graduation(extraction: Extraction, profile: OwnerProfile) -> RedFlag
     )
 
 
+# R3 is deliberately narrow (ADR-004): a requirement fires only if, after _normalize_degree,
+# it equals one of these entries exactly. Anything else, e.g. "phd preferred", "本科及以上",
+# "mba", never fires. Each entry maps to the owner degrees it rules out.
+_PHD_ONLY = frozenset({"bachelor", "master"})
+_UNDERGRADUATE_ONLY = frozenset({"master", "phd"})
+_MASTER_OR_ABOVE = frozenset({"bachelor"})
+_EXCLUDING_REQUIREMENTS: dict[str, frozenset[str]] = {
+    "phd required": _PHD_ONLY,
+    "ph.d. required": _PHD_ONLY,
+    "phd only": _PHD_ONLY,
+    "phd or above": _PHD_ONLY,
+    "doctorate required": _PHD_ONLY,
+    "doctoral degree required": _PHD_ONLY,
+    "博士及以上": _PHD_ONLY,
+    "博士学历": _PHD_ONLY,
+    "博士学位": _PHD_ONLY,
+    "仅限博士": _PHD_ONLY,
+    "要求博士": _PHD_ONLY,
+    "undergraduates only": _UNDERGRADUATE_ONLY,
+    "undergraduate only": _UNDERGRADUATE_ONLY,
+    "bachelor's only": _UNDERGRADUATE_ONLY,
+    "仅限本科": _UNDERGRADUATE_ONLY,
+    "仅限本科生": _UNDERGRADUATE_ONLY,
+    "master's or above": _MASTER_OR_ABOVE,
+    "master's required": _MASTER_OR_ABOVE,
+    "master's degree required": _MASTER_OR_ABOVE,
+    "硕士及以上": _MASTER_OR_ABOVE,
+    "硕士研究生及以上": _MASTER_OR_ABOVE,
+}
+
+
+def _normalize_degree(value: str) -> str:
+    """Lowercase, straight quotes, single spaces, no trailing period: "PhD  Required." ->
+    "phd required", so small formatting differences cannot hide a match.
+    """
+    return normalize_text(value).lower().removesuffix(".")
+
+
+def rule_r3_degree(extraction: Extraction, profile: OwnerProfile) -> RedFlag | None:
+    """R3 HARD: the degree requirement is on the short list and rules out the owner's degree."""
+    field = extraction.important.degree_requirement
+    if not field.stated:
+        return None
+    value = _stated_value(field)
+    excluded = _EXCLUDING_REQUIREMENTS.get(_normalize_degree(value), frozenset())
+    if profile.degree not in excluded:
+        return None
+    return _flag(
+        "R3",
+        "HARD",
+        "important.degree_requirement",
+        field,
+        f"The posting requires {value}, which rules out your {profile.degree} degree.",
+    )
+
+
 def rule_r4_cap(extraction: Extraction) -> RedFlag | None:
     """R4 SCARCE: the posting limits how many applications one candidate may send."""
     field = extraction.critical.application_cap

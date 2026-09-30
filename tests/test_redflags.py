@@ -5,7 +5,14 @@ from typing import Any
 
 import pytest
 
-from toutoule.redflags import Market, OwnerProfile, rule_r1_visa, rule_r2_graduation, rule_r4_cap
+from toutoule.redflags import (
+    Market,
+    OwnerProfile,
+    rule_r1_visa,
+    rule_r2_graduation,
+    rule_r3_degree,
+    rule_r4_cap,
+)
 from toutoule.schemas import Extraction
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
@@ -121,3 +128,50 @@ def test_r2_unreadable_window_warns_and_does_not_fire(
 
     assert flag is None
     assert "R2 skipped" in caplog.text
+
+
+# --- R3: degree requirement -----------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("requirement", "degree"),
+    [
+        ("PhD required", "master"),
+        ("PhD  Required.", "master"),  # case, spacing and a trailing period are ignored
+        ("博士及以上", "master"),
+        ("Undergraduates only", "master"),
+        ("仅限本科", "phd"),
+        ("Master’s or above", "bachelor"),  # curly apostrophe
+    ],
+)
+def test_r3_fires_when_requirement_excludes_owner(requirement: str, degree: str) -> None:
+    extraction = make_extraction(degree_requirement=stated(requirement))
+    profile = PROFILE.model_copy(update={"degree": degree})
+
+    flag = rule_r3_degree(extraction, profile)
+
+    assert flag is not None
+    assert (flag.rule_id, flag.severity) == ("R3", "HARD")
+    assert flag.field_path == "important.degree_requirement"
+
+
+@pytest.mark.parametrize(
+    ("requirement", "degree"),
+    [
+        ("Bachelor's or above", "master"),
+        ("本科及以上", "master"),
+        ("PhD preferred", "master"),
+        ("博士优先", "master"),
+        ("MBA", "master"),
+        ("Master's or above", "master"),
+        ("Master's or above", "phd"),
+        ("PhD required", "phd"),
+        ("PhD", "master"),  # bare degree names are deliberately not on the list
+        ("博士", "master"),
+    ],
+)
+def test_r3_does_not_fire(requirement: str, degree: str) -> None:
+    extraction = make_extraction(degree_requirement=stated(requirement))
+    profile = PROFILE.model_copy(update={"degree": degree})
+
+    assert rule_r3_degree(extraction, profile) is None
