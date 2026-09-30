@@ -227,3 +227,51 @@ def rule_r4_cap(extraction: Extraction) -> RedFlag | None:
         field,
         f"Applications are capped ({field.value}), so spend this one deliberately.",
     )
+
+
+# today is a parameter, not date.today(): a rule that read the clock would give different
+# answers on different days, and its tests would start failing once a deadline passed.
+# 72 hours is counted as 3 calendar days, because a deadline value has no time of day.
+URGENT_DAYS = 3
+
+
+def rule_r5_urgent(extraction: Extraction, today: date) -> RedFlag | None:
+    """R5 URGENT: the deadline is an exact date from today up to 3 days ahead."""
+    field = extraction.critical.deadline
+    if not field.stated:
+        return None
+    # Relative phrasing ("rolling basis") and month-only deadlines are never urgent.
+    deadline = _parse_date(_stated_value(field))
+    if deadline is None or not 0 <= (deadline - today).days <= URGENT_DAYS:
+        return None
+    return _flag(
+        "R5",
+        "URGENT",
+        "critical.deadline",
+        field,
+        f"The deadline, {deadline.isoformat()}, is {URGENT_DAYS} days away or less.",
+    )
+
+
+def rule_r6_passed(extraction: Extraction, today: date) -> RedFlag | None:
+    """R6 HARD: the deadline has passed. A deadline of today is R5, not R6."""
+    field = extraction.critical.deadline
+    if not field.stated:
+        return None
+    value = _stated_value(field)
+    deadline = _parse_date(value)
+    if deadline is not None:
+        passed = deadline < today
+    else:
+        # A month-only deadline has passed only once that whole month is over.
+        month = _parse_month(value)
+        passed = month is not None and month < (today.year, today.month)
+    if not passed:
+        return None
+    return _flag(
+        "R6",
+        "HARD",
+        "critical.deadline",
+        field,
+        f"The deadline, {value}, has already passed.",
+    )

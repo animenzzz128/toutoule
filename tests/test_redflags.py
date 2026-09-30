@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -12,11 +13,14 @@ from toutoule.redflags import (
     rule_r2_graduation,
     rule_r3_degree,
     rule_r4_cap,
+    rule_r5_urgent,
+    rule_r6_passed,
 )
 from toutoule.schemas import Extraction
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
 PROFILE = OwnerProfile(requires_sponsorship=True, graduation=(2027, 5), degree="master")
+TODAY = date(2026, 10, 1)
 NOT_STATED: dict[str, Any] = {"value": None, "stated": False, "evidence": None}
 
 
@@ -175,3 +179,54 @@ def test_r3_does_not_fire(requirement: str, degree: str) -> None:
     profile = PROFILE.model_copy(update={"degree": degree})
 
     assert rule_r3_degree(extraction, profile) is None
+
+
+# --- R5 and R6: deadline (today is 2026-10-01) ----------------------------------------
+
+
+def deadline_rules_fired(deadline: str) -> list[str]:
+    """Which of R5 and R6 fire for this deadline value, as rule ids."""
+    extraction = make_extraction(deadline=stated(deadline))
+    flags = [rule_r5_urgent(extraction, TODAY), rule_r6_passed(extraction, TODAY)]
+    return [flag.rule_id for flag in flags if flag is not None]
+
+
+@pytest.mark.parametrize(
+    ("days_from_today", "expected"),
+    [
+        (-1, ["R6"]),  # yesterday: passed
+        (0, ["R5"]),  # today: still open, so urgent rather than passed
+        (3, ["R5"]),  # the last urgent day
+        (4, []),  # far enough away
+    ],
+)
+def test_deadline_boundaries(days_from_today: int, expected: list[str]) -> None:
+    deadline = (TODAY + timedelta(days=days_from_today)).isoformat()
+
+    assert deadline_rules_fired(deadline) == expected
+
+
+def test_r6_flag_carries_the_deadline_evidence() -> None:
+    extraction = make_extraction(deadline=stated("2026-09-30", "Apply by 30 September 2026"))
+
+    flag = rule_r6_passed(extraction, TODAY)
+
+    assert flag is not None
+    assert (flag.severity, flag.field_path) == ("HARD", "critical.deadline")
+    assert flag.evidence == "Apply by 30 September 2026"
+
+
+def test_month_only_deadline_in_a_past_month_has_passed() -> None:
+    assert deadline_rules_fired("2026-09") == ["R6"]
+
+
+def test_month_only_deadline_in_the_current_month_gives_no_flag() -> None:
+    # It may be later this month, so it has not passed; and R5 never fires on a month.
+    assert deadline_rules_fired("2026-10") == []
+
+
+@pytest.mark.parametrize(
+    "deadline", ["rolling basis", "ASAP", "within 2 weeks of posting", "2026-02-30"]
+)
+def test_unreadable_deadline_gives_no_flag(deadline: str) -> None:
+    assert deadline_rules_fired(deadline) == []
