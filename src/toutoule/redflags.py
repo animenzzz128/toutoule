@@ -213,7 +213,7 @@ def rule_r3_degree(extraction: Extraction, profile: OwnerProfile) -> RedFlag | N
         "HARD",
         "important.degree_requirement",
         field,
-        f"The posting requires {value}, which rules out your {profile.degree} degree.",
+        f"The posting's degree requirement ({value}) rules out your {profile.degree} degree.",
     )
 
 
