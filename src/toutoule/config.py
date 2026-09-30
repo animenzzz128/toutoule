@@ -5,6 +5,7 @@ and CI can import this module without a .env file.
 """
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic import Field, SecretStr, ValidationError
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,6 +18,9 @@ _RULES: dict[str, str] = {
     "MATCH_THRESHOLD": "must be a whole number from 0 to 100",
     "EXTRACTION_MODEL": "must be a Claude model id, e.g. claude-haiku-4-5",
     "DIGEST_EMAIL_TO": "must be an email address",
+    "OWNER_REQUIRES_SPONSORSHIP": "must be true or false",
+    "OWNER_GRADUATION": "must be a month as YYYY-MM, e.g. 2027-05",
+    "OWNER_DEGREE": "must be bachelor, master or phd",
 }
 
 
@@ -37,6 +41,12 @@ class Settings(BaseSettings):
     extraction_model: str = Field(default="claude-haiku-4-5", min_length=1)
     # Optional until the mailer lands in Task 2.6.
     digest_email_to: str | None = None
+
+    # The owner's profile, compared against each job by the red-flag rules (tech spec §4).
+    owner_requires_sponsorship: bool = True
+    # The pattern only accepts months 01-12, so "2027-13" is a config error at startup.
+    owner_graduation: str = Field(default="2027-05", pattern=r"^\d{4}-(0[1-9]|1[0-2])$")
+    owner_degree: Literal["bachelor", "master", "phd"] = "master"
 
 
 def get_settings(env_file: Path | str | None = ".env") -> Settings:

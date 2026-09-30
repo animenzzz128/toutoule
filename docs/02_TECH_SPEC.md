@@ -138,6 +138,16 @@ Implemented in `redflags.py`. No LLM involvement.
 | R6 | `deadline` stated but already passed | HARD | Excluded, logged |
 | R7 | Source has ≥2 consecutive fetch failures | SYSTEM | Digest health notice |
 
+**Implementation notes (Task 1.5).** The market is an explicit input (`"US"`, `"CN"` or
+`None`), never guessed from the location field; `None` means unknown and never fires R1.
+"72 hours" is counted as 3 calendar days, because a deadline value has no time of day. A
+value a rule cannot parse (a relative deadline, a graduation window not written "A to B"
+or "A - B") never fires that rule. A month-only deadline ("2026-09") fires R6 only once
+that whole month has passed, and never fires R5. The graduation month and degree in R2/R3
+come from the owner settings (`OWNER_GRADUATION`, `OWNER_DEGREE`), and R3 fires only on an
+explicit list of excluding requirements (ADR-004). R1–R6 are in `redflags.py`; R7 depends
+on source health and comes with Task 2.8.
+
 **Critical asymmetry:** `stated: False` never triggers a HARD rule. Absence of a sponsorship
 clause is not evidence of non-sponsorship. Unknown means "surface it and let the human
 decide", never "discard".

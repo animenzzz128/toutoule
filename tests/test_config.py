@@ -78,3 +78,35 @@ def test_bad_match_threshold_is_rejected(monkeypatch: pytest.MonkeyPatch, bad_va
     message = str(caught.value)
     assert "MATCH_THRESHOLD is invalid (must be a whole number from 0 to 100)" in message
     assert bad_value not in message  # values are never echoed back
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_owner_profile_settings_have_defaults() -> None:
+    settings = get_settings(env_file=None)
+
+    assert settings.owner_requires_sponsorship is True
+    assert settings.owner_graduation == "2027-05"
+    assert settings.owner_degree == "master"
+
+
+@pytest.mark.usefixtures("valid_env")
+@pytest.mark.parametrize("bad_value", ["2027-13", "2027-00", "2027-5", "May 2027", "2027-05-01"])
+def test_bad_owner_graduation_is_rejected(monkeypatch: pytest.MonkeyPatch, bad_value: str) -> None:
+    monkeypatch.setenv("OWNER_GRADUATION", bad_value)
+
+    with pytest.raises(ConfigError) as caught:
+        get_settings(env_file=None)
+
+    assert str(caught.value) == (
+        "Config error: OWNER_GRADUATION is invalid (must be a month as YYYY-MM, e.g. 2027-05)."
+        " Set it in .env (see .env.example)."
+    )
+
+
+@pytest.mark.usefixtures("valid_env")
+@pytest.mark.parametrize("bad_value", ["Master", "mba", ""])
+def test_bad_owner_degree_is_rejected(monkeypatch: pytest.MonkeyPatch, bad_value: str) -> None:
+    monkeypatch.setenv("OWNER_DEGREE", bad_value)
+
+    with pytest.raises(ConfigError, match="OWNER_DEGREE is invalid"):
+        get_settings(env_file=None)
