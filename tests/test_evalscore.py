@@ -100,3 +100,36 @@ def test_ambiguous_label_field_is_excluded_regardless_of_system():
     output = make_output(critical={"deadline": _stated("2026-11-01")})
     result = _score(label, output)
     assert result.outcome == "excluded"
+
+
+# --- Equivalences --------------------------------------------------------------------------
+
+
+def test_equivalence_turns_mismatch_into_correct_for_both_systems():
+    label = make_label(important={"degree_requirement": _field("Bachelor's or above")})
+    output = make_output(important={"degree_requirement": _stated("本科及以上")})
+    equivalences = {
+        (
+            "degree_requirement",
+            evalscore.normalize_value("degree_requirement", "Bachelor's or above"),
+            evalscore.normalize_value("degree_requirement", "本科及以上"),
+        )
+    }
+    for system in ("pipeline", "baseline"):  # system-independent: applies to both equally
+        results = evalscore.score_case(label, output, equivalences, adjudications=[], system=system)
+        result = next(r for r in results if r.field == "degree_requirement")
+        assert result.outcome == "correct"
+
+
+def test_deadline_with_and_without_year_is_a_mismatch_not_correct():
+    # "October 15" (no year, per README convention) vs "2026-10-15": dates compare as
+    # written, never completed with a year, so this must not be treated as equal.
+    label = make_label(critical={"deadline": _field("October 15")})
+    output = make_output(critical={"deadline": _stated("2026-10-15")})
+    assert _score(label, output).outcome == "mismatch"
+
+
+def test_alias_table_matches_until_filled_to_its_chinese_phrasing():
+    label = make_label(critical={"deadline": _field("until filled")})
+    output = make_output(critical={"deadline": _stated("招满即止")})
+    assert _score(label, output).outcome == "correct"
