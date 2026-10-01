@@ -10,6 +10,7 @@ around a hidden cache; it just keeps each run's rows from piling up across runs.
 
 import json
 import time
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -17,7 +18,7 @@ from typing import Any
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from toutoule import baseline, db, evalset, extract, models
+from toutoule import baseline, db, evalscore, evalset, extract, models, schemas
 
 RUNS_DIR = evalset.EVAL_DIR / "runs"
 EVAL_DB_DIR = Path(__file__).parents[2] / "data" / "private" / "eval"
@@ -213,3 +214,75 @@ def run_eval(
         for case in cases:
             run_baseline_case(case, _read_raw(case), client, model, rdir, meta, sleep_fn)
     return rdir
+
+
+# --- Scoring: run folder + labels + the two CSVs, never the API ----------------------------
+
+
+def _load_pipeline_output(rdir: Path, case_id: str) -> evalscore.SystemOutput | None:
+    path = rdir / "pipeline" / f"{case_id}.json"
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("failed"):
+        return evalscore.failed_output()
+    return evalscore.from_extraction(schemas.Extraction.model_validate(data))
+
+
+def _load_baseline_output(rdir: Path, case_id: str) -> evalscore.SystemOutput | None:
+    if (rdir / "baseline" / f"{case_id}.json").exists():  # a recorded failure
+        return evalscore.failed_output()
+    path = rdir / "baseline" / f"{case_id}.txt"
+    if not path.exists():
+        return None
+    return baseline.parse_baseline(path.read_text(encoding="utf-8"))
+
+
+def load_system_output(rdir: Path, system: str, case_id: str) -> evalscore.SystemOutput | None:
+    """None means this case hasn't been run yet for this system — not scored, not failed."""
+    if system == "pipeline":
+        return _load_pipeline_output(rdir, case_id)
+    return _load_baseline_output(rdir, case_id)
+
+
+@dataclass
+class RunScore:
+    system: str
+    results: list[evalscore.FieldResult]
+    metrics: evalscore.Metrics
+    recall: evalscore.Ratio
+    scored_cases: list[str]
+
+
+def score_run(run_id: str, system: str, cases: list[evalset.CaseRow] | None = None) -> RunScore:
+    """Score one system's half of a run. No API calls: reads the run folder, the labels,
+    and equivalences.csv/adjudications.csv only."""
+    rdir = run_dir(run_id)
+    if cases is None:
+        meta = load_meta(rdir)
+        all_cases = evalset.load_cases(evalset.EVAL_DIR / "cases.csv")
+        cases = [case for case in all_cases if case.case_id in meta["cases"]]
+    equivalences = evalscore.load_equivalences(evalset.EVAL_DIR / "equivalences.csv")
+    adjudications = evalscore.load_adjudications(evalset.EVAL_DIR / "adjudications.csv")
+
+    results: list[evalscore.FieldResult] = []
+    scored_cases: list[str] = []
+    recall_count = recall_denominator = 0
+    for case in cases:
+        output = load_system_output(rdir, system, case.case_id)
+        if output is None:
+            continue
+        label = evalset.load_label(case.case_id, evalset.EVAL_DIR / "labels")
+        results.extend(evalscore.score_case(label, output, equivalences, adjudications, system))
+        recall = evalscore.reference_recall(label, output)
+        recall_count += recall.count
+        recall_denominator += recall.denominator
+        scored_cases.append(case.case_id)
+
+    return RunScore(
+        system=system,
+        results=results,
+        metrics=evalscore.compute_metrics(results),
+        recall=evalscore.Ratio(recall_count, recall_denominator),
+        scored_cases=scored_cases,
+    )

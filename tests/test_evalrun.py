@@ -11,13 +11,25 @@ from pathlib import Path
 
 from fakes import FakeClient
 
-from toutoule import evalrun, evalset
+from toutoule import evalrun, evalscore, evalset
 from toutoule.db import get_engine, get_session_factory, init_db
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
 VALID_ANSWER = FIXTURE.read_text(encoding="utf-8")
 SOURCE = (Path(__file__).parent / "fixtures" / "jd_valid.txt").read_text(encoding="utf-8")
 MODEL = "claude-test-model"
+
+
+def _write_blank_label(eval_dir: Path, case_id: str) -> None:
+    label = evalset.blank_label(_case())
+    (eval_dir / "labels").mkdir(parents=True, exist_ok=True)
+    (eval_dir / "labels" / f"{case_id}.json").write_text(label.model_dump_json(), encoding="utf-8")
+    (eval_dir / "equivalences.csv").write_text(
+        "field,label_value,system_value,note\n", encoding="utf-8"
+    )
+    (eval_dir / "adjudications.csv").write_text(
+        "case_id,system,field,system_value,verdict,note\n", encoding="utf-8"
+    )
 
 
 def _redirect_paths(monkeypatch, tmp_path: Path) -> None:
@@ -102,3 +114,42 @@ def test_two_runs_on_the_same_posting_both_call_the_client(tmp_path, monkeypatch
     assert evalrun.eval_db_path("run1") != evalrun.eval_db_path("run2")
     assert evalrun.eval_db_path("run1").exists()
     assert evalrun.eval_db_path("run2").exists()
+
+
+def test_score_run_reads_only_the_run_folder_labels_and_csvs(tmp_path, monkeypatch):
+    _redirect_paths(monkeypatch, tmp_path)
+    _write_blank_label(tmp_path, "cnp-01")
+    client = FakeClient(VALID_ANSWER)
+    evalrun.run_eval("run1", [_case()], {"pipeline"}, client, MODEL, sleep_fn=lambda _: None)
+
+    score = evalrun.score_run("run1", "pipeline", cases=[_case()])
+
+    assert client.requests == [client.requests[0]]  # score_run made no further calls
+    assert score.scored_cases == ["cnp-01"]
+    assert score.metrics.critical_hallucination.denominator == len(evalscore.CRITICAL_FIELDS)
+
+
+def test_score_run_treats_a_recorded_pipeline_failure_as_missed(tmp_path, monkeypatch):
+    _redirect_paths(monkeypatch, tmp_path)
+    _write_blank_label(tmp_path, "cnp-01")
+    rdir = evalrun.run_dir("run1")
+    (rdir / "pipeline").mkdir(parents=True)
+    (rdir / "pipeline" / "cnp-01.json").write_text(
+        '{"failed": true, "error": "ExtractionFailed: boom"}', encoding="utf-8"
+    )
+
+    score = evalrun.score_run("run1", "pipeline", cases=[_case()])
+
+    assert score.scored_cases == ["cnp-01"]
+    assert score.metrics.critical_hallucination.count == 0
+
+
+def test_score_run_skips_a_case_not_yet_run(tmp_path, monkeypatch):
+    _redirect_paths(monkeypatch, tmp_path)
+    _write_blank_label(tmp_path, "cnp-01")
+    (evalrun.run_dir("run1") / "baseline").mkdir(parents=True)
+
+    score = evalrun.score_run("run1", "baseline", cases=[_case()])
+
+    assert score.scored_cases == []
+    assert score.results == []
