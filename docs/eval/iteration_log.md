@@ -27,6 +27,24 @@ One change per version. Hypothesis written before running. Regressions are kept.
 verbatim check) and the plain-prompt baseline (same field definitions and formats, no
 schema, no evidence, no verification), same model, same 50 postings, single run each.
 
-**Result:** (filled in after adjudication)
+**Result:**
 
-**Read:** (filled in after adjudication)
+| Metric | Target | pipeline | baseline |
+|---|---|---|---|
+| Critical hallucination | 0% | 14 / 249 (5.6%) | 20 / 249 (8.0%) |
+| — of which fabricated | — | 6 / 14 (42.9%) | 17 / 20 (85.0%) |
+| — of which misfiled | — | 8 / 14 (57.1%) | 3 / 20 (15.0%) |
+| Critical accuracy | ≥95% | 47 / 50 (94.0%) | 54 / 57 (94.7%) |
+| Critical false-negative | ≤10% | 13 / 67 (19.4%) | 5 / 67 (7.5%) |
+| Important accuracy | ≥90% | 45 / 136 (33.1%) | 61 / 133 (45.9%) |
+| Reference recall | ≥80% | 254 / 552 (46.0%) | 353 / 552 (63.9%) |
+
+**Read:** The baseline matched my prediction (20 vs ~20); the pipeline did much worse
+than predicted (14 vs ~5). Splitting hallucinations explains why: the evidence
+requirement cut fabricated values from 17 to 6, but the pipeline put real, correctly
+quoted text in the wrong field 8 times (start dates as graduation windows, a publish
+date as a deadline), and the verbatim check cannot catch that. Graduation window, not
+deadline, was the biggest driver. The pipeline also misses more (19.4% FN vs 7.5%),
+mainly rolling-basis deadlines and resume requirements. v2 should tighten the field
+definitions for graduation_window and deadline in extract_v1, the single change with
+the largest expected effect on hallucination.
