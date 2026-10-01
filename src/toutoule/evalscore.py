@@ -6,12 +6,16 @@ one SystemOutput against one hand label and produces a FieldResult per critical/
 field; compute_metrics() turns those into the tiered report.
 """
 
+import csv
 import re
 import unicodedata
 from dataclasses import dataclass
-from typing import Literal
+from pathlib import Path
+from typing import Any, Literal
 
-from toutoule import schemas
+from pydantic import BaseModel, ConfigDict, ValidationError
+
+from toutoule import evalset, schemas
 
 CRITICAL_FIELDS = (
     "deadline",
@@ -131,3 +135,160 @@ def normalize_value(field: str, value: str | None) -> str | frozenset[str] | Non
         parts = re.split(r"[/,]", value)
         return frozenset(_basic_normalize(part) for part in parts if _basic_normalize(part))
     return _basic_normalize(value)
+
+
+# --- Equivalences (data/eval/equivalences.csv) -----------------------------------------
+
+Equivalence = tuple[str, str | frozenset[str] | None, str | frozenset[str] | None]
+
+
+def load_equivalences(path: Path) -> set[Equivalence]:
+    """Load (field, normalized label value, normalized system value) triples.
+
+    System-independent on purpose: the same table applies to both the pipeline and the
+    baseline, and to every case.
+    """
+    entries: set[Equivalence] = set()
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            field = row["field"]
+            entries.add(
+                (field, normalize_value(field, row["label_value"]), normalize_value(field, row["system_value"]))
+            )
+    return entries
+
+
+# --- Adjudications (data/eval/adjudications.csv) ---------------------------------------
+
+
+class AdjudicationRow(BaseModel):
+    """One row of adjudications.csv, validated on load."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    case_id: str
+    system: str
+    field: str
+    system_value: str | None
+    verdict: Literal["hallucination", "wrong", "missed", "label_error"]
+    note: str = ""
+
+
+def load_adjudications(path: Path) -> list[tuple[int, AdjudicationRow]]:
+    """Read adjudications.csv as (line number, row) pairs. Line numbers start at 2 (the
+    header is line 1), so a validation error can point the owner at the exact row."""
+    rows: list[tuple[int, AdjudicationRow]] = []
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        for line_number, raw in enumerate(csv.DictReader(handle), start=2):
+            raw = {**raw, "system_value": raw.get("system_value") or None}
+            try:
+                rows.append((line_number, AdjudicationRow.model_validate(raw)))
+            except ValidationError as error:
+                raise ValueError(f"adjudications.csv line {line_number}: {error}") from error
+    return rows
+
+
+# --- score_case --------------------------------------------------------------------------
+
+Outcome = Literal["correct_absent", "correct", "mismatch", "unsupported", "missed", "excluded"]
+Verdict = Literal["hallucination", "wrong", "missed", "label_error"]
+
+# Which verdicts make sense for which outcome. A verdict outside this set for its outcome
+# is a data-entry error in adjudications.csv, not a judgment call, so it's rejected rather
+# than silently applied.
+VALID_VERDICTS: dict[str, set[Verdict]] = {
+    "unsupported": {"hallucination", "label_error"},
+    "mismatch": {"hallucination", "wrong", "label_error"},
+    "missed": {"missed", "label_error"},
+}
+
+
+@dataclass
+class FieldResult:
+    """The scored outcome for one critical/important field of one case."""
+
+    case_id: str
+    tier: Literal["critical", "important"]
+    field: str
+    outcome: Outcome
+    label_value: str | None
+    label_evidence: str | None
+    system_value: str | None
+    system_evidence: str | None
+    verdict: Verdict | None = None
+
+
+def _classify(field: str, label_field: Any, sys_field: FieldOutput, equivalences: set[Equivalence]) -> Outcome:
+    if not label_field.stated and not sys_field.stated:
+        return "correct_absent"
+    if not label_field.stated and sys_field.stated:
+        return "unsupported"
+    if label_field.stated and not sys_field.stated:
+        return "missed"
+    label_norm = normalize_value(field, label_field.value)
+    system_norm = normalize_value(field, sys_field.value)
+    if label_norm == system_norm:
+        return "correct"
+    if (field, label_norm, system_norm) in equivalences:
+        return "correct"
+    return "mismatch"
+
+
+def score_case(
+    label: evalset.Label,
+    output: SystemOutput,
+    equivalences: set[Equivalence],
+    adjudications: list[tuple[int, AdjudicationRow]],
+    system: str,
+) -> list[FieldResult]:
+    """Score one case's SystemOutput against its hand label.
+
+    `system` names which column of adjudications.csv applies ("pipeline" or "baseline"),
+    since one case can be adjudicated differently for each. Fields whose label is
+    ambiguous=true are returned as outcome="excluded" and never counted in metrics.
+    """
+    results: list[FieldResult] = []
+    for group_name, names, tier in (
+        ("critical", CRITICAL_FIELDS, "critical"),
+        ("important", IMPORTANT_FIELDS, "important"),
+    ):
+        label_group = getattr(label, group_name)
+        for name in names:
+            label_field = getattr(label_group, name)
+            sys_field = output.fields[name]
+            if label_field.ambiguous:
+                outcome: Outcome = "excluded"
+            else:
+                outcome = _classify(name, label_field, sys_field, equivalences)
+
+            verdict: Verdict | None = None
+            if outcome in VALID_VERDICTS:
+                for line_number, row in adjudications:
+                    if row.case_id != label.case_id or row.system != system or row.field != name:
+                        continue
+                    if row.verdict not in VALID_VERDICTS[outcome]:
+                        raise ValueError(
+                            f"adjudications.csv line {line_number}: verdict {row.verdict!r} "
+                            f"is not valid for outcome {outcome!r} ({label.case_id}.{name})"
+                        )
+                    current = normalize_value(name, sys_field.value)
+                    recorded = normalize_value(name, row.system_value)
+                    if current == recorded:
+                        verdict = row.verdict
+                    # else: stale — the system's answer changed since this was adjudicated;
+                    # the field needs a new verdict, so it stays pending.
+
+            results.append(
+                FieldResult(
+                    case_id=label.case_id,
+                    tier=tier,
+                    field=name,
+                    outcome=outcome,
+                    label_value=label_field.value,
+                    label_evidence=label_field.evidence,
+                    system_value=sys_field.value,
+                    system_evidence=sys_field.evidence,
+                    verdict=verdict,
+                )
+            )
+    return results
