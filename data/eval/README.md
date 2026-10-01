@@ -94,6 +94,30 @@ here, and re-check earlier labels that hit it.
 
 ## Set summary
 
+**Segment:** cn_platform 20 · cn_campus 10 · us_consulting_finance 10 · us_tech 10 (50 total)
+
+**Language:** en 30 · zh 19 · bilingual 1
+
+**No stated deadline:** 37 of 50
+
+**Human scores:** 20 of 50 (`data/eval/human_scores.csv`)
+
+**Raw text sourcing:** 10 fetched via ATS public APIs (Greenhouse/Lever, `scripts/fetch_eval_raw.py`) · 40 copied manually
+
+**Role mix** (from `cases.csv` notes; the 5 "timing" cases carry no role tag): pm 10 ·
+analyst 8 · ai_pm 8 · consulting 7 · strategy_bizops 6 · other 6
+
+**Ambiguous fields remaining (5 of 50 cases, resolved per the conventions above where a
+general rule applied — these 5 did not fit one):**
+
+| case | field | note |
+|---|---|---|
+| cnc-02 | important.location | Location varies by business unit (10+ units each list their own cities); this span covers 信息科技运营中心 only. |
+| cnc-03 | important.degree_requirement | Degree requirement varies by recruitment category; this span states the requirement for A01 Accounting only. |
+| cnc-04 | important.degree_requirement | Development/product and IT governance require a master's; testing and operations require a bachelor's. |
+| usf-09 | critical.deadline | secondary deadline 2026-10-12 |
+| ust-05 | important.work_model | The role says in-person at the listed offices; the company-wide policy allows flexibility but may vary by team. |
+
 ByteDance has 5 cases across the 50: 3 English-language postings from the overseas
 TikTok careers site (`lifeattiktok.com`) and 2 Chinese-language postings from the
 domestic campus site (`jobs.bytedance.com`). Kept as separate cases rather than
