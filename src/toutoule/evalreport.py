@@ -53,7 +53,7 @@ METRIC_SPECS = [
 ]
 
 
-def _tier_table(scores: dict[str, RunScore]) -> str:
+def tier_table(scores: dict[str, RunScore]) -> str:
     lines = ["| Metric | Target | pipeline | baseline |", "|---|---|---|---|"]
     for spec in METRIC_SPECS:
         cells = [spec.label, spec.target_text]
@@ -134,7 +134,7 @@ def _failure_rows(score: RunScore) -> list[str]:
 
 def write_report(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore]) -> Path:
     """Write (or overwrite) docs/eval/runs/<run_id>.md and return its path."""
-    parts = [*_header(run_id, meta, scores), "", "## Tier table", "", _tier_table(scores), ""]
+    parts = [*_header(run_id, meta, scores), "", "## Tier table", "", tier_table(scores), ""]
     for system in SYSTEMS:
         score = scores.get(system)
         if score is None:

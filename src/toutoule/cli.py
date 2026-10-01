@@ -11,7 +11,7 @@ from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from toutoule import evalset, extract, models, schemas
+from toutoule import evalreport, evalrun, evalset, extract, models, schemas
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 
@@ -134,6 +134,65 @@ def eval_check(final: bool) -> int:
     return exit_code
 
 
+def eval_command(
+    system: str, cases_arg: str | None, resume: str | None, rescore: str | None
+) -> int:
+    """Run and score the eval set, or resume/rescore an existing run. Returns the exit code."""
+    try:
+        settings = get_settings()
+    except ConfigError as error:
+        print(error, file=sys.stderr)
+        return 1
+    systems = {"pipeline", "baseline"} if system == "both" else {system}
+
+    if rescore:
+        run_id = rescore
+    else:
+        run_id = resume or evalrun.new_run_id()
+        try:
+            cases = _select_cases(run_id, resume, cases_arg)
+        except FileNotFoundError:
+            print(f"No run folder for {run_id!r}: nothing to resume", file=sys.stderr)
+            return 1
+        client = Anthropic(api_key=settings.anthropic_api_key.get_secret_value())
+        evalrun.run_eval(run_id, cases, systems, client, settings.extraction_model)
+
+    engine = get_engine(settings.database_url)
+    init_db(engine)
+    scores: dict[str, evalrun.RunScore] = {}
+    with get_session_factory(engine)() as session:
+        for name in ("pipeline", "baseline"):
+            if name not in systems:
+                continue
+            score = evalrun.score_run(run_id, name)
+            scores[name] = score
+            evalrun.save_eval_run(
+                session, run_id, settings.extraction_model, score, rescore=bool(rescore)
+            )
+
+    meta = evalrun.load_meta(evalrun.run_dir(run_id))
+    report_path = evalreport.write_report(run_id, meta, scores)
+    print(evalreport.tier_table(scores))
+    print(f"\nReport: {report_path}")
+    total_pending = sum(score.metrics.pending for score in scores.values())
+    if total_pending > 0:
+        print(f"PENDING: {total_pending} critical disagreements need a verdict")
+    return 0
+
+
+def _select_cases(run_id: str, resume: str | None, cases_arg: str | None) -> list[evalset.CaseRow]:
+    """Which cases.csv rows this run covers. Resuming reuses the run's own case list,
+    ignoring --cases, so a resumed run never silently drops or adds cases."""
+    all_cases = evalset.load_cases(evalset.EVAL_DIR / "cases.csv")
+    if resume:
+        wanted = set(evalrun.load_meta(evalrun.run_dir(run_id))["cases"])
+    elif cases_arg:
+        wanted = set(cases_arg.split(","))
+    else:
+        return all_cases
+    return [case for case in all_cases if case.case_id in wanted]
+
+
 def _manual_source(session: Session) -> models.Source:
     """The single 'manual' source for pasted postings (ADR-005), created on first use."""
     source = session.scalars(select(models.Source).where(models.Source.adapter == "manual")).first()
@@ -197,6 +256,14 @@ def main(argv: list[str] | None = None) -> int:
     eval_check_parser.add_argument(
         "--final", action="store_true", help="treat unmet composition targets as failures"
     )
+    eval_parser = commands.add_parser("eval", help="run and score the eval set")
+    eval_parser.add_argument("--system", choices=["pipeline", "baseline", "both"], default="both")
+    eval_parser.add_argument("--cases", help="comma-separated case ids, default all")
+    eval_run_group = eval_parser.add_mutually_exclusive_group()
+    eval_run_group.add_argument("--resume", metavar="RUN_ID", help="continue an interrupted run")
+    eval_run_group.add_argument(
+        "--rescore", metavar="RUN_ID", help="rescore an existing run, no API calls"
+    )
 
     args = parser.parse_args(argv)
     # Warnings from everything; info (per-call tokens, stop_reason) only from our own code,
@@ -209,6 +276,8 @@ def main(argv: list[str] | None = None) -> int:
         return eval_init()
     if args.command == "eval-check":
         return eval_check(args.final)
+    if args.command == "eval":
+        return eval_command(args.system, args.cases, args.resume, args.rescore)
     handlers = {"check-config": check_config, "init-db": init_database}
     return handlers[args.command]()
 

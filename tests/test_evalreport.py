@@ -51,7 +51,7 @@ def _meta() -> dict:
 
 def test_tier_table_marks_targets_met_and_missed():
     scores = {"pipeline": _score("pipeline", hallucinations=0), "baseline": _score("baseline")}
-    table = evalreport._tier_table(scores)
+    table = evalreport.tier_table(scores)
     assert "0 / 5 (0.0%) ✅" in table  # hallucination target met
     assert "4 / 5 (80.0%) ❌" in table  # accuracy target (>=95%) missed
 
