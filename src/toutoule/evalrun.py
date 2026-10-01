@@ -250,8 +250,12 @@ class RunScore:
     system: str
     results: list[evalscore.FieldResult]
     metrics: evalscore.Metrics
-    recall: evalscore.Ratio
+    recall: evalscore.ReferenceRecall
     scored_cases: list[str]
+
+
+def _sum_ratios(ratios: list[evalscore.Ratio]) -> evalscore.Ratio:
+    return evalscore.Ratio(sum(r.count for r in ratios), sum(r.denominator for r in ratios))
 
 
 def score_run(run_id: str, system: str, cases: list[evalset.CaseRow] | None = None) -> RunScore:
@@ -267,23 +271,27 @@ def score_run(run_id: str, system: str, cases: list[evalset.CaseRow] | None = No
 
     results: list[evalscore.FieldResult] = []
     scored_cases: list[str] = []
-    recall_count = recall_denominator = 0
+    recalls: list[evalscore.ReferenceRecall] = []
     for case in cases:
         output = load_system_output(rdir, system, case.case_id)
         if output is None:
             continue
         label = evalset.load_label(case.case_id, evalset.EVAL_DIR / "labels")
         results.extend(evalscore.score_case(label, output, equivalences, adjudications, system))
-        recall = evalscore.reference_recall(label, output)
-        recall_count += recall.count
-        recall_denominator += recall.denominator
+        recalls.append(evalscore.reference_recall(label, output))
         scored_cases.append(case.case_id)
 
+    recall = evalscore.ReferenceRecall(
+        skills=_sum_ratios([r.skills for r in recalls]),
+        responsibilities=_sum_ratios([r.responsibilities for r in recalls]),
+        team_or_function=_sum_ratios([r.team_or_function for r in recalls]),
+        total=_sum_ratios([r.total for r in recalls]),
+    )
     return RunScore(
         system=system,
         results=results,
         metrics=evalscore.compute_metrics(results),
-        recall=evalscore.Ratio(recall_count, recall_denominator),
+        recall=recall,
         scored_cases=scored_cases,
     )
 
@@ -311,7 +319,12 @@ def eval_run_metrics_json(
         "critical_false_negative": _ratio_json(metrics.critical_false_negative),
         "important_accuracy": _ratio_json(metrics.important_accuracy),
         "important_missed": metrics.important_missed,
-        "reference_recall": _ratio_json(score.recall),
+        "reference_recall": {
+            "skills": _ratio_json(score.recall.skills),
+            "responsibilities": _ratio_json(score.recall.responsibilities),
+            "team_or_function": _ratio_json(score.recall.team_or_function),
+            "total": _ratio_json(score.recall.total),
+        },
         "pending": metrics.pending,
         "provisional": metrics.provisional,
     }

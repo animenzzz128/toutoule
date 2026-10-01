@@ -163,7 +163,12 @@ def test_save_eval_run_writes_run_id_model_system_and_rescore_into_metrics_json(
         system="pipeline",
         results=[],
         metrics=evalscore.compute_metrics([]),
-        recall=evalscore.Ratio(0, 0),
+        recall=evalscore.ReferenceRecall(
+            skills=evalscore.Ratio(0, 0),
+            responsibilities=evalscore.Ratio(0, 0),
+            team_or_function=evalscore.Ratio(0, 0),
+            total=evalscore.Ratio(0, 0),
+        ),
         scored_cases=[],
     )
 

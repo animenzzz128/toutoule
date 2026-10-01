@@ -311,28 +311,55 @@ def test_recall_on_a_small_list_example():
     label.reference.skills.extend(["Python", "SQL", "A/B testing"])
     output = make_output(skills=["Python", "Advanced SQL", "Excel"])
     recall = evalscore.reference_recall(label, output)
-    # "Python" and "SQL" are captured (substrings of system items); "A/B testing" is not.
-    assert recall.count == 2
-    assert recall.denominator == 3
+    # "Python" and "SQL" are single content words, fully covered by the system's items;
+    # "A/B testing"'s content words ("b", "testing") appear in neither.
+    assert recall.skills.count == 2
+    assert recall.skills.denominator == 3
 
 
-def test_recall_weakness_generic_label_item_inflates_recall():
+def test_recall_weakness_generic_single_word_label_item_inflates_recall():
     label = make_label()
     label.reference.skills.append("data")
     output = make_output(skills=["Data Analysis and SQL"])
-    # "data" is a substring of the system's item, so it counts as captured even though
-    # the system never said anything specific to the label's actual skill.
-    assert evalscore.reference_recall(label, output).count == 1
+    # A one-word label item only needs that one word to appear anywhere in the system's
+    # items to count as 100% covered, even though the system never said anything specific
+    # to the label's actual skill.
+    assert evalscore.reference_recall(label, output).skills.count == 1
 
 
-def test_recall_weakness_vague_system_item_does_not_capture_a_specific_label_item():
+def test_recall_requires_at_least_half_the_label_items_content_words():
     label = make_label()
     label.reference.skills.append("data analysis and SQL")
     output = make_output(skills=["data"])
-    # "data" is under half the length of the label item, so it does not count — this is
-    # the fix for the inflate case above, but it means a real paraphrase using different
-    # words entirely would also be missed, deflating recall.
-    assert evalscore.reference_recall(label, output).count == 0
+    # Content words: {"data", "analysis", "sql"} ("and" is a stopword). Only "data"
+    # appears in the system's items: 1/3 < 50%, so this is not captured.
+    assert evalscore.reference_recall(label, output).skills.count == 0
+
+
+def test_recall_captures_a_label_item_whose_words_are_split_across_system_items():
+    label = make_label()
+    label.reference.skills.append("Strong learning, execution, communication skills")
+    output = make_output(skills=["learning ability", "execution ability", "communication"])
+    # "strong"/"skills" are dropped as domain stopwords; the remaining words (learning,
+    # execution, communication) each appear in a different system item, pooled together.
+    assert evalscore.reference_recall(label, output).skills.count == 1
+
+
+def test_recall_not_captured_when_only_one_of_three_words_is_covered():
+    label = make_label()
+    label.reference.skills.append("logical analytical creative")
+    output = make_output(skills=["logical thinking"])
+    assert evalscore.reference_recall(label, output).skills.count == 0
+
+
+def test_recall_team_or_function_keeps_the_substring_rule():
+    label = make_label()
+    label.reference.team_or_function = "TikTok Shop"
+    output = make_output(team_or_function="TikTok Shop US operation team")
+    recall = evalscore.reference_recall(label, output)
+    assert recall.team_or_function == evalscore.Ratio(1, 1)
+    assert recall.total.count == 1
+    assert recall.total.denominator == 1
 
 
 # --- Loading equivalences.csv / adjudications.csv ------------------------------------------

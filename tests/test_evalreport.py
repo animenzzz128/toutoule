@@ -29,7 +29,12 @@ def _score(system: str, pending: int = 0, hallucinations: int = 0) -> evalrun.Ru
         system=system,
         results=results,
         metrics=metrics,
-        recall=evalscore.Ratio(8, 10),
+        recall=evalscore.ReferenceRecall(
+            skills=evalscore.Ratio(5, 6),
+            responsibilities=evalscore.Ratio(2, 3),
+            team_or_function=evalscore.Ratio(1, 1),
+            total=evalscore.Ratio(8, 10),
+        ),
         scored_cases=["cnp-01"],
     )
 

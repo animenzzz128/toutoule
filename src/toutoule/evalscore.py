@@ -462,17 +462,32 @@ def compute_metrics(results: list[FieldResult]) -> Metrics:
 
 # --- Reference-field recall (05_EVAL_SPEC.md §2) ----------------------------------------
 
+_CONTENT_WORD = re.compile(r"[a-z0-9]+")
+# A short general-purpose stopword list, plus words so generic to this domain ("ability",
+# "skills", "strong", "experience") that nearly every item carries one and it would
+# otherwise inflate every overlap score.
+_STOPWORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "is",
+    "it", "of", "on", "or", "our", "that", "the", "this", "to", "with", "your",
+    "ability", "experience", "skills", "strong",
+}  # fmt: skip
+
+
+def _content_words(text: str) -> set[str]:
+    return {word for word in _CONTENT_WORD.findall(text.casefold()) if word not in _STOPWORDS}
+
 
 def _is_captured(label_item: str, system_items: list[str]) -> bool:
-    """One labeled item counts as captured if a system item says at least as much about
-    it, in either direction, after normalization.
+    """team_or_function only: captured if either side says at least as much as the other,
+    after normalization.
 
-    Weaknesses, both deliberate trade-offs: a short or generic label item (e.g. "Excel")
-    is "captured" by any system item that merely contains it, inflating recall. Going the
-    other way, a system item only counts if it's at least half the label item's length, so
-    a vague system item like "data" doesn't capture a specific one like "data analysis and
-    SQL" — but a real paraphrase that shares few characters with the label (different
-    wording, same meaning) is missed, deflating recall.
+    Weaknesses, both deliberate trade-offs: a short or generic label item is "captured" by
+    any system item that merely contains it, inflating recall. Going the other way, a
+    system item only counts if it's at least half the label item's length, so a vague
+    system item like "data" doesn't capture a specific one like "data analysis and SQL" —
+    but a real paraphrase that shares few characters with the label is missed, deflating
+    recall. skills and responsibilities use the word-overlap rule below instead; this one
+    is kept for team_or_function, which is a single short string, not a list.
     """
     label_norm = _basic_normalize(label_item)
     if not label_norm:
@@ -488,13 +503,49 @@ def _is_captured(label_item: str, system_items: list[str]) -> bool:
     return False
 
 
-def reference_recall(label: evalset.Label, output: SystemOutput) -> Ratio:
-    """Recall over skills, responsibilities and team_or_function combined."""
-    label_items = [*label.reference.skills, *label.reference.responsibilities]
+def _list_recall(label_items: list[str], system_items: list[str]) -> Ratio:
+    """A label item is captured if at least half its content words (stopwords and the
+    domain words above dropped) appear anywhere in the field's system items, pooled
+    together rather than matched one item at a time. A label item with no content words
+    left after stripping (rare) carries no signal either way and is excluded — it counts
+    toward neither the numerator nor the denominator.
+    """
+    system_words: set[str] = set()
+    for item in system_items:
+        system_words |= _content_words(item)
+    captured = denominator = 0
+    for item in label_items:
+        words = _content_words(item)
+        if not words:
+            continue
+        denominator += 1
+        if len(words & system_words) / len(words) >= 0.5:
+            captured += 1
+    return Ratio(captured, denominator)
+
+
+@dataclass
+class ReferenceRecall:
+    """Recall reported per reference field, plus the total across all three."""
+
+    skills: Ratio
+    responsibilities: Ratio
+    team_or_function: Ratio
+    total: Ratio
+
+
+def reference_recall(label: evalset.Label, output: SystemOutput) -> ReferenceRecall:
+    skills = _list_recall(label.reference.skills, output.skills)
+    responsibilities = _list_recall(label.reference.responsibilities, output.responsibilities)
+    team_system_items = [output.team_or_function] if output.team_or_function else []
+    team = Ratio(0, 0)
     if label.reference.team_or_function:
-        label_items.append(label.reference.team_or_function)
-    system_items = [*output.skills, *output.responsibilities]
-    if output.team_or_function:
-        system_items.append(output.team_or_function)
-    captured = sum(1 for item in label_items if _is_captured(item, system_items))
-    return Ratio(captured, len(label_items))
+        captured = _is_captured(label.reference.team_or_function, team_system_items)
+        team = Ratio(1 if captured else 0, 1)
+    total = Ratio(
+        skills.count + responsibilities.count + team.count,
+        skills.denominator + responsibilities.denominator + team.denominator,
+    )
+    return ReferenceRecall(
+        skills=skills, responsibilities=responsibilities, team_or_function=team, total=total
+    )

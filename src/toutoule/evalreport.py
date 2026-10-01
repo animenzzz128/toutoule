@@ -21,7 +21,9 @@ class MetricSpec:
     label: str
     target_text: str
     get_ratio: Callable[[RunScore], evalscore.Ratio]
-    passes: Callable[[evalscore.Ratio], bool]
+    # None means "no target, just report the number" — used for the per-field recall
+    # breakdown rows, which exist for visibility, not grading (only the total is graded).
+    passes: Callable[[evalscore.Ratio], bool] | None
 
 
 def _hallucination(score: RunScore) -> evalscore.Ratio:
@@ -40,8 +42,20 @@ def _important_accuracy(score: RunScore) -> evalscore.Ratio:
     return score.metrics.important_accuracy
 
 
-def _recall(score: RunScore) -> evalscore.Ratio:
-    return score.recall
+def _recall_total(score: RunScore) -> evalscore.Ratio:
+    return score.recall.total
+
+
+def _recall_skills(score: RunScore) -> evalscore.Ratio:
+    return score.recall.skills
+
+
+def _recall_responsibilities(score: RunScore) -> evalscore.Ratio:
+    return score.recall.responsibilities
+
+
+def _recall_team(score: RunScore) -> evalscore.Ratio:
+    return score.recall.team_or_function
 
 
 METRIC_SPECS = [
@@ -49,7 +63,10 @@ METRIC_SPECS = [
     MetricSpec("Critical accuracy", "≥95%", _critical_accuracy, lambda r: r.percent >= 95),
     MetricSpec("Critical false-negative", "≤10%", _false_negative, lambda r: r.percent <= 10),
     MetricSpec("Important accuracy", "≥90%", _important_accuracy, lambda r: r.percent >= 90),
-    MetricSpec("Reference recall", "≥80%", _recall, lambda r: r.percent >= 80),
+    MetricSpec("Reference recall (total)", "≥80%", _recall_total, lambda r: r.percent >= 80),
+    MetricSpec("Reference recall — skills", "no target", _recall_skills, None),
+    MetricSpec("Reference recall — responsibilities", "no target", _recall_responsibilities, None),
+    MetricSpec("Reference recall — team_or_function", "no target", _recall_team, None),
 ]
 
 
@@ -63,7 +80,10 @@ def tier_table(scores: dict[str, RunScore]) -> str:
                 cells.append("—")
                 continue
             ratio = spec.get_ratio(score)
-            cells.append(f"{ratio} {'✅' if spec.passes(ratio) else '❌'}")
+            if spec.passes is None:
+                cells.append(str(ratio))
+            else:
+                cells.append(f"{ratio} {'✅' if spec.passes(ratio) else '❌'}")
         lines.append("| " + " | ".join(cells) + " |")
     missed_cells = ["Important missed", "no target"]
     for system in SYSTEMS:
