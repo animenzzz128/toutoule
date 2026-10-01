@@ -10,8 +10,9 @@ import json
 from pathlib import Path
 
 from fakes import FakeClient
+from sqlalchemy import select
 
-from toutoule import evalrun, evalscore, evalset
+from toutoule import evalrun, evalscore, evalset, models
 from toutoule.db import get_engine, get_session_factory, init_db
 
 FIXTURE = Path(__file__).parent / "fixtures" / "extraction_valid.json"
@@ -153,3 +154,25 @@ def test_score_run_skips_a_case_not_yet_run(tmp_path, monkeypatch):
 
     assert score.scored_cases == []
     assert score.results == []
+
+
+def test_save_eval_run_writes_run_id_model_system_and_rescore_into_metrics_json(tmp_path):
+    engine = get_engine(f"sqlite:///{tmp_path / 'real.db'}")
+    init_db(engine)
+    score = evalrun.RunScore(
+        system="pipeline",
+        results=[],
+        metrics=evalscore.compute_metrics([]),
+        recall=evalscore.Ratio(0, 0),
+        scored_cases=[],
+    )
+
+    with get_session_factory(engine)() as session:
+        evalrun.save_eval_run(session, "run1", MODEL, score, rescore=True)
+        row = session.scalars(select(models.EvalRun)).one()
+
+    assert row.metrics_json["run_id"] == "run1"
+    assert row.metrics_json["model"] == MODEL
+    assert row.metrics_json["system"] == "pipeline"
+    assert row.metrics_json["rescore"] is True
+    assert row.prompt_version == evalrun.extract.PROMPT_VERSION

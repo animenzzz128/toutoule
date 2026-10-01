@@ -286,3 +286,51 @@ def score_run(run_id: str, system: str, cases: list[evalset.CaseRow] | None = No
         recall=evalscore.Ratio(recall_count, recall_denominator),
         scored_cases=scored_cases,
     )
+
+
+# --- eval_runs (the real DATABASE_URL: this table tracks eval history, not eval postings) --
+
+
+def _ratio_json(ratio: evalscore.Ratio) -> dict[str, int]:
+    return {"count": ratio.count, "denominator": ratio.denominator}
+
+
+def eval_run_metrics_json(
+    run_id: str, model: str, score: RunScore, rescore: bool
+) -> dict[str, Any]:
+    """metrics_json for one models.EvalRun row. No new columns (per the owner's call):
+    run_id, model, system and rescore all live inside this JSON blob instead."""
+    metrics = score.metrics
+    return {
+        "run_id": run_id,
+        "model": model,
+        "system": score.system,
+        "rescore": rescore,
+        "critical_hallucination": _ratio_json(metrics.critical_hallucination),
+        "critical_accuracy": _ratio_json(metrics.critical_accuracy),
+        "critical_false_negative": _ratio_json(metrics.critical_false_negative),
+        "important_accuracy": _ratio_json(metrics.important_accuracy),
+        "important_missed": metrics.important_missed,
+        "reference_recall": _ratio_json(score.recall),
+        "pending": metrics.pending,
+        "provisional": metrics.provisional,
+    }
+
+
+def save_eval_run(
+    session: Session, run_id: str, model: str, score: RunScore, rescore: bool
+) -> models.EvalRun:
+    """Insert one eval_runs row for one system. The caller's session decides which
+    database — this is the real DATABASE_URL in practice, since eval_runs tracks eval
+    history, not eval postings."""
+    if score.system == "pipeline":
+        prompt_version = extract.PROMPT_VERSION
+    else:
+        prompt_version = baseline.PROMPT_VERSION
+    row = models.EvalRun(
+        prompt_version=prompt_version,
+        metrics_json=eval_run_metrics_json(run_id, model, score, rescore),
+    )
+    session.add(row)
+    session.commit()
+    return row
