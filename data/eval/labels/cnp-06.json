@@ -1,0 +1,95 @@
+{
+  "case_id": "cnp-06",
+  "company": "Not stated in raw posting",
+  "title": "产品经理实习生 - 国际化内容与服务广告",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Beijing",
+      "stated": true,
+      "evidence": "北京",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Current Bachelor's student or above",
+      "stated": true,
+      "evidence": "1、本科及以上学历在读；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "advertising products",
+      "data analysis",
+      "logical reasoning",
+      "communication",
+      "cross-functional coordination"
+    ],
+    "responsibilities": [
+      "Assist ad product strategy",
+      "Improve advertiser performance",
+      "Coordinate design, engineering and operations",
+      "Research industry trends"
+    ],
+    "team_or_function": "Content and Services Ads product team"
+  }
+}

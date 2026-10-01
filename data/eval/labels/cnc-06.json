@@ -1,0 +1,96 @@
+{
+  "case_id": "cnc-06",
+  "company": "Citi",
+  "title": "Markets – Sales and Trading, Full Time Analyst, Hong Kong - 2027",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "by 2027-06",
+      "stated": true,
+      "evidence": "graduating by June 2027",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "Hong Kong, Central and Western District, Hong Kong SAR",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-Site/Resident",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Undergraduate or Master's degree",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical skills",
+      "quantitative skills",
+      "leadership",
+      "teamwork",
+      "communication",
+      "client relationships",
+      "global economic awareness"
+    ],
+    "responsibilities": [
+      "Complete two Markets rotations",
+      "Learn sales and trading products",
+      "Develop client relationships"
+    ],
+    "team_or_function": "Markets sales and trading"
+  }
+}

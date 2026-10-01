@@ -1,0 +1,97 @@
+{
+  "case_id": "ust-09",
+  "company": "Tellius",
+  "title": "Strategic Account Manager (Post-Sales)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "account management",
+      "customer success",
+      "consultative sales",
+      "stakeholder management",
+      "project management",
+      "analytics"
+    ],
+    "responsibilities": [
+      "Onboard customers",
+      "Drive adoption and renewals",
+      "Grow accounts through upsells",
+      "Monitor usage and retention",
+      "Relay customer feedback to product teams"
+    ],
+    "team_or_function": "Strategic account management"
+  }
+}

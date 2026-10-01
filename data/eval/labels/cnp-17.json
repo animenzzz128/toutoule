@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-17",
+  "company": "Not stated in raw posting",
+  "title": "战略商业分析师",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "commercial analysis",
+      "logical reasoning",
+      "industry research",
+      "trend analysis",
+      "communication",
+      "teamwork"
+    ],
+    "responsibilities": [
+      "Discuss strategy with executives",
+      "Analyze emerging sectors",
+      "Identify growth opportunities",
+      "Coordinate business and investment"
+    ],
+    "team_or_function": "Strategic business analysis across listed business groups"
+  }
+}

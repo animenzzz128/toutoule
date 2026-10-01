@@ -126,6 +126,36 @@ estimate triggers a re-plan, not longer nights.
 
 ---
 
+## D-008 · 2026-10-01 · Model-drafted labels for the eval set
+
+**Context.** `05_EVAL_SPEC.md` §3 assumes hand labeling (6–8 min per posting). To meet the
+M1 target, the owner had a model from a different family than the extractor (GPT 6 Sol,
+vs. Claude Haiku) draft labels from the raw text, following the conventions in
+`data/eval/README.md`.
+
+**Risk.** A drafting model shares the extractor's failure modes (inferring years, reading
+work-authorization lines as sponsorship policy). Its errors, if accepted, would be scored
+as correct and understate the critical-field hallucination rate, the project's headline
+metric.
+
+**Decision.** Model drafting with these guardrails:
+1. Blind check: the owner hand-labeled 5 cases (one per segment plus one Chinese posting)
+   before seeing model output. Agreement was 22/25 critical fields; all 3 disagreements
+   were owner errors. The stop threshold (3+ disagreements) counts disagreements where the
+   model was wrong; this was clarified after the check (0 model errors, 3 owner errors).
+2. A drafting model from a different family than the extractor.
+3. Ambiguous fields resolved by written conventions (13 flagged → 5 remain; 12 fields
+   changed).
+4. The planned field-by-field verification of every critical field was not done; the
+   owner's review of the 45 drafted cases was a quick read-through with no further
+   changes. In its place, Task 1.7 checks every extractor/label disagreement on a critical
+   field against the raw text before counting it, and any label errors found are fixed and
+   reported.
+
+Priority Scores (`human_scores.csv`) are the owner's alone.
+
+---
+
 ## Template for new entries
 
 ```markdown

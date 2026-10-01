@@ -1,0 +1,97 @@
+{
+  "case_id": "ust-07",
+  "company": "Solace",
+  "title": "Associate Product Manager (College Grad 2027)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027 graduates",
+      "stated": true,
+      "evidence": "Associate Product Manager (College Grad 2027)",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Redwood City",
+      "stated": true,
+      "evidence": "Redwood City, CA",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "Location Type\r\nHybrid",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": "2027-07",
+      "stated": true,
+      "evidence": "Start date: July 2027.",
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "product research",
+      "feature testing",
+      "user interviews",
+      "spec writing",
+      "data analysis",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Research and test product ideas",
+      "Launch features",
+      "Coordinate engineers and clinicians",
+      "Write specifications",
+      "Analyze data and user needs"
+    ],
+    "team_or_function": "Healthcare product management"
+  }
+}

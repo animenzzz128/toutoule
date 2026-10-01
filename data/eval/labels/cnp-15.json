@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-15",
+  "company": "Not stated in raw posting",
+  "title": "【国际化业务】商业分析师（BA/DS）/Business Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "3 per candidate",
+      "stated": true,
+      "evidence": "最多可投递3个职位，但同一时间仅有1个职位流程处于进行中，第一志愿将被优先考虑。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Dubai",
+      "stated": true,
+      "evidence": "工作地点：迪拜",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": "English as a working language",
+      "stated": true,
+      "evidence": "6. 可将英语作为工作语言，能支持跨国家/地区的业务沟通。",
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1. 本科及以上学历，数学、统计、计算机、工科、商科等相关专业背景更佳；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "business analysis",
+      "data analysis",
+      "strategy",
+      "experimentation",
+      "LLM applications",
+      "English communication"
+    ],
+    "responsibilities": [
+      "Support business planning and strategy",
+      "Analyze operations and user needs",
+      "Contribute to experimentation platform",
+      "Explore LLM uses in business analysis"
+    ],
+    "team_or_function": "International business analytics / data science"
+  }
+}

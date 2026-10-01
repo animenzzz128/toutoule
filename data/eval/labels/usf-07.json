@@ -1,0 +1,97 @@
+{
+  "case_id": "usf-07",
+  "company": "Capital One",
+  "title": "Senior Associate, Corporate Strategy",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": "no",
+      "stated": true,
+      "evidence": "At this time, Capital One will not sponsor a new applicant for employment authorization for this position.",
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "McLean",
+      "stated": true,
+      "evidence": "McLean, Virginia",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree",
+      "stated": true,
+      "evidence": "Bachelor’s degree",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "competitive intelligence",
+      "financial analysis",
+      "market research",
+      "data analysis",
+      "problem solving",
+      "presentations"
+    ],
+    "responsibilities": [
+      "Research competitors and markets",
+      "Support senior management with analysis",
+      "Monitor financial and economic events",
+      "Analyze large financial data sets",
+      "Benchmark capital and balance sheet performance"
+    ],
+    "team_or_function": "Corporate Research within Corporate Strategy"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "case_id": "cnp-09",
+  "company": "小红书",
+  "title": "2027校招】小红书产品经理培训生（RPT）--创新产品",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "5 per candidate; 2 subdirections within 1 direction",
+      "stated": true,
+      "evidence": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位；投递后，职位方向不可更换，志愿将按顺序依次流转",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "工作地点：上海市",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "user insight",
+      "product judgment",
+      "AI product innovation",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Create AI-native products",
+      "Lead product discovery through launch",
+      "Iterate using user feedback",
+      "Work with design, engineering and operations"
+    ],
+    "team_or_function": "Lab 1327 innovation product team"
+  }
+}

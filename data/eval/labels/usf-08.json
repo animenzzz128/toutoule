@@ -1,0 +1,87 @@
+{
+  "case_id": "usf-08",
+  "company": "BlackRock",
+  "title": "Overview of Full-Time Analyst Program",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2026-09 to 2027-07",
+      "stated": true,
+      "evidence": "The Full-Time Analyst Program is for candidates who have graduated or will be graduating with a bachelor's or master's degree between September 2026 and July 2027.",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "2 functions per program application",
+      "stated": true,
+      "evidence": "Candidates can apply for up to two functions within that program (e.g., Investment Research and Analytics & Modeling). You must apply for both opportunities using the same program application.",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "The Full-Time Analyst Program is for candidates who have graduated or will be graduating with a bachelor's or master's degree between September 2026 and July 2027.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [],
+    "responsibilities": [
+      "Join an analyst team",
+      "Complete orientation and ongoing development"
+    ],
+    "team_or_function": "Full-Time Analyst Program across business areas"
+  }
+}

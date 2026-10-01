@@ -1,0 +1,95 @@
+{
+  "case_id": "cnc-10",
+  "company": "美团",
+  "title": "食杂零售管培生",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027 graduates",
+      "stated": true,
+      "evidence": "*2027届秋招的食杂零售管培生计划同学将全部入职快乐猴社区超市业务",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "3 per candidate",
+      "stated": true,
+      "evidence": "最多可投递3个职位，但同一时间仅有1个职位流程处于进行中，第一志愿将被优先考虑。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hangzhou / Beijing / Guangzhou",
+      "stated": true,
+      "evidence": "工作城市\r\n杭州市、北京市、广州市",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "retail operations",
+      "store management",
+      "people management",
+      "data and metrics management",
+      "adaptability"
+    ],
+    "responsibilities": [
+      "Learn store operations",
+      "Manage staff and performance metrics",
+      "Improve customer service and efficiency",
+      "Rotate across business functions"
+    ],
+    "team_or_function": "Grocery retail management trainee program"
+  }
+}

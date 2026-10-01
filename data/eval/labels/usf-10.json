@@ -1,0 +1,98 @@
+{
+  "case_id": "usf-10",
+  "company": "Charles River Associates",
+  "title": "(2028 Bachelor's/Master's graduates) Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027)",
+  "critical": {
+    "deadline": {
+      "value": "until filled",
+      "stated": true,
+      "evidence": "Please also note that candidate resume review will commence October 15, and continue on a rolling basis until positions are filled.",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027-12 / Summer 2028",
+      "stated": true,
+      "evidence": "Bachelor’s or Master’s degree candidates graduating in December 2027/Summer 2028",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume + cover letter + transcript",
+      "stated": true,
+      "evidence": "To be considered for a position in the United States, we require the following:",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston / Chicago / Houston / New York / Oakland",
+      "stated": true,
+      "evidence": "Boston, MA, United States; Chicago, IL, United States; Houston, Texas, United States; New York, NY, United States; Oakland, CA, United States",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "We currently ask that individuals spend 3 to 4 days a week on average working in the office",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree in Accounting, Business, Finance or a related area",
+      "stated": true,
+      "evidence": "Bachelor’s or Master’s degree candidates graduating in December 2027/Summer 2028 with an academic focus in Accounting, Business, Finance, or a related area;",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "financial analysis",
+      "accounting",
+      "valuation models",
+      "Excel",
+      "regression analysis",
+      "data analysis",
+      "consulting"
+    ],
+    "responsibilities": [
+      "Research economic and industry issues",
+      "Analyze client materials",
+      "Build financial and valuation models",
+      "Investigate financial evidence",
+      "Summarize findings in reports"
+    ],
+    "team_or_function": "Finance and Intellectual Property consulting"
+  }
+}

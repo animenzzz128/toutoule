@@ -1,0 +1,96 @@
+{
+  "case_id": "usf-06",
+  "company": "Inizio Ignite, Putnam",
+  "title": "Summer Associate Consultant (US) – 2027 Internship Program",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2028-06",
+      "stated": true,
+      "evidence": "This internship is intended for current juniors pursuing a Bachelor’s or Master’s degree in Life Sciences, Economics, Finance, or a related field, with an expected graduation date of June 2028.",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston",
+      "stated": true,
+      "evidence": "The Summer Internship Program is based in our Boston office.",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree in Life Sciences, Economics, Finance or a related field",
+      "stated": true,
+      "evidence": "current juniors pursuing a Bachelor’s or Master’s degree in Life Sciences, Economics, Finance, or a related field",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "primary research",
+      "secondary research",
+      "data analysis",
+      "strategy consulting",
+      "presentation development",
+      "communication"
+    ],
+    "responsibilities": [
+      "Interview healthcare stakeholders",
+      "Synthesize scientific and industry research",
+      "Analyze client and market data",
+      "Develop client presentations"
+    ],
+    "team_or_function": "Putnam life sciences strategy consulting"
+  }
+}

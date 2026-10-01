@@ -7,10 +7,11 @@ import sys
 from pathlib import Path
 
 from anthropic import Anthropic
+from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from toutoule import extract, models, schemas
+from toutoule import evalset, extract, models, schemas
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 
@@ -93,6 +94,46 @@ def extract_file(path: str) -> int:
     return 0
 
 
+def eval_init() -> int:
+    """Write a blank label template for every data/eval/cases.csv row without one yet."""
+    try:
+        written, existing = evalset.write_blank_labels(evalset.EVAL_DIR)
+    except FileNotFoundError:
+        print("data/eval/cases.csv not found", file=sys.stderr)
+        return 1
+    except ValidationError as error:
+        print(extract.describe_errors(error), file=sys.stderr)
+        return 1
+    print(f"Wrote {written} new label template(s); {existing} already existed.")
+    return 0
+
+
+def eval_check(final: bool) -> int:
+    """Print every eval-set problem, then composition progress. See evalset.py."""
+    problems = evalset.check_eval_set()
+    if problems:
+        print("Problems:")
+        for problem in problems:
+            print(f"  {problem}")
+    else:
+        print("No problems.")
+
+    summary = evalset.composition_summary()
+    print("\nComposition:")
+    for line in evalset.target_report(summary):
+        print(f"  {line}")
+
+    exit_code = 1 if problems else 0
+    if final:
+        missing = evalset.unmet_targets(summary)
+        if missing:
+            print("\nTargets not met (--final):")
+            for line in missing:
+                print(f"  {line}")
+            exit_code = 1
+    return exit_code
+
+
 def _manual_source(session: Session) -> models.Source:
     """The single 'manual' source for pasted postings (ADR-005), created on first use."""
     source = session.scalars(select(models.Source).where(models.Source.adapter == "manual")).first()
@@ -149,6 +190,13 @@ def main(argv: list[str] | None = None) -> int:
     commands.add_parser("init-db", help="create the database tables at DATABASE_URL")
     extract_parser = commands.add_parser("extract", help="extract one job posting from a file")
     extract_parser.add_argument("path", help="UTF-8 text file with the pasted job posting")
+    commands.add_parser("eval-init", help="write blank label templates for new cases.csv rows")
+    eval_check_parser = commands.add_parser(
+        "eval-check", help="check the eval set and report composition progress"
+    )
+    eval_check_parser.add_argument(
+        "--final", action="store_true", help="treat unmet composition targets as failures"
+    )
 
     args = parser.parse_args(argv)
     # Warnings from everything; info (per-call tokens, stop_reason) only from our own code,
@@ -157,6 +205,10 @@ def main(argv: list[str] | None = None) -> int:
     logging.getLogger("toutoule").setLevel(logging.INFO)
     if args.command == "extract":
         return extract_file(args.path)
+    if args.command == "eval-init":
+        return eval_init()
+    if args.command == "eval-check":
+        return eval_check(args.final)
     handlers = {"check-config": check_config, "init-db": init_database}
     return handlers[args.command]()
 

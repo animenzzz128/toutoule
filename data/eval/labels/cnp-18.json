@@ -1,0 +1,95 @@
+{
+  "case_id": "cnp-18",
+  "company": "Not stated in raw posting",
+  "title": "产品管培生（上海）",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027 graduates",
+      "stated": true,
+      "evidence": "1、2027届毕业生，本科及以上学历，理工科背景（信息系统、数学、统计学、运筹学等）优先；",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "简历投递",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "上海",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1、2027届毕业生，本科及以上学历，理工科背景（信息系统、数学、统计学、运筹学等）优先；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "user needs analysis",
+      "product design",
+      "data analysis",
+      "communication",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Analyze B2B and B2C user needs",
+      "Design product solutions",
+      "Coordinate engineering and design",
+      "Identify problems through data"
+    ],
+    "team_or_function": "Product management trainee"
+  }
+}

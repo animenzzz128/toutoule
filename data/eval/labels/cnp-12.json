@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-12",
+  "company": "Alibaba",
+  "title": "产品经理-搜推策略",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 to 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\r\n2026-10-31 - 2027-10-30",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "1 per business group/company; up to 2 preferences",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位），按照意向顺序流转。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Beijing",
+      "stated": true,
+      "evidence": "北京",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1. 本科以上学历，有C端产品实习经验；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "consumer product experience",
+      "data analysis",
+      "user research",
+      "search and recommendation",
+      "AI applications",
+      "cross-functional coordination"
+    ],
+    "responsibilities": [
+      "Analyze search and recommendation data",
+      "Translate user needs into product plans",
+      "Apply LLM and multimodal technology",
+      "Coordinate operations, algorithms and engineering"
+    ],
+    "team_or_function": "Search and recommendation product, 虎鲸文娱集团"
+  }
+}

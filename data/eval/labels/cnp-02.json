@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-02",
+  "company": "Lalamove",
+  "title": "Product Manager, Marketplace",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "Hong Kong SAR",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-site",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": "fluent English and Chinese (Cantonese or Mandarin)",
+      "stated": true,
+      "evidence": "Fluency in English and Chinese (Cantonese or Mandarin)",
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in a technical or business field",
+      "stated": true,
+      "evidence": "BA/BS in a technical/business field such as computer science, management, or economics",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "product management",
+      "mobile or web products",
+      "analytical thinking",
+      "business and technical communication",
+      "user research",
+      "market analysis"
+    ],
+    "responsibilities": [
+      "Set OKRs and prioritize product ideas",
+      "Turn research into product requirements",
+      "Coordinate product and stakeholder teams",
+      "Drive product development"
+    ],
+    "team_or_function": "Marketplace product management"
+  }
+}

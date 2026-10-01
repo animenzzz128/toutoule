@@ -1,0 +1,89 @@
+{
+  "case_id": "cnc-07",
+  "company": "上海证券交易所",
+  "title": "上海证券交易所2026年实习生招收启事",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "实习生招收简历投递截止时间为北京时间2026年3月8日24时。",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "1 per candidate",
+      "stated": true,
+      "evidence": "每人仅可投递1个大类专业的志愿。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "填写简历，并根据列表选择报考专业类别",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Current Bachelor's student or above",
+      "stated": true,
+      "evidence": "招收对象为本科及以上学历在读学生",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "accounting",
+      "auditing",
+      "tax law",
+      "accounting standards"
+    ],
+    "responsibilities": [],
+    "team_or_function": "Internship recruitment across five professional categories"
+  }
+}

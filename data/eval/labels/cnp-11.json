@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-11",
+  "company": "Alibaba",
+  "title": "AI产品经理-智能体",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 to 2027-10-30",
+      "stated": true,
+      "evidence": "2026-10-31 - 2027-10-30",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "1 per business group/company; up to 2 preferences",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位），按照意向顺序流转。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hangzhou",
+      "stated": true,
+      "evidence": "杭州",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历，计算机、人工智能、心理学、工业设计等相关专业优先",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "Familiar with AI technical frameworks",
+      "Designs lightweight, low-learning-cost AI solutions",
+      "Experience with AIGC or Prompt engineering",
+      "SQL/Python for user behavior analysis",
+      "Logical, self-driven, adapts to fast iteration"
+    ],
+    "responsibilities": [
+      "Leads Agent-human collaboration product design",
+      "Researches user pain points, iterates",
+      "Collaborates cross-functionally, scales 0 to 1",
+      "Tracks core metrics, data-driven decisions",
+      "Monitors industry trends, competitor analysis"
+    ],
+    "team_or_function": "千问办公"
+  }
+}

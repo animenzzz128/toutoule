@@ -1,0 +1,97 @@
+{
+  "case_id": "ust-10",
+  "company": "Momentum",
+  "title": "2027 Launch Graduate Program: Associate Strategy & Operations Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "Winter 2026 or Spring 2027",
+      "stated": true,
+      "evidence": "Graduates in Winter 2026 or Spring 2027 with Bachelor’s or Master’s degree",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Dallas",
+      "stated": true,
+      "evidence": "Dallas, Texas",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "This is a full-time, onsite opportunity based at our Dallas headquarters (The Link, 2601 Olive Street).",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": "2027-06",
+      "stated": true,
+      "evidence": "The next cohort of the Launch Program is scheduled to begin in June of 2027.",
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "Graduates in Winter 2026 or Spring 2027 with Bachelor’s or Master’s degree",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "strategy and operations",
+      "data analysis",
+      "AI tools",
+      "project management",
+      "workflow improvement",
+      "stakeholder communication"
+    ],
+    "responsibilities": [
+      "Coordinate strategic projects",
+      "Analyze data for recommendations",
+      "Improve operating processes",
+      "Track milestones and risks",
+      "Build AI and automation workflows"
+    ],
+    "team_or_function": "Strategy & Operations Launch Program"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "case_id": "usf-04",
+  "company": "BGBx",
+  "title": "Fall 2027 Associate Consultant, Life Sciences Strategy",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027-05 / 2027-06",
+      "stated": true,
+      "evidence": "This is a campus recruiting position for May 2027 & June 2027 graduates, specifically.",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Washington, DC / Boston / New York",
+      "stated": true,
+      "evidence": "Washington D.C.; Boston; New York",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "This position is hybrid in our Washington, D.C. office, our NYC office, or our Boston office.",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": "Summer 2027 / Fall 2027",
+      "stated": true,
+      "evidence": "All start dates will be in Summer 2027 & Fall 2027.",
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in any discipline",
+      "stated": true,
+      "evidence": "Required: B.S./B.A. degree from a 4-year accredited college or university in any discipline",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "primary research",
+      "data analysis",
+      "market research",
+      "strategy consulting",
+      "critical thinking",
+      "Excel",
+      "PowerPoint"
+    ],
+    "responsibilities": [
+      "Gather and analyze research",
+      "Synthesize findings",
+      "Create client presentations",
+      "Support life sciences strategy engagements"
+    ],
+    "team_or_function": "Kx Advisors life sciences strategy consulting"
+  }
+}

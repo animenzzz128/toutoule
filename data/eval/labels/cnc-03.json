@@ -1,0 +1,90 @@
+{
+  "case_id": "cnc-03",
+  "company": "上海证券交易所",
+  "title": "上海证券交易所2026年员工招聘启事",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "本次招聘简历投递截止时间为北京时间2026年3月8日24时。",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01 to 2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间应为2025年1月1日至2026年7月31日",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "1 per candidate",
+      "stated": true,
+      "evidence": "每人仅可投递1个大类专业/岗位的志愿。",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "填写简历，并根据列表选择报考专业类别或岗位",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "varies by role",
+      "stated": true,
+      "evidence": "1.硕士研究生及以上学历。",
+      "ambiguous": true,
+      "note": "Degree requirement varies by recruitment category; this span states the requirement for A01 Accounting only."
+    }
+  },
+  "reference": {
+    "skills": [
+      "accounting",
+      "auditing",
+      "financial management",
+      "tax law",
+      "accounting standards"
+    ],
+    "responsibilities": [],
+    "team_or_function": "Multiple recruitment categories; A01 Accounting detailed"
+  }
+}

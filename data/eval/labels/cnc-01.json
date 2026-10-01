@@ -1,0 +1,92 @@
+{
+  "case_id": "cnc-01",
+  "company": "Citi",
+  "title": "Banking - Commercial Banking, Summer Analyst, China – APAC, 2027",
+  "critical": {
+    "deadline": {
+      "value": "2026-11-27",
+      "stated": true,
+      "evidence": "Friday, November 27, 2026 - 23:59 Beijing Time",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027-12 to 2028-06",
+      "stated": true,
+      "evidence": "graduating between Dec 2027 – June 2028",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "3 per applicant for Asia summer internship programs",
+      "stated": true,
+      "evidence": "Each applicant can apply to maximum of 3 summer internship programs in Asia cluster.",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "Shanghai, Shanghai Municipality, China",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-Site/Resident",
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree in any discipline from a top academic institution",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "Enthusiasm, competency, and innovation",
+      "Global outlook",
+      "Interest in local SME",
+      "Results-oriented team player",
+      "Highly numerate, strong analytical skills"
+    ],
+    "responsibilities": [
+      "Mentorship and training on Commercial Banking"
+    ],
+    "team_or_function": "Commercial Banking"
+  }
+}

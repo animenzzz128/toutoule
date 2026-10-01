@@ -1,0 +1,97 @@
+{
+  "case_id": "cnp-05",
+  "company": "TikTok Shop",
+  "title": "AI产品运营 - TikTok Shop",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2027 graduates",
+      "stated": true,
+      "evidence": "1、2027届获得本科及以上学历，数学、统计学、经济学、运筹学、计算机、营销相关专业优先；",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai / Zhuhai",
+      "stated": true,
+      "evidence": "上海、珠海",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": "proficient English for work communication",
+      "stated": true,
+      "evidence": "5、熟练的英语能力，可以和跨国同事进行工作沟通与项目推进。",
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1、2027届获得本科及以上学历，数学、统计学、经济学、运筹学、计算机、营销相关专业优先；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI agents",
+      "data analysis",
+      "evaluation frameworks",
+      "NPS analysis",
+      "structured thinking",
+      "English communication"
+    ],
+    "responsibilities": [
+      "Operate an AI assistant product",
+      "Build AI capability evaluations",
+      "Monitor satisfaction and NPS",
+      "Coordinate product improvements",
+      "Track industry trends"
+    ],
+    "team_or_function": "TikTok Shop AI product operations"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "case_id": "cnc-02",
+  "company": "中国银行股份有限公司",
+  "title": "中国银行股份有限公司2027年全球校园招聘公告",
+  "critical": {
+    "deadline": {
+      "value": "2026-10-09",
+      "stated": true,
+      "evidence": "报名截止时间为北京时间2026年10月9日24点。",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "5 per candidate",
+      "stated": true,
+      "evidence": "每人最多可申请5个岗位，其中应聘北京、上海、广东、深圳等境内一级分行或直属分行可申请1-2个岗位，应聘其他一级机构可申请1个岗位；所有岗位均为平行志愿，不分先后",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "请应聘者准确、完整填写简历和相关资料信息，保证信息真实性；",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "varies by role",
+      "stated": true,
+      "evidence": "工作地点为北京、上海、合肥、呼和浩特。",
+      "ambiguous": true,
+      "note": "Location varies by business unit (10+ units each list their own cities); this span covers 信息科技运营中心 only."
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "banking",
+      "data analysis",
+      "information technology",
+      "financial markets",
+      "risk and compliance"
+    ],
+    "responsibilities": [
+      "Management trainee rotations",
+      "Banking operations",
+      "Data analysis",
+      "Technology development",
+      "Client service"
+    ],
+    "team_or_function": "Global campus recruitment across multiple banking functions"
+  }
+}

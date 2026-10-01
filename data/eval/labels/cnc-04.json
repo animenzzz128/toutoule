@@ -1,0 +1,99 @@
+{
+  "case_id": "cnc-04",
+  "company": "上交所技术有限责任公司",
+  "title": "上交所技术有限责任公司2026年招聘启事",
+  "critical": {
+    "deadline": {
+      "value": "until filled",
+      "stated": true,
+      "evidence": "招满即止，建议尽早投递。",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01 to 2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间一般为2025年1月1日至2026年7月31日",
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "2.简历投递：请登录技术公司指定网站https://ssetech2026.zhaopin.com，进入简历投递系统。",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "varies by role",
+      "stated": true,
+      "evidence": "1.硕士研究生及以上学历；",
+      "ambiguous": true,
+      "note": "Development/product and IT governance require a master’s; testing and operations require a bachelor’s."
+    }
+  },
+  "reference": {
+    "skills": [
+      "C/C++/Java",
+      "SQL",
+      "machine learning",
+      "microservices",
+      "RAG",
+      "AI agents",
+      "software testing",
+      "IT operations"
+    ],
+    "responsibilities": [
+      "Develop trading and business systems",
+      "Build AI platform use cases",
+      "Test systems and manage defects",
+      "Operate cloud and data platforms",
+      "Develop IT governance tools"
+    ],
+    "team_or_function": "Exchange technology: development, testing, operations and governance"
+  }
+}

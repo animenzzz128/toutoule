@@ -1,0 +1,97 @@
+{
+  "case_id": "cnp-01",
+  "company": "ByteDance (TikTok)",
+  "title": "Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",
+  "critical": {
+    "deadline": {
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "Applications will be reviewed on a rolling basis.",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "2 per candidate across TikTok and affiliates globally",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply. The application limit is applicable to TikTok and its affiliates' jobs globally.",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Los Angeles",
+      "stated": true,
+      "evidence": "Los Angeles",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027 Start",
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "MBA",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed an MBA degree.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "Strong business analysis, critical thinking",
+      "Strong learning, execution, communication skills",
+      "Interest in e-commerce business",
+      "Familiar with TikTok, content platforms",
+      "Network with brands or retailers",
+      "Passion for TikTok and eCommerce"
+    ],
+    "responsibilities": [
+      "Support e-commerce business strategy execution",
+      "Develop and execute comprehensive strategy",
+      "Analyze merchandise and seller performance",
+      "Collaborate with cross-functional teams",
+      "Support business operation systems implementation"
+    ],
+    "team_or_function": "TikTok Shop"
+  }
+}

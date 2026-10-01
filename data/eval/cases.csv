@@ -1,0 +1,51 @@
+case_id,segment,company,title,url,retrieved_on,language,notes
+cnc-01,cn_campus,Citi,"Banking - Commercial Banking, Summer Analyst, China – APAC, 2027",https://jobs.citi.com/job/shanghai/banking-commercial-banking-summer-analyst-china-apac-2027/287/98836109904,2026-09-30,en,timing
+cnc-02,cn_campus,中国银行 (Bank of China),中国银行股份有限公司2027年全球校园招聘公告,https://www.boc.cn/aboutboc/bi4/202609/t20260903_25689311.html,2026-09-30,zh,other; from C17
+cnc-03,cn_campus,上海证券交易所 (Shanghai Stock Exchange),上海证券交易所2026年员工招聘启事,https://www.sse.com.cn/aboutus/recruitment/sse/wanted/c/c_20260122_10806234.shtml,2026-09-30,zh,analyst; from C27
+cnc-04,cn_campus,上交所技术有限责任公司 (SSE subsidiary),上交所技术有限责任公司2026年招聘启事,https://www.sse.com.cn/aboutus/recruitment/stocom/c/c_20260414_10815156.shtml,2026-09-30,zh,other; from C28
+cnc-05,cn_campus,Citi,"Banking - Corporate Banking, Summer Analyst, China – APAC, 2027",https://jobs.citi.com/job/shanghai/banking-corporate-banking-summer-analyst-china-apac-2027/287/98836109920,2026-09-30,en,analyst; from C29
+cnc-06,cn_campus,Citi,"Markets – Sales and Trading, Full Time Analyst, Hong Kong - 2027",https://jobs.citi.com/job/hong-kong/markets-sales-and-trading-full-time-analyst-hong-kong-2027/287/100019954720,2026-09-30,en,analyst; from C31
+cnc-07,cn_campus,上海证券交易所 (Shanghai Stock Exchange),上海证券交易所2026年实习生招收启事,https://www.sse.com.cn/aboutus/recruitment/sse/wanted/c/c_20260122_10806237.shtml,2026-09-30,zh,other; from C35
+cnc-08,cn_campus,McKinsey & Company (Greater China),Business Analyst/Junior Associate - Tech & AI (e-commerce focus),https://www.mckinsey.com/careers/search-jobs/jobs/businessanalystjuniorassociate-techaie-commercefocus-104406,2026-09-30,en,consulting; from C18
+cnc-09,cn_campus,McKinsey & Company (Greater China),Business Analyst - Automotive,https://www.mckinsey.com/careers/search-jobs/jobs/businessanalyst-automotive-109741,2026-09-30,en,consulting; from C39
+cnc-10,cn_campus,Meituan,食杂零售管培生计划,https://zhaopin.meituan.com/web/trainee,2026-09-30,zh,strategy_bizops; from C60
+cnp-01,cn_platform,ByteDance (TikTok),"Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",https://lifeattiktok.com/search/7669561412465510709,2026-09-30,en,timing
+cnp-02,cn_platform,Lalamove (Huolala group),"Product Manager, Marketplace",https://jobs.lever.co/lalamove/c8aec88d-7576-4811-bfce-6c1cbaaa25b6,2026-09-30,en,timing
+cnp-03,cn_platform,ByteDance (TikTok),AI Product Manager Graduate (TikTok-Product-Content Ecosystem) - 2027 Start,https://lifeattiktok.com/search/7667472978298767621,2026-09-30,en,ai_pm; from C01
+cnp-04,cn_platform,ByteDance (TikTok),"Graduate Development Program (TikTok Shop E-commerce, Malaysia) - 2027 Start",https://lifeattiktok.com/search/7670346528779585797,2026-09-30,en,strategy_bizops; from C03
+cnp-05,cn_platform,ByteDance (TikTok),AI产品运营 - TikTok Shop,https://jobs.bytedance.com/campus/position/7668337442179336453/detail,2026-09-30,zh,manual; other
+cnp-06,cn_platform,ByteDance (TikTok),产品经理实习生 - 国际化内容与服务广告,https://jobs.bytedance.com/campus/position/7679006593040501045/detail,2026-09-30,zh,pm; from C58
+cnp-07,cn_platform,SHEIN,Associate Buyer,https://job-boards.greenhouse.io/shein/jobs/5357802008,2026-09-30,en,other; from C38; raw via greenhouse api
+cnp-08,cn_platform,Xiaohongshu,产品经理（AI Coding）,https://job.xiaohongshu.com/campus/position/22065,2026-10-01,zh,manual; ai_pm
+cnp-09,cn_platform,Xiaohongshu,小红书产品经理培训生（RPT）--创新产品,https://job.xiaohongshu.com/campus/position/22163,2026-10-01,zh,manual; ai_pm
+cnp-10,cn_platform,ZA Bank (ZA Group / ZhongAn),"Manager, Wealth Management (Marketing focus)",https://www.za.group/join-us/job?id=1,2026-09-30,bilingual,other; from C54
+cnp-11,cn_platform,Alibaba,AI产品经理-智能体,https://campus-talent.alibaba.com/campus/position/199908580004,2026-10-01,zh,manual; ai_pm
+cnp-12,cn_platform,Alibaba,产品经理-搜推策略,https://campus-talent.alibaba.com/campus/position/199907640094,2026-10-01,zh,manual; pm
+cnp-13,cn_platform,Alibaba,AI产品经理,https://campus-talent.alibaba.com/campus/position/199907700037,2026-10-01,zh,manual; ai_pm
+cnp-14,cn_platform,Meituan,AI产品经理,https://zhaopin.meituan.com/web/position/detail?jobUnionId=4697309845,2026-10-01,zh,manual; ai_pm
+cnp-15,cn_platform,Meituan,【国际化业务】商业分析师（BA/DS）/Business Analyst,https://zhaopin.meituan.com/web/position/detail?jobUnionId=4803890129,2026-10-01,zh,manual; analyst
+cnp-16,cn_platform,Tencent,AI产品经理,https://join.qq.com/post_detail.html?postid=1283126456553382912,2026-10-01,zh,manual; ai_pm
+cnp-17,cn_platform,Tencent,战略商业分析师,https://join.qq.com/post_detail.html?postid=1283126469811577856,2026-10-01,zh,manual; analyst
+cnp-18,cn_platform,PDD,产品管培生（上海）,https://careers.pddglobalhr.com/campus/grad/detail?positionId=52a3964f-10e0-4d53-b9fb-8a30aa6c4bdf,2026-10-01,zh,manual; pm
+cnp-19,cn_platform,Kuaishou,策略产品经理,https://campus.kuaishou.cn/recruit/campus/e/#/campus/job-info/13191,2026-10-01,zh,manual; pm
+cnp-20,cn_platform,Meituan,智能商业分析师（BA/DS）,https://zhaopin.meituan.com/web/position/detail?jobUnionId=4694982338,2026-10-01,zh,manual; analyst
+usf-01,us_consulting_finance,Charles River Associates,(2027 Bachelor's/Master's graduates) Economics Consulting Analyst/Associate,https://job-boards.greenhouse.io/charlesriverassociates/jobs/7894191,2026-09-30,en,timing; raw via greenhouse api
+usf-02,us_consulting_finance,Robinhood,Investment Analyst Intern (Summer 2027),https://job-boards.greenhouse.io/robinhood/jobs/8198187?gh_jid=8198187,2026-09-30,en,analyst; from C44; raw via greenhouse api
+usf-03,us_consulting_finance,McKinsey & Company,Associate,https://www.mckinsey.com/careers/search-jobs/jobs/associate-15178?loc=Milan,2026-09-30,en,consulting; from C14
+usf-04,us_consulting_finance,BGBx Consulting (Kx Advisors),"Fall 2027 Associate Consultant, Life Sciences Strategy",https://job-boards.greenhouse.io/bgbxconsulting/jobs/8121839,2026-09-30,en,consulting; from C15; raw via greenhouse api
+usf-05,us_consulting_finance,Jane Street,Strategy and Product Specialist,https://job-boards.greenhouse.io/janestreet/jobs/8056116002,2026-09-30,en,strategy_bizops; from C16; raw via greenhouse api
+usf-06,us_consulting_finance,Inizio Ignite | Putnam,Summer Associate Consultant (US) – 2027 Internship Program,https://job-boards.greenhouse.io/putnamassociatesllc/jobs/7967058,2026-09-30,en,consulting; from C21
+usf-07,us_consulting_finance,Capital One,"Senior Associate, Corporate Strategy",https://www.capitalonecareers.com/en/job/mclean/senior-associate-corporate-strategy/1732/98424204144,2026-09-30,en,strategy_bizops; from C40
+usf-08,us_consulting_finance,BlackRock,2027 Full-Time Analyst Program - AMRS,https://careers.blackrock.com/job/new-york/2027-full-time-analyst-program-amrs/45831/97843197536,2026-09-30,en,analyst; from C22
+usf-09,us_consulting_finance,The Brattle Group,Research Analyst (Economics) - July 2027,https://job-boards.greenhouse.io/thebrattlegroup/jobs/4720833005,2026-09-30,en,consulting; from C32; raw via greenhouse api
+usf-10,us_consulting_finance,Charles River Associates,(2028 Bachelor's/Master's graduates) Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027),https://job-boards.greenhouse.io/charlesriverassociates/jobs/8160288,2026-09-30,en,consulting; from C42; raw via greenhouse api
+ust-01,us_tech,Databricks,"Associate Product Manager, New Grad (2027 Start)",https://www.databricks.com/company/careers/university-recruiting---product/associate-product-manager-new-grad-2027-start-7586263002,2026-09-30,en,timing
+ust-02,us_tech,ID.me,Summer 2027 - Associate Product Manager (New Grad),https://job-boards.greenhouse.io/idmeuniversityrecruiting/jobs/7986694003,2026-09-30,en,pm; from C04; raw via greenhouse api
+ust-03,us_tech,Robinhood,Associate Product Manager (New Grad),https://job-boards.greenhouse.io/robinhood/jobs/8199973?gh_jid=8199973,2026-09-30,en,pm; from C05; raw via greenhouse api
+ust-04,us_tech,Google,"Associate Product Manager, University Graduate, 2027 Start",https://www.google.com/about/careers/applications/jobs/results/107272685397910214-associate-product-manager-university-graduate-2027-start,2026-09-30,en,pm; from C07
+ust-05,us_tech,Stripe,Product Manager: New Grad Accelerator,https://stripe.com/careers/listing/product-manager-new-grad-accelerator/7737124,2026-09-30,en,pm; from C08
+ust-06,us_tech,Fireworks AI,Associate Product Manager,https://jobs.ashbyhq.com/fireworks/69375f41-258a-4c25-ad78-5985606c438a,2026-09-30,en,ai_pm; from C47
+ust-07,us_tech,Solace,Associate Product Manager (College Grad 2027),https://jobs.ashbyhq.com/solace/ee8ee239-ad20-4c1e-868d-3357799589ea,2026-09-30,en,pm; from C23
+ust-08,us_tech,CWILL,Product Management Trainee - Bilingual Mandarin Required,https://apply.workable.com/cwill-us/jobs/view/0AF59B8964,2026-09-30,en,pm; from C56
+ust-09,us_tech,Tellius,Business Operations Generalist (New Grad),https://job-boards.greenhouse.io/tellius/jobs/4693821007,2026-09-30,en,strategy_bizops; from C12
+ust-10,us_tech,Momentum,2027 Launch Graduate Program: Associate Strategy & Operations Analyst,https://job-boards.greenhouse.io/momentumcompany3/jobs/8607054002,2026-09-30,en,strategy_bizops; from C11; raw via greenhouse api

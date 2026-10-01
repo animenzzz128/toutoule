@@ -1,0 +1,98 @@
+{
+  "case_id": "cnc-08",
+  "company": "McKinsey",
+  "title": "Associate",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Abu Dhabi / Addis Ababa / Almaty / Amsterdam / Astana / Athens / Atlanta / Auckland / Austin / Baku / Bangkok / Barcelona / Beijing / +100 more",
+      "stated": true,
+      "evidence": "Abu Dhabi\r\nAddis Ababa\r\nAlmaty\r\nAmsterdam\r\nAstana\r\nAthens\r\nAtlanta\r\nAuckland\r\nAustin\r\nBaku\r\nBangkok\r\nBarcelona\r\nBeijing\r\n+ 100 More",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": "English and local office language(s)",
+      "stated": true,
+      "evidence": "Strong communication skills, both verbal and written, in English and local office language(s), with the ability to adjust your style to suit different perspectives and seniority levels.",
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Typically an advanced graduate degree or equivalent work experience",
+      "stated": true,
+      "evidence": "Typically, an advanced graduate degree (e.g., MBA, PhD, etc.) or equivalent work experience; Requirements may vary by country or practice.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "problem solving",
+      "data analysis",
+      "research",
+      "interviews",
+      "communication",
+      "PowerPoint",
+      "Excel",
+      "time management"
+    ],
+    "responsibilities": [
+      "Own a client workstream",
+      "Research and analyze client challenges",
+      "Develop actionable recommendations",
+      "Work with clients to implement change"
+    ],
+    "team_or_function": "Client service consulting"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "case_id": "ust-05",
+  "company": "Stripe",
+  "title": "Product Manager: New Grad Accelerator",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Francisco / Seattle / New York",
+      "stated": true,
+      "evidence": "Location: In-person at Stripe offices in San Francisco, Seattle, or New York.",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "Office-assigned Stripes in most of our locations are currently expected to spend at least 50% of the time in a given month in their local office or with users.",
+      "ambiguous": true,
+      "note": "The role says in-person at the listed offices; the company-wide policy allows flexibility but may vary by team."
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Computer Science or engineering degree",
+      "stated": true,
+      "evidence": "Experience level: New grad or 0-2 years of professional experience, with a CS or engineering degree.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "coding",
+      "AI-enabled development",
+      "user research",
+      "product discovery",
+      "feature delivery",
+      "workflow automation"
+    ],
+    "responsibilities": [
+      "Understand user needs",
+      "Own product lifecycle",
+      "Build and ship features",
+      "Improve AI-enabled workflows"
+    ],
+    "team_or_function": "Product Manager New Grad Accelerator"
+  }
+}

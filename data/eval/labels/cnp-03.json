@@ -1,0 +1,96 @@
+{
+  "case_id": "cnp-03",
+  "company": "TikTok",
+  "title": "AI Product Manager Graduate (TikTok-Product-Content Ecosystem) - 2027 Start",
+  "critical": {
+    "deadline": {
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "Applications will be reviewed on a rolling basis - we encourage you to apply early.",
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": "2 per candidate across company and affiliates globally",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply. The application limit is applicable to our Company and its affiliates' jobs globally.",
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Jose",
+      "stated": true,
+      "evidence": "San Jose",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027 Start",
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in computer science, statistics, information management, data science or a related discipline",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed a Bachelor's degree in computer science, statistics, information management, data science or a related discipline.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI products",
+      "content classification",
+      "product metrics",
+      "data analysis",
+      "cross-functional communication",
+      "experimentation"
+    ],
+    "responsibilities": [
+      "Improve AI content detection",
+      "Define product roadmaps",
+      "Build multimodal and data capabilities",
+      "Evaluate model performance"
+    ],
+    "team_or_function": "Content Ecosystem product team"
+  }
+}

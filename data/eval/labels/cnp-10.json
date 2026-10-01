@@ -1,0 +1,97 @@
+{
+  "case_id": "cnp-10",
+  "company": "ZA Bank",
+  "title": "Manager, Wealth Management (Marketing focus)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "如感興趣，請將簡歷投至 career@za.group",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "香港",
+      "ambiguous": false,
+      "note": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null,
+      "ambiguous": false,
+      "note": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in Marketing, Communications, Business or related field",
+      "stated": true,
+      "evidence": "Education: Bachelor's degree in Marketing, Communications, Business, or a related field.",
+      "ambiguous": false,
+      "note": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "wealth management marketing",
+      "campaign management",
+      "content writing",
+      "KPI analysis",
+      "market analysis",
+      "stakeholder management"
+    ],
+    "responsibilities": [
+      "Plan acquisition and activation marketing",
+      "Launch new product features",
+      "Manage multi-channel campaigns",
+      "Monitor KPIs and ROI",
+      "Coordinate with Product, Compliance and Legal"
+    ],
+    "team_or_function": "Wealth Management marketing"
+  }
+}
