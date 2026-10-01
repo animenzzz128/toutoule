@@ -355,17 +355,19 @@ def score_case(
                 for line_number, row in adjudications:
                     if row.case_id != label.case_id or row.system != system or row.field != name:
                         continue
+                    current = normalize_value(name, sys_field.value)
+                    recorded = normalize_value(name, row.system_value)
+                    if current != recorded:
+                        # Stale — the system's answer changed since this was adjudicated
+                        # (even to a different outcome entirely, e.g. mismatch -> missed).
+                        # The field needs a new verdict, so it stays pending, silently.
+                        continue
                     if row.verdict not in VALID_VERDICTS[outcome]:
                         raise ValueError(
                             f"adjudications.csv line {line_number}: verdict {row.verdict!r} "
                             f"is not valid for outcome {outcome!r} ({label.case_id}.{name})"
                         )
-                    current = normalize_value(name, sys_field.value)
-                    recorded = normalize_value(name, row.system_value)
-                    if current == recorded:
-                        verdict = row.verdict
-                    # else: stale — the system's answer changed since this was adjudicated;
-                    # the field needs a new verdict, so it stays pending.
+                    verdict = row.verdict
 
             results.append(
                 FieldResult(
