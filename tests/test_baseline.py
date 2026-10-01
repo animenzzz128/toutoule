@@ -1,54 +1,16 @@
 """Tests for baseline.py. No network: a fake client stands in for anthropic.Anthropic."""
 
-from dataclasses import dataclass, field
+from fakes import FakeClient
 
 from toutoule import baseline
 
 
-@dataclass
-class _FakeBlock:
-    text: str
-    type: str = "text"
-
-
-@dataclass
-class _FakeUsage:
-    input_tokens: int
-    output_tokens: int
-
-
-@dataclass
-class _FakeResponse:
-    content: list[_FakeBlock]
-    usage: _FakeUsage
-    stop_reason: str = "end_turn"
-
-
-@dataclass
-class _FakeMessages:
-    reply_text: str
-    calls: list[dict] = field(default_factory=list)
-
-    def create(self, **kwargs):
-        self.calls.append(kwargs)
-        return _FakeResponse(content=[_FakeBlock(self.reply_text)], usage=_FakeUsage(100, 20))
-
-
-@dataclass
-class _FakeClient:
-    reply_text: str = "deadline: not stated\n"
-    messages: _FakeMessages = field(init=False)
-
-    def __post_init__(self):
-        self.messages = _FakeMessages(self.reply_text)
-
-
 def test_run_baseline_calls_the_model_plainly_no_structured_output():
-    client = _FakeClient("deadline: 2026-10-31\n")
+    client = FakeClient("deadline: 2026-10-31\n")
     text, input_tokens, output_tokens = baseline.run_baseline(client, "fake-model", "a posting")
     assert text == "deadline: 2026-10-31\n"
-    assert (input_tokens, output_tokens) == (100, 20)
-    call = client.messages.calls[0]
+    assert (input_tokens, output_tokens) == (1000, 300)
+    call = client.requests[0]
     assert "output_config" not in call
     assert "temperature" not in call
     assert call["max_tokens"] == baseline.extract.MAX_TOKENS
