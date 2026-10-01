@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Fall 2026 or Spring 2027",
+      "stated": true,
+      "evidence": "Fall 2026 or Spring 2027",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bellevue / Mountain View / San Francisco",
+      "stated": true,
+      "evidence": "Bellevue, Washington; Mountain View, California; San Francisco, California",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,30 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "bachelors or masters degree in computer science or related engineering practice",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
+    "skills": [
+      "Used AI tooling for productivity",
+      "Hands-on experience with SQL/Python",
+      "Hands-on, iterative builder/tester",
+      "Uses analytical skills for decisions",
+      "Communicates complex topics simply",
+      "Solves ambiguous problems collaboratively",
+      "Curious, continuous learner"
+    ],
+    "responsibilities": [
+      "Understand customer problems, define solutions",
+      "Prototype, test ideas with customers",
+      "Ship features on Databricks platform",
+      "Own projects end-to-end",
+      "Build with scale, quality, security"
+    ],
     "team_or_function": null
   }
 }

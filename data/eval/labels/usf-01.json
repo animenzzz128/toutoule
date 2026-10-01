@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "December 2026 or Summer 2027",
+      "stated": true,
+      "evidence": "December 2026/Summer 2027",
       "ambiguous": false,
       "note": null
     },
@@ -32,18 +32,18 @@
       "note": null
     },
     "materials_required": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "resume + cover letter + transcript + writing sample",
+      "stated": true,
+      "evidence": "Resume – please include current address, personal email and telephone number;\nCover letter – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference;\nTranscript – may be unofficial. Note: you must be graduating from a bachelor's or master's degree program for this role. If you are graduating from an MBA/PhD program or have work experience, please visit our Careers site to see current open roles;\nWriting Sample – we prefer a sole-authored submission from an existing work (class paper, thesis, internship, or work product) that includes your commentary on a quantitative analysis and/or relevant to the field of economics.",
       "ambiguous": false,
       "note": null
     }
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Boston / Chicago / Los Angeles / New York / Oakland / Tallahassee / Washington DC",
+      "stated": true,
+      "evidence": "Boston, MA, United States; Chicago, IL, United States; Los Angeles, CA, United States; New York, NY, United States; Oakland, CA, United States; Tallahassee, FL, United States; Washington, DC, United States",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,30 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's",
+      "stated": true,
+      "evidence": "Bachelor's/Master's graduates",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
+    "skills": [
+      "Honors thesis or research experience",
+      "Understands economic/financial/accounting concepts",
+      "Experience in Excel, Stata, Python",
+      "Curious, analytical, creative problem-solvers",
+      "Effective written and oral communication",
+      "Eager to learn new skills",
+      "High initiative and leadership"
+    ],
+    "responsibilities": [
+      "Collaborate with diverse expert colleagues",
+      "Conduct economic and industry research",
+      "Perform financial/economic analyses or valuations",
+      "Build models, run regression analyses",
+      "Develop familiarity with analytical data"
+    ],
     "team_or_function": null
   }
 }

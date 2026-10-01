@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Los Angeles",
+      "stated": true,
+      "evidence": "Los Angeles",
       "ambiguous": false,
       "note": null
     },
@@ -62,23 +62,36 @@
       "note": null
     },
     "start_date": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027 Start",
       "ambiguous": false,
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "MBA",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed an MBA degree.",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "Strong business analysis, critical thinking",
+      "Strong learning, execution, communication skills",
+      "Interest in e-commerce business",
+      "Familiar with TikTok, content platforms",
+      "Network with brands or retailers",
+      "Passion for TikTok and eCommerce"
+    ],
+    "responsibilities": [
+      "Support e-commerce business strategy execution",
+      "Develop and execute comprehensive strategy",
+      "Analyze merchandise and seller performance",
+      "Collaborate with cross-functional teams",
+      "Support business operation systems implementation"
+    ],
+    "team_or_function": "TikTok Shop"
   }
 }

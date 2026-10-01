@@ -18,16 +18,16 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2026-10-31 to 2027-10-30",
+      "stated": true,
+      "evidence": "2026-10-31 - 2027-10-30",
       "ambiguous": false,
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "1 per business group; max 2 positions",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位）",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Hangzhou",
+      "stated": true,
+      "evidence": "杭州",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历，计算机、人工智能、心理学、工业设计等相关专业优先",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "Familiar with AI technical frameworks",
+      "Designs lightweight, low-learning-cost AI solutions",
+      "Experience with AIGC or Prompt engineering",
+      "SQL/Python for user behavior analysis",
+      "Logical, self-driven, adapts to fast iteration"
+    ],
+    "responsibilities": [
+      "Leads Agent-human collaboration product design",
+      "Researches user pain points, iterates",
+      "Collaborates cross-functionally, scales 0 to 1",
+      "Tracks core metrics, data-driven decisions",
+      "Monitors industry trends, competitor analysis"
+    ],
+    "team_or_function": "千问办公"
   }
 }
