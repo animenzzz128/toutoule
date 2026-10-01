@@ -60,6 +60,14 @@ here, and re-check earlier labels that hit it.
    retrieval date in `cases.csv` — postings change and disappear, and an unreproducible
    eval set is worthless six weeks later.
 
+## Set summary
+
+ByteDance has 5 cases across the 50: 3 English-language postings from the overseas
+TikTok careers site (`lifeattiktok.com`) and 2 Chinese-language postings from the
+domestic campus site (`jobs.bytedance.com`). Kept as separate cases rather than
+deduplicated, because the two sites use different templates and languages — they
+exercise genuinely different extraction conditions, not the same posting twice.
+
 ## Folder layout
 
 ```
