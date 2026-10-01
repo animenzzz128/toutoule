@@ -292,3 +292,122 @@ def score_case(
                 )
             )
     return results
+
+
+# --- Metrics (05_EVAL_SPEC.md §2) -------------------------------------------------------
+
+
+@dataclass
+class Ratio:
+    """One reported number: "count / denominator (percent)"."""
+
+    count: int
+    denominator: int
+
+    @property
+    def percent(self) -> float:
+        return (self.count / self.denominator * 100) if self.denominator else 0.0
+
+    def __str__(self) -> str:
+        return f"{self.count} / {self.denominator} ({self.percent:.1f}%)"
+
+
+@dataclass
+class Metrics:
+    """Critical and important tiers only. Reference recall is computed separately by
+    reference_recall() below, since it's not a per-field outcome but a set comparison —
+    the caller sums counts/denominators across cases to get the eval-set-wide recall."""
+
+    critical_hallucination: Ratio
+    critical_accuracy: Ratio
+    critical_false_negative: Ratio
+    important_accuracy: Ratio
+    important_missed: int
+    pending: int
+    provisional: bool
+
+
+def _is_pending(result: FieldResult) -> bool:
+    """No confirmed verdict yet. label_error counts as pending too: the label hasn't
+    actually been fixed, so the field's true status is still unknown (point 4)."""
+    if result.outcome not in ("mismatch", "unsupported", "missed"):
+        return False
+    return result.verdict is None or result.verdict == "label_error"
+
+
+def compute_metrics(results: list[FieldResult]) -> Metrics:
+    """Tally FieldResults from score_case() (one system, one eval set) into Metrics.
+
+    Before a pending field is adjudicated, an unsupported field counts as a hallucination
+    and a mismatch counts as wrong — the conservative default per 05_EVAL_SPEC.md §5 — so
+    the provisional numbers never understate the hallucination rate.
+    """
+    critical = [r for r in results if r.tier == "critical" and r.outcome != "excluded"]
+    important = [r for r in results if r.tier == "important" and r.outcome != "excluded"]
+
+    pending = sum(1 for r in critical if _is_pending(r))
+
+    hallucinations = sum(
+        1
+        for r in critical
+        if (r.outcome == "unsupported" and (r.verdict == "hallucination" or _is_pending(r)))
+        or (r.outcome == "mismatch" and r.verdict == "hallucination")
+    )
+    critical_system_stated = sum(1 for r in critical if r.outcome in ("correct", "mismatch", "unsupported"))
+    critical_correct = sum(1 for r in critical if r.outcome == "correct")
+    critical_label_stated = sum(1 for r in critical if r.outcome in ("correct", "mismatch", "missed"))
+    critical_missed = sum(1 for r in critical if r.outcome == "missed")
+
+    important_system_stated = sum(1 for r in important if r.outcome in ("correct", "mismatch", "unsupported"))
+    important_correct = sum(1 for r in important if r.outcome == "correct")
+    important_missed = sum(1 for r in important if r.outcome == "missed")
+
+    return Metrics(
+        critical_hallucination=Ratio(hallucinations, len(critical)),
+        critical_accuracy=Ratio(critical_correct, critical_system_stated - hallucinations),
+        critical_false_negative=Ratio(critical_missed, critical_label_stated),
+        important_accuracy=Ratio(important_correct, important_system_stated),
+        important_missed=important_missed,
+        pending=pending,
+        provisional=pending > 0,
+    )
+
+
+# --- Reference-field recall (05_EVAL_SPEC.md §2) ----------------------------------------
+
+
+def _is_captured(label_item: str, system_items: list[str]) -> bool:
+    """One labeled item counts as captured if a system item says at least as much about
+    it, in either direction, after normalization.
+
+    Weaknesses, both deliberate trade-offs: a short or generic label item (e.g. "Excel")
+    is "captured" by any system item that merely contains it, inflating recall. Going the
+    other way, a system item only counts if it's at least half the label item's length, so
+    a vague system item like "data" doesn't capture a specific one like "data analysis and
+    SQL" — but a real paraphrase that shares few characters with the label (different
+    wording, same meaning) is missed, deflating recall.
+    """
+    label_norm = _basic_normalize(label_item)
+    if not label_norm:
+        return False
+    for system_item in system_items:
+        system_norm = _basic_normalize(system_item)
+        if not system_norm:
+            continue
+        if label_norm in system_norm:
+            return True
+        if system_norm in label_norm and len(system_norm) >= len(label_norm) / 2:
+            return True
+    return False
+
+
+def reference_recall(label: evalset.Label, output: SystemOutput) -> Ratio:
+    """Recall over skills, responsibilities and team_or_function combined."""
+    label_items = [*label.reference.skills, *label.reference.responsibilities]
+    if label.reference.team_or_function:
+        label_items.append(label.reference.team_or_function)
+    system_items = [*output.skills, *output.responsibilities]
+    if output.team_or_function:
+        system_items.append(output.team_or_function)
+    captured = sum(1 for item in label_items if _is_captured(item, system_items))
+    return Ratio(captured, len(label_items))
