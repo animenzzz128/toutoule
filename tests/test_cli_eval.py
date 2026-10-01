@@ -6,7 +6,7 @@ import pytest
 from fakes import FakeClient
 from sqlalchemy import select
 
-from toutoule import evalreport, evalrun, evalset, models
+from toutoule import baseline, evalreport, evalrun, evalset, extract, models
 from toutoule.cli import main
 from toutoule.db import get_engine, get_session_factory
 
@@ -111,3 +111,57 @@ def test_eval_writes_provisional_and_rescore_flags_into_eval_runs(
     assert row.metrics_json["run_id"] == "run1"
     assert row.metrics_json["rescore"] is False
     assert isinstance(row.metrics_json["provisional"], bool)
+
+
+def test_eval_prompt_option_selects_the_named_file_and_records_it(
+    eval_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    prompts_dir = tmp_path / "prompts"
+    prompts_dir.mkdir()
+    (prompts_dir / "extract_v2.txt").write_text(
+        "extract_v2\nA different system prompt body.", encoding="utf-8"
+    )
+    monkeypatch.setattr(extract, "PROMPTS_DIR", prompts_dir)
+    fake = use_fake_client(monkeypatch, VALID_ANSWER)
+
+    exit_code = main(
+        ["eval", "--system", "pipeline", "--cases", "cnp-01", "--prompt", "extract_v2"]
+    )
+
+    assert exit_code == 0
+    assert fake.requests[0]["system"] == "A different system prompt body."
+    meta = evalrun.load_meta(evalrun.run_dir("run1"))
+    assert meta["prompt_versions"]["pipeline"] == "extract_v2"
+
+    engine = get_engine(f"sqlite:///{tmp_path / 'real.db'}")
+    with get_session_factory(engine)() as session:
+        row = session.scalars(select(models.EvalRun)).one()
+    assert row.prompt_version == "extract_v2"
+
+    report = (tmp_path / "docs_runs" / "run1.md").read_text(encoding="utf-8")
+    assert "pipeline=extract_v2" in report
+
+
+def test_eval_unknown_prompt_name_fails_with_a_clear_message(
+    eval_dir: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr(extract, "PROMPTS_DIR", eval_dir / "no-such-dir")
+
+    exit_code = main(
+        ["eval", "--system", "pipeline", "--cases", "cnp-01", "--prompt", "extract_v99"]
+    )
+
+    assert exit_code == 1
+    assert "extract_v99" in capsys.readouterr().err
+
+
+def test_eval_system_pipeline_never_calls_the_baseline(
+    eval_dir: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def _unexpected_baseline_call(*_args: object, **_kwargs: object) -> None:
+        raise AssertionError("a pipeline-only run must not call the baseline")
+
+    monkeypatch.setattr(baseline, "run_baseline", _unexpected_baseline_call)
+    use_fake_client(monkeypatch, VALID_ANSWER)
+
+    assert main(["eval", "--system", "pipeline", "--cases", "cnp-01"]) == 0

@@ -45,12 +45,14 @@ def eval_db_url(run_id: str) -> str:
 # --- meta.json -----------------------------------------------------------------------------
 
 
-def _default_meta(run_id: str, model: str) -> dict[str, Any]:
+def _default_meta(
+    run_id: str, model: str, pipeline_prompt_version: str | None = None
+) -> dict[str, Any]:
     return {
         "run_id": run_id,
         "model": model,
         "prompt_versions": {
-            "pipeline": extract.PROMPT_VERSION,
+            "pipeline": pipeline_prompt_version or extract.PROMPT_VERSION,
             "baseline": baseline.PROMPT_VERSION,
         },
         "cases": [],
@@ -100,8 +102,12 @@ def run_pipeline_case(
     rdir: Path,
     meta: dict[str, Any],
     sleep_fn: Any = time.sleep,
+    prompt: tuple[str, str] | None = None,
 ) -> None:
-    """Run one case through the pipeline, unless its output file already exists."""
+    """Run one case through the pipeline, unless its output file already exists.
+
+    prompt is (version, body); None means extract_job's own default (extract_v1).
+    """
     out_path = rdir / "pipeline" / f"{case.case_id}.json"
     if out_path.exists():
         return
@@ -116,9 +122,12 @@ def run_pipeline_case(
     session.add(job)
     session.commit()
 
+    prompt_version, prompt_body = prompt or (extract.PROMPT_VERSION, extract.PROMPT_BODY)
     start = time.monotonic()
     try:
-        extraction = extract.extract_job(session, job, client, model)
+        extraction = extract.extract_job(
+            session, job, client, model, prompt_version=prompt_version, prompt_body=prompt_body
+        )
     except Exception as error:  # an API error and a validation failure both end the case here
         elapsed = time.monotonic() - start
         out_path.write_text(
@@ -192,13 +201,23 @@ def run_eval(
     client: extract.ModelClient,
     model: str,
     sleep_fn: Any = time.sleep,
+    prompt: tuple[str, str] | None = None,
 ) -> Path:
     """Run (or resume) one eval run. Systems already-done for a case are skipped per-case,
-    so re-running with the same run_id after a partial failure just finishes the rest."""
+    so re-running with the same run_id after a partial failure just finishes the rest.
+
+    prompt is (version, body) for the pipeline system; None means extract_v1 (the
+    module default). It only affects a freshly-created run: a resumed run keeps the
+    prompt version recorded in its own meta.json.
+    """
+    prompt_version = prompt[0] if prompt else None
     rdir = run_dir(run_id)
     (rdir / "pipeline").mkdir(parents=True, exist_ok=True)
     (rdir / "baseline").mkdir(parents=True, exist_ok=True)
-    meta = load_meta(rdir) if (rdir / "meta.json").exists() else _default_meta(run_id, model)
+    if (rdir / "meta.json").exists():
+        meta = load_meta(rdir)
+    else:
+        meta = _default_meta(run_id, model, prompt_version)
     meta["cases"] = sorted(set(meta["cases"]) | {case.case_id for case in cases})
     save_meta(rdir, meta)
 
@@ -209,7 +228,9 @@ def run_eval(
         with db.get_session_factory(engine)() as session:
             for case in cases:
                 raw_text = _read_raw(case)
-                run_pipeline_case(session, case, raw_text, client, model, rdir, meta, sleep_fn)
+                run_pipeline_case(
+                    session, case, raw_text, client, model, rdir, meta, sleep_fn, prompt
+                )
     if "baseline" in systems:
         for case in cases:
             run_baseline_case(case, _read_raw(case), client, model, rdir, meta, sleep_fn)
@@ -331,15 +352,16 @@ def eval_run_metrics_json(
 
 
 def save_eval_run(
-    session: Session, run_id: str, model: str, score: RunScore, rescore: bool
+    session: Session, run_id: str, model: str, score: RunScore, rescore: bool, prompt_version: str
 ) -> models.EvalRun:
     """Insert one eval_runs row for one system. The caller's session decides which
     database — this is the real DATABASE_URL in practice, since eval_runs tracks eval
-    history, not eval postings."""
-    if score.system == "pipeline":
-        prompt_version = extract.PROMPT_VERSION
-    else:
-        prompt_version = baseline.PROMPT_VERSION
+    history, not eval postings.
+
+    prompt_version is the one actually used for this run (meta.json's record of it), not
+    necessarily the current module default — a run can be scored long after a newer
+    prompt version has replaced it as the default.
+    """
     row = models.EvalRun(
         prompt_version=prompt_version,
         metrics_json=eval_run_metrics_json(run_id, model, score, rescore),

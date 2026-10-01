@@ -8,6 +8,7 @@ from fakes import FakeClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from toutoule import extract as extract_module
 from toutoule import models, schemas
 from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.extract import (
@@ -117,6 +118,24 @@ def test_load_prompt_splits_tag_from_body(tmp_path: Path) -> None:
     prompt_file.write_text("extract_v9\nDo the thing.\n", encoding="utf-8")
 
     assert load_prompt(prompt_file) == ("extract_v9", "Do the thing.")
+
+
+def test_load_prompt_by_name_reads_the_matching_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(extract_module, "PROMPTS_DIR", tmp_path)
+    (tmp_path / "extract_v9.txt").write_text("extract_v9\nDo the thing.\n", encoding="utf-8")
+
+    assert extract_module.load_prompt_by_name("extract_v9") == ("extract_v9", "Do the thing.")
+
+
+def test_load_prompt_by_name_unknown_name_raises_with_the_path(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(extract_module, "PROMPTS_DIR", tmp_path)
+
+    with pytest.raises(extract_module.PromptNotFound, match="extract_v9"):
+        extract_module.load_prompt_by_name("extract_v9")
 
 
 # --- (d), (e) retry ----------------------------------------------------------------------

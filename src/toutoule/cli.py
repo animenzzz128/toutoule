@@ -135,7 +135,11 @@ def eval_check(final: bool) -> int:
 
 
 def eval_command(
-    system: str, cases_arg: str | None, resume: str | None, rescore: str | None
+    system: str,
+    cases_arg: str | None,
+    resume: str | None,
+    rescore: str | None,
+    prompt_name: str,
 ) -> int:
     """Run and score the eval set, or resume/rescore an existing run. Returns the exit code."""
     try:
@@ -148,6 +152,11 @@ def eval_command(
     if rescore:
         run_id = rescore
     else:
+        try:
+            prompt = extract.load_prompt_by_name(prompt_name)
+        except extract.PromptNotFound as error:
+            print(error, file=sys.stderr)
+            return 1
         run_id = resume or evalrun.new_run_id()
         try:
             cases = _select_cases(run_id, resume, cases_arg)
@@ -155,10 +164,11 @@ def eval_command(
             print(f"No run folder for {run_id!r}: nothing to resume", file=sys.stderr)
             return 1
         client = Anthropic(api_key=settings.anthropic_api_key.get_secret_value())
-        evalrun.run_eval(run_id, cases, systems, client, settings.extraction_model)
+        evalrun.run_eval(run_id, cases, systems, client, settings.extraction_model, prompt=prompt)
 
     engine = get_engine(settings.database_url)
     init_db(engine)
+    meta = evalrun.load_meta(evalrun.run_dir(run_id))
     scores: dict[str, evalrun.RunScore] = {}
     with get_session_factory(engine)() as session:
         for name in ("pipeline", "baseline"):
@@ -167,10 +177,14 @@ def eval_command(
             score = evalrun.score_run(run_id, name)
             scores[name] = score
             evalrun.save_eval_run(
-                session, run_id, settings.extraction_model, score, rescore=bool(rescore)
+                session,
+                run_id,
+                settings.extraction_model,
+                score,
+                rescore=bool(rescore),
+                prompt_version=meta["prompt_versions"][name],
             )
 
-    meta = evalrun.load_meta(evalrun.run_dir(run_id))
     report_path = evalreport.write_report(run_id, meta, scores)
     print(evalreport.tier_table(scores))
     print(f"\nReport: {report_path}")
@@ -259,6 +273,11 @@ def main(argv: list[str] | None = None) -> int:
     eval_parser = commands.add_parser("eval", help="run and score the eval set")
     eval_parser.add_argument("--system", choices=["pipeline", "baseline", "both"], default="both")
     eval_parser.add_argument("--cases", help="comma-separated case ids, default all")
+    eval_parser.add_argument(
+        "--prompt",
+        default="extract_v1",
+        help="pipeline prompt version to run, loaded from data/prompts/<name>.txt",
+    )
     eval_run_group = eval_parser.add_mutually_exclusive_group()
     eval_run_group.add_argument("--resume", metavar="RUN_ID", help="continue an interrupted run")
     eval_run_group.add_argument(
@@ -277,7 +296,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "eval-check":
         return eval_check(args.final)
     if args.command == "eval":
-        return eval_command(args.system, args.cases, args.resume, args.rescore)
+        return eval_command(args.system, args.cases, args.resume, args.rescore, args.prompt)
     handlers = {"check-config": check_config, "init-db": init_database}
     return handlers[args.command]()
 

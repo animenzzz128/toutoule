@@ -173,7 +173,14 @@ def test_save_eval_run_writes_run_id_model_system_and_rescore_into_metrics_json(
     )
 
     with get_session_factory(engine)() as session:
-        evalrun.save_eval_run(session, "run1", MODEL, score, rescore=True)
+        evalrun.save_eval_run(
+            session,
+            "run1",
+            MODEL,
+            score,
+            rescore=True,
+            prompt_version=evalrun.extract.PROMPT_VERSION,
+        )
         row = session.scalars(select(models.EvalRun)).one()
 
     assert row.metrics_json["run_id"] == "run1"
