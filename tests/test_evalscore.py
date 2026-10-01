@@ -227,3 +227,79 @@ def test_failed_extraction_counts_as_missed_never_as_hallucination():
     assert outcomes["application_cap"] == "correct_absent"
     metrics = evalscore.compute_metrics(results)
     assert metrics.critical_hallucination.count == 0
+
+
+# --- Reference recall ----------------------------------------------------------------------
+
+
+def test_recall_on_a_small_list_example():
+    label = make_label()
+    label.reference.skills.extend(["Python", "SQL", "A/B testing"])
+    output = make_output(skills=["Python", "Advanced SQL", "Excel"])
+    recall = evalscore.reference_recall(label, output)
+    # "Python" and "SQL" are captured (substrings of system items); "A/B testing" is not.
+    assert recall.count == 2
+    assert recall.denominator == 3
+
+
+def test_recall_weakness_generic_label_item_inflates_recall():
+    label = make_label()
+    label.reference.skills.append("data")
+    output = make_output(skills=["Data Analysis and SQL"])
+    # "data" is a substring of the system's item, so it counts as captured even though
+    # the system never said anything specific to the label's actual skill.
+    assert evalscore.reference_recall(label, output).count == 1
+
+
+def test_recall_weakness_vague_system_item_does_not_capture_a_specific_label_item():
+    label = make_label()
+    label.reference.skills.append("data analysis and SQL")
+    output = make_output(skills=["data"])
+    # "data" is under half the length of the label item, so it does not count — this is
+    # the fix for the inflate case above, but it means a real paraphrase using different
+    # words entirely would also be missed, deflating recall.
+    assert evalscore.reference_recall(label, output).count == 0
+
+
+# --- Loading equivalences.csv / adjudications.csv ------------------------------------------
+# tmp_path is a built-in pytest fixture: pytest creates a fresh, empty directory for each
+# test and passes it in as a pathlib.Path, so file-based tests never touch real project
+# files and never need their own cleanup.
+
+
+def test_load_equivalences_from_csv(tmp_path):
+    path = tmp_path / "equivalences.csv"
+    path.write_text(
+        "field,label_value,system_value,note\n"
+        "degree_requirement,Bachelor's or above,本科及以上,common phrasing\n",
+        encoding="utf-8",
+    )
+    entries = evalscore.load_equivalences(path)
+    assert (
+        "degree_requirement",
+        evalscore.normalize_value("degree_requirement", "Bachelor's or above"),
+        evalscore.normalize_value("degree_requirement", "本科及以上"),
+    ) in entries
+
+
+def test_load_adjudications_reports_line_numbers(tmp_path):
+    path = tmp_path / "adjudications.csv"
+    path.write_text(
+        "case_id,system,field,system_value,verdict,note\n"
+        "cnp-01,pipeline,deadline,2026-10-31,hallucination,\n",
+        encoding="utf-8",
+    )
+    rows = evalscore.load_adjudications(path)
+    assert rows == [(2, evalscore.AdjudicationRow(
+        case_id="cnp-01", system="pipeline", field="deadline", system_value="2026-10-31", verdict="hallucination"
+    ))]
+
+
+def test_load_adjudications_rejects_invalid_verdict(tmp_path):
+    path = tmp_path / "adjudications.csv"
+    path.write_text(
+        "case_id,system,field,system_value,verdict,note\ncnp-01,pipeline,deadline,2026-10-31,bogus,\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="line 2"):
+        evalscore.load_adjudications(path)
