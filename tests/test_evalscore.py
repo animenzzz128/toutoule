@@ -196,6 +196,23 @@ def test_graduation_window_converts_month_year_regardless_of_separator():
         assert _score(label, output, field="graduation_window").outcome == "correct"
 
 
+def test_graduation_window_nnnn_jie_shortcut_matches_label_graduates_phrasing():
+    # cnp-05: label "2027 graduates", system (pipeline) literally "2027届". Before the
+    # fix, the shortcut returned a plain string while every other value is a frozenset,
+    # so the two could never compare equal even when they meant the same thing.
+    label = make_label(critical={"graduation_window": _field("2027 graduates")})
+    output = make_output(critical={"graduation_window": _stated("2027届")})
+    assert _score(label, output, field="graduation_window").outcome == "correct"
+
+
+def test_graduation_window_range_separators_match_to():
+    # cnc-03: label "2025-01-01 to 2026-07-31", system (pipeline) "2025-01-01至2026-07-31"
+    # — same range, written with the Chinese "至" instead of the English "to".
+    label = make_label(critical={"graduation_window": _field("2025-01-01 to 2026-07-31")})
+    output = make_output(critical={"graduation_window": _stated("2025-01-01至2026-07-31")})
+    assert _score(label, output, field="graduation_window").outcome == "correct"
+
+
 def test_degree_requirement_drops_trailing_degree_word():
     label = make_label(important={"degree_requirement": _field("Bachelor's or Master's")})
     output = make_output(important={"degree_requirement": _stated("Bachelor's or Master's degree")})

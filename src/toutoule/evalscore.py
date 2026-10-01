@@ -114,6 +114,10 @@ _MONTHS = {
     "oct": "10", "october": "10", "nov": "11", "november": "11", "dec": "12", "december": "12",
 }  # fmt: skip
 _MONTH_YEAR = re.compile(r"^(?P<month>[A-Za-z]+)\.?\s+(?P<year>\d{4})$")
+# A range between two dates: " - ", " – " and " — " need spaces on both sides so the
+# date-internal hyphen in "2026-10-31" is never touched; "至" never has spaces around it
+# in these postings, so the pattern doesn't require any.
+_RANGE_SEPARATOR = re.compile(r"\s[-–—]\s|至")
 
 _TRAILING_DEGREE_WORD = re.compile(r"\s*degrees?\s*$", re.IGNORECASE)
 
@@ -177,6 +181,7 @@ def _convert_month_year(token: str) -> str:
 
 
 def _split_graduation(value: str) -> frozenset[str]:
+    value = _RANGE_SEPARATOR.sub(" to ", value)
     parts = (_convert_month_year(part.strip()) for part in re.split(r"[;/]", value))
     return frozenset(_basic_normalize(part) for part in parts if _basic_normalize(part))
 
@@ -196,7 +201,10 @@ def normalize_value(field: str, value: str | None) -> str | frozenset[str] | Non
     if field == "graduation_window":
         graduation_match = _GRADUATION_YEAR.match(key)
         if graduation_match:
-            return _basic_normalize(f"{graduation_match.group(1)} graduates")
+            # Same type (frozenset) as every other graduation_window value below, so
+            # "2027届" compares equal to a label's "2027 graduates" instead of never
+            # matching purely because one side is a str and the other a frozenset.
+            return frozenset({_basic_normalize(f"{graduation_match.group(1)} graduates")})
     alias = ALIASES.get((field, key))
     if alias is not None:
         return _basic_normalize(alias)
