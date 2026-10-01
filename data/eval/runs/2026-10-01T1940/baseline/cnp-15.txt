@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: 3 per candidate
+materials_required: not stated
+location: Dubai
+work_model: not stated
+language_requirement: English as working language
+start_date: not stated
+degree_requirement: Bachelor's degree or above
+skills: data analysis; business analysis; data science; AI tools; large language models; SQL; data visualization
+responsibilities: business planning and strategy; operational analysis; designing solutions for complex business problems; data analysis and insights; building experimental platform; exploring LLM applications in business analysis
+team_or_function: not stated
+company: not stated
+title: Business Analyst (BA/DS)

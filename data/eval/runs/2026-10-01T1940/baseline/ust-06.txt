@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: San Mateo
+work_model: hybrid
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field
+skills: AI/LLM knowledge; written and verbal communication; analytical skills; user empathy; hands-on experience with AI/ML infrastructure (inference serving, fine-tuning pipelines, embeddings, agent frameworks); familiarity with developer-focused products and API/SDK experience
+responsibilities: Act as trusted technical advisor to customers on GenAI strategy; partner with engineering, design, and data science teams to define and ship product features; engage directly with customers to identify use cases and drive expansion; partner with GTM functions to evangelize new products
+team_or_function: Product
+company: Fireworks
+title: Associate Product Manager

@@ -1,0 +1,15 @@
+deadline: 2026-09-30
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: 北京
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: logical thinking; business sensitivity; data sensitivity; requirement management; project management; team collaboration; data analysis; product design understanding; user experience understanding; product thinking; innovation awareness
+responsibilities: develop product strategy for different scenarios (recommendations, growth virality, trending features); drive strategy iteration and productization; conduct user research and data analysis to identify user needs; evaluate effectiveness and propose improvements; collect internal and external requirements; track competitor dynamics; discover optimization opportunities; learn industry trends through user research, competitor analysis, and data analysis
+team_or_function: not stated
+company: not stated
+title: 策略产品经理

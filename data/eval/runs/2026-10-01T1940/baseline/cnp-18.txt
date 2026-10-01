@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: not stated
+materials_required: not stated
+location: Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: 2026-09-01
+degree_requirement: Bachelor's or above
+skills: curiosity; willingness to learn; communication and expression skills; logical thinking; self-driven; project ownership; passion for product management; user-centric thinking
+responsibilities: analyze and break down B2B/C2C user needs and design product solutions; communicate and collaborate with R&D and design teams to execute tasks and drive project delivery; identify problems through user insight and data analysis and propose innovative solutions
+team_or_function: Product
+company: not stated
+title: Product Management Trainee (Shanghai)

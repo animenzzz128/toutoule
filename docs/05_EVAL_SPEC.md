@@ -53,6 +53,47 @@ three-value enum, whitespace and case collapsed).
 **Recall** — for list fields, the fraction of labeled items captured. Precision is not a
 target: extra plausible skills cost the reader nothing.
 
+### Scoring implementation notes
+
+- **Five outcomes per critical/important field:** `correct_absent` (neither side states
+  it), `correct`, `mismatch` (both stated, values differ), `unsupported` (system stated,
+  label did not), `missed` (label stated, system did not).
+- **Denominators:** critical hallucination is counted over all scored critical fields
+  (ambiguous excluded); critical accuracy over system-stated critical fields minus
+  hallucinations; critical false-negative over label-stated critical fields; important
+  accuracy over system-stated important fields (unsupported counts as an error there, no
+  adjudication); reference recall over labeled list items, reported per field (skills,
+  responsibilities, team_or_function) and as a combined total.
+- **Provisional:** a run's metrics are provisional until every critical
+  mismatch/unsupported/missed field has an owner verdict (or a matching equivalence). An
+  unsupported field with no verdict yet counts as a hallucination by default, and a
+  mismatch as wrong — the conservative assumption, so provisional numbers never
+  understate the hallucination rate.
+- **Verdicts:** `h` (hallucination), `w` (wrong — stated but imprecise/incomplete, not
+  invented), `m` (missed — confirmed false negative), `le` (label_error — the label
+  itself was wrong; fixed directly in the label file, not recorded as a verdict). An `h`
+  verdict's note is prefixed `misfiled:` when the system attached a real, correctly
+  quoted span to the wrong field (e.g. a start date reported as the graduation window),
+  distinguishing it from a fabricated value with no textual basis at all.
+- **Equivalences are system-independent:** one `equivalences.csv` row (field, label
+  value, system value) applies to both the pipeline and the baseline, and to every case
+  where that exact pair recurs.
+- **Ambiguous fields are excluded for both systems** — never counted toward any metric,
+  for either the pipeline or the baseline.
+- **Normalization rules:** `location`, `materials_required` and `graduation_window`
+  compare as order-insensitive sets after splitting on their field-specific separators;
+  English month names convert to `YYYY-MM` (`graduation_window` only); `NNNN届` converts
+  to the label's `NNNN graduates` phrasing; `-`/`–`/`—`/至 between two dates normalize to
+  `to`. Dates are otherwise compared as written — a year is never added where the source
+  didn't give one.
+- **Recall is ≥50% content-word coverage** (stopwords and domain words dropped, pooled
+  across a field's system items). This under-counts a real paraphrase that shares few
+  words with the label, and under-counts a Chinese system answer against an English
+  label even when they mean the same thing, since the words literally don't overlap.
+- **The baseline is `extract_v1.txt` minus three things:** the JSON schema, the evidence
+  requirement, and the verbatim-verification check. Same field definitions, same value
+  formats, same model.
+
 ## 3. Building the eval set
 
 **Size:** 50 job descriptions.
@@ -176,3 +217,32 @@ State these limits plainly. Volunteering them is more persuasive than being caug
   weight the owner's primary market and may not reflect performance on other segments.
 - **Match scoring is calibrated to one person.** It reflects the owner's judgment, including
   its biases. Phase 3's external pilot is the first real test of whether it transfers.
+
+## Scoring harness normalization rules (Task 1.7 Part E)
+
+Found and fixed after the first real run (`2026-10-01T1920`), which surfaced false
+mismatches that were punctuation and phrasing differences, not real extraction errors.
+These are harness rules only — they never touch `extract_v1.txt`, `baseline_plain_v1.txt`,
+or any label, and every rule applies identically to both systems.
+
+**List-like text fields, compared as order-insensitive sets after normalization:**
+- `materials_required` splits on `+`, `;`, `,`, `/` and the word "and".
+- `location` splits on `;` and `/`. "Washington, DC" and "Washington D.C." are folded to
+  "washington dc" *before* a trailing `, XX` US state code is stripped — otherwise the "DC"
+  reads as a state abbreviation and the city name is lost. Any comma still remaining after
+  that is then split too.
+- `graduation_window` splits on `/` and `;` (treated as the same separator) and converts an
+  English "Month YYYY" token (full or short name) to `YYYY-MM` on either side. "to" ranges
+  are left as written. A year is never added where the source didn't give one.
+
+**`degree_requirement`** drops a trailing "degree"/"degrees" before comparing, so
+"Bachelor's or Master's" and "Bachelor's or Master's degree" are the same value.
+
+**Reference recall** tokenizes each item into lowercase content words, dropping a short
+English stopword list plus "ability", "skills", "strong" and "experience" (generic enough
+in this domain that nearly every item carries one). A label item counts as captured if at
+least 50% of its content words appear anywhere in that field's system items, pooled
+together rather than matched one item at a time. `team_or_function` keeps the original
+substring rule instead, since it's a single string, not a list. Recall is reported per
+field (skills / responsibilities / team_or_function) as well as the combined total that
+§2's ≥80% target applies to.

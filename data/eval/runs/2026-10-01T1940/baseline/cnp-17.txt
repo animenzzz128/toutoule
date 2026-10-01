@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: not stated
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: business analysis; logical reasoning; insight into technology, business and social trends; communication; teamwork
+responsibilities: dialogue with executive team on company-level strategy; analyze emerging sectors to identify growth opportunities; cross-functional collaboration between business and investment teams
+team_or_function: CDG (Enterprise Development Group); IEG (Interactive Entertainment Group); WXG (WeChat Group)
+company: not stated
+title: 战略商业分析师

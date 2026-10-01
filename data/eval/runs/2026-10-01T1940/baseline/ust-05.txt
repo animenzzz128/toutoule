@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: San Francisco, Seattle, or New York
+work_model: hybrid
+language_requirement: not stated
+start_date: not stated
+degree_requirement: CS or engineering degree
+skills: AI-enabled problem solving; user research; product design; feature implementation; deployment; iteration; ownership mindset; workflow optimization
+responsibilities: Embed deeply with Stripe's users; understand user needs and forge solutions; own entire lifecycle from discovery through iteration; work on assigned team; navigate technical constraints and process friction; refine workflows and tooling; deliver meaningful features weekly; maintain quality standards
+team_or_function: not stated
+company: Stripe
+title: Product Manager: New Grad Accelerator

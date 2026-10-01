@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: Fall 2026 or Spring 2027
+application_cap: not stated
+materials_required: not stated
+location: Bellevue, Washington; Mountain View, California; San Francisco, California
+work_model: not stated
+language_requirement: not stated
+start_date: 2027
+degree_requirement: Bachelor's or Master's in computer science or related engineering field
+skills: AI tooling; SQL; Python; analytical skills; communication skills
+responsibilities: Understand customer problem space; prototype and test ideas with customers and engineers; work with engineers and designers to ship features; manage project end-to-end including design, build, launch, and iterate on feedback; build with scale, quality, and security in mind
+team_or_function: AI Platform, Genie, Machine Learning, Unity Catalog, Databricks SQL, ETL, Streaming, and EDA
+company: Databricks
+title: Associate Product Manager, New Grad (2027 Start)

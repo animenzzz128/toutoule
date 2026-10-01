@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "上海证券交易所",
+  "title": "2026年实习生",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "实习生招收简历投递截止时间为北京时间2026年3月8日24时"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027年应届毕业生优先",
+      "stated": true,
+      "evidence": "且2026年暑期能够在上交所实习，2027年应届毕业生优先"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "简历",
+      "stated": true,
+      "evidence": "请登录上交所指定网站https://ideal.51job.com/sse2026，进入简历投递系统"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "上海",
+      "stated": true,
+      "evidence": "上海证券交易所"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2026年暑期",
+      "stated": true,
+      "evidence": "2026年暑期能够在上交所实习"
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "招收对象为本科及以上学历在读学生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "会计",
+      "审计",
+      "税法",
+      "国际国内会计准则"
+    ],
+    "responsibilities": [],
+    "team_or_function": null
+  }
+}

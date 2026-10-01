@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Abu Dhabi; Addis Ababa; Almaty; Amsterdam; Astana; Athens; Atlanta; Auckland; Austin; Baku; Bangkok; Barcelona; Beijing; + 100 more
+work_model: not stated
+language_requirement: English and local office language(s)
+start_date: not stated
+degree_requirement: Master's or above (advanced graduate degree such as MBA or PhD, or equivalent work experience)
+skills: Organization capabilities; independent task initiation and completion; strong verbal and written communication; rational decision making based on data and facts; ability to create work product materials (PowerPoint, Excel, written deliverables); time management; ability to work outside traditional business hours; ability to travel to and work in varying environments
+responsibilities: Join client service team; take ownership of workstream; solve client challenges; uncover true challenges behind client strategy; create actionable plans; combine research, data analysis, interviews, brainstorming; generate insights and solutions; help clients solve problems, refine strategies, implement transformations; equip clients with tools and knowledge for continued innovation
+team_or_function: Client service team
+company: McKinsey
+title: Associate

@@ -1,0 +1,15 @@
+deadline: 2026-09-14
+visa_sponsorship: conditional
+graduation_window: not stated
+application_cap: not stated
+materials_required: cover letter; resume; transcript(s)
+location: Washington, District of Columbia, United States
+work_model: onsite
+language_requirement: not stated
+start_date: 2027-07
+degree_requirement: undergraduate degree in quantitative discipline
+skills: quantitative analysis; programming (R, Python, Stata, SAS, Excel, VBA); econometrics; statistical analysis; data analysis; model building; research; writing
+responsibilities: build quantitative models and data-based solutions; conduct qualitative research and literature reviews; assist in preparing expert reports and presentations; collaborate with team members on economic and financial analysis
+team_or_function: METRICS practice
+company: The Brattle Group
+title: Research Analyst (Economics)

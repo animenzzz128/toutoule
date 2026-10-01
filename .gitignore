@@ -222,3 +222,6 @@ data/private/
 data/*.db
 data/*.db-journal
 data/profile/real_*
+# Already covered by data/private/ above; explicit so EVAL_DB_DIR's intent is never
+# accidentally relied on only the broader rule (Task 1.7 Part B).
+data/private/eval/*.db

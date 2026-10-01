@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "BGBx",
+  "title": "Fall 2027 Associate Consultant, Life Sciences Strategy",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "May 2027 & June 2027",
+      "stated": true,
+      "evidence": "This is a campus recruiting position for May 2027 & June 2027 graduates, specifically."
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Washington D.C., Boston, New York",
+      "stated": true,
+      "evidence": "Washington D.C.; Boston; New York"
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "This position is hybrid in our Washington, D.C. office, our NYC office, or our Boston office."
+    },
+    "language_requirement": {
+      "value": "Foreign language skills preferred, but not required",
+      "stated": true,
+      "evidence": "Foreign language skills preferred, but not required"
+    },
+    "start_date": {
+      "value": "Summer 2027 & Fall 2027",
+      "stated": true,
+      "evidence": "All start dates will be in Summer 2027 & Fall 2027."
+    },
+    "degree_requirement": {
+      "value": "B.S./B.A. degree from a 4-year accredited college or university",
+      "stated": true,
+      "evidence": "Required: B.S./B.A. degree from a 4-year accredited college or university in any discipline"
+    }
+  },
+  "reference": {
+    "skills": [
+      "quantitative techniques",
+      "analytical frameworks",
+      "presentation creation",
+      "primary and secondary research",
+      "critical thinking",
+      "problem-solving",
+      "written and verbal communication",
+      "Excel",
+      "PowerPoint",
+      "MS Word"
+    ],
+    "responsibilities": [
+      "Drive the research and fact-gathering process",
+      "Analyze and synthesize findings",
+      "Develop deliverables for clients",
+      "Support engagements through creation of creative and impactful presentations",
+      "Distill actionable and intriguing insights from research",
+      "Communicate conclusions directly to clients"
+    ],
+    "team_or_function": "Kx Advisors"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "ID.me",
+  "title": "Summer 2027 - Associate Product Manager (New Grad)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "May/June 2027",
+      "stated": true,
+      "evidence": "Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience)."
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Mountain View, CA or McLean, VA",
+      "stated": true,
+      "evidence": "This role is based out of our Mountain View, CA or McLean, VA offices and requires full-time in-office attendance."
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "ID.me is a full-time, in-office culture. Unless a specific job description explicitly states otherwise, all roles are on-site five days per week"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "Summer 2027",
+      "stated": true,
+      "evidence": "Summer 2027 - Associate Product Manager (New Grad)"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in Business, Engineering, Computer Science, or related field",
+      "stated": true,
+      "evidence": "Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience)."
+    }
+  },
+  "reference": {
+    "skills": [
+      "written and verbal communication",
+      "API familiarity",
+      "data modeling concepts",
+      "modern AI coding tools"
+    ],
+    "responsibilities": [
+      "Own the definition and delivery of discrete features or workflows",
+      "Break down roadmap priorities into clear, sequenced work",
+      "Write specs and acceptance criteria",
+      "Partner with engineering, design, and data",
+      "Track launch metrics and user feedback",
+      "Keep PM lead and cross-functional partners informed on status, risks, and trade-offs"
+    ],
+    "team_or_function": "Platform Product Management"
+  }
+}

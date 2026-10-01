@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "阿里巴巴",
+  "title": "产品经理-搜推策略",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 - 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\n2026-10-31 - 2027-10-30"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京",
+      "stated": true,
+      "evidence": "北京"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科以上学历",
+      "stated": true,
+      "evidence": "本科以上学历，有C端产品实习经验"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析能力",
+      "产品优化",
+      "大模型应用",
+      "多模态技术"
+    ],
+    "responsibilities": [
+      "负责搜索推荐日常数据分析及用户需求洞察",
+      "转化为产品方案持续提升搜索推荐能力",
+      "推动大模型、多模态技术在搜索推荐等核心场景的落地",
+      "协同运营、算法、工程团队高效推动项目高质量落地",
+      "对项目目标负责"
+    ],
+    "team_or_function": "搜索推荐"
+  }
+}

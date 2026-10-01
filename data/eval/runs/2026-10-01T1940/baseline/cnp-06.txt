@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Beijing
+work_model: onsite
+language_requirement: English fluency preferred
+start_date: not stated
+degree_requirement: Bachelor's or above, currently enrolled
+skills: data analysis; logical thinking; communication and coordination; problem-solving; teamwork; execution
+responsibilities: assist in product strategy design for international app performance advertising; optimize advertiser ROI and efficiency; coordinate cross-functional teams (design, R&D, algorithm, operations) from requirement to launch; monitor industry trends and drive product innovation
+team_or_function: Content and Service Advertising team
+company: not stated
+title: Product Manager Intern - International Content and Service Advertising

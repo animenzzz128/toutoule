@@ -1,0 +1,15 @@
+deadline: rolling basis
+visa_sponsorship: not stated
+graduation_window: 2027-12 to 2028-06
+application_cap: 3 per candidate
+materials_required: not stated
+location: Shanghai, Shanghai Municipality, China
+work_model: onsite
+language_requirement: not stated
+start_date: 2027 summer
+degree_requirement: Bachelor's or Master's degree
+skills: dedication to learning; global perspective on banking; commitment to personal growth; strong communication, planning, and organizational skills; desire to develop understanding of financial industry; commitment to integrity and ethical decision-making
+responsibilities: provide advice to clients on strategic objectives including mergers and acquisitions; work with Capital Markets Origination team to help clients raise capital in equity and debt capital markets
+team_or_function: Corporate Banking
+company: Citi
+title: Summer Analyst

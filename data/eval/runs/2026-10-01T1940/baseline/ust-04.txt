@@ -1,0 +1,15 @@
+deadline: 2026-10-06
+visa_sponsorship: not stated
+graduation_window: 2027-04 to 2027-08
+application_cap: not stated
+materials_required: resume or CV; unofficial or official transcript in English
+location: Mountain View, CA, USA; New York, NY, USA; San Bruno, CA, USA; San Jose, CA, USA
+work_model: not stated
+language_requirement: English fluently
+start_date: 2027-04 to 2027-08
+degree_requirement: degree program in Product Management, Computer Science, Engineering, Data Science, Mathematics, Statistics, or related technical field, or equivalent practical experience
+skills: product management; software development; entrepreneurial leadership; cross-functional relationships; technical presentations; AI/ML concepts; programming languages; data analysis; business modeling; pricing; design; problem-solving; organizational; investigative; critical thinking
+responsibilities: understand markets and user requirements in depth; launch products and features, test their performance, and iterate quickly; work collaboratively with Engineering, Marketing, Legal, and UX on technologies; develop innovative solutions to problems by collaborating across regions, product areas, and functions
+team_or_function: Product Management
+company: Google
+title: Associate Product Manager, University Graduate, 2027 Start

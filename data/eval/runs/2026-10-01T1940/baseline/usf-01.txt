@@ -1,0 +1,15 @@
+deadline: rolling basis until positions are filled
+visa_sponsorship: yes
+graduation_window: December 2026/Summer 2027
+application_cap: not stated
+materials_required: resume; cover letter; transcript; writing sample
+location: Boston, MA; Chicago, IL; Los Angeles, CA; New York, NY; Oakland, CA; Tallahassee, FL; Washington, DC
+work_model: hybrid
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or Master's degree
+skills: Excel; Stata; Python; R; SQL; SAS; ArcGIS/ArcPy; Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS); economic analysis; financial analysis; valuation modeling; regression analysis; written and oral communication
+responsibilities: conduct economic and industry research; analyze client materials; perform financial and economic analyses; develop valuation models; program and build models using statistical software; develop familiarity with transactional and financial data; review and summarize analyst reports and academic literature; assist in production of research summaries and expert reports; create presentations with tables and charts; ensure reliability of analysis through quality control review
+team_or_function: Antitrust & Competition; Energy; Finance; Labor & Employment
+company: Charles River Associates
+title: Economics Consulting Analyst/Associate

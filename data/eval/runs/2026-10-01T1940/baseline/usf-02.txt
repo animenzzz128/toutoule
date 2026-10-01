@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Menlo Park, CA
+work_model: hybrid
+language_requirement: not stated
+start_date: 2027-06
+degree_requirement: Currently enrolled in a full-time MBA program
+skills: Financial modeling; valuation analysis; market research; investment banking or private equity experience; late-stage investing or venture capital experience
+responsibilities: Research markets and sectors; identify key companies; financial modeling; competitive analysis; shape investment theses; work with cross-functional teams on platform building
+team_or_function: Robinhood Ventures
+company: Robinhood
+title: Investment Analyst Intern

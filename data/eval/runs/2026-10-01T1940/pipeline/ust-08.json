@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "CWILL",
+  "title": "Product Management Trainee - Bilingual Mandarin Required",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "within 1–2 years of graduation",
+      "stated": true,
+      "evidence": "Recent graduate from a US university (BS or MS), or within 1–2 years of graduation"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "language_requirement": {
+      "value": "Mandarin Chinese required",
+      "stated": true,
+      "evidence": "Mandarin Chinese communication ability required"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "BS or MS from US university",
+      "stated": true,
+      "evidence": "Recent graduate from a US university (BS or MS), or within 1–2 years of graduation"
+    }
+  },
+  "reference": {
+    "skills": [
+      "user feedback analysis",
+      "feature planning",
+      "user flows",
+      "wireframes",
+      "functional specs",
+      "data analysis",
+      "user interviews",
+      "competitive analysis",
+      "project management"
+    ],
+    "responsibilities": [
+      "collect and analyze user feedback and product data",
+      "participate in feature planning and solution design",
+      "produce requirement documents and user flows",
+      "track features from discovery through launch",
+      "monitor product data and user feedback after launch",
+      "conduct user interviews and feedback sessions",
+      "perform competitive analysis",
+      "work with engineering, design, QA, operations and customer success",
+      "track project progress and flag issues",
+      "conduct retrospectives after launch"
+    ],
+    "team_or_function": "Product Management - Order Tracking or AI Chat teams"
+  }
+}

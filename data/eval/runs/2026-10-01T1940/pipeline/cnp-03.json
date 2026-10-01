@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "TikTok",
+  "title": "AI Product Manager Graduate (TikTok-Product-Content Ecosystem) - 2027 Start",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "by the end of the year",
+      "stated": true,
+      "evidence": "Successful candidates must be able to commit to an onboarding date by the end of the year."
+    },
+    "application_cap": {
+      "value": "2 per candidate",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions"
+    },
+    "materials_required": {
+      "value": "resume with availability and graduation date",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Jose",
+      "stated": true,
+      "evidence": "Location:\n\nSan Jose"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "AI Product Manager Graduate (TikTok-Product-Content Ecosystem) - 2027 Start"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in computer science, statistics, information management, data science or related discipline",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed a Bachelor's degree in computer science, statistics, information management, data science or a related discipline."
+    }
+  },
+  "reference": {
+    "skills": [
+      "data-driven mindset",
+      "defining metrics",
+      "strong communication skills",
+      "cross-functional collaboration",
+      "content understanding",
+      "AI/ML product knowledge"
+    ],
+    "responsibilities": [
+      "Drive content understanding and classification across TikTok's global ecosystem",
+      "Improve accuracy, scalability, and coverage of AI-powered content detection systems",
+      "Collaborate with cross-functional teams to identify gaps and define product solutions",
+      "Translate business needs and regional requirements into product roadmaps",
+      "Build core product capabilities such as multimodal understanding and data pipelines",
+      "Define evaluation frameworks and run experiments to improve model performance"
+    ],
+    "team_or_function": "Content Ecosystem team"
+  }
+}

@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: 3 per candidate
+materials_required: not stated
+location: Beijing; Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: data analysis; business strategy; large language models; AI tools; Text-to-SQL; natural language data analysis; LangChain; Dify
+responsibilities: participate in business planning and strategy formulation; conduct operational analysis; design solutions for complex business problems; use data analysis tools to uncover business patterns and user needs; build company-level experiment platform; explore large model applications in business analysis scenarios
+team_or_function: not stated
+company: not stated
+title: Intelligent Business Analyst (BA/DS)

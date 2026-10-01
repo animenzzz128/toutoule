@@ -1,0 +1,15 @@
+deadline: 2026-03-08
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: not stated
+materials_required: resume
+location: Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: 2026 summer
+degree_requirement: Bachelor's or above
+skills: accounting; audit; tax law; international and domestic accounting standards; CPA or ACCA certification (for accounting track)
+responsibilities: not stated
+team_or_function: not stated
+company: Shanghai Stock Exchange
+title: Intern

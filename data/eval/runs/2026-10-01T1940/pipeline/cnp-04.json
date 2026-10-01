@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "TikTok",
+  "title": "Graduate Development Program (TikTok Shop E-commerce, Malaysia) - 2027 Start",
+  "critical": {
+    "deadline": {
+      "value": "2026-11-30",
+      "stated": true,
+      "evidence": "Online Application: By 30 November 2026"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "Bachelor's degree completed or recently completed",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed a Bachelor's degree in any field or a related discipline."
+    },
+    "application_cap": {
+      "value": "2 per candidate",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply."
+    },
+    "materials_required": {
+      "value": "Resume with availability and graduation date",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Kuala Lumpur",
+      "stated": true,
+      "evidence": "Location:\n\nKuala Lumpur"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027-06",
+      "stated": true,
+      "evidence": "Onboarding and Start: June 2027"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed a Bachelor's degree in any field or a related discipline."
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical and problem-solving",
+      "data analysis",
+      "structured problem-solving",
+      "communication",
+      "cross-functional collaboration",
+      "project execution",
+      "business judgment",
+      "leadership"
+    ],
+    "responsibilities": [
+      "Rotate across core TikTok Shop e-commerce functions",
+      "Support business growth initiatives across seller acquisition, seller incubation, creator partnerships, campaign management, platform operations, and business intelligence",
+      "Analyze business performance and identify key insights",
+      "Contribute to high-impact projects that improve seller success, creator engagement, user experience, operational efficiency, and commercial outcomes",
+      "Partner with cross-functional teams to solve business challenges",
+      "Build scalable playbooks and operating mechanisms",
+      "Communicate findings and recommendations to managers and business leaders"
+    ],
+    "team_or_function": "TikTok Shop E-commerce"
+  }
+}

@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: no
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: remote
+work_model: remote
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: customer success management; account management; enterprise analytics; stakeholder management; project management; cross-sell and upsell strategy; data modeling concepts; semantic layers; business-friendly data models; B2B SaaS analytics knowledge
+responsibilities: lead customer onboarding and use case ideation workshops; develop project roadmaps and manage implementation; guide adoption through enablement sessions and quarterly business reviews; build relationships with executives and analytics teams; own customer renewals and drive expansion; identify and address retention risks; collaborate on expansion strategies; act as customer advocate to product and engineering; monitor usage analytics and success metrics; document customer activities and success stories; communicate consistently with customers on features and best practices
+team_or_function: post-sales
+company: Tellius
+title: Strategic Account Manager (Post-Sales)

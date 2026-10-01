@@ -25,11 +25,11 @@
       "note": null
     },
     "application_cap": {
-      "value": "3 per applicant for APAC summer internship programs",
+      "value": "3 per candidate",
       "stated": true,
       "evidence": "Each applicant can apply to maximum of 3 summer internship programs in APAC region.",
       "ambiguous": false,
-      "note": null
+      "note": "summer internship programs in APAC region"
     },
     "materials_required": {
       "value": null,

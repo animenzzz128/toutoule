@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: 3 per candidate
+materials_required: not stated
+location: Beijing, Shanghai, Chengdu, Shenzhen
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: Product experience or demonstrated potential; familiarity with internet product and technology trends; strong curiosity and learning ability; interest in AI and understanding of large language models; AI product thinking and ability to identify AI-suitable scenarios
+responsibilities: Address diverse product R&D and operations challenges across functional, strategy, data, tool, and hardware products; identify user pain points from complex business scenarios and data; explore AI technology application opportunities; collaborate with AI algorithm teams to understand model capabilities; transform AI technology into implementable product features; drive product intelligence upgrades
+team_or_function: not stated
+company: Meituan
+title: AI Product Manager

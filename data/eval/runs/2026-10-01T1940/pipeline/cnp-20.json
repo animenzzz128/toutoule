@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "未提供",
+  "title": "智能商业分析师（BA/DS）",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3个职位",
+      "stated": true,
+      "evidence": "最多可投递3个职位，但同一时间仅有1个职位流程处于进行中"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京市、上海市",
+      "stated": true,
+      "evidence": "工作地点：北京市、上海市"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上学历",
+      "stated": true,
+      "evidence": "本科及以上学历，数学、统计、计算机、工科、商科等相关专业背景更佳"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析",
+      "商业分析",
+      "统计分析",
+      "大模型应用",
+      "AI工具使用",
+      "数据可视化",
+      "自然语言处理",
+      "实验设计",
+      "业务规划"
+    ],
+    "responsibilities": [
+      "参与业务规划、策略制定、经营分析",
+      "设计复杂商业问题的解决方案",
+      "使用数据分析工具洞察商业规律和用户需求",
+      "参与建设公司级实验中台",
+      "为重大实验决策提供科学方案支撑",
+      "探索大模型在商业分析场景的应用",
+      "利用LLM辅助行业研究",
+      "自动化报告生成",
+      "智能数据洞察"
+    ],
+    "team_or_function": null
+  }
+}

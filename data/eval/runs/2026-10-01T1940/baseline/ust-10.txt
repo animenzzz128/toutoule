@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: Winter 2026 or Spring 2027
+application_cap: not stated
+materials_required: not stated
+location: Dallas, Texas
+work_model: onsite
+language_requirement: not stated
+start_date: 2027-06
+degree_requirement: Bachelor's or Master's degree
+skills: AI tools proficiency (Claude, ChatGPT, Gemini); analytical skills; project management; Microsoft Office Suite proficiency; Google Suite proficiency; data analysis tools (Tableau, LookerStudio preferred); communication; relationship building; leadership experience
+responsibilities: Coordinate and support high-priority projects; analyze datasets to guide business case creation; evaluate workflow inefficiencies and create operational frameworks; monitor and communicate project milestones; support initiative workshops; build internal knowledge and AI-powered tools; partner with stakeholders; craft clear communications; build and maintain stakeholder relationships; support strategic project design and execution; attend training sessions
+team_or_function: Strategy & Operations
+company: Momentum
+title: Associate Strategy & Operations Analyst

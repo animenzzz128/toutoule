@@ -1,0 +1,15 @@
+deadline: 2026-03-08
+visa_sponsorship: not stated
+graduation_window: 2025-01-01 to 2026-07-31
+application_cap: 1 per candidate
+materials_required: resume
+location: Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Master's or above
+skills: accounting; audit; financial management; tax law; international and domestic accounting standards; English proficiency (for some positions)
+responsibilities: not stated
+team_or_function: not stated
+company: Shanghai Stock Exchange
+title: Multiple positions across accounting, law, information technology, finance/economics, party building/internal management, and research

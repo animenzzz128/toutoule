@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: within 1–2 years of graduation
+application_cap: not stated
+materials_required: not stated
+location: CA, NC, IL, TX, NJ (relocation required)
+work_model: remote
+language_requirement: Mandarin Chinese required; strong English communication required
+start_date: not stated
+degree_requirement: BS or MS from US university
+skills: product requirement analysis; solution design; user feedback collection; data analysis; feature planning; user flows; wireframes; functional specs; acceptance criteria; competitive analysis; user research; project management; cross-team collaboration
+responsibilities: Collect and analyze user feedback, customer requests, product data, and market information to identify product improvement opportunities; participate in feature planning discussions; produce requirement documents, user flows, wireframes, functional specs, and acceptance criteria; track features from discovery through design, engineering, and launch; monitor product data and user feedback after launch; join user interviews and feedback sessions; track competitors and produce competitive analysis; work closely with engineering, design, QA, operations, and customer success; track project progress and flag issues early; conduct retrospectives on features shipped
+team_or_function: Product Management (Order Tracking or AI Chat team)
+company: CWILL
+title: Product Management Trainee - Bilingual Mandarin Required

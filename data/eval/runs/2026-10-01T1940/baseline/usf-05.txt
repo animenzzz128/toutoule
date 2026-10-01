@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: New York, New York, United States
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: analytical and strategic problem-solving; structured and detailed approach; effective communication; project execution; attention to detail; willingness to learn across disciplines
+responsibilities: develop holistic view of business; drive cross-functional growth; develop skill set across trading, technology, finance, compliance, operations; take ownership over strategic efforts; shape business direction
+team_or_function: Strategy and Product
+company: Jane Street
+title: Strategy and Product Specialist

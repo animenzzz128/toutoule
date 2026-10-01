@@ -1,0 +1,15 @@
+deadline: 2027-10-30
+visa_sponsorship: not stated
+graduation_window: 2026-10-31 - 2027-10-30
+application_cap: 2 per candidate
+materials_required: not stated
+location: Beijing; Guangzhou; Hangzhou; Shanghai; Shenzhen
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: AIGC knowledge (text generation, image/video generation, prompt engineering); data processing capability (SQL/Python or data analysis tools); abstract thinking; problem decomposition; curiosity about new technology
+responsibilities: understand business scenarios through user research and industry analysis to discover AI application opportunities; design AI application/platform solutions including core functionality definition, workflow orchestration, and prompt design; collaborate with algorithm engineers and backend developers to convert large language model capabilities (LLM, multimodal, Agent, RAG) into scalable product features; establish product evaluation system using data tools (SQL/Python) to monitor metrics and optimize algorithm performance and user experience based on data feedback
+team_or_function: not stated
+company: Alibaba Group Holding Limited
+title: AI Product Manager

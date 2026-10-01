@@ -25,6 +25,10 @@ This README documents the tooling and conventions; it does not decide label valu
   is counted. A label error found there is fixed and reported, not silently absorbed into
   the extractor's error rate.
 - **Priority scores (`human_scores.csv`) are the owner's alone** — no model involvement.
+- **Task 1.7 adjudication:** 105 critical disagreements checked against the raw text by
+  the owner; 5 label errors found and fixed, all format-only (`application_cap`
+  normalized to "N per candidate": cnp-01, cnp-03, cnp-04, cnc-01, cnc-05); 3 conventions
+  added (graduation status/preference, 校招 program year, resume submission).
 
 ## Labeling conventions
 
@@ -32,12 +36,15 @@ Decided 2026-09-30, before any case was labeled. One principle covers all of the
 **copy what the posting says; never complete what it leaves out** (a year, a month, a
 policy). Where `extract_v1.txt` defines a format, labels follow it exactly. Where it only
 says "a short plain value", the formats below keep labels consistent across 50 cases.
+Graduation status with no time (应届毕业生, final-year, recently completed) → graduation_window not stated; a preference (…优先) is not a requirement.
 
 ### Patterns the prompt leaves open
 
 | On the page | Label | Why |
 |---|---|---|
 | "2027届" / "2027 graduates", no months | `graduation_window` stated, value `2027 graduates` | The posting states a cohort, not a month range. Turning 2027届 into `2026-09 to 2027-08` would be using outside knowledge. |
+| "2027校招" / "2027 校园招聘" (program name only, no 届 or graduation wording) | `graduation_window` not stated | A recruiting-class or program-year label is not a graduation statement — the posting names the program, not the candidate's graduation cohort. |
+| A posting that tells you to fill in or submit a resume (填写简历, 简历投递) | `materials_required` includes resume | The instruction to submit a resume is itself a materials requirement, even when the posting doesn't separately name "resume" as a noun. |
 | An explicit month range, e.g. "2026年9月-2027年8月毕业" | value `2026-09 to 2027-08` | Tech spec §3 example format; the format R2 parses. |
 | A deadline with no year, e.g. "10月15日截止" | `deadline` stated, value `October 15` (no year) | ISO needs a year the posting doesn't give. Adding one is inference. If the model writes `2026-10-15`, the eval should count it as unsupported: that is a real finding for Task 1.8, not a labeling error. |
 | "Rolling basis", "滚动招聘" | `deadline` stated, value `rolling basis` | `extract_v1.txt` line 34 keeps relative phrasing as written and uses this exact example. Such a posting does **not** count toward the ≥5 "no stated deadline" cases. |

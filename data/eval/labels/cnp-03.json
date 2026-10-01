@@ -25,11 +25,11 @@
       "note": null
     },
     "application_cap": {
-      "value": "2 per candidate across company and affiliates globally",
+      "value": "2 per candidate",
       "stated": true,
       "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply. The application limit is applicable to our Company and its affiliates' jobs globally.",
       "ambiguous": false,
-      "note": null
+      "note": "applies across the company and affiliates globally"
     },
     "materials_required": {
       "value": "resume",

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "中国银行股份有限公司",
+  "title": "2027年全球校园招聘",
+  "critical": {
+    "deadline": {
+      "value": "2026-10-09",
+      "stated": true,
+      "evidence": "报名截止时间为北京时间2026年10月9日24点。"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "应届毕业生",
+      "stated": true,
+      "evidence": "面向境内外院校招收应届毕业生"
+    },
+    "application_cap": {
+      "value": "每人最多可申请5个岗位",
+      "stated": true,
+      "evidence": "每人最多可申请5个岗位，其中应聘北京、上海、广东、深圳等境内一级分行或直属分行可申请1-2个岗位，应聘其他一级机构可申请1个岗位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "中国境内及境外64个国家和地区；北京、上海、合肥、呼和浩特、深圳、西安、武汉、成都、佛山、昆山、广州等",
+      "stated": true,
+      "evidence": "在中国境内及境外64个国家和地区设有机构"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "德语、法语、西班牙语、葡萄牙语、瑞典语、匈牙利语、波兰语、捷克语、塞尔维亚语（小语种专项计划）",
+      "stated": true,
+      "evidence": "招收语种：德语、法语、西班牙语、葡萄牙语、瑞典语、匈牙利语、波兰语、捷克语、塞尔维亚语。"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "信息科技",
+      "业务发展",
+      "金融市场",
+      "风险合规",
+      "综合管理",
+      "全球化",
+      "数据分析",
+      "信息系统",
+      "网络安全",
+      "应用系统开发",
+      "测试和维护",
+      "单证业务",
+      "集约运营",
+      "线上客服",
+      "培训研发",
+      "审计"
+    ],
+    "responsibilities": [
+      "总行部门相关业务及管理",
+      "跨境业务及人民币交易业务",
+      "信用卡业务管理、产品研发、品牌营销",
+      "养老金金融政策研究和市场分析",
+      "数据运营、数据分析、数据应用",
+      "信息系统生产运营管理、网络安全防控",
+      "应用系统开发、测试和维护",
+      "国际结算及贸易融资业务",
+      "标准性业务集中处理、生产管理",
+      "线上客服渠道建设、运营和管理",
+      "培训项目开发与实施、教学研发",
+      "审计数据分析、审计业务",
+      "营销服务、柜面业务、厅堂服务"
+    ],
+    "team_or_function": "总行、总行直属机构（信用卡中心、养老金融中心、数字资产运营中心、信息科技运营中心、软件中心、国际结算单证处理中心、集约运营中心、远程银行中心、北京高级研修院、上海高级研修院）、审计分部、境内分行、港澳台及海外机构、综合经营公司"
+  }
+}

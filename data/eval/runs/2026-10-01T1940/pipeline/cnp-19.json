@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "unset",
+  "title": "策略产品经理",
+  "critical": {
+    "deadline": {
+      "value": "2026-09-30",
+      "stated": true,
+      "evidence": "2026-09-30"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京",
+      "stated": true,
+      "evidence": "北京"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree or above",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "logical thinking",
+      "business sensitivity",
+      "data sensitivity",
+      "demand management",
+      "project execution",
+      "team collaboration",
+      "data analysis",
+      "product design understanding",
+      "user experience knowledge",
+      "product thinking",
+      "innovation awareness"
+    ],
+    "responsibilities": [
+      "propose product strategy solutions for different application scenarios",
+      "drive strategy iteration and product feature development",
+      "improve user experience",
+      "conduct user research and data analysis",
+      "evaluate effectiveness and suggest improvements",
+      "collect internal and external requirements",
+      "track industry competitors and identify optimization opportunities",
+      "learn latest industry trends",
+      "discover product opportunities"
+    ],
+    "team_or_function": null
+  }
+}

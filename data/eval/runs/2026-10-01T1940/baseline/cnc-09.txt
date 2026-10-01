@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Beijing; Shanghai; Shenzhen
+work_model: not stated
+language_requirement: Fluent verbal and written communication in English and Mandarin Chinese
+start_date: not stated
+degree_requirement: Advanced graduate degree (e.g., MBA, PhD) or equivalent relevant work experience
+skills: Data-driven decision making; PowerPoint presentations; Excel modeling; Written communication; Problem-solving; Strategic thinking
+responsibilities: Solve client challenges; Uncover true challenges behind client strategy; Create actionable plans; Conduct research and data analysis; Generate insights and breakthrough solutions; Help clients refine strategies and implement transformations; Equip clients with tools and knowledge for continued innovation
+team_or_function: Client service team
+company: McKinsey
+title: Business Analyst - Automotive

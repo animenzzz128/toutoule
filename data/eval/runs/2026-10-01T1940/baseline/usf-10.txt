@@ -1,0 +1,15 @@
+deadline: rolling basis until positions are filled, resume review commences 2026-10-15
+visa_sponsorship: conditional
+graduation_window: December 2027/Summer 2028
+application_cap: not stated
+materials_required: Resume; Cover letter; Transcript
+location: Boston, MA; Chicago, IL; Houston, TX; New York, NY; Oakland, CA
+work_model: hybrid
+language_requirement: not stated
+start_date: Summer 2027
+degree_requirement: Bachelor's or Master's
+skills: Excel; Stata; R; Python; SQL; SAS; financial modeling; valuation analysis; economic research; data analysis; accounting analysis; fraud investigation
+responsibilities: Work on live client consulting projects; conduct economic and industry research; perform financial and economic analyses and valuation models; program and build models; perform regression analyses; investigate accounting irregularities and fraud; prepare financial analyses and models; investigate financial evidence; analyze large data sets; communicate findings and assist with written reports
+team_or_function: Finance; Intellectual Property
+company: Charles River Associates
+title: Accounting/Business/Finance Consulting Analyst/Associate Intern

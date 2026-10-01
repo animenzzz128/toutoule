@@ -1,0 +1,15 @@
+deadline: 2026-10-09
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: 5 per candidate; 1-2 for Beijing, Shanghai, Guangdong, Shenzhen first-tier branches; 1 for other first-tier institutions
+materials_required: not stated
+location: Shanghai; Beijing; Hefei; Hohhot; Shenzhen; Xi'an; Wuhan; Chengdu; Foshan; Kunshan; Guangzhou; Hong Kong; Macau; Taiwan; overseas locations in 64 countries and regions
+work_model: not stated
+language_requirement: German, French, Spanish, Portuguese, Swedish, Hungarian, Polish, Czech, Serbian for minority language specialist program
+start_date: not stated
+degree_requirement: not stated
+skills: information technology; business development; financial markets; risk compliance; comprehensive management; globalization; credit card business; financial services; data analysis; audit; online operations
+responsibilities: management training; business and talent development; international settlement; audit data analysis; information technology operations; software development; training and development; customer service; branch operations; marketing and sales
+team_or_function: Headquarters; Credit Card Center; Pension Finance Center; Digital Asset Operations Center; Information Technology Operations Center; Software Center; International Settlement Documentation Center; Centralized Operations Center; Remote Banking Center; Senior Executive Training Institute; Audit Department; Domestic Branches; Hong Kong, Macau, Taiwan and Overseas Institutions; Comprehensive Operating Companies
+company: Bank of China Co., Ltd.
+title: Management Trainee; Minority Language Specialist; Financial Comprehensive; Information Technology; Data Analysis; Training and Development; Audit Officer; Audit Data Analyst; Business Operations; Online Operations; Centralized Operations

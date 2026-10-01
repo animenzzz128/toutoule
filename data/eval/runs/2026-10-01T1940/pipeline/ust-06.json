@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Fireworks",
+  "title": "Associate Product Manager",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Mateo",
+      "stated": true,
+      "evidence": "Location\nSan Mateo"
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "Location Type\nHybrid"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field",
+      "stated": true,
+      "evidence": "You recently graduated (or are about to) with a Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical skills",
+      "written and verbal communication",
+      "technical depth",
+      "user empathy",
+      "cross-functional leadership"
+    ],
+    "responsibilities": [
+      "Act as a trusted technical advisor to customers",
+      "Partner with engineering, design, and data science teams to define, build, and ship product features",
+      "Engage directly with customers to identify use cases and convert interest into long-term usage",
+      "Partner with GTM functions like sales and marketing to evangelize new products"
+    ],
+    "team_or_function": "Product"
+  }
+}
