@@ -51,3 +51,20 @@ the largest expected effect on hallucination.
 
 Checked R2 against day-level graduation windows (cnp-11): already handled since the
 rule's first commit; regression test added, no behaviour change.
+
+## v2 — 2026-10-01 — extract_v2 (Task 1.8)
+
+**Hypothesis (written before running):** Misfiled critical values fall from 8 to ≤3 and
+total critical hallucination from 14 to ≤9 of 249, because extract_v1 never says what
+graduation_window and deadline are NOT, so the model fills them with the nearest date or
+status phrase in the posting (start dates, publish dates, "应届毕业生"). Fabricated values
+(6) should not change. Risk: critical false negatives rise slightly (from 13 of 67) as
+the model becomes more cautious on these two fields.
+
+**Change:** starting from extract_v1, rewrite only the graduation_window and deadline
+definitions to state what each field is not: graduation_window is not a start date,
+internship duration, program year (校招 year) or graduation status without dates;
+deadline is not a posting/publish date, start date, or interview/offer date. Nothing
+else in the prompt changes.
+
+**Result:** (filled in after adjudication)
