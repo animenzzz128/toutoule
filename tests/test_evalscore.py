@@ -2,6 +2,8 @@
 data/eval/, so these tests stay independent of whatever the eval set currently contains.
 """
 
+import pytest
+
 from toutoule import evalscore, evalset, schemas
 
 # --- Fixture helpers ---------------------------------------------------------------------
@@ -133,3 +135,95 @@ def test_alias_table_matches_until_filled_to_its_chinese_phrasing():
     label = make_label(critical={"deadline": _field("until filled")})
     output = make_output(critical={"deadline": _stated("招满即止")})
     assert _score(label, output).outcome == "correct"
+
+
+# --- Adjudications -------------------------------------------------------------------------
+
+
+def _adjudication(
+    field: str, system_value: str | None, verdict: str, case_id: str = "cnp-01", system: str = "pipeline", line: int = 2
+) -> tuple[int, evalscore.AdjudicationRow]:
+    return (
+        line,
+        evalscore.AdjudicationRow(
+            case_id=case_id, system=system, field=field, system_value=system_value, verdict=verdict
+        ),
+    )
+
+
+def test_stale_adjudication_is_ignored():
+    label = make_label(critical={"deadline": _field("2026-10-31")})
+    output = make_output(critical={"deadline": _stated("2026-11-01")})
+    # Recorded against a value the system no longer gives: stale.
+    adjudications = [_adjudication("deadline", "2026-12-01", "wrong")]
+    results = evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+    result = next(r for r in results if r.field == "deadline")
+    assert result.outcome == "mismatch"
+    assert result.verdict is None
+
+
+def test_invalid_verdict_for_outcome_raises_with_line_number():
+    label = make_label(critical={"deadline": _field("2026-10-31")})
+    output = make_output()  # system never stated it: outcome is "missed"
+    # "wrong" is only valid for mismatch/unsupported, not missed.
+    adjudications = [_adjudication("deadline", None, "wrong", line=7)]
+    with pytest.raises(ValueError, match="line 7"):
+        evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+
+
+def test_confirmed_hallucination_verdict_counts_in_metrics():
+    label = make_label()  # deadline not stated
+    output = make_output(critical={"deadline": _stated("2026-10-31")})  # system invents it
+    adjudications = [_adjudication("deadline", "2026-10-31", "hallucination")]
+    results = evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+    metrics = evalscore.compute_metrics(results)
+    assert metrics.critical_hallucination.count == 1
+    assert metrics.critical_hallucination.denominator == len(evalscore.CRITICAL_FIELDS)
+    assert metrics.pending == 0
+
+
+def test_label_error_keeps_field_pending_until_label_is_actually_fixed():
+    label = make_label(critical={"deadline": _field("2026-10-31")})
+    output = make_output(critical={"deadline": _stated("2026-11-01")})
+    adjudications = [_adjudication("deadline", "2026-11-01", "label_error")]
+
+    results = evalscore.score_case(label, output, set(), adjudications, "pipeline")
+    metrics = evalscore.compute_metrics(results)
+    result = next(r for r in results if r.field == "deadline")
+    assert result.verdict == "label_error"
+    assert metrics.pending == 1
+    assert metrics.provisional is True
+    # A mismatch's conservative default counts as "wrong", never as a hallucination.
+    assert metrics.critical_hallucination.count == 0
+
+    # Now the label is actually fixed to match what the system said.
+    fixed_label = make_label(critical={"deadline": _field("2026-11-01")})
+    fixed_results = evalscore.score_case(fixed_label, output, set(), adjudications, "pipeline")
+    fixed_metrics = evalscore.compute_metrics(fixed_results)
+    fixed_result = next(r for r in fixed_results if r.field == "deadline")
+    assert fixed_result.outcome == "correct"
+    assert fixed_metrics.pending == 0
+    assert fixed_metrics.provisional is False
+
+
+def test_provisional_false_when_no_pending_fields():
+    label = make_label()
+    output = make_output()
+    metrics = evalscore.compute_metrics(
+        evalscore.score_case(label, output, set(), [], "pipeline")
+    )
+    assert metrics.pending == 0
+    assert metrics.provisional is False
+
+
+def test_failed_extraction_counts_as_missed_never_as_hallucination():
+    visa = evalset.LabeledVisaSponsorshipField(value="no", stated=True, evidence="quote")
+    label = make_label(critical={"deadline": _field("2026-10-31"), "visa_sponsorship": visa})
+    output = evalscore.failed_output()
+    results = evalscore.score_case(label, output, set(), [], "pipeline")
+    outcomes = {r.field: r.outcome for r in results if r.tier == "critical"}
+    assert outcomes["deadline"] == "missed"
+    assert outcomes["visa_sponsorship"] == "missed"
+    assert outcomes["application_cap"] == "correct_absent"
+    metrics = evalscore.compute_metrics(results)
+    assert metrics.critical_hallucination.count == 0
