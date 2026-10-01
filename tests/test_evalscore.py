@@ -17,13 +17,19 @@ def _field(value: str, evidence: str = "quote", ambiguous: bool = False) -> eval
     return evalset.LabeledField(value=value, stated=True, evidence=evidence, ambiguous=ambiguous)
 
 
-def make_label(case_id: str = "cnp-01", critical: dict | None = None, important: dict | None = None) -> evalset.Label:
+def make_label(
+    case_id: str = "cnp-01", critical: dict | None = None, important: dict | None = None
+) -> evalset.Label:
     """A Label with every field blank=stated:false, except the overrides given."""
     crit_fields = {name: _blank_field() for name in evalscore.CRITICAL_FIELDS}
-    crit_fields["visa_sponsorship"] = evalset.LabeledVisaSponsorshipField(value=None, stated=False, evidence=None)
+    crit_fields["visa_sponsorship"] = evalset.LabeledVisaSponsorshipField(
+        value=None, stated=False, evidence=None
+    )
     crit_fields.update(critical or {})
     imp_fields = {name: _blank_field() for name in evalscore.IMPORTANT_FIELDS}
-    imp_fields["work_model"] = evalset.LabeledWorkModelField(value=None, stated=False, evidence=None)
+    imp_fields["work_model"] = evalset.LabeledWorkModelField(
+        value=None, stated=False, evidence=None
+    )
     imp_fields.update(important or {})
     return evalset.Label(
         case_id=case_id,
@@ -60,8 +66,15 @@ def _stated(value: str, evidence: str | None = "quote") -> evalscore.FieldOutput
     return evalscore.FieldOutput(stated=True, value=value, evidence=evidence)
 
 
-def _score(label: evalset.Label, output: evalscore.SystemOutput, field: str = "deadline", tier: str = "critical"):
-    results = evalscore.score_case(label, output, equivalences=set(), adjudications=[], system="pipeline")
+def _score(
+    label: evalset.Label,
+    output: evalscore.SystemOutput,
+    field: str = "deadline",
+    tier: str = "critical",
+):
+    results = evalscore.score_case(
+        label, output, equivalences=set(), adjudications=[], system="pipeline"
+    )
     return next(r for r in results if r.field == field and r.tier == tier)
 
 
@@ -141,7 +154,12 @@ def test_alias_table_matches_until_filled_to_its_chinese_phrasing():
 
 
 def _adjudication(
-    field: str, system_value: str | None, verdict: str, case_id: str = "cnp-01", system: str = "pipeline", line: int = 2
+    field: str,
+    system_value: str | None,
+    verdict: str,
+    case_id: str = "cnp-01",
+    system: str = "pipeline",
+    line: int = 2,
 ) -> tuple[int, evalscore.AdjudicationRow]:
     return (
         line,
@@ -156,7 +174,9 @@ def test_stale_adjudication_is_ignored():
     output = make_output(critical={"deadline": _stated("2026-11-01")})
     # Recorded against a value the system no longer gives: stale.
     adjudications = [_adjudication("deadline", "2026-12-01", "wrong")]
-    results = evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+    results = evalscore.score_case(
+        label, output, equivalences=set(), adjudications=adjudications, system="pipeline"
+    )
     result = next(r for r in results if r.field == "deadline")
     assert result.outcome == "mismatch"
     assert result.verdict is None
@@ -168,14 +188,18 @@ def test_invalid_verdict_for_outcome_raises_with_line_number():
     # "wrong" is only valid for mismatch/unsupported, not missed.
     adjudications = [_adjudication("deadline", None, "wrong", line=7)]
     with pytest.raises(ValueError, match="line 7"):
-        evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+        evalscore.score_case(
+            label, output, equivalences=set(), adjudications=adjudications, system="pipeline"
+        )
 
 
 def test_confirmed_hallucination_verdict_counts_in_metrics():
     label = make_label()  # deadline not stated
     output = make_output(critical={"deadline": _stated("2026-10-31")})  # system invents it
     adjudications = [_adjudication("deadline", "2026-10-31", "hallucination")]
-    results = evalscore.score_case(label, output, equivalences=set(), adjudications=adjudications, system="pipeline")
+    results = evalscore.score_case(
+        label, output, equivalences=set(), adjudications=adjudications, system="pipeline"
+    )
     metrics = evalscore.compute_metrics(results)
     assert metrics.critical_hallucination.count == 1
     assert metrics.critical_hallucination.denominator == len(evalscore.CRITICAL_FIELDS)
@@ -209,9 +233,7 @@ def test_label_error_keeps_field_pending_until_label_is_actually_fixed():
 def test_provisional_false_when_no_pending_fields():
     label = make_label()
     output = make_output()
-    metrics = evalscore.compute_metrics(
-        evalscore.score_case(label, output, set(), [], "pipeline")
-    )
+    metrics = evalscore.compute_metrics(evalscore.score_case(label, output, set(), [], "pipeline"))
     assert metrics.pending == 0
     assert metrics.provisional is False
 
@@ -290,9 +312,18 @@ def test_load_adjudications_reports_line_numbers(tmp_path):
         encoding="utf-8",
     )
     rows = evalscore.load_adjudications(path)
-    assert rows == [(2, evalscore.AdjudicationRow(
-        case_id="cnp-01", system="pipeline", field="deadline", system_value="2026-10-31", verdict="hallucination"
-    ))]
+    assert rows == [
+        (
+            2,
+            evalscore.AdjudicationRow(
+                case_id="cnp-01",
+                system="pipeline",
+                field="deadline",
+                system_value="2026-10-31",
+                verdict="hallucination",
+            ),
+        )
+    ]
 
 
 def test_load_adjudications_rejects_invalid_verdict(tmp_path):

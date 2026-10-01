@@ -64,7 +64,9 @@ def from_extraction(extraction: schemas.Extraction) -> SystemOutput:
         group = getattr(extraction, group_name)
         for name in names:
             field = getattr(group, name)
-            fields[name] = FieldOutput(stated=field.stated, value=field.value, evidence=field.evidence)
+            fields[name] = FieldOutput(
+                stated=field.stated, value=field.value, evidence=field.evidence
+            )
     return SystemOutput(
         fields=fields,
         skills=list(extraction.reference.skills),
@@ -80,7 +82,9 @@ def failed_output() -> SystemOutput:
         name: FieldOutput(stated=False, value=None, evidence=None)
         for name in (*CRITICAL_FIELDS, *IMPORTANT_FIELDS)
     }
-    return SystemOutput(fields=fields, skills=[], responsibilities=[], team_or_function=None, failed=True)
+    return SystemOutput(
+        fields=fields, skills=[], responsibilities=[], team_or_function=None, failed=True
+    )
 
 
 # --- normalize_value ------------------------------------------------------------------
@@ -153,7 +157,11 @@ def load_equivalences(path: Path) -> set[Equivalence]:
         for row in csv.DictReader(handle):
             field = row["field"]
             entries.add(
-                (field, normalize_value(field, row["label_value"]), normalize_value(field, row["system_value"]))
+                (
+                    field,
+                    normalize_value(field, row["label_value"]),
+                    normalize_value(field, row["system_value"]),
+                )
             )
     return entries
 
@@ -218,7 +226,9 @@ class FieldResult:
     verdict: Verdict | None = None
 
 
-def _classify(field: str, label_field: Any, sys_field: FieldOutput, equivalences: set[Equivalence]) -> Outcome:
+def _classify(
+    field: str, label_field: Any, sys_field: FieldOutput, equivalences: set[Equivalence]
+) -> Outcome:
     if not label_field.stated and not sys_field.stated:
         return "correct_absent"
     if not label_field.stated and sys_field.stated:
@@ -353,12 +363,18 @@ def compute_metrics(results: list[FieldResult]) -> Metrics:
         if (r.outcome == "unsupported" and (r.verdict == "hallucination" or _is_pending(r)))
         or (r.outcome == "mismatch" and r.verdict == "hallucination")
     )
-    critical_system_stated = sum(1 for r in critical if r.outcome in ("correct", "mismatch", "unsupported"))
+    critical_system_stated = sum(
+        1 for r in critical if r.outcome in ("correct", "mismatch", "unsupported")
+    )
     critical_correct = sum(1 for r in critical if r.outcome == "correct")
-    critical_label_stated = sum(1 for r in critical if r.outcome in ("correct", "mismatch", "missed"))
+    critical_label_stated = sum(
+        1 for r in critical if r.outcome in ("correct", "mismatch", "missed")
+    )
     critical_missed = sum(1 for r in critical if r.outcome == "missed")
 
-    important_system_stated = sum(1 for r in important if r.outcome in ("correct", "mismatch", "unsupported"))
+    important_system_stated = sum(
+        1 for r in important if r.outcome in ("correct", "mismatch", "unsupported")
+    )
     important_correct = sum(1 for r in important if r.outcome == "correct")
     important_missed = sum(1 for r in important if r.outcome == "missed")
 
