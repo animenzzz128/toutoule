@@ -176,3 +176,32 @@ State these limits plainly. Volunteering them is more persuasive than being caug
   weight the owner's primary market and may not reflect performance on other segments.
 - **Match scoring is calibrated to one person.** It reflects the owner's judgment, including
   its biases. Phase 3's external pilot is the first real test of whether it transfers.
+
+## Scoring harness normalization rules (Task 1.7 Part E)
+
+Found and fixed after the first real run (`2026-10-01T1920`), which surfaced false
+mismatches that were punctuation and phrasing differences, not real extraction errors.
+These are harness rules only — they never touch `extract_v1.txt`, `baseline_plain_v1.txt`,
+or any label, and every rule applies identically to both systems.
+
+**List-like text fields, compared as order-insensitive sets after normalization:**
+- `materials_required` splits on `+`, `;`, `,`, `/` and the word "and".
+- `location` splits on `;` and `/`. "Washington, DC" and "Washington D.C." are folded to
+  "washington dc" *before* a trailing `, XX` US state code is stripped — otherwise the "DC"
+  reads as a state abbreviation and the city name is lost. Any comma still remaining after
+  that is then split too.
+- `graduation_window` splits on `/` and `;` (treated as the same separator) and converts an
+  English "Month YYYY" token (full or short name) to `YYYY-MM` on either side. "to" ranges
+  are left as written. A year is never added where the source didn't give one.
+
+**`degree_requirement`** drops a trailing "degree"/"degrees" before comparing, so
+"Bachelor's or Master's" and "Bachelor's or Master's degree" are the same value.
+
+**Reference recall** tokenizes each item into lowercase content words, dropping a short
+English stopword list plus "ability", "skills", "strong" and "experience" (generic enough
+in this domain that nearly every item carries one). A label item counts as captured if at
+least 50% of its content words appear anywhere in that field's system items, pooled
+together rather than matched one item at a time. `team_or_function` keeps the original
+substring rule instead, since it's a single string, not a list. Recall is reported per
+field (skills / responsibilities / team_or_function) as well as the combined total that
+§2's ≥80% target applies to.
