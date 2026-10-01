@@ -1,1 +1,60 @@
 case_id,system,field,system_value,verdict,note
+cnc-04,pipeline,deadline,,missed,
+cnc-04,baseline,deadline,,missed,
+cnc-05,pipeline,deadline,,missed,
+cnp-01,pipeline,deadline,,missed,
+cnp-03,pipeline,deadline,,missed,
+cnp-11,baseline,deadline,2027-10-30,hallucination,"date range is the graduation window, not a deadline"
+cnp-12,baseline,deadline,2027-10-30,hallucination,"date range is the graduation window, not a deadline"
+cnp-13,baseline,deadline,2027-10-30,hallucination,"date range is the graduation window, not a deadline"
+cnp-19,pipeline,deadline,2026-09-30,hallucination,publish date quoted as deadline
+cnp-19,baseline,deadline,2026-09-30,hallucination,publish date quoted as deadline
+usf-07,baseline,deadline,within 5 business days of posting,hallucination,"""minimum of 5 business days"" turned into a maximum"
+usf-10,baseline,deadline,"rolling basis until positions are filled, resume review commences 2026-10-15",hallucination,"year added to ""October 15"""
+usf-01,pipeline,visa_sponsorship,yes,hallucination,"benefits line about immigration support, not a sponsorship policy"
+usf-01,baseline,visa_sponsorship,yes,hallucination,"benefits line about immigration support, not a sponsorship policy"
+usf-10,pipeline,visa_sponsorship,conditional,hallucination,"benefits line about immigration support, not a sponsorship policy"
+usf-10,baseline,visa_sponsorship,conditional,hallucination,"benefits line about immigration support, not a sponsorship policy"
+cnc-02,pipeline,graduation_window,应届毕业生,hallucination,"misfiled: graduation status, no time"
+cnc-07,pipeline,graduation_window,2027年应届毕业生优先,hallucination,"misfiled: preference, not a requirement"
+cnc-07,baseline,graduation_window,2027,hallucination,"""2027年应届毕业生优先"" turned into a requirement"
+cnp-01,pipeline,graduation_window,completing or have recently completed an MBA degree,hallucination,"misfiled: degree status, no time"
+ust-09,baseline,visa_sponsorship,no,hallucination,"work authorization only, not a sponsorship policy"
+cnp-01,baseline,graduation_window,completing or recently completed MBA,hallucination,"misfiled: degree status, no time"
+cnp-03,pipeline,graduation_window,by the end of the year,hallucination,"misfiled: onboarding date, not graduation"
+cnp-03,baseline,graduation_window,completion or recent completion of Bachelor's degree,hallucination,"misfiled: degree status, no time"
+cnp-04,pipeline,graduation_window,Bachelor's degree completed or recently completed,hallucination,"misfiled: degree status, no time"
+usf-09,pipeline,graduation_window,July 2027,hallucination,misfiled: start date in the title
+ust-04,pipeline,graduation_window,April to August 2027,hallucination,misfiled: cohort start date
+ust-04,baseline,graduation_window,2027-04 to 2027-08,hallucination,misfiled: cohort start date
+ust-08,pipeline,graduation_window,within 1–2 years of graduation,wrong,"drops ""recent graduate"""
+ust-08,baseline,graduation_window,within 1–2 years of graduation,wrong,"drops ""recent graduate"""
+cnp-11,pipeline,application_cap,2 per candidate,hallucination,"posting allows applying to several business groups, 1 application (up to 2 choices) each; ""2 per candidate"" invents a total cap"
+cnp-11,baseline,application_cap,2 per candidate,hallucination,"posting allows applying to several business groups, 1 application (up to 2 choices) each; ""2 per candidate"" invents a total cap"
+cnp-12,baseline,application_cap,2 per candidate,hallucination,"posting allows applying to several business groups, 1 application (up to 2 choices) each; ""2 per candidate"" invents a total cap"
+cnp-13,pipeline,application_cap,2 per candidate,hallucination,"posting allows applying to several business groups, 1 application (up to 2 choices) each; ""2 per candidate"" invents a total cap"
+cnp-13,baseline,application_cap,2 per candidate,hallucination,"posting allows applying to several business groups, 1 application (up to 2 choices) each; ""2 per candidate"" invents a total cap"
+cnp-08,baseline,application_cap,5 per candidate,wrong,drops the sub-direction limit
+cnp-09,baseline,application_cap,5 per candidate,wrong,drops the sub-direction limit
+cnp-08,baseline,graduation_window,2027,hallucination,"program year ""2027校招"", not a graduation statement"
+cnp-09,baseline,graduation_window,2027,hallucination,"program year ""2027校招"", not a graduation statement"
+cnc-03,pipeline,application_cap,,missed,
+cnc-07,pipeline,application_cap,,missed,
+cnc-07,baseline,application_cap,,missed,
+cnp-12,pipeline,application_cap,,missed,
+usf-08,pipeline,application_cap,2 functions per candidate,hallucination,"cap is per program application, ""per candidate"" invents a total"
+usf-08,baseline,application_cap,2 per candidate,hallucination,"cap is per program application, ""per candidate"" invents a total"
+cnp-03,pipeline,materials_required,resume with availability and graduation date,wrong,"resume is right; availability and graduation date are contents of the resume, not separate materials"
+cnp-04,pipeline,materials_required,Resume with availability and graduation date,wrong,"resume is right; availability and graduation date are contents of the resume, not separate materials"
+cnc-02,pipeline,materials_required,,missed,
+cnc-02,baseline,materials_required,,missed,
+cnc-03,pipeline,materials_required,学历学位证书，境外院校毕业生需教育部留学服务中心学历学位认证,hallucination,"misfiled: degree certificates required at onboarding, not application materials"
+cnc-04,pipeline,materials_required,,missed,
+cnc-04,baseline,materials_required,,missed,
+cnp-01,pipeline,materials_required,,missed,
+cnp-01,baseline,materials_required,,missed,
+cnp-18,pipeline,materials_required,,missed,
+cnp-18,baseline,materials_required,,missed,
+usf-09,pipeline,materials_required,,missed,
+ust-04,pipeline,materials_required,,missed,
+cnp-08,baseline,materials_required,portfolio or documentation of independent work (optional); links or documents for portfolio items,hallucination,portfolio never requested; no material keywords in the posting
