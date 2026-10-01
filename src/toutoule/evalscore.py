@@ -93,6 +93,30 @@ _WHITESPACE = re.compile(r"\s+")
 _TRAILING_PUNCT = re.compile(r"[.,;:!?。，；：！？]+$")
 _GRADUATION_YEAR = re.compile(r"^(\d{4})届$")
 
+# materials_required: "resume + cover letter", "Resume, Cover letter", "resume; cover
+# letter" and "resume and cover letter" are the same list, differently punctuated.
+_MATERIALS_SPLIT = re.compile(r"\s*(?:\+|;|,|/|\band\b)\s*", re.IGNORECASE)
+
+# location: "Washington, DC" and "Washington D.C." are one city, not a city plus a state
+# code — this must run before the generic state-code strip below, or the "DC" would be
+# stripped as if it were a state abbreviation and the city name would be lost.
+_WASHINGTON_DC = re.compile(r"^washington,?\s*d\.?c\.?$", re.IGNORECASE)
+_US_STATE_SUFFIX = re.compile(r",\s*[A-Za-z]{2}$")
+
+# graduation_window: "December 2026" -> "2026-12", so it compares equal to a label's
+# "2026-12" regardless of which form either system used. Never applied to a bare year
+# ("Summer 2027" stays as written) since there is no month to convert.
+_MONTHS = {
+    "jan": "01", "january": "01", "feb": "02", "february": "02",
+    "mar": "03", "march": "03", "apr": "04", "april": "04",
+    "may": "05", "jun": "06", "june": "06", "jul": "07", "july": "07",
+    "aug": "08", "august": "08", "sep": "09", "sept": "09", "september": "09",
+    "oct": "10", "october": "10", "nov": "11", "november": "11", "dec": "12", "december": "12",
+}  # fmt: skip
+_MONTH_YEAR = re.compile(r"^(?P<month>[A-Za-z]+)\.?\s+(?P<year>\d{4})$")
+
+_TRAILING_DEGREE_WORD = re.compile(r"\s*degrees?\s*$", re.IGNORECASE)
+
 # Fixed phrasing conventions already decided in data/eval/README.md ("Patterns the prompt
 # leaves open"). Each maps a source-language span a system might echo verbatim to the
 # canonical English value the labels use. Nothing else goes in this table: a value format
@@ -118,26 +142,73 @@ def _basic_normalize(value: str) -> str:
     return _TRAILING_PUNCT.sub("", value).strip()
 
 
+def _normalize_location_part(part: str) -> list[str]:
+    """One "/"- or ";"-separated location segment into one or more city names."""
+    part = part.strip()
+    if _WASHINGTON_DC.match(part):
+        return ["washington dc"]
+    part = _US_STATE_SUFFIX.sub("", part)
+    pieces = [piece for piece in part.split(",") if piece.strip()]
+    return pieces or [part]
+
+
+def _split_location(value: str) -> frozenset[str]:
+    items = [
+        item for segment in re.split(r"[;/]", value) for item in _normalize_location_part(segment)
+    ]
+    return frozenset(_basic_normalize(item) for item in items if _basic_normalize(item))
+
+
+def _split_materials(value: str) -> frozenset[str]:
+    parts = _MATERIALS_SPLIT.split(value)
+    return frozenset(_basic_normalize(part) for part in parts if _basic_normalize(part))
+
+
+def _convert_month_year(token: str) -> str:
+    """ "December 2026" -> "2026-12". Anything else (a year alone, "Summer 2027", an
+    already-ISO month) passes through unchanged — never invent a month that isn't there."""
+    match = _MONTH_YEAR.match(token.strip())
+    if not match:
+        return token
+    month = _MONTHS.get(match.group("month").casefold())
+    if month is None:
+        return token
+    return f"{match.group('year')}-{month}"
+
+
+def _split_graduation(value: str) -> frozenset[str]:
+    parts = (_convert_month_year(part.strip()) for part in re.split(r"[;/]", value))
+    return frozenset(_basic_normalize(part) for part in parts if _basic_normalize(part))
+
+
 def normalize_value(field: str, value: str | None) -> str | frozenset[str] | None:
     """Normalize one field's value for comparison. None in, None out.
 
-    Returns a frozenset for `location` (order-insensitive city set) and a plain string for
-    everything else, including dates — compared as written, never completed with a year.
+    Returns a frozenset for `location`, `materials_required` and (unless it matched the
+    "NNNN届" shortcut below) `graduation_window` — each compared as an order-insensitive
+    set of parts. Everything else is a plain string, including dates — compared as
+    written, never completed with a year.
     """
     if value is None:
         return None
 
     key = unicodedata.normalize("NFKC", value).strip()
-    graduation_match = _GRADUATION_YEAR.match(key) if field == "graduation_window" else None
-    if graduation_match:
-        return _basic_normalize(f"{graduation_match.group(1)} graduates")
+    if field == "graduation_window":
+        graduation_match = _GRADUATION_YEAR.match(key)
+        if graduation_match:
+            return _basic_normalize(f"{graduation_match.group(1)} graduates")
     alias = ALIASES.get((field, key))
     if alias is not None:
         return _basic_normalize(alias)
 
     if field == "location":
-        parts = re.split(r"[/,]", value)
-        return frozenset(_basic_normalize(part) for part in parts if _basic_normalize(part))
+        return _split_location(value)
+    if field == "materials_required":
+        return _split_materials(value)
+    if field == "graduation_window":
+        return _split_graduation(value)
+    if field == "degree_requirement":
+        return _basic_normalize(_TRAILING_DEGREE_WORD.sub("", value))
     return _basic_normalize(value)
 
 

@@ -150,6 +150,58 @@ def test_alias_table_matches_until_filled_to_its_chinese_phrasing():
     assert _score(label, output).outcome == "correct"
 
 
+def test_deadline_month_day_is_never_converted_like_graduation_window():
+    # Only graduation_window gets "Month YYYY" -> "YYYY-MM" conversion. A deadline that
+    # differs only by an added year must still be a mismatch, not silently equal.
+    label = make_label(critical={"deadline": _field("August 17")})
+    output = make_output(critical={"deadline": _stated("2027-08-17")})
+    assert _score(label, output).outcome == "mismatch"
+
+
+# --- List-like field normalization -----------------------------------------------------
+
+
+def test_materials_required_matches_across_different_separators():
+    label_value = "resume + cover letter + transcript + writing sample"
+    label = make_label(critical={"materials_required": _field(label_value)})
+    output = make_output(
+        critical={"materials_required": _stated("Resume, Cover letter, Transcript, Writing Sample")}
+    )
+    assert _score(label, output, field="materials_required").outcome == "correct"
+
+
+def test_location_strips_us_state_codes_and_normalizes_washington_dc():
+    label = make_label(
+        important={
+            "location": _field(
+                "Boston / Chicago / Los Angeles / New York / Oakland / Tallahassee / Washington DC"
+            )
+        }
+    )
+    output = make_output(
+        important={
+            "location": _stated(
+                "Boston, MA; Chicago, IL; Los Angeles, CA; New York, NY; Oakland, CA; "
+                "Tallahassee, FL; Washington, DC"
+            )
+        }
+    )
+    assert _score(label, output, field="location", tier="important").outcome == "correct"
+
+
+def test_graduation_window_converts_month_year_regardless_of_separator():
+    label = make_label(critical={"graduation_window": _field("2026-12 / Summer 2027")})
+    for system_value in ("December 2026/Summer 2027", "December 2026; Summer 2027"):
+        output = make_output(critical={"graduation_window": _stated(system_value)})
+        assert _score(label, output, field="graduation_window").outcome == "correct"
+
+
+def test_degree_requirement_drops_trailing_degree_word():
+    label = make_label(important={"degree_requirement": _field("Bachelor's or Master's")})
+    output = make_output(important={"degree_requirement": _stated("Bachelor's or Master's degree")})
+    assert _score(label, output, field="degree_requirement", tier="important").outcome == "correct"
+
+
 # --- Adjudications -------------------------------------------------------------------------
 
 
