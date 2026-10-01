@@ -4,9 +4,9 @@
   "title": "Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",
   "critical": {
     "deadline": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "Applications will be reviewed on a rolling basis.",
       "ambiguous": false,
       "note": null
     },
@@ -25,16 +25,16 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2 per candidate across TikTok and affiliates globally",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply. The application limit is applicable to TikTok and its affiliates' jobs globally.",
       "ambiguous": false,
       "note": null
     },
     "materials_required": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "resume",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume.",
       "ambiguous": false,
       "note": null
     }

@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": "1 per business group; max 2 positions",
+      "value": "1 per business group/company; up to 2 preferences",
       "stated": true,
-      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位）",
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位），按照意向顺序流转。",
       "ambiguous": false,
       "note": null
     },

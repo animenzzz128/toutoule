@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "3 per applicant for Asia summer internship programs",
+      "stated": true,
+      "evidence": "Each applicant can apply to maximum of 3 summer internship programs in Asia cluster.",
       "ambiguous": false,
       "note": null
     },
