@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-19",
-  "company": "Kuaishou",
+  "company": "Not stated in raw posting",
   "title": "策略产品经理",
   "critical": {
     "deadline": {
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing",
+      "stated": true,
+      "evidence": "北京",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1、本科及以上学历，计算机、数学等相关专业优先；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product strategy",
+      "user research",
+      "data analysis",
+      "competitor analysis",
+      "requirements management",
+      "project management"
+    ],
+    "responsibilities": [
+      "Develop product strategies",
+      "Research users and analyze data",
+      "Evaluate feature performance",
+      "Identify improvements and product opportunities"
+    ],
+    "team_or_function": "Strategy product management"
   }
 }

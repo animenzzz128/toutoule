@@ -4,16 +4,16 @@
   "title": "Research Analyst (Economics) - July 2027",
   "critical": {
     "deadline": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
-      "ambiguous": false,
-      "note": null
+      "value": "2026-09-14",
+      "stated": true,
+      "evidence": "Please submit your application by September 14, 2026. Our secondary deadline is October 12, 2026. We strongly recommend applying by September 14, 2026 to be considered for the Analyst role.",
+      "ambiguous": true,
+      "note": "secondary deadline 2026-10-12"
     },
     "visa_sponsorship": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "conditional",
+      "stated": true,
+      "evidence": "Full-time candidates requiring visa support must have or anticipate having a STEM degree upon graduation and must be eligible for at least 36 months of work authorization.",
       "ambiguous": false,
       "note": null
     },
@@ -32,18 +32,18 @@
       "note": null
     },
     "materials_required": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "cover letter + resume + transcripts",
+      "stated": true,
+      "evidence": "Cover letter\r\nResume\r\nTranscript(s) (unofficial copies accepted)",
       "ambiguous": false,
       "note": null
     }
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Washington, DC",
+      "stated": true,
+      "evidence": "Washington, District of Columbia, United States",
       "ambiguous": false,
       "note": null
     },
@@ -62,23 +62,37 @@
       "note": null
     },
     "start_date": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027-07",
+      "stated": true,
+      "evidence": "Research Analyst (Economics) - July 2027",
       "ambiguous": false,
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Undergraduate degree in a quantitative discipline",
+      "stated": true,
+      "evidence": "An undergraduate degree in a quantitative discipline (e.g. economics, computer science, data science, and mathematics)",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "economic analysis",
+      "econometrics",
+      "R",
+      "Python",
+      "Stata",
+      "Excel",
+      "qualitative research",
+      "teamwork"
+    ],
+    "responsibilities": [
+      "Build quantitative models",
+      "Conduct market and literature research",
+      "Support expert reports",
+      "Present findings with project teams"
+    ],
+    "team_or_function": "Economic consulting research"
   }
 }

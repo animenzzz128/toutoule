@@ -1,7 +1,7 @@
 {
   "case_id": "cnp-08",
-  "company": "Xiaohongshu",
-  "title": "产品经理（AI Coding）",
+  "company": "小红书",
+  "title": "【2027校招】产品经理（AI Coding）-AI 应用",
   "critical": {
     "deadline": {
       "value": null,
@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "5 per candidate; 2 subdirections within 1 direction",
+      "stated": true,
+      "evidence": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位；投递后，职位方向不可更换，志愿将按顺序依次流转",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing / Shanghai",
+      "stated": true,
+      "evidence": "工作地点：北京市，上海市",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,30 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1、本科及以上学历，计算机科学、软件工程、数据科学、人工智能等相关专业优先；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product design",
+      "requirements analysis",
+      "PRD writing",
+      "AI coding tools",
+      "project management",
+      "user research",
+      "data analysis"
+    ],
+    "responsibilities": [
+      "Own an AI product feature line",
+      "Identify engineering use cases",
+      "Develop agent product solutions",
+      "Build metrics and evaluation",
+      "Coordinate cross-functional delivery"
+    ],
+    "team_or_function": "AI Coding product management"
   }
 }

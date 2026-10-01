@@ -4,9 +4,9 @@
   "title": "Banking - Corporate Banking, Summer Analyst, China – APAC, 2027",
   "critical": {
     "deadline": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "We encourage early applications as we recruit on a rolling basis.",
       "ambiguous": false,
       "note": null
     },
@@ -18,16 +18,16 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027-12 to 2028-06",
+      "stated": true,
+      "evidence": "graduating between Dec 2027 - June 2028",
       "ambiguous": false,
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "3 per applicant for APAC summer internship programs",
+      "stated": true,
+      "evidence": "Each applicant can apply to maximum of 3 summer internship programs in APAC region.",
       "ambiguous": false,
       "note": null
     },
@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "Shanghai, Shanghai Municipality, China",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-Site/Resident",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,27 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree in any discipline",
+      "stated": true,
+      "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution (graduating between Dec 2027 - June 2028)",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "communication",
+      "planning",
+      "organization",
+      "teamwork",
+      "financial industry interest"
+    ],
+    "responsibilities": [
+      "Complete two Corporate Banking rotations",
+      "Advise clients on strategic objectives",
+      "Support capital raising",
+      "Work on financial transactions"
+    ],
+    "team_or_function": "Corporate Banking"
   }
 }

@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027-05 / 2027-06",
+      "stated": true,
+      "evidence": "Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience).",
       "ambiguous": false,
       "note": null
     },
@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Mountain View / McLean",
+      "stated": true,
+      "evidence": "This role is based out of our Mountain View, CA or McLean, VA offices and requires full-time in-office attendance.",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "onsite",
+      "stated": true,
+      "evidence": "This role is based out of our Mountain View, CA or McLean, VA offices and requires full-time in-office attendance.",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's degree in Business, Engineering, Computer Science or related field, or equivalent experience",
+      "stated": true,
+      "evidence": "Graduating in May/June 2027 with a Bachelor's degree in Business, Engineering, Computer Science, or related field (or equivalent experience).",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product requirements",
+      "AI coding tools",
+      "APIs",
+      "data modeling",
+      "cross-functional communication",
+      "product metrics"
+    ],
+    "responsibilities": [
+      "Own discrete platform features",
+      "Write specifications and acceptance criteria",
+      "Coordinate engineering and design",
+      "Track launch metrics and user feedback"
+    ],
+    "team_or_function": "Platform product management"
   }
 }

@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-05",
-  "company": "ByteDance (TikTok)",
+  "company": "TikTok Shop",
   "title": "AI产品运营 - TikTok Shop",
   "critical": {
     "deadline": {
@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027 graduates",
+      "stated": true,
+      "evidence": "1、2027届获得本科及以上学历，数学、统计学、经济学、运筹学、计算机、营销相关专业优先；",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Shanghai / Zhuhai",
+      "stated": true,
+      "evidence": "上海、珠海",
       "ambiguous": false,
       "note": null
     },
@@ -55,9 +55,9 @@
       "note": null
     },
     "language_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "proficient English for work communication",
+      "stated": true,
+      "evidence": "5、熟练的英语能力，可以和跨国同事进行工作沟通与项目推进。",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,29 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1、2027届获得本科及以上学历，数学、统计学、经济学、运筹学、计算机、营销相关专业优先；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "AI agents",
+      "data analysis",
+      "evaluation frameworks",
+      "NPS analysis",
+      "structured thinking",
+      "English communication"
+    ],
+    "responsibilities": [
+      "Operate an AI assistant product",
+      "Build AI capability evaluations",
+      "Monitor satisfaction and NPS",
+      "Coordinate product improvements",
+      "Track industry trends"
+    ],
+    "team_or_function": "TikTok Shop AI product operations"
   }
 }

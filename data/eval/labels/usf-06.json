@@ -1,6 +1,6 @@
 {
   "case_id": "usf-06",
-  "company": "Inizio Ignite | Putnam",
+  "company": "Inizio Ignite, Putnam",
   "title": "Summer Associate Consultant (US) – 2027 Internship Program",
   "critical": {
     "deadline": {
@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2028-06",
+      "stated": true,
+      "evidence": "This internship is intended for current juniors pursuing a Bachelor’s or Master’s degree in Life Sciences, Economics, Finance, or a related field, with an expected graduation date of June 2028.",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Boston",
+      "stated": true,
+      "evidence": "The Summer Internship Program is based in our Boston office.",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree in Life Sciences, Economics, Finance or a related field",
+      "stated": true,
+      "evidence": "current juniors pursuing a Bachelor’s or Master’s degree in Life Sciences, Economics, Finance, or a related field",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "primary research",
+      "secondary research",
+      "data analysis",
+      "strategy consulting",
+      "presentation development",
+      "communication"
+    ],
+    "responsibilities": [
+      "Interview healthcare stakeholders",
+      "Synthesize scientific and industry research",
+      "Analyze client and market data",
+      "Develop client presentations"
+    ],
+    "team_or_function": "Putnam life sciences strategy consulting"
   }
 }

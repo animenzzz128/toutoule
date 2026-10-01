@@ -4,9 +4,9 @@
   "title": "Associate Product Manager, University Graduate, 2027 Start",
   "critical": {
     "deadline": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2026-10-06",
+      "stated": true,
+      "evidence": "You must complete your application *before* end of day on October 6, 2026 to be considered.",
       "ambiguous": false,
       "note": null
     },
@@ -32,18 +32,18 @@
       "note": null
     },
     "materials_required": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "resume + transcript",
+      "stated": true,
+      "evidence": "In the “Resume\" section, attach an updated CV or resume. No cover letter needed.",
       "ambiguous": false,
       "note": null
     }
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Mountain View / New York / San Bruno / San Jose",
+      "stated": true,
+      "evidence": "Note: By applying to this position you will have an opportunity to share your preferred working location from the following: Mountain View, CA, USA; New York, NY, USA; San Bruno, CA, USA; San Jose, CA, USA.",
       "ambiguous": false,
       "note": null
     },
@@ -62,23 +62,35 @@
       "note": null
     },
     "start_date": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2027-04 to 2027-08",
+      "stated": true,
+      "evidence": "targeting cohort starts between April and August 2027",
       "ambiguous": false,
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Degree program in listed technical fields or equivalent practical experience",
+      "stated": true,
+      "evidence": "a degree program within Product Management, Computer Science, Engineering, Data Science, Mathematics, Statistics, or a related technical field, or equivalent practical experience.",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product management",
+      "technical presentations",
+      "cross-functional relationships",
+      "user requirements",
+      "product launches",
+      "AI/ML concepts"
+    ],
+    "responsibilities": [
+      "Understand markets and users",
+      "Launch and iterate features",
+      "Collaborate with engineering and business teams",
+      "Develop product solutions"
+    ],
+    "team_or_function": "Product Management"
   }
 }

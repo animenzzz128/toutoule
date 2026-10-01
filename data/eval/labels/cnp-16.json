@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-16",
-  "company": "Tencent",
+  "company": "腾讯",
   "title": "AI产品经理",
   "critical": {
     "deadline": {
@@ -77,8 +77,22 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "AI product design",
+      "LLMs",
+      "agents",
+      "RAG",
+      "multimodal AI",
+      "A/B testing",
+      "user behavior analysis"
+    ],
+    "responsibilities": [
+      "Define AI product direction",
+      "Design AI interactions",
+      "Validate product outcomes",
+      "Optimize growth using experiments",
+      "Track AI product opportunities"
+    ],
+    "team_or_function": "AI product management across listed business groups"
   }
 }

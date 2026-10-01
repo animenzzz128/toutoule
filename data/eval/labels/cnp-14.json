@@ -1,7 +1,7 @@
 {
   "case_id": "cnp-14",
-  "company": "Meituan",
-  "title": "AI产品经理",
+  "company": "美团",
+  "title": "AI产品经理岗",
   "critical": {
     "deadline": {
       "value": null,
@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "3 per candidate",
+      "stated": true,
+      "evidence": "最多可投递3个职位，但同一时间仅有1个职位流程处于进行中，第一志愿将被优先考虑。",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing / Shanghai / Chengdu / Shenzhen",
+      "stated": true,
+      "evidence": "工作地点：北京市、上海市、成都市、深圳市",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,27 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1. 本科及以上学历；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product management",
+      "user needs analysis",
+      "AI product thinking",
+      "LLM capabilities",
+      "algorithm collaboration"
+    ],
+    "responsibilities": [
+      "Identify user pain points",
+      "Explore AI product opportunities",
+      "Coordinate with AI algorithm teams",
+      "Turn AI capabilities into product features"
+    ],
+    "team_or_function": "AI product management"
   }
 }

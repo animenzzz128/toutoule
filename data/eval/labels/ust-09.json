@@ -1,7 +1,7 @@
 {
   "case_id": "ust-09",
   "company": "Tellius",
-  "title": "Business Operations Generalist (New Grad)",
+  "title": "Strategic Account Manager (Post-Sales)",
   "critical": {
     "deadline": {
       "value": null,
@@ -48,9 +48,9 @@
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote",
       "ambiguous": false,
       "note": null
     },
@@ -77,8 +77,21 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "account management",
+      "customer success",
+      "consultative sales",
+      "stakeholder management",
+      "project management",
+      "analytics"
+    ],
+    "responsibilities": [
+      "Onboard customers",
+      "Drive adoption and renewals",
+      "Grow accounts through upsells",
+      "Monitor usage and retention",
+      "Relay customer feedback to product teams"
+    ],
+    "team_or_function": "Strategic account management"
   }
 }

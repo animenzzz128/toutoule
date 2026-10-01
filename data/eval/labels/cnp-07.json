@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Los Angeles",
+      "stated": true,
+      "evidence": "Los Angeles",
       "ambiguous": false,
       "note": null
     },
@@ -77,8 +77,21 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "Excel",
+      "merchandising",
+      "product styling",
+      "inventory tracking",
+      "organization",
+      "cross-functional communication"
+    ],
+    "responsibilities": [
+      "Support the Senior Buyer",
+      "Coordinate photoshoots and samples",
+      "Track new item launches",
+      "Maintain sample inventory",
+      "Resolve launch and shoot bottlenecks"
+    ],
+    "team_or_function": "Buying and merchandising"
   }
 }

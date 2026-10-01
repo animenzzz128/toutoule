@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "recent graduate or within 1–2 years of graduation",
+      "stated": true,
+      "evidence": "Recent graduate from a US university (BS or MS), or within 1–2 years of graduation",
       "ambiguous": false,
       "note": null
     },
@@ -41,23 +41,23 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Cary",
+      "stated": true,
+      "evidence": "cary, United States (Remote)",
       "ambiguous": false,
-      "note": null
+      "note": "remote; residents of CA/NC/IL/TX/NJ only"
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "remote",
+      "stated": true,
+      "evidence": "**Workplace:** remote",
       "ambiguous": false,
       "note": null
     },
     "language_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Mandarin Chinese and strong written and verbal English",
+      "stated": true,
+      "evidence": "Mandarin Chinese communication ability required",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,30 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree from a US university",
+      "stated": true,
+      "evidence": "Recent graduate from a US university (BS or MS), or within 1–2 years of graduation",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product requirements",
+      "user research",
+      "wireframes",
+      "competitive analysis",
+      "data analysis",
+      "Mandarin communication",
+      "English communication"
+    ],
+    "responsibilities": [
+      "Analyze user feedback",
+      "Write product requirements",
+      "Track features through launch",
+      "Interview Shopify merchants",
+      "Coordinate product delivery"
+    ],
+    "team_or_function": "Order Tracking or AI Chat product team"
   }
 }

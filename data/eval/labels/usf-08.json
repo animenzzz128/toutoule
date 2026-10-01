@@ -1,7 +1,7 @@
 {
   "case_id": "usf-08",
   "company": "BlackRock",
-  "title": "2027 Full-Time Analyst Program - AMRS",
+  "title": "Overview of Full-Time Analyst Program",
   "critical": {
     "deadline": {
       "value": null,
@@ -18,16 +18,16 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2026-09 to 2027-07",
+      "stated": true,
+      "evidence": "The Full-Time Analyst Program is for candidates who have graduated or will be graduating with a bachelor's or master's degree between September 2026 and July 2027.",
       "ambiguous": false,
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2 functions per program application",
+      "stated": true,
+      "evidence": "Candidates can apply for up to two functions within that program (e.g., Investment Research and Analytics & Modeling). You must apply for both opportunities using the same program application.",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,19 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "The Full-Time Analyst Program is for candidates who have graduated or will be graduating with a bachelor's or master's degree between September 2026 and July 2027.",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
     "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "responsibilities": [
+      "Join an analyst team",
+      "Complete orientation and ongoing development"
+    ],
+    "team_or_function": "Full-Time Analyst Program across business areas"
   }
 }

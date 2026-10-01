@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "New York",
+      "stated": true,
+      "evidence": "New York, New York, United States",
       "ambiguous": false,
       "note": null
     },
@@ -77,8 +77,19 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "structured problem solving",
+      "project management",
+      "communication",
+      "attention to detail",
+      "cross-functional strategy"
+    ],
+    "responsibilities": [
+      "Rotate across business groups",
+      "Solve strategic problems",
+      "Drive cross-functional growth",
+      "Own strategic initiatives"
+    ],
+    "team_or_function": "Strategy and Product"
   }
 }

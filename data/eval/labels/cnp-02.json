@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-02",
-  "company": "Lalamove (Huolala group)",
+  "company": "Lalamove",
   "title": "Product Manager, Marketplace",
   "critical": {
     "deadline": {
@@ -41,23 +41,23 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "Hong Kong SAR",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-site",
       "ambiguous": false,
       "note": null
     },
     "language_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "fluent English and Chinese (Cantonese or Mandarin)",
+      "stated": true,
+      "evidence": "Fluency in English and Chinese (Cantonese or Mandarin)",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's degree in a technical or business field",
+      "stated": true,
+      "evidence": "BA/BS in a technical/business field such as computer science, management, or economics",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product management",
+      "mobile or web products",
+      "analytical thinking",
+      "business and technical communication",
+      "user research",
+      "market analysis"
+    ],
+    "responsibilities": [
+      "Set OKRs and prioritize product ideas",
+      "Turn research into product requirements",
+      "Coordinate product and stakeholder teams",
+      "Drive product development"
+    ],
+    "team_or_function": "Marketplace product management"
   }
 }

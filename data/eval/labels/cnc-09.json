@@ -1,6 +1,6 @@
 {
   "case_id": "cnc-09",
-  "company": "McKinsey & Company (Greater China)",
+  "company": "McKinsey",
   "title": "Business Analyst - Automotive",
   "critical": {
     "deadline": {
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing / Shanghai / Shenzhen",
+      "stated": true,
+      "evidence": "Beijing\r\nShanghai\r\nShenzhen",
       "ambiguous": false,
       "note": null
     },
@@ -55,9 +55,9 @@
       "note": null
     },
     "language_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "fluent English and Mandarin Chinese",
+      "stated": true,
+      "evidence": "Fluent verbal and written communication skills in both English and Mandarin Chinese, with the ability to adapt communication style across seniority levels and perspectives",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,30 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Advanced graduate degree or equivalent relevant work experience",
+      "stated": true,
+      "evidence": "Advanced graduate degree (e.g., MBA, PhD) or equivalent relevant work experience",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "automotive industry experience",
+      "data-driven decisions",
+      "PowerPoint",
+      "Excel",
+      "communication",
+      "research",
+      "problem solving",
+      "time management"
+    ],
+    "responsibilities": [
+      "Analyze client challenges",
+      "Develop actionable plans",
+      "Conduct research and interviews",
+      "Support strategy implementation"
+    ],
+    "team_or_function": "Automotive client service consulting"
   }
 }

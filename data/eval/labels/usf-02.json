@@ -1,7 +1,7 @@
 {
   "case_id": "usf-02",
   "company": "Robinhood",
-  "title": "Investment Analyst Intern (Summer 2027)",
+  "title": "Investment Analyst Intern, Robinhood Ventures (Summer 2027)",
   "critical": {
     "deadline": {
       "value": null,
@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Menlo Park",
+      "stated": true,
+      "evidence": "Menlo Park, CA",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "This role is based in our Menlo Park, CA office with in-person attendance expected at least 3 days per week.",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,29 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Currently enrolled in a full-time MBA program",
+      "stated": true,
+      "evidence": "Currently enrolled in a full-time MBA program",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "financial modeling",
+      "valuation analysis",
+      "market research",
+      "investment evaluation",
+      "sector research",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Research markets and source companies",
+      "Conduct investment diligence",
+      "Build financial models",
+      "Develop investment theses",
+      "Support venture platform features"
+    ],
+    "team_or_function": "Robinhood Ventures investment team"
   }
 }

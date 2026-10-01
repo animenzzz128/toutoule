@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-20",
-  "company": "Meituan",
+  "company": "Not stated in raw posting",
   "title": "智能商业分析师（BA/DS）",
   "critical": {
     "deadline": {
@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "3 per candidate",
+      "stated": true,
+      "evidence": "最多可投递3个职位，但同一时间仅有1个职位流程处于进行中，第一志愿将被优先考虑。",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing / Shanghai",
+      "stated": true,
+      "evidence": "工作地点：北京市、上海市",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,27 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1. 本科及以上学历，数学、统计、计算机、工科、商科等相关专业背景更佳；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "business analysis",
+      "data analysis",
+      "strategy",
+      "experimentation",
+      "LLM applications"
+    ],
+    "responsibilities": [
+      "Support business planning and strategy",
+      "Analyze operations and user needs",
+      "Contribute to experimentation platform",
+      "Explore LLM uses in business analysis"
+    ],
+    "team_or_function": "Business analytics / data science"
   }
 }

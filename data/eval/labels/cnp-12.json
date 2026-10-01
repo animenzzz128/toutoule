@@ -18,16 +18,16 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "2026-10-31 to 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\r\n2026-10-31 - 2027-10-30",
       "ambiguous": false,
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "1 per business group/company; up to 2 preferences",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位），按照意向顺序流转。",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Beijing",
+      "stated": true,
+      "evidence": "北京",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "1. 本科以上学历，有C端产品实习经验；",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "consumer product experience",
+      "data analysis",
+      "user research",
+      "search and recommendation",
+      "AI applications",
+      "cross-functional coordination"
+    ],
+    "responsibilities": [
+      "Analyze search and recommendation data",
+      "Translate user needs into product plans",
+      "Apply LLM and multimodal technology",
+      "Coordinate operations, algorithms and engineering"
+    ],
+    "team_or_function": "Search and recommendation product, 虎鲸文娱集团"
   }
 }

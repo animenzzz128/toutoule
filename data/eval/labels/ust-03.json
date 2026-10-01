@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Winter 2026 to Summer 2027",
+      "stated": true,
+      "evidence": "graduating between Winter 2026 and Summer 2027",
       "ambiguous": false,
       "note": null
     },
@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "New York",
+      "stated": true,
+      "evidence": "New York, NY",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "This role is based in our New York, NY office, with in-person attendance expected at least 3 days per week.",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,29 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Degree-seeking program in Engineering, Computer Science, Business, Economics or a related field",
+      "stated": true,
+      "evidence": "Currently enrolled in a full-time, degree-seeking program in Engineering, Computer Science, Business, Economics, or a related field",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "product strategy",
+      "customer research",
+      "KPI analysis",
+      "data-driven decisions",
+      "cross-functional leadership",
+      "communication"
+    ],
+    "responsibilities": [
+      "Research customer needs",
+      "Define product strategies",
+      "Coordinate product teams",
+      "Launch products",
+      "Monitor KPIs"
+    ],
+    "team_or_function": "Product management"
   }
 }

@@ -1,7 +1,7 @@
 {
   "case_id": "cnp-09",
-  "company": "Xiaohongshu",
-  "title": "小红书产品经理培训生（RPT）--创新产品",
+  "company": "小红书",
+  "title": "2027校招】小红书产品经理培训生（RPT）--创新产品",
   "critical": {
     "deadline": {
       "value": null,
@@ -25,9 +25,9 @@
       "note": null
     },
     "application_cap": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "5 per candidate; 2 subdirections within 1 direction",
+      "stated": true,
+      "evidence": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位；投递后，职位方向不可更换，志愿将按顺序依次流转",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "工作地点：上海市",
       "ambiguous": false,
       "note": null
     },
@@ -77,8 +77,18 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "user insight",
+      "product judgment",
+      "AI product innovation",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Create AI-native products",
+      "Lead product discovery through launch",
+      "Iterate using user feedback",
+      "Work with design, engineering and operations"
+    ],
+    "team_or_function": "Lab 1327 innovation product team"
   }
 }

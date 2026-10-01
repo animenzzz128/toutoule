@@ -21,6 +21,14 @@ says "a short plain value", the formats below keep labels consistent across 50 c
 | "Must be legally authorized to work in the US", nothing about sponsorship | `visa_sponsorship` `stated: false`, note `work authorization only` | It states a work-authorization requirement, not a sponsorship policy. An F-1/OPT holder can be authorized to work. |
 | "…without sponsorship now or in the future" | `visa_sponsorship` `no` | That is an explicit sponsorship statement. |
 | An application-form question, e.g. "Will you now or in the future require sponsorship?" | `visa_sponsorship` `stated: false`, note `question only` | A question is not a policy. |
+| A location list cut off with "+ N More" | `location` = the listed cities + ` / +N more`, keeping the truncation marker, `ambiguous: false` | Copy what is shown; the posting itself declines to name the rest. |
+| A multi-role posting where a field differs by role and no single statement covers the whole posting | value `varies by role`, evidence = one representative span, `ambiguous: true`, note names the split | A single quote can't honestly represent every role; the note records what the chosen span actually covers. |
+| A remote role whose header names one city but eligibility is restricted to a list of states/regions | `location` = the posting's own location field as written, `ambiguous: false`, residency limit goes in `note` | The posting does state a location field; the residency restriction is separate information, not a contradiction of it. |
+| "In office at least N days/week" with N < 5 | `work_model` `hybrid`, `ambiguous: false` | A role-specific in-office day count below 5 is hybrid by definition; a role-specific statement beats a company-wide policy statement. |
+| "本科以上" (degree level) | `degree_requirement` value `Bachelor's or above`, `ambiguous: false` | Common usage reads 以上 as inclusive ("bachelor's and above"), not "strictly above a bachelor's." |
+| An explicit deadline plus "may close before/after this date" | `deadline` = that date, `ambiguous: false`, note `may close early` | The posting gives one concrete date; the caveat is a note, not a second value. |
+| Two explicit deadlines (primary + secondary) | `deadline` = the primary date, `ambiguous: true`, note names the secondary date | Both dates are real; the primary is the one the posting recommends acting on, so it is the value, not an average or a range. |
+| "\<year\> Start" in a title, with no other graduation/start statement in the body | `start_date` stated from the title span, value the year, `ambiguous: false` | The title is part of the posting text; a bare year from it is a precise value, not an inferred one. |
 
 Relative-phrasing values are written in English (`rolling basis`, `until filled`) even for
 Chinese postings. The evidence keeps the original Chinese. Whether Task 1.7 should accept

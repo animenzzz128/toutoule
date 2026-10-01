@@ -11,9 +11,9 @@
       "note": null
     },
     "visa_sponsorship": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "no",
+      "stated": true,
+      "evidence": "At this time, Capital One will not sponsor a new applicant for employment authorization for this position.",
       "ambiguous": false,
       "note": null
     },
@@ -41,9 +41,9 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "McLean",
+      "stated": true,
+      "evidence": "McLean, Virginia",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,29 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's degree",
+      "stated": true,
+      "evidence": "Bachelor’s degree",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "competitive intelligence",
+      "financial analysis",
+      "market research",
+      "data analysis",
+      "problem solving",
+      "presentations"
+    ],
+    "responsibilities": [
+      "Research competitors and markets",
+      "Support senior management with analysis",
+      "Monitor financial and economic events",
+      "Analyze large financial data sets",
+      "Benchmark capital and balance sheet performance"
+    ],
+    "team_or_function": "Corporate Research within Corporate Strategy"
   }
 }

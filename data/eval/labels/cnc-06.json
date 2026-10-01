@@ -18,9 +18,9 @@
       "note": null
     },
     "graduation_window": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "by 2027-06",
+      "stated": true,
+      "evidence": "graduating by June 2027",
       "ambiguous": false,
       "note": null
     },
@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "Hong Kong, Central and Western District, Hong Kong SAR",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "onsite",
+      "stated": true,
+      "evidence": "On-Site/Resident",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Undergraduate or Master's degree",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027.",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "analytical skills",
+      "quantitative skills",
+      "leadership",
+      "teamwork",
+      "communication",
+      "client relationships",
+      "global economic awareness"
+    ],
+    "responsibilities": [
+      "Complete two Markets rotations",
+      "Learn sales and trading products",
+      "Develop client relationships"
+    ],
+    "team_or_function": "Markets sales and trading"
   }
 }

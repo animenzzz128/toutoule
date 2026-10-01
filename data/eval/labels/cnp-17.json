@@ -1,6 +1,6 @@
 {
   "case_id": "cnp-17",
-  "company": "Tencent",
+  "company": "Not stated in raw posting",
   "title": "战略商业分析师",
   "critical": {
     "deadline": {
@@ -77,8 +77,20 @@
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "commercial analysis",
+      "logical reasoning",
+      "industry research",
+      "trend analysis",
+      "communication",
+      "teamwork"
+    ],
+    "responsibilities": [
+      "Discuss strategy with executives",
+      "Analyze emerging sectors",
+      "Identify growth opportunities",
+      "Coordinate business and investment"
+    ],
+    "team_or_function": "Strategic business analysis across listed business groups"
   }
 }

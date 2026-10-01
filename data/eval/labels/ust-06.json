@@ -41,16 +41,16 @@
   },
   "important": {
     "location": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "San Mateo",
+      "stated": true,
+      "evidence": "San Mateo",
       "ambiguous": false,
       "note": null
     },
     "work_model": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "Location Type\r\nHybrid",
       "ambiguous": false,
       "note": null
     },
@@ -69,16 +69,28 @@
       "note": null
     },
     "degree_requirement": {
-      "value": null,
-      "stated": false,
-      "evidence": null,
+      "value": "Bachelor's or Master's degree in Computer Science, Engineering or related technical field",
+      "stated": true,
+      "evidence": "You recently graduated (or are about to) with a Bachelor's or Master's degree in Computer Science, Engineering, or a related technical field",
       "ambiguous": false,
       "note": null
     }
   },
   "reference": {
-    "skills": [],
-    "responsibilities": [],
-    "team_or_function": null
+    "skills": [
+      "GenAI",
+      "developer tooling",
+      "AI APIs",
+      "technical communication",
+      "customer engagement",
+      "analytics"
+    ],
+    "responsibilities": [
+      "Advise customers on GenAI strategy",
+      "Define and ship platform features",
+      "Identify customer use cases",
+      "Work with sales and marketing"
+    ],
+    "team_or_function": "AI infrastructure product management"
   }
 }
