@@ -2,6 +2,30 @@
 
 50 hand-labeled job descriptions used to measure extraction quality (`05_EVAL_SPEC.md`).
 This README documents the tooling and conventions; it does not decide label values — see
+"Patterns the prompt does not define" below for the calls still open.
+
+## How the labels were made
+
+- **Drafted by GPT 6 Sol from raw text only**, following the conventions in this file.
+- **Blind check first.** The owner hand-labeled 5 cases (cnc-01, cnp-01, cnp-11, usf-01,
+  ust-01) before seeing any model output, to avoid anchoring. The model then drafted the
+  same 5 cases independently. On the 5 critical fields across those 5 cases (25 total),
+  the model agreed with the owner's hand labels on 22/25. All 3 disagreements were owner
+  errors, not model errors — adjudicated by rereading the raw source for each.
+- **13 fields across the 50 cases were flagged `ambiguous: true`** by the model. The owner
+  reviewed all 13, wrote 7 general conventions covering the patterns behind them (see
+  "Patterns the prompt does not define"), and applied those conventions mechanically. That
+  resolved 12 of the 13 fields (2 critical, 10 important); the 13th is still open.
+- **Owner review of the other 45 drafted cases was a quick read-through, not a
+  field-by-field check.** It changed no further fields. These labels are
+  **model-drafted, owner-reviewed — not hand-verified** the way the 5 blind-check cases
+  were.
+- **Mitigation for Task 1.7:** every disagreement the eval harness finds between the
+  extractor and a label, on a critical field, is checked against the raw text before it
+  is counted. A label error found there is fixed and reported, not silently absorbed into
+  the extractor's error rate.
+- **Priority scores (`human_scores.csv`) are the owner's alone** — no model involvement.
+
 ## Labeling conventions
 
 Decided 2026-09-30, before any case was labeled. One principle covers all of them:
