@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: 3
+materials_required: not stated
+location: Hangzhou; Beijing; Guangzhou
+work_model: onsite
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: retail industry knowledge; store operations management; personnel management; data management; adaptability; quick learning ability
+responsibilities: Learn store front and back office operations processes and standards; participate in key business modules through site management, personnel management, and KPI/data management to improve store operations results, service experience and operational efficiency; rotate through planned assignments to transition from business executor to team manager and develop comprehensive management capabilities across multiple business units and regions
+team_or_function: Food and grocery retail management trainee program
+company: Meituan
+title: 食杂零售管培生

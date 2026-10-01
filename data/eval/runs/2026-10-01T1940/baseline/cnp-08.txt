@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: 5 per candidate
+materials_required: portfolio or documentation of independent work (optional); links or documents for portfolio items
+location: Beijing; Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's degree or above
+skills: product design fundamentals; requirements breakdown; user scenario analysis; solution design and PRD writing; project management; cross-functional collaboration; communication; deep experience with AI Coding tools (Cursor, Claude Code, Copilot, CodeWiz, Windsurf); learning ability; self-drive
+responsibilities: lead full lifecycle of large model product features in quality and efficiency domain; design products for Agent, AI Coding (IDE plugin/CLI), AI Testing; identify AI optimization opportunities through user behavior analysis and interviews; build product data monitoring and evaluation system; track AI Coding and Agent field developments; collaborate with business teams to build specialized AI capabilities
+team_or_function: Quality and Efficiency R&D Department
+company: Xiaohongshu
+title: Product Manager (AI Coding) - AI Application

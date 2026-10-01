@@ -1,0 +1,15 @@
+deadline: 2026-11-30
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: 2 per candidate
+materials_required: resume
+location: Kuala Lumpur
+work_model: not stated
+language_requirement: not stated
+start_date: 2027-06
+degree_requirement: Bachelor's degree
+skills: analytical and problem-solving skills; data analysis; structured problem-solving; communication; business acumen; Excel, SQL, dashboards, or analytics tools
+responsibilities: Rotate across core TikTok Shop e-commerce functions; support business growth initiatives across seller acquisition, incubation, creator partnerships, campaign management, platform operations, and business intelligence; analyze business performance and translate data into actionable recommendations; contribute to high-impact projects; partner with cross-functional teams to solve business challenges; build scalable playbooks and operating mechanisms; communicate findings and progress clearly; demonstrate ownership, curiosity, adaptability, and bias for action
+team_or_function: TikTok Shop E-commerce
+company: TikTok
+title: Graduate Development Program (TikTok Shop E-commerce, Malaysia)

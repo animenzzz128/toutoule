@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: not stated
+work_model: remote
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: AI tool proficiency; logical thinking; systems analysis; technical sensitivity; business acumen; product sense; user empathy; understanding of LLM/MLLM, Agent architecture, RAG, multimodal AI
+responsibilities: Define AI product direction and validate effects; understand capabilities and limitations of AI technologies; design AI interaction experiences; drive AI product growth through data experiments; track AI industry trends
+team_or_function: not stated
+company: Tencent
+title: AI Product Manager

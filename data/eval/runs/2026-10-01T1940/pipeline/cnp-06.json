@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "ByteDance",
+  "title": "产品经理实习生 - 国际化内容与服务广告",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京",
+      "stated": true,
+      "evidence": "北京"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "日常实习"
+    },
+    "language_requirement": {
+      "value": "English preferred",
+      "stated": true,
+      "evidence": "英语流利者优先"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree or above, enrolled",
+      "stated": true,
+      "evidence": "本科及以上学历在读"
+    }
+  },
+  "reference": {
+    "skills": [
+      "data analysis",
+      "communication and coordination",
+      "cross-functional collaboration",
+      "problem-solving",
+      "understanding of performance advertising"
+    ],
+    "responsibilities": [
+      "assist in product strategy design for internationalized app performance advertising",
+      "optimize advertiser campaign performance and efficiency",
+      "coordinate with design, R&D, algorithm, and operations teams",
+      "drive project execution from requirements to implementation",
+      "monitor industry dynamics and conduct research for strategy adjustment and product innovation"
+    ],
+    "team_or_function": "Global Monetization Product Organization - Content and Service Advertising Team"
+  }
+}

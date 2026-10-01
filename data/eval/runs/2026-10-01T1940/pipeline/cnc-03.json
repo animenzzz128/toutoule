@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "上海证券交易所",
+  "title": "员工招聘",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "本次招聘简历投递截止时间为北京时间2026年3月8日24时"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01至2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间应为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "学历学位证书，境外院校毕业生需教育部留学服务中心学历学位认证",
+      "stated": true,
+      "evidence": "报到时取得相应学历学位证书，境外院校毕业生还应取得教育部留学服务中心出具的学历学位认证"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "上海",
+      "stated": true,
+      "evidence": "上海证券交易所"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "英语",
+      "stated": true,
+      "evidence": "具有熟练的英语口语和书面沟通能力，能够使用英语作为工作语言"
+    },
+    "start_date": {
+      "value": "入职后分配",
+      "stated": true,
+      "evidence": "具体岗位根据上交所工作需要，在入职后统一分配"
+    },
+    "degree_requirement": {
+      "value": "硕士研究生及以上学历（会计类）",
+      "stated": true,
+      "evidence": "硕士研究生及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "会计",
+      "审计",
+      "财务管理",
+      "税法",
+      "英语口语和书面沟通能力"
+    ],
+    "responsibilities": [
+      "会计、财务管理相关工作"
+    ],
+    "team_or_function": "财务会计"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Charles River Associates",
+  "title": "Economics Consulting Analyst/Associate",
+  "critical": {
+    "deadline": {
+      "value": "rolling basis until positions are filled",
+      "stated": true,
+      "evidence": "candidate resume review will commence August 17, and continue on a rolling basis until positions are filled"
+    },
+    "visa_sponsorship": {
+      "value": "yes",
+      "stated": true,
+      "evidence": "in-house immigration support for foreign nationals and international business travelers"
+    },
+    "graduation_window": {
+      "value": "December 2026/Summer 2027",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree candidates graduating December 2026/Summer 2027"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "Resume, Cover letter, Transcript, Writing Sample",
+      "stated": true,
+      "evidence": "Resume – please include current address, personal email and telephone number; Cover letter – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference; Transcript – may be unofficial. Note: you must be graduating from a bachelor's or master's degree program for this role. If you are graduating from an MBA/PhD program or have work experience, please visit our Careers site to see current open roles; Writing Sample – we prefer a sole-authored submission from an existing work (class paper, thesis, internship, or work product) that includes your commentary on a quantitative analysis and/or relevant to the field of economics."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston, MA; Chicago, IL; Los Angeles, CA; New York, NY; Oakland, CA; Tallahassee, FL; Washington, DC",
+      "stated": true,
+      "evidence": "Boston, MA, United States; Chicago, IL, United States; Los Angeles, CA, United States; New York, NY, United States; Oakland, CA, United States; Tallahassee, FL, United States; Washington, DC, United States"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "you must be graduating from a bachelor's or master's degree program for this role"
+    }
+  },
+  "reference": {
+    "skills": [
+      "economic research",
+      "financial analysis",
+      "valuation modeling",
+      "regression analysis",
+      "Excel",
+      "Stata",
+      "R",
+      "Python",
+      "SQL",
+      "SAS",
+      "Cloud computing (Databricks/Spark, Google Cloud, Azure, AWS)",
+      "data analysis",
+      "written communication",
+      "oral communication"
+    ],
+    "responsibilities": [
+      "conduct economic and industry research",
+      "analyze client materials",
+      "perform financial and economic analyses",
+      "develop valuation models",
+      "program and build models",
+      "perform regression analyses",
+      "develop familiarity with data inputs",
+      "review and summarize analyst reports",
+      "review academic literature",
+      "review client documents",
+      "review depositions",
+      "assist in production of research summaries",
+      "develop expert reports",
+      "present findings",
+      "create visuals like tables and charts",
+      "ensure reliability of analysis through quality control review"
+    ],
+    "team_or_function": "Economics Consulting"
+  }
+}

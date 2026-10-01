@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Tellius",
+  "title": "Strategic Account Manager (Post-Sales)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "customer success management",
+      "account management",
+      "stakeholder management",
+      "project management",
+      "cross-sell and upsell strategies",
+      "data modeling",
+      "semantic layers",
+      "enterprise analytics",
+      "program management",
+      "data-driven analysis"
+    ],
+    "responsibilities": [
+      "Lead customer onboarding and use case ideation workshops",
+      "Develop project roadmaps and manage implementation activities",
+      "Guide adoption through enablement sessions and executive briefings",
+      "Build relationships with business executives and analytics teams",
+      "Own customer renewals and drive expansion opportunities",
+      "Identify and address retention risks",
+      "Drive account growth through expansion strategies",
+      "Act as customer advocate within company",
+      "Monitor usage analytics and success metrics",
+      "Document customer activities and success stories",
+      "Communicate with customers through recurring meetings and webinars"
+    ],
+    "team_or_function": "GTM, product, sales, and marketing teams"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "上交所技术有限责任公司",
+  "title": "开发及产品类/测试类/运维服务与支持类/信息技术治理类",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01至2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间一般为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "C/C++/JAVA等编程语言",
+      "系统原理、数据结构、算法、多线程、分布式框架",
+      "机器学习、数据库",
+      "SQL语法和调优、微服务设计",
+      "SpringCloud、kafka、flink、Redis框架",
+      "向量数据库、LangChain/LlamaIndex框架",
+      "RAG全链路优化、Agent多智能体协作、MCP协议",
+      "需求分析工作流程及工具",
+      "前后端分离开发、前端自动化工具",
+      "测试工具(Jira、SVN、Git、Postman、Wireshark)",
+      "自动化测试框架(Pytest、TestNG、JMeter、Jenkins)",
+      "网络、操作系统、数据库、存储",
+      "虚拟化和容器技术",
+      "脚本语言或主流开发语言",
+      "Java等主流开发语言及前后端开发框架",
+      "Docker和Kubernetes环境"
+    ],
+    "responsibilities": [
+      "负责上交所核心交易系统、业务系统、数据中台、监管分析系统、内管系统等产品需求分析、架构设计、核心代码开发",
+      "参与AI中台建设，负责AI业务场景落地",
+      "编写技术文档，参与架构评审、代码审评、上线评审",
+      "参与搭建系统环境，完成系统调试、集成与实施",
+      "负责上交所交易系统、业务系统等测试工作",
+      "负责软件缺陷管理与问题追踪、定位",
+      "创新测试流程和方法，提升测试质量和效率",
+      "负责自动化测试方案的设计与实施",
+      "负责上交所信息技术系统的应用运维，以及主机、网络、数据库等规划建设与日常运维管理",
+      "负责涉密信息系统日常运维与技术运营",
+      "负责行业智算中心、云平台、大数据等平台的建设与运维",
+      "负责面向市场参与者的测试环境管理",
+      "负责CMMI、DevOps等IT管理标准与最佳实践的研究与转化",
+      "负责信息技术治理类工具平台的规划、建设与维护",
+      "负责信息技术治理类工具平台底层docker和k8s环境的运维及故障分析处理"
+    ],
+    "team_or_function": "开发及产品类、测试类、运维服务与支持类、信息技术治理类"
+  }
+}

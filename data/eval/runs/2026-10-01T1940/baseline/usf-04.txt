@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: May 2027; June 2027
+application_cap: not stated
+materials_required: not stated
+location: Washington D.C.; Boston; New York
+work_model: hybrid
+language_requirement: Foreign language skills preferred, but not required
+start_date: Summer 2027; Fall 2027
+degree_requirement: B.S./B.A. degree from a 4-year accredited college or university
+skills: Primary and secondary research methodologies; analyzing and synthesizing information; critical thinking and problem-solving; excellent written and verbal communication; Excel; PowerPoint; MS Word
+responsibilities: Support engagements by driving research and fact-gathering; analyze and synthesize findings; develop deliverables for clients; create presentations; distill actionable insights from research using quantitative techniques and analytical frameworks; communicate conclusions to clients
+team_or_function: Kx Advisors
+company: BGBx
+title: Fall 2027 Associate Consultant, Life Sciences Strategy

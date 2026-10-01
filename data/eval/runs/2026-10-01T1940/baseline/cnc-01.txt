@@ -1,0 +1,15 @@
+deadline: 2026-11-27
+visa_sponsorship: not stated
+graduation_window: 2027-12 to 2028-06
+application_cap: 3 per candidate
+materials_required: not stated
+location: Shanghai, China
+work_model: onsite
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or Master's degree
+skills: enthusiasm; competency; innovation; global outlook; interest in working with local SME; results-oriented; team player; highly numerate; first-class analytical skills
+responsibilities: work on tailored projects in relationship management; credit lending management; client segment strategy; business planning and analysis; KYC and Control; or process design; participate in trainings; buddy programs; networking events; speaker series
+team_or_function: Commercial Banking
+company: Citi
+title: Summer Analyst

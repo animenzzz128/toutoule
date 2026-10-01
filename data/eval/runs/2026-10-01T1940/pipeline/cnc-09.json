@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "McKinsey",
+  "title": "Business Analyst - Automotive",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Beijing, Shanghai, Shenzhen",
+      "stated": true,
+      "evidence": "Beijing\nShanghai\nShenzhen"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "Fluent English and Mandarin Chinese",
+      "stated": true,
+      "evidence": "Fluent verbal and written communication skills in both English and Mandarin Chinese"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Advanced graduate degree (e.g., MBA, PhD) or equivalent relevant work experience",
+      "stated": true,
+      "evidence": "Advanced graduate degree (e.g., MBA, PhD) or equivalent relevant work experience"
+    }
+  },
+  "reference": {
+    "skills": [
+      "data-driven decision making",
+      "problem-solving",
+      "research and data analysis",
+      "PowerPoint presentations",
+      "Excel models",
+      "written reports",
+      "time management",
+      "communication",
+      "strategic thinking"
+    ],
+    "responsibilities": [
+      "solve client challenges",
+      "uncover true challenges behind client strategy",
+      "create actionable plans",
+      "conduct research and data analysis",
+      "conduct interviews and brainstorming",
+      "help clients solve problems and refine strategies",
+      "implement transformations",
+      "equip clients with tools and knowledge"
+    ],
+    "team_or_function": "client service team"
+  }
+}

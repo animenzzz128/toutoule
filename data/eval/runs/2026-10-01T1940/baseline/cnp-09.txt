@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: 5 per candidate
+materials_required: not stated
+location: Shanghai
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: not stated
+skills: AI product design; user insights; product decision-making; design and development collaboration
+responsibilities: Lead AI-native innovative products from 0 to 1; conduct user research and direction judgment; control core product decisions; practice AI-native work mode with design, research, operations, and marketing teams
+team_or_function: Lab 1327
+company: Xiaohongshu
+title: Product Manager Trainee (RPT) - Innovative Product

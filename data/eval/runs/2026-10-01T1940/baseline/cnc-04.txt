@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2025-01-01 to 2026-07-31
+application_cap: not stated
+materials_required: resume
+location: not stated
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Master's or above for Development/Product and IT Governance roles; Bachelor's or above for Testing and Operations roles
+skills: programming languages (C/C++/JAVA); system principles; data structures; algorithms; multithreading; distributed frameworks; machine learning; databases; SQL; microservices design; SpringCloud; Kafka; Flink; Redis; vector databases; LangChain/LlamaIndex; RAG optimization; Agent collaboration; MCP protocol; requirements analysis; frontend development; network; operating systems; virtualization; container technology; software engineering; Java; DevOps; CMMI
+responsibilities: core trading system development; business system development; data platform development; regulatory system development; internal management system development; AI platform construction; technical documentation; architecture review; code review; testing; defect management; test automation; application operations; infrastructure planning and maintenance; platform testing environment management; IT support; IT governance research; tool platform planning and construction
+team_or_function: Development and Product; Testing; Operations and Support; IT Governance
+company: Shanghai Stock Exchange Technology Co., Ltd.
+title: Development and Product; Testing; Operations and Support; IT Governance (roles vary by category)

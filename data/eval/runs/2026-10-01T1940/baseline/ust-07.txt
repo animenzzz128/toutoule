@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: not stated
+materials_required: not stated
+location: Redwood City, CA
+work_model: hybrid
+language_requirement: not stated
+start_date: 2027-07
+degree_requirement: college graduate
+skills: bias toward action; curiosity for how systems work; comfort with ambiguity; creativity; communication; attention to detail
+responsibilities: research, organize, and test ideas; build new features; help launch products; partner with engineers, designers, and clinicians; keep projects moving forward; meet deadlines; write specs; analyze data; talk to users; make product decisions; test, document, and ship features
+team_or_function: Product
+company: Solace
+title: Associate Product Manager (College Grad 2027)

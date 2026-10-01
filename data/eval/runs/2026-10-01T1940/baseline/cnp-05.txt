@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027
+application_cap: not stated
+materials_required: not stated
+location: Shanghai, Zhuhai
+work_model: not stated
+language_requirement: fluent English
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: AI interest; understanding of AI Agent capability building; data analysis; structured thinking and communication; English proficiency
+responsibilities: manage product operations for international e-commerce enterprise-level conversational AI assistant; clarify user needs, develop evaluation rules, consolidate knowledge, optimize experience; coordinate with product and algorithm teams to build and implement AI capability evaluation system; conduct periodic user satisfaction/NPS monitoring and analysis; identify merchant issues across different scenarios and drive product iterations; track industry trends in enterprise AI, conversational assistants, intelligent customer service, e-commerce merchant tools
+team_or_function: TikTok Shop
+company: TikTok
+title: AI Product Operations - TikTok Shop

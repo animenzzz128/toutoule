@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: 2027-05 to 2027-06
+application_cap: not stated
+materials_required: not stated
+location: Mountain View, CA or McLean, VA
+work_model: onsite
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's degree in Business, Engineering, Computer Science, or related field
+skills: AI coding tools (Claude Code, Codex, Cursor or similar); APIs and data modeling concepts; written and verbal communication; working with engineers and designers
+responsibilities: Feature ownership from requirements through launch; break down roadmap priorities into sequenced work; write specs and acceptance criteria; cross-functional collaboration with engineering, design, and data; track launch metrics and user feedback; stakeholder communication on status, risks, and trade-offs
+team_or_function: Product Management
+company: ID.me
+title: Summer 2027 - Associate Product Manager (New Grad)

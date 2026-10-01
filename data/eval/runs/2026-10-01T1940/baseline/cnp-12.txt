@@ -1,0 +1,15 @@
+deadline: 2027-10-30
+visa_sponsorship: not stated
+graduation_window: 2026-10-31 - 2027-10-30
+application_cap: 2 per candidate
+materials_required: not stated
+location: Beijing
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: data analysis; user insight; large language model; multimodal technology; data-driven product optimization
+responsibilities: daily data analysis and user insight for search and recommendation; transform insights into product solutions; drive large language model and multimodal technology implementation in search and recommendation; collaborate with operations, algorithms, and engineering teams; take responsibility for project goals
+team_or_function: Search and Recommendation
+company: Alibaba
+title: Product Manager - Search and Recommendation Strategy

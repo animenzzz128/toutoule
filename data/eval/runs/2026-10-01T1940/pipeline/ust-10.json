@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Momentum",
+  "title": "2027 Launch Graduate Program: Associate Strategy & Operations Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "Winter 2026 or Spring 2027",
+      "stated": true,
+      "evidence": "Graduates in Winter 2026 or Spring 2027 with Bachelor's or Master's degree"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Dallas, Texas",
+      "stated": true,
+      "evidence": "This is a full-time, onsite opportunity based at our Dallas headquarters (The Link, 2601 Olive Street)"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "This is a full-time, onsite opportunity based at our Dallas headquarters"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027-06",
+      "stated": true,
+      "evidence": "The next cohort of the Launch Program is scheduled to begin in June of 2027"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "Graduates in Winter 2026 or Spring 2027 with Bachelor's or Master's degree, ideally in Business Administration, Management Information Systems, Entrepreneurship, Innovation, Data Analytics, Finance, or a related field"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical skills",
+      "detail-oriented",
+      "project management",
+      "data analysis",
+      "communication",
+      "interpersonal skills",
+      "teamwork",
+      "Microsoft Office Suite",
+      "Google Suite",
+      "AI tools",
+      "automation",
+      "relationship building"
+    ],
+    "responsibilities": [
+      "Coordinate and support high-priority projects",
+      "Analyze datasets to guide business case creation",
+      "Evaluate workflow inefficiencies and create operational frameworks",
+      "Monitor and communicate project milestones",
+      "Support initiative workshops and build slide decks",
+      "Assist in building internal knowledge and AI-powered tools",
+      "Partner with stakeholders across portfolio",
+      "Support design, planning, and execution of strategic projects"
+    ],
+    "team_or_function": "Strategy & Operations"
+  }
+}

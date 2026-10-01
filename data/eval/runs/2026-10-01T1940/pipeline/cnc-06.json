@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v1",
+  "company": "Citi",
+  "title": "Markets – Sales and Trading, Full Time Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "by June 2027",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027."
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong, Central and Western District",
+      "stated": true,
+      "evidence": "Location(s): Hong Kong, Central and Western District, Hong Kong SAR"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Job Type: On-Site/Resident"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Undergraduate/Masters degree",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027."
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical and quantitative skills",
+      "leadership",
+      "teamwork",
+      "communication skills",
+      "problem solving",
+      "numeracy"
+    ],
+    "responsibilities": [
+      "providing financial solutions",
+      "building client relationships",
+      "trading floor work"
+    ],
+    "team_or_function": "Markets – Sales and Trading"
+  }
+}

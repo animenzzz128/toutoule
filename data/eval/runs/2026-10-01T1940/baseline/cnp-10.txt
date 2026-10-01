@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: resume
+location: Hong Kong
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's degree in Marketing, Communications, Business, or a related field
+skills: marketing strategy; content creation; campaign management; performance monitoring; market analysis; stakeholder management; financial services marketing; KPI analysis; compliance knowledge
+responsibilities: Develop and implement integrated marketing plans for user acquisition, activation, and trading volume growth; own end-to-end content creation for marketing campaigns; lead marketing strategy and launch execution for new product features; draft compliant marketing copy for various channels; lead multi-channel marketing campaign execution; monitor performance metrics daily to optimize campaigns and maximize ROI; maintain understanding of market trends and competitor activities; collaborate with Product, Compliance, Legal, and Data teams
+team_or_function: Marketing
+company: ZA Bank
+title: Manager, Wealth Management (Marketing focus)

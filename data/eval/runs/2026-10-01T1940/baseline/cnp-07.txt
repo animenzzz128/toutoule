@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Los Angeles
+work_model: onsite
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's degree in Fashion Merchandising, Business, Creative Arts, or related field preferred, or equivalent experience
+skills: Microsoft Excel; shared drive management; basic product tracking systems; fashion trend knowledge; commercial styling; visual presentation; attention to detail; organizational skills; communication; multitasking; data accuracy
+responsibilities: Assist Senior Buyer with product styling and outfit coordination; prepare photoshoot presentations; coordinate with Creative and Studio teams; ensure sample readiness and tracking; manage new item launch linking; monitor weekly launch schedules; submit comprehensive launch plans; conduct pre-launch readiness audits; maintain sample room inventory; label and organize samples; conduct routine audits to remove outdated samples; provide weekly photo documentation; serve as communication bridge between Merchandising, Creative/Studio, and backend teams; track operational bottlenecks; maintain organized shared folders and documentation; support workflow efficiency improvements
+team_or_function: Merchandising
+company: SHEIN
+title: Associate Buyer

@@ -1,0 +1,15 @@
+deadline: within 5 business days of posting
+visa_sponsorship: no
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: McLean, Virginia
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's degree
+skills: Written and verbal communication; analytical rigor; attention to detail; financial modeling; investment research; problem-solving; judgment
+responsibilities: Provide analytical support to senior management; provide recurring and ad hoc research to business lines; benchmark Capital One's performance vs. competitors; monitor financial and economic events; analyze large financial data sets; conduct deep dives on strategic topics; ad hoc project work with partner teams; analyze and benchmark capital and balance sheet performance
+team_or_function: Corporate Research (within Corporate Strategy)
+company: Capital One
+title: Senior Associate, Corporate Strategy

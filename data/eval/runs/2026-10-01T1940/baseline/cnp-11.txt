@@ -1,0 +1,15 @@
+deadline: 2027-10-30
+visa_sponsorship: not stated
+graduation_window: 2026-10-31 - 2027-10-30
+application_cap: 2 per candidate
+materials_required: not stated
+location: 杭州
+work_model: not stated
+language_requirement: not stated
+start_date: not stated
+degree_requirement: Bachelor's or above
+skills: AI technical framework knowledge; task decomposition from employee perspective; enterprise services (OA, HR SaaS) or AI industry applications; RPA and low-code tools; Prompt engineering or AIGC application experience; SQL/Python data analysis or basic technical development
+responsibilities: Lead design and iteration of Agent-human collaboration products; Research user scenarios and pain points to drive product experience optimization; Collaborate with engineering, design, operations teams and agents to drive product development and scaling; Define and track core product metrics (DAU, retention, activity, NPS); Monitor industry trends and competitors
+team_or_function: not stated
+company: 阿里巴巴
+title: AI产品经理-智能体

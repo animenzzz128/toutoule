@@ -1,0 +1,15 @@
+deadline: not stated
+visa_sponsorship: not stated
+graduation_window: not stated
+application_cap: not stated
+materials_required: not stated
+location: Hong Kong SAR
+work_model: onsite
+language_requirement: Fluency in English and Chinese (Cantonese or Mandarin)
+start_date: not stated
+degree_requirement: BA/BS in a technical/business field such as computer science, management, or economics
+skills: Product management/development on mobile or web platforms; data-driven strategy; analytical thinking; cross-functional communication; mobile or web application development
+responsibilities: Set OKRs and prioritise product ideas; understand and create business strategy using data and research; integrate usability studies and market analysis into product requirements; work with engineers, designers, and data scientists; break down projects and prioritise features for ROI; communicate plans and results to leadership; drive full-stack product development
+team_or_function: Product; Marketplace engine
+company: Lalamove
+title: Product Manager, Marketplace
