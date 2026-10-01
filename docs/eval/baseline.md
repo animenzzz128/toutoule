@@ -6,10 +6,10 @@ this is the raw material for that number.
 
 | case_id | started | finished | minutes | what I did |
 |---|---|---|---|---|
-| | | | | |
-| | | | | |
-| | | | | |
-| | | | | |
-| | | | | |
+| cnp-01 | | | 5 | slowest part: finding the graduation window |
+| cnp-02 | | | 4.5 | stuck finding major and skillset |
+| cnc-01 | | | 4.5 | checking availability |
+| usf-01 | | | 6 | stuck finding whether there is sponsorship |
+| ust-01 | | | 6 | stuck finding description of sponsorship |
 
-**Median:**
+**Median:** 5 min (4.5, 4.5, 5, 6, 6)
