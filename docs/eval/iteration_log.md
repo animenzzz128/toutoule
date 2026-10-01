@@ -48,3 +48,6 @@ deadline, was the biggest driver. The pipeline also misses more (19.4% FN vs 7.5
 mainly rolling-basis deadlines and resume requirements. v2 should tighten the field
 definitions for graduation_window and deadline in extract_v1, the single change with
 the largest expected effect on hallucination.
+
+Checked R2 against day-level graduation windows (cnp-11): already handled since the
+rule's first commit; regression test added, no behaviour change.
