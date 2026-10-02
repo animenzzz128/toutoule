@@ -135,7 +135,7 @@ def run_pipeline_case(
 ) -> None:
     """Run one case through the pipeline, unless its output file already exists.
 
-    prompt is (version, body); None means extract_job's own default (extract_v1).
+    prompt is (version, body); None means extract_job's own default (DEFAULT_PROMPT).
     """
     out_path = rdir / "pipeline" / f"{case.case_id}.json"
     if out_path.exists():
@@ -235,7 +235,7 @@ def run_eval(
     """Run (or resume) one eval run. Systems already-done for a case are skipped per-case,
     so re-running with the same run_id after a partial failure just finishes the rest.
 
-    prompt is (version, body) for the pipeline system; None means extract_v1 (the
+    prompt is (version, body) for the pipeline system; None means DEFAULT_PROMPT (the
     module default). It only affects a freshly-created run: a resumed run keeps the
     prompt version recorded in its own meta.json.
     """

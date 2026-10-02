@@ -20,8 +20,12 @@ from toutoule import models, schemas
 
 logger = logging.getLogger(__name__)
 
-PROMPT_PATH = Path(__file__).parents[2] / "data" / "prompts" / "extract_v1.txt"
-PROMPTS_DIR = PROMPT_PATH.parent
+PROMPTS_DIR = Path(__file__).parents[2] / "data" / "prompts"
+# The shipped prompt version, named once here (Task 1.8, D-009). Everything that needs a
+# default — the pipeline itself and `eval --prompt` — reads it from here, so shipping a
+# new version is a one-line change and the two can never disagree.
+DEFAULT_PROMPT = "extract_v3"
+PROMPT_PATH = PROMPTS_DIR / f"{DEFAULT_PROMPT}.txt"
 
 
 def load_prompt(path: Path = PROMPT_PATH) -> tuple[str, str]:
@@ -38,7 +42,7 @@ def load_prompt_by_name(name: str) -> tuple[str, str]:
     """Load a prompt by its file name, e.g. "extract_v2" -> data/prompts/extract_v2.txt.
 
     Used by the eval CLI (Task 1.8) to select which prompt version the pipeline runs
-    against, without editing extract_v1.txt or the extraction code path itself.
+    against, without editing the shipped prompt file or the extraction code path itself.
     """
     path = PROMPTS_DIR / f"{name}.txt"
     if not path.exists():
@@ -337,7 +341,7 @@ def extract_job(
 ) -> schemas.Extraction:
     """Extract, verify and save one job. Commits the session.
 
-    prompt_version/prompt_body=None resolve to the current extract_v1 PROMPT_VERSION/
+    prompt_version/prompt_body=None resolve to the current default PROMPT_VERSION/
     PROMPT_BODY at call time (not def time), so a monkeypatch of those module attributes
     still takes effect. The eval harness (Task 1.8) passes an explicit pair to run the
     same code against another prompt version without touching this function's callers

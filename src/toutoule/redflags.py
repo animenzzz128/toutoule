@@ -80,7 +80,7 @@ def _flag(
     )
 
 
-# The two date formats extract_v1.txt asks for: "2026-10-31", or "2026-09" for a month.
+# The two date formats the extraction prompt asks for: "2026-10-31", or "2026-09".
 _ISO_DAY = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _ISO_MONTH = re.compile(r"^(\d{4})-(\d{2})$")
 # Range separators: " to " (tech spec §3) or " - " (dashes are "-" after normalize_text).

@@ -275,7 +275,7 @@ def main(argv: list[str] | None = None) -> int:
     eval_parser.add_argument("--cases", help="comma-separated case ids, default all")
     eval_parser.add_argument(
         "--prompt",
-        default="extract_v1",
+        default=extract.DEFAULT_PROMPT,
         help="pipeline prompt version to run, loaded from data/prompts/<name>.txt",
     )
     eval_run_group = eval_parser.add_mutually_exclusive_group()

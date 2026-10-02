@@ -142,6 +142,19 @@ def test_eval_prompt_option_selects_the_named_file_and_records_it(
     assert "pipeline=extract_v2" in report
 
 
+def test_eval_without_the_prompt_flag_uses_the_shipped_default(
+    eval_dir: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # `eval --prompt` and the pipeline read one definition, so a run with no flag
+    # records exactly the version the live extractor would have used.
+    use_fake_client(monkeypatch, VALID_ANSWER)
+
+    assert main(["eval", "--system", "pipeline", "--cases", "cnp-01"]) == 0
+
+    meta = evalrun.load_meta(evalrun.run_dir("run1"))
+    assert meta["prompt_versions"]["pipeline"] == extract.DEFAULT_PROMPT
+
+
 def test_eval_unknown_prompt_name_fails_with_a_clear_message(
     eval_dir: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:

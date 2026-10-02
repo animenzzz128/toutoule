@@ -110,7 +110,22 @@ def test_normalize_text_rules(raw: str, expected: str) -> None:
 
 
 def test_prompt_version_comes_from_the_file_tag() -> None:
-    assert PROMPT_VERSION == "extract_v1"
+    # The tag inside the file must match the file's own name, or a run would record a
+    # version it didn't use.
+    assert PROMPT_VERSION == extract_module.DEFAULT_PROMPT
+
+
+def test_the_shipped_default_prompt_is_extract_v3() -> None:
+    # Task 1.8 shipped extract_v3 under D-009's ship rule. Pinned so the default can't
+    # change silently.
+    assert extract_module.DEFAULT_PROMPT == "extract_v3"
+
+
+def test_the_default_prompt_file_exists_and_is_tagged_with_its_own_name() -> None:
+    version, body = extract_module.load_prompt_by_name(extract_module.DEFAULT_PROMPT)
+
+    assert version == extract_module.DEFAULT_PROMPT
+    assert body  # not an empty file
 
 
 def test_load_prompt_splits_tag_from_body(tmp_path: Path) -> None:
@@ -333,8 +348,10 @@ def test_fabricated_quote_is_downgraded_and_logged(
     violation = session.scalars(select(models.ExtractionViolation)).one()
     assert violation.field_path == "critical.deadline"
     assert "网申截止时间：2026年10月31日" in violation.reason
-    # Every other field is exactly what the model returned.
+    # Every other field is exactly what the model returned, except prompt_version,
+    # which code stamps over whatever the model wrote (the fixture says extract_v1).
     expected = json.loads(json.dumps(valid_answer))
+    expected["prompt_version"] = PROMPT_VERSION
     expected["critical"]["deadline"] = {"value": None, "stated": False, "evidence": None}
     saved = session.scalars(select(models.Extraction)).one().payload_json
     assert saved == expected  # the saved payload is the verified one
