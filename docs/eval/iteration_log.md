@@ -125,3 +125,21 @@ quote exists, not that it supports the value. Misfiled graduation windows also r
 (2 → 3) on a field v3 didn't change, and one came from the very sentence v3's resume
 example pointed the model at. v3 is now the only version within the FN tolerance, so v4
 must cut hallucination without giving those misses back.
+
+## v4 — 2026-10-02 — extract_v3 + materials support check (Task 1.8)
+
+**Hypothesis (written before running):** Critical hallucination falls from 10 to about
+6 of 249 (range 4–8), because 4 of v3's hallucinations are materials_required items
+whose evidence quote never names the item, and a deterministic check removes exactly
+those. Critical FN rises slightly, from 4 to at most 6 of 67, staying within the 10%
+tolerance, because some correct items are quoted from the wrong sentence and will be
+dropped. Other fields should move only by run-to-run noise.
+
+**Change:** a code rule in evidence verification, prompt unchanged (extract_v3): every
+item in materials_required must be named in its own evidence quote (resume/CV/简历,
+cover letter/求职信, transcript/成绩单, …; any other item's own words). Unsupported
+items are dropped; if none remain, the field becomes not stated and an
+extraction_violation is logged. This extends the check from "the quote exists" to
+"the quote supports the value".
+
+**Result:** (filled in after adjudication)
