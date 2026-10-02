@@ -2,6 +2,32 @@
 
 One change per version. Hypothesis written before running. Regressions are kept.
 
+## Summary
+
+Every number below is taken from that run's report in `docs/eval/runs/`. All runs use
+the same 50 postings and the same model (claude-haiku-4-5). **v4 is the shipped
+configuration** (D-009): `extract_v3` plus the materials support check, run twice — once
+derived from v3's saved outputs to isolate the code change, once fresh to test stability.
+
+| Change | Critical halluc | Fabricated | Misfiled | Crit acc | Crit FN | Important acc | Recall |
+|---|---|---|---|---|---|---|---|
+| baseline (plain prompt) | 20 / 249 (8.0%) | 17 / 20 (85.0%) | 3 / 20 (15.0%) | 54 / 57 (94.7%) | 5 / 67 (7.5%) | 61 / 133 (45.9%) | 353 / 552 (63.9%) |
+| v1 extract_v1 | 14 / 249 (5.6%) | 6 / 14 (42.9%) | 8 / 14 (57.1%) | 47 / 50 (94.0%) | 13 / 67 (19.4%) | 45 / 136 (33.1%) | 254 / 552 (46.0%) |
+| v2 extract_v2 | 5 / 249 (2.0%) | 3 / 5 (60.0%) | 2 / 5 (40.0%) | 45 / 50 (90.0%) | 16 / 67 (23.9%) | 40 / 133 (30.1%) | 235 / 552 (42.6%) |
+| v3 extract_v3 | 10 / 249 (4.0%) | 7 / 10 (70.0%) | 3 / 10 (30.0%) | 55 / 63 (87.3%) | 4 / 67 (6.0%) | 51 / 131 (38.9%) | 250 / 552 (45.3%) |
+| **v4 derived (shipped)** | 6 / 249 (2.4%) | 3 / 6 (50.0%) | 3 / 6 (50.0%) | 55 / 62 (88.7%) | 5 / 67 (7.5%) | 51 / 131 (38.9%) | 250 / 552 (45.3%) |
+| **v4 repeat (shipped)** | 8 / 249 (3.2%) | 5 / 8 (62.5%) | 3 / 8 (37.5%) | 54 / 57 (94.7%) | 6 / 67 (9.0%) | 43 / 130 (33.1%) | 256 / 552 (46.4%) |
+
+## Targets
+
+Reported against the shipped version's two runs, per D-009's amended acceptance.
+
+- **Critical hallucination (0%): not met.** 6 / 249 (2.4%) derived, 8 / 249 (3.2%) repeat.
+- **Critical accuracy (≥95%): not met.** 55 / 62 (88.7%) derived, 54 / 57 (94.7%) repeat.
+- **Critical false-negative (≤10%): met.** 5 / 67 (7.5%) derived, 6 / 67 (9.0%) repeat.
+- **Important accuracy (≥90%): not met.** 51 / 131 (38.9%) derived, 43 / 130 (33.1%) repeat.
+- **Reference recall (≥80%): not met.** 250 / 552 (45.3%) derived, 256 / 552 (46.4%) repeat.
+
 ## v1 — 2026-10-01 — extract_v1 vs. baseline_plain_v1 (Task 1.7)
 
 **Hypothesis (written before running):**

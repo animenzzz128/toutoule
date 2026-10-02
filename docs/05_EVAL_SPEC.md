@@ -217,6 +217,8 @@ State these limits plainly. Volunteering them is more persuasive than being caug
   weight the owner's primary market and may not reflect performance on other segments.
 - **Match scoring is calibrated to one person.** It reflects the owner's judgment, including
   its biases. Phase 3's external pilot is the first real test of whether it transfers.
+- **No held-out set:** prompts were tuned on the same 50 postings they are scored on, so
+  results may overstate performance on new postings (D-009).
 
 ## Scoring harness normalization rules (Task 1.7 Part E)
 
