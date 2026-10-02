@@ -58,3 +58,14 @@ cnp-18,baseline,materials_required,,missed,
 usf-09,pipeline,materials_required,,missed,
 ust-04,pipeline,materials_required,,missed,
 cnp-08,baseline,materials_required,portfolio or documentation of independent work (optional); links or documents for portfolio items,hallucination,portfolio never requested; no material keywords in the posting
+usf-10,pipeline,deadline,,missed,
+usf-10,pipeline,visa_sponsorship,yes,hallucination,"benefits line, not sponsorship policy"
+cnc-07,pipeline,graduation_window,2027,hallucination,"misfiled: graduation preference, not a window"
+ust-03,pipeline,graduation_window,2026-12 to 2027-06,wrong,seasons converted to months
+cnc-10,pipeline,application_cap,,missed,
+cnp-11,pipeline,application_cap,最多可选择 2 个意向投递,wrong,missing 1 per business group
+cnp-12,pipeline,application_cap,2个意向投递,wrong,missing 1 per business group
+cnp-13,pipeline,application_cap,最多可选择 2 个意向投递,wrong,missing 1 per business group
+cnc-03,pipeline,materials_required,学历学位证书，境外院校毕业生还应取得教育部留学服务中心出具的学历学位认证,hallucination,"misfiled: onboarding documents, not application materials"
+cnp-03,pipeline,materials_required,,missed,
+cnp-04,pipeline,materials_required,,missed,

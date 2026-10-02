@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "美团",
+  "title": "AI产品经理岗",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3",
+      "stated": true,
+      "evidence": "最多可投递3个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京市、上海市、成都市、深圳市",
+      "stated": true,
+      "evidence": "工作地点：北京市、上海市、成都市、深圳市"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "产品研发",
+      "产品运营",
+      "用户需求挖掘",
+      "AI应用探索",
+      "AI算法协作",
+      "大语言模型理解",
+      "产品设计",
+      "AI产品思维"
+    ],
+    "responsibilities": [
+      "迎接多样化的产品研发和运营实战的挑战",
+      "从复杂的业务场景/数据中挖掘用户痛点和本质需求",
+      "探索AI技术在产品中的应用机会",
+      "推动产品的优化和发展",
+      "与AI算法团队紧密协作",
+      "将AI技术转化为可落地的产品功能",
+      "推动产品智能化升级"
+    ],
+    "team_or_function": "AI算法团队"
+  }
+}

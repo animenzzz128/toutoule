@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "未命名",
+  "title": "智能商业分析师（BA/DS）",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3",
+      "stated": true,
+      "evidence": "最多可投递3个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京市、上海市",
+      "stated": true,
+      "evidence": "工作地点：北京市、上海市"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析",
+      "商业分析",
+      "统计分析",
+      "数据科学",
+      "AI工具应用",
+      "大语言模型应用",
+      "Text-to-SQL",
+      "自然语言数据分析",
+      "Agent开发框架"
+    ],
+    "responsibilities": [
+      "参与业务规划、策略制定、经营分析",
+      "为复杂的商业问题设计解决方案",
+      "使用数据分析工具洞察商业规律和用户需求",
+      "参与建设公司级实验中台",
+      "为重大实验决策提供科学方案支撑",
+      "探索大模型在商业分析场景的应用"
+    ],
+    "team_or_function": "商业分析/数据科学"
+  }
+}

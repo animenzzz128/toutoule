@@ -67,4 +67,24 @@ internship duration, program year (校招 year) or graduation status without dat
 deadline is not a posting/publish date, start date, or interview/offer date. Nothing
 else in the prompt changes.
 
-**Result:** (filled in after adjudication)
+**Result:**
+
+| Metric | v1 | v2 | delta |
+|---|---|---|---|
+| Critical hallucination | 14 / 249 (5.6%) | 5 / 249 (2.0%) | −9 (−3.6pp) |
+| — of which fabricated | 6 / 14 (42.9%) | 3 / 5 (60.0%) | −3 |
+| — of which misfiled | 8 / 14 (57.1%) | 2 / 5 (40.0%) | −6 |
+| Critical accuracy | 47 / 50 (94.0%) | 45 / 50 (90.0%) | −2 (−4.0pp) |
+| Critical false-negative | 13 / 67 (19.4%) | 16 / 67 (23.9%) | +3 (+4.5pp) |
+| Important accuracy | 45 / 136 (33.1%) | 40 / 133 (30.1%) | −5 (−3.0pp) |
+| Reference recall | 254 / 552 (46.0%) | 235 / 552 (42.6%) | −19 (−3.4pp) |
+
+**Read:** Hypothesis mostly right. Critical hallucination fell from 14 to 5 of 249,
+better than my ≤9 prediction, and misfiled values fell from 8 to 2. As predicted, the
+model became more cautious: critical FN rose from 13 to 16 of 67. The remaining misses
+are a rolling-basis deadline, resume requirements and one application cap, which is v3's
+target. Critical accuracy fell 47/50 → 45/50, mostly application_cap values that keep
+only part of the rule, on a field v2 didn't touch. Important accuracy and recall also
+moved (−5, −19) with no related change, so differences that size are run-to-run noise,
+and I'll judge later deltas against that. One misfiling survived: a dated preference
+("2027年应届毕业生优先") still went into graduation_window.

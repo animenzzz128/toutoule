@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "McKinsey",
+  "title": "Associate",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Multiple global locations including Abu Dhabi, Addis Ababa, Almaty, Amsterdam, Astana, Athens, Atlanta, Auckland, Austin, Baku, Bangkok, Barcelona, Beijing and 100+ more",
+      "stated": true,
+      "evidence": "Abu Dhabi\nAddis Ababa\nAlmaty\nAmsterdam\nAstana\nAthens\nAtlanta\nAuckland\nAustin\nBaku\nBangkok\nBarcelona\nBeijing\n+ 100 More"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "English and local office language(s)",
+      "stated": true,
+      "evidence": "Strong communication skills, both verbal and written, in English and local office language(s)"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Advanced graduate degree (e.g., MBA, PhD, etc.) or equivalent work experience",
+      "stated": true,
+      "evidence": "Typically, an advanced graduate degree (e.g., MBA, PhD, etc.) or equivalent work experience"
+    }
+  },
+  "reference": {
+    "skills": [
+      "rational decision making based on data, facts, and logical reasoning",
+      "strong communication skills",
+      "organization capabilities",
+      "work product-focused materials creation including PowerPoint decks and Excel models",
+      "time management",
+      "ability to work independently"
+    ],
+    "responsibilities": [
+      "take ownership of a workstream to solve client challenges",
+      "help uncover the true challenges behind a client's strategy",
+      "create actionable plans that drive real change",
+      "combine research, analyzing data, interviews, and brainstorming to generate insights",
+      "help clients solve problems, refine strategies, and implement transformations",
+      "equip clients with tools and knowledge to continue innovating"
+    ],
+    "team_or_function": "client service team"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "阿里巴巴控股集团",
+  "title": "AI产品经理",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 - 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\n2026-10-31 - 2027-10-30"
+    },
+    "application_cap": {
+      "value": "最多可选择 2 个意向投递",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京 / 广州 / 杭州 / 上海 / 深圳",
+      "stated": true,
+      "evidence": "北京 / 广州 / 杭州 / 上海 / 深圳"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "本科及以上学历，计算机、人工智能、电子通信、数学、心理学、统计学等相关专业优先"
+    }
+  },
+  "reference": {
+    "skills": [
+      "用户调研",
+      "行业分析",
+      "产品方案设计",
+      "Workflow编排",
+      "Prompt设计",
+      "产品路线图",
+      "数据工具（SQL/Python）",
+      "AIGC知识",
+      "文本生成",
+      "图像/视频生成",
+      "提示词工程",
+      "数据处理能力",
+      "抽象思维",
+      "问题拆解能力"
+    ],
+    "responsibilities": [
+      "深入理解业务场景，通过用户调研、行业分析及研究挖掘AI落地的创新机会",
+      "负责AI应用/平台的方案设计，包括核心功能定义、工作流（Workflow）编排及Prompt设计，输出高质量的产品路线图",
+      "与算法工程师、后端开发紧密协作，将大模型能力转化为可规模化的产品功能",
+      "建立产品评估体系，利用数据工具监控指标波动，根据数据反馈和用户原声持续优化算法表现与用户体验"
+    ],
+    "team_or_function": "AI产品"
+  }
+}

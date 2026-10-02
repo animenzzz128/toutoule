@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "腾讯",
+  "title": "AI产品经理",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "远程面试"
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "远程面试"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "应届毕业生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI工具应用",
+      "问题分析和拆解",
+      "逻辑思维",
+      "系统分析能力",
+      "技术敏感度",
+      "商业敏感度",
+      "产品Sense",
+      "用户同理心",
+      "AI产品设计",
+      "数据实验分析"
+    ],
+    "responsibilities": [
+      "定义AI产品方向和需求",
+      "完成AI产品方案设计和效果验证",
+      "深入理解大模型和AI技术能力与局限",
+      "设计AI交互体验",
+      "通过数据实验优化产品策略",
+      "追踪AI行业动态和前沿进展"
+    ],
+    "team_or_function": "产品"
+  }
+}

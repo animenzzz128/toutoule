@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "小红书",
+  "title": "产品经理（AI Coding）-AI 应用",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位",
+      "stated": true,
+      "evidence": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京市，上海市",
+      "stated": true,
+      "evidence": "工作地点：北京市，上海市"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上学历",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "需求拆解",
+      "用户场景分析",
+      "方案设计",
+      "PRD撰写",
+      "项目推进",
+      "里程碑拆解",
+      "进度跟进",
+      "风险识别",
+      "跨职能协作",
+      "沟通表达",
+      "数据分析",
+      "产品数据监测",
+      "用户行为分析"
+    ],
+    "responsibilities": [
+      "负责质效领域大模型产品某条功能线的全生命周期",
+      "负责研发Agent、AI Coding、AI Testing等方向的产品设计",
+      "推动产品在公司内各研发团队的应用与落地",
+      "深入研发一线场景，识别AI能真正提效的切入点",
+      "搭建产品数据监测与评测体系",
+      "追踪AI Coding与Agent领域一手动态",
+      "与业务团队协同，快速构建专属AI能力"
+    ],
+    "team_or_function": "质效研发部"
+  }
+}

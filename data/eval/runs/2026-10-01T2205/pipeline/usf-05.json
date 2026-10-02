@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "Jane Street",
+  "title": "Strategy and Product Specialist",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "New York, New York, United States",
+      "stated": true,
+      "evidence": "New York, New York, United States"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical and strategic approach",
+      "structured and detailed approach to solving problems",
+      "communication",
+      "project management",
+      "attention to detail"
+    ],
+    "responsibilities": [
+      "solving Jane Street's pressing problems",
+      "developing holistic view of business",
+      "driving cross-functional growth",
+      "taking ownership over strategic efforts",
+      "taking central role in shaping business"
+    ],
+    "team_or_function": "Strategy and Product"
+  }
+}

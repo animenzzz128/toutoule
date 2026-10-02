@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "The Brattle Group",
+  "title": "Research Analyst (Economics) - July 2027",
+  "critical": {
+    "deadline": {
+      "value": "2026-09-14",
+      "stated": true,
+      "evidence": "Please submit your application by September 14, 2026."
+    },
+    "visa_sponsorship": {
+      "value": "conditional",
+      "stated": true,
+      "evidence": "Brattle will provide H-1B, E3 and TN visa support to full-time candidates who require visa support. Full-time candidates requiring visa support must have or anticipate having a STEM degree upon graduation and must be eligible for at least 36 months of work authorization."
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Washington, District of Columbia, United States",
+      "stated": true,
+      "evidence": "Washington, District of Columbia, United States"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "The Brattle Group is looking for Research Analysts (RAs) to work out of our Washington DC office."
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "July 2027",
+      "stated": true,
+      "evidence": "Research Analyst (Economics) - July 2027"
+    },
+    "degree_requirement": {
+      "value": "Undergraduate degree in a quantitative discipline (e.g. economics, computer science, data science, and mathematics)",
+      "stated": true,
+      "evidence": "An undergraduate degree in a quantitative discipline (e.g. economics, computer science, data science, and mathematics), with strong academic performance."
+    }
+  },
+  "reference": {
+    "skills": [
+      "Quantitative modeling",
+      "Programming (R, Python, Stata, SAS, Excel, VBA)",
+      "Data analysis",
+      "Statistical analysis",
+      "Econometric analysis",
+      "Dashboard building",
+      "Qualitative research",
+      "Literature review",
+      "Market analysis",
+      "Report writing"
+    ],
+    "responsibilities": [
+      "Build models and create data-based solutions using programming languages",
+      "Conduct data and statistical analysis",
+      "Perform econometric analysis",
+      "Build interactive dashboards",
+      "Conduct comprehensive research and literature reviews",
+      "Examine documents and write memos",
+      "Assist in preparing expert reports and presentations",
+      "Help experts present economic and financial concepts in legal contexts",
+      "Work collaboratively with team members at all levels"
+    ],
+    "team_or_function": "METRICS practice (Antitrust & Competition, Consumer Protection and Product Liability, Telecom)"
+  }
+}
