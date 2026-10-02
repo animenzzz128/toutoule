@@ -88,3 +88,20 @@ only part of the rule, on a field v2 didn't touch. Important accuracy and recall
 moved (−5, −19) with no related change, so differences that size are run-to-run noise,
 and I'll judge later deltas against that. One misfiling survived: a dated preference
 ("2027年应届毕业生优先") still went into graduation_window.
+
+## v3 — 2026-10-02 — extract_v3 (Task 1.8)
+
+**Hypothesis (written before running):** Critical FN falls from 16 to ≤10 of 67,
+because v2's misses are fields the posting does state in forms the definitions never
+name: rolling-basis / until-filled deadlines and resume requirements phrased as
+instructions ("submit your resume", "state X in your resume", 投递简历). Critical
+hallucination stays ≤6 of 249. Risk: the model starts treating any mention of a
+document as a requirement.
+
+**Change:** starting from extract_v2, add to the deadline and materials_required
+definitions what DOES count as stated: a rolling / until-filled application policy is
+a stated deadline (value per the labeling conventions); any instruction to submit,
+upload or fill in a resume/CV counts as materials_required including resume. Nothing
+else changes.
+
+**Result:** (filled in after adjudication)
