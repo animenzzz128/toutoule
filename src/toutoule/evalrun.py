@@ -52,13 +52,21 @@ def current_commit() -> str | None:
     Recorded per run so two runs of the same prompt under different code (v3 and v4 both
     run extract_v3) can be told apart. None when git isn't available or this isn't a
     checkout — a missing hash is better than a wrong one.
+
+    Untracked files don't count as dirty, matching `git describe --dirty`: only a change
+    to a tracked file can change the code that ran, and counting stray scratch files
+    would mark almost every run dirty for no reason.
     """
     try:
         head = subprocess.run(
             ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True, timeout=10
         ).stdout.strip()
         status = subprocess.run(
-            ["git", "status", "--porcelain"], capture_output=True, text=True, check=True, timeout=10
+            ["git", "status", "--porcelain", "--untracked-files=no"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
         ).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         return None

@@ -63,6 +63,23 @@ def test_default_meta_records_the_code_commit(tmp_path, monkeypatch):
     assert meta["commit"] == "abc123-dirty"
 
 
+def test_current_commit_ignores_untracked_files(monkeypatch):
+    # An untracked scratch file cannot change the code that ran, so it must not mark
+    # the run dirty — same rule as `git describe --dirty`.
+    calls = []
+
+    def _fake_run(args, **_kwargs):
+        calls.append(args)
+        from types import SimpleNamespace
+
+        return SimpleNamespace(stdout="abc123\n" if "rev-parse" in args else "")
+
+    monkeypatch.setattr(evalrun.subprocess, "run", _fake_run)
+
+    assert evalrun.current_commit() == "abc123"
+    assert "--untracked-files=no" in calls[1]
+
+
 def test_current_commit_returns_none_when_git_is_unavailable(monkeypatch):
     def _no_git(*_args, **_kwargs):
         raise FileNotFoundError("git not installed")
