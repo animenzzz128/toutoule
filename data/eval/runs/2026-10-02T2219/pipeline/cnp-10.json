@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "ZA Bank",
+  "title": "Manager, Wealth Management (Marketing focus)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "Resume",
+      "stated": true,
+      "evidence": "如感興趣，請將簡歷投至 career@za.group"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong",
+      "stated": true,
+      "evidence": "香港"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in Marketing, Communications, Business, or a related field",
+      "stated": true,
+      "evidence": "Bachelor's degree in Marketing, Communications, Business, or a related field"
+    }
+  },
+  "reference": {
+    "skills": [
+      "integrated marketing planning",
+      "content creation",
+      "marketing campaign management",
+      "performance monitoring",
+      "market analysis",
+      "KPI monitoring",
+      "data analysis",
+      "financial services marketing",
+      "wealth management product marketing",
+      "writing",
+      "stakeholder management"
+    ],
+    "responsibilities": [
+      "Develop and implement integrated marketing plans for user acquisition, activation, and trading volume growth",
+      "Own end-to-end content creation process for marketing campaigns",
+      "Lead marketing strategy and launch execution for new product features and services",
+      "Assist in content drafting and compliant marketing copy",
+      "Lead end-to-end execution of multi-channel marketing campaigns",
+      "Monitor performance metrics and optimize campaigns in real-time",
+      "Maintain understanding of market trends and competitor activities",
+      "Collaborate with Product, Compliance, Legal, and Data teams"
+    ],
+    "team_or_function": "Wealth Management / Marketing"
+  }
+}

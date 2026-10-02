@@ -84,3 +84,7 @@ ust-03,pipeline,materials_required,resume,hallucination,quote does not mention a
 ust-08,pipeline,materials_required,resume,hallucination,"apply link, not a resume requirement"
 ust-10,pipeline,materials_required,Resume,hallucination,quote unrelated to materials
 usf-01,pipeline,deadline,rolling basis,wrong,posting states both rolling basis and until filled; not a general equivalence
+cnp-04,pipeline,deadline,rolling basis,hallucination,misfiled: rolling review policy given as deadline; posting states 30 Nov 2026
+cnc-04,pipeline,graduation_window,2025-01 to 2026-07,wrong,days dropped from window
+cnc-07,pipeline,graduation_window,2027应届,hallucination,"misfiled: graduation preference, not a window"
+cnp-12,pipeline,application_cap,2 per candidate,hallucination,2 per candidate contradicts multiple business groups allowed

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Tellius",
+  "title": "Strategic Account Manager (Post-Sales)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "customer-facing and stakeholder management",
+      "project/program management",
+      "use case ideation",
+      "data modeling concepts",
+      "semantic layers design",
+      "cross-sell and upsell strategies",
+      "adoption and enablement delivery"
+    ],
+    "responsibilities": [
+      "Lead customer onboarding through use case ideation workshops and implementation activities",
+      "Guide adoption through enablement sessions and Quarterly Business Reviews",
+      "Build trusted relationships with business executives and analytics teams",
+      "Own customer renewals and drive expansion opportunities",
+      "Identify and address retention risks with tailored solutions",
+      "Drive account growth through cross-sell and upsell",
+      "Share customer feedback with product and engineering teams",
+      "Monitor usage analytics and success metrics",
+      "Document customer activities and success stories",
+      "Communicate with customers through recurring meetings and webinars"
+    ],
+    "team_or_function": "GTM, product, sales, and marketing teams"
+  }
+}

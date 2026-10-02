@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "unknown",
+  "title": "商业分析师（BA/DS）/Business Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3",
+      "stated": true,
+      "evidence": "最多可投递3个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Dubai",
+      "stated": true,
+      "evidence": "工作地点：迪拜"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "English",
+      "stated": true,
+      "evidence": "可将英语作为工作语言，能支持跨国家/地区的业务沟通"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "data analysis",
+      "business analytics",
+      "strategy development",
+      "data science",
+      "large language models",
+      "AI tools",
+      "SQL",
+      "data visualization"
+    ],
+    "responsibilities": [
+      "participate in business planning and strategy formulation",
+      "conduct operational analysis",
+      "design solutions for complex business problems",
+      "use data analysis tools to uncover business patterns and user needs",
+      "provide business insights and recommendations",
+      "build company-level experimentation platform",
+      "support major experimental decisions with scientific approaches",
+      "explore LLM applications in business analysis",
+      "assist industry research",
+      "automate report generation",
+      "generate intelligent data insights",
+      "support natural language data queries"
+    ],
+    "team_or_function": "Business Analysis / Data Science"
+  }
+}

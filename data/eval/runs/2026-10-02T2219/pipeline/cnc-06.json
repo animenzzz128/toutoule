@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Citi",
+  "title": "Markets – Sales and Trading, Full Time Analyst, Hong Kong - 2027",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "by June 2027",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027."
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong, Central and Western District, Hong Kong SAR",
+      "stated": true,
+      "evidence": "Location(s):\nHong Kong, Central and Western District, Hong Kong SAR"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Job Type:\nOn-Site/Resident"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Undergraduate/Masters degree",
+      "stated": true,
+      "evidence": "You are a final student pursuing an Undergraduate/Masters degree at a top academic institution and graduating by June 2027."
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical and quantitative skills",
+      "problem solving",
+      "leadership",
+      "teamwork",
+      "communication skills",
+      "client relationship building",
+      "numeracy"
+    ],
+    "responsibilities": [
+      "providing financial solutions",
+      "sales and trading",
+      "building client relationships",
+      "applying acquired knowledge to work"
+    ],
+    "team_or_function": "Markets – Sales and Trading"
+  }
+}

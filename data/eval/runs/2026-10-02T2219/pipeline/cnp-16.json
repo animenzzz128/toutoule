@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "腾讯",
+  "title": "AI产品经理",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "远程面试"
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "远程面试"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree",
+      "stated": true,
+      "evidence": "应届毕业生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI工具使用",
+      "问题拆解",
+      "逻辑思维",
+      "系统分析",
+      "产品设计",
+      "用户洞察",
+      "数据分析",
+      "A/B测试",
+      "用户研究"
+    ],
+    "responsibilities": [
+      "定义AI产品方向",
+      "完成AI产品的需求定义、方案设计和效果验证",
+      "驾驭AI技术边界",
+      "设计AI交互体验",
+      "驱动AI产品增长",
+      "通过数据实验优化产品策略",
+      "追踪AI行业前沿"
+    ],
+    "team_or_function": null
+  }
+}

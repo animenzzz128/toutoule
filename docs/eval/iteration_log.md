@@ -176,4 +176,24 @@ critical FN 5 ± 3 of 67; important accuracy and recall move within the noise se
 between v1 and v3 (about ±10 and ±20). If hallucination is above 9, v4's improvement
 over v3 can't be told apart from noise, and the PR will say so.
 
-**Result:** (filled in after adjudication)
+**Result:**
+
+| Metric | Target | v4 derived | v4 repeat | Expectation |
+|---|---|---|---|---|
+| Critical hallucination | 0% | 6 / 249 (2.4%) | 8 / 249 (3.2%) | 6 ± 3 — in range |
+| — of which fabricated | — | 3 / 6 (50.0%) | 5 / 8 (62.5%) | — |
+| — of which misfiled | — | 3 / 6 (50.0%) | 3 / 8 (37.5%) | — |
+| Critical accuracy | ≥95% | 55 / 62 (88.7%) | 54 / 57 (94.7%) | — |
+| Critical false-negative | ≤10% | 5 / 67 (7.5%) | 6 / 67 (9.0%) | 5 ± 3 — in range |
+| Important accuracy | ≥90% | 51 / 131 (38.9%) | 43 / 130 (33.1%) | −8, within ±10 |
+| Reference recall | ≥80% | 250 / 552 (45.3%) | 256 / 552 (46.4%) | +6, within ±20 |
+
+**Read:** The repeat confirms v4, narrowly. Fresh-run critical hallucination is 8/249
+against 6 on the derived run, inside the 6 ± 3 I wrote before running and under the 9
+where v4 would stop being distinguishable from v3's 10, so I report v4 as 6–8/249 rather
+than 6. FN is 6/67 (9.0%), inside 5 ± 3 but close to the 10% limit. The support check held
+on fresh output: materials_required had 0 hallucinations in both v4 runs, at the cost of 3
+misses (cnc-02, usf-09, ust-04). What's left is mostly application_cap (3 of 5 fabricated
+values invent "per candidate", plus 3 of the 6 misses), the only critical field no version
+changed, and a failure v3 introduced: a rolling-review sentence given as the deadline when
+the posting states a date (cnp-04). Those are the first targets after M1.

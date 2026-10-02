@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Lalamove",
+  "title": "Product Manager, Marketplace",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Hong Kong SAR",
+      "stated": true,
+      "evidence": "Hong Kong SARProduct – Product /Full-time /On-site"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Hong Kong SARProduct – Product /Full-time /On-site"
+    },
+    "language_requirement": {
+      "value": "Fluency in English and Chinese (Cantonese or Mandarin)",
+      "stated": true,
+      "evidence": "Fluency in English and Chinese (Cantonese or Mandarin)"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "BA/BS in a technical/business field such as computer science, management, or economics",
+      "stated": true,
+      "evidence": "BA/BS in a technical/business field such as computer science, management, or economics"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical thinking",
+      "data analysis",
+      "product strategy",
+      "user experience design",
+      "cross-functional collaboration",
+      "communication",
+      "problem-solving"
+    ],
+    "responsibilities": [
+      "Set OKRs and prioritise product ideas",
+      "Understand and create business strategy using data and research",
+      "Integrate usability studies, research and market analysis into product requirements",
+      "Work with engineers, designers, and data scientists",
+      "Break down projects and prioritise features to maximise ROI",
+      "Communicate plans, data and results to product and leadership",
+      "Build cost-effective solutions with platform and cross-functional teams",
+      "Drive full-stack product development"
+    ],
+    "team_or_function": "Marketplace engine / Product team"
+  }
+}

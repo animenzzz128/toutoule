@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Stripe",
+  "title": "Product Manager: New Grad Accelerator",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Francisco, Seattle, or New York",
+      "stated": true,
+      "evidence": "Location: In-person at Stripe offices in San Francisco, Seattle, or New York."
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Office-assigned Stripes in most of our locations are currently expected to spend at least 50% of the time in a given month in their local office"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "CS or engineering degree",
+      "stated": true,
+      "evidence": "New grad or 0-2 years of professional experience, with a CS or engineering degree."
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI-enabled development",
+      "problem solving",
+      "code writing",
+      "feature shipping",
+      "user research",
+      "design",
+      "iteration"
+    ],
+    "responsibilities": [
+      "Embed deeply with Stripe's users to understand needs",
+      "Own entire lifecycle from discovery through design, implementation, deployment, and iteration",
+      "Work with users daily",
+      "Navigate codebases and track down answers",
+      "Optimize workflows and tooling",
+      "Deliver meaningful features and improvements"
+    ],
+    "team_or_function": "Product Manager"
+  }
+}

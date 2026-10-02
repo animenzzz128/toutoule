@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "阿里巴巴",
+  "title": "AI产品经理",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 - 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\n2026-10-31 - 2027-10-30"
+    },
+    "application_cap": {
+      "value": "2 per candidate",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递（含阿里星职位）"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Beijing, Guangzhou, Hangzhou, Shanghai, Shenzhen",
+      "stated": true,
+      "evidence": "北京 / 广州 / 杭州 / 上海 / 深圳"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "user research",
+      "industry analysis",
+      "product design",
+      "workflow orchestration",
+      "prompt engineering",
+      "data analysis",
+      "SQL",
+      "Python",
+      "abstract thinking",
+      "problem decomposition",
+      "AIGC knowledge",
+      "LLM",
+      "multimodal models",
+      "Agent",
+      "RAG"
+    ],
+    "responsibilities": [
+      "understand business scenarios and discover AI landing innovation opportunities",
+      "design AI application/platform solutions including core feature definition, workflow orchestration and prompt design",
+      "output high-quality product roadmap",
+      "collaborate with algorithm engineers and backend developers to convert LLM capabilities into scalable product features",
+      "establish product evaluation system and monitor metric fluctuations using data tools",
+      "optimize algorithm performance and user experience based on data feedback"
+    ],
+    "team_or_function": "AI产品 (AI Product)"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "阿里巴巴",
+  "title": "AI产品经理-智能体",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-10-31 - 2027-10-30",
+      "stated": true,
+      "evidence": "毕业起止时间要求\n2026-10-31 - 2027-10-30"
+    },
+    "application_cap": {
+      "value": "2个意向投递",
+      "stated": true,
+      "evidence": "每个业务集团/公司只有1次投递机会，且最多可选择 2 个意向投递"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "杭州",
+      "stated": true,
+      "evidence": "杭州"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI基础技术框架",
+      "SQL/Python数据分析",
+      "Prompt工程优化",
+      "AIGC应用",
+      "RPA",
+      "低代码工具",
+      "产品设计与迭代",
+      "用户研究",
+      "数据驱动决策",
+      "竞品分析"
+    ],
+    "responsibilities": [
+      "主导Agent与人协作产品的设计与迭代",
+      "深入研究用户场景与痛点，建立用户反馈闭环",
+      "与工程、设计、运营等同事协作，推动产品从0到1及规模化增长",
+      "定义并跟踪核心产品指标（DAU、留存、活跃度、NPS等），用数据驱动决策",
+      "关注行业动态与竞品分析，保持产品的竞争力与创新性"
+    ],
+    "team_or_function": "千问办公"
+  }
+}

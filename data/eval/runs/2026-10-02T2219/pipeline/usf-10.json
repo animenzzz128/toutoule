@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Charles River Associates",
+  "title": "Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027)",
+  "critical": {
+    "deadline": {
+      "value": "until filled",
+      "stated": true,
+      "evidence": "candidate resume review will commence October 15, and continue on a rolling basis until positions are filled"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "December 2027/Summer 2028",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree candidates graduating in December 2027/Summer 2028"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "Resume, cover letter, transcript",
+      "stated": true,
+      "evidence": "Resume – please include current address, personal email and telephone number; Cover letter – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference; Transcript – may be unofficial."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston MA; Chicago IL; Houston TX; New York NY; Oakland CA",
+      "stated": true,
+      "evidence": "Boston, MA, United States; Chicago, IL, United States; Houston, Texas, United States; New York, NY, United States; Oakland, CA, United States"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "Summer 2027",
+      "stated": true,
+      "evidence": "Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027)"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's in Accounting, Business, Finance, or related area",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree candidates graduating in December 2027/Summer 2028 with an academic focus in Accounting, Business, Finance, or a related area"
+    }
+  },
+  "reference": {
+    "skills": [
+      "finance and accounting methodologies",
+      "research and quantitative analysis",
+      "Excel skills",
+      "data analysis",
+      "SQL",
+      "Python",
+      "R",
+      "SAS",
+      "Stata",
+      "financial modeling",
+      "written communication",
+      "oral communication"
+    ],
+    "responsibilities": [
+      "conduct economic and industry research",
+      "analyze client materials",
+      "perform financial and economic analyses",
+      "develop valuation models",
+      "program and build models",
+      "perform regression analyses",
+      "investigate accounting irregularities",
+      "prepare financial analyses and models",
+      "analyze financial evidence and records",
+      "analyze large data sets",
+      "draft written reports",
+      "communicate findings to team members and clients"
+    ],
+    "team_or_function": "Finance and Intellectual Property practices"
+  }
+}
