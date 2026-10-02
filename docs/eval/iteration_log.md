@@ -142,4 +142,28 @@ items are dropped; if none remain, the field becomes not stated and an
 extraction_violation is logged. This extends the check from "the quote exists" to
 "the quote supports the value".
 
-**Result:** (filled in after adjudication)
+**Method:** measured by applying the support check to the saved outputs of run
+2026-10-02T2127 (derived run 2026-10-02T2127-v4, 0 API calls), so every change is
+caused by the rule. The keyword table includes traditional Chinese variants, added
+after noticing 簡歷 in a v3 output.
+
+**Result:**
+
+| Metric | v3 | v4 | delta |
+|---|---|---|---|
+| Critical hallucination | 10 / 249 (4.0%) | 6 / 249 (2.4%) | −4 (−1.6pp) |
+| — of which fabricated | 7 / 10 (70.0%) | 3 / 6 (50.0%) | −4 |
+| — of which misfiled | 3 / 10 (30.0%) | 3 / 6 (50.0%) | 0 |
+| Critical accuracy | 55 / 63 (87.3%) | 55 / 62 (88.7%) | 0 (+1.4pp) |
+| Critical false-negative | 4 / 67 (6.0%) | 5 / 67 (7.5%) | +1 (+1.5pp) |
+| Important accuracy | 51 / 131 (38.9%) | 51 / 131 (38.9%) | 0 (0.0pp) |
+| Reference recall | 250 / 552 (45.3%) | 250 / 552 (45.3%) | 0 (0.0pp) |
+
+**Read:** Hypothesis right on its central estimate. Applying the support check to v3's
+saved outputs cut critical hallucination from 10 to 6 of 249; all four removed values
+were "resume" claims whose quotes never mention a resume. FN rose from 4 to 5 of 67: on
+cnc-02 the resume requirement is real, but the model quoted the registration line, so
+the check dropped a true item. That's the asymmetry working as designed: a missing value
+is cheaper than an unsupported one. What remains is 3 misfiled graduation windows (a
+preference, an onboarding date, a cohort start) and 3 fabricated values. Whether these
+numbers hold on a fresh model run is tested by the stability re-run.

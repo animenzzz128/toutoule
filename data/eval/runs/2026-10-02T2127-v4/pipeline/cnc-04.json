@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "上交所技术有限责任公司",
+  "title": "开发及产品类、测试类、运维服务与支持类、信息技术治理类",
+  "critical": {
+    "deadline": {
+      "value": "until filled",
+      "stated": true,
+      "evidence": "招满即止"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01 to 2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间一般为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "请登录技术公司指定网站https://ssetech2026.zhaopin.com，进入简历投递系统"
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "C/C++/JAVA编程",
+      "SQL语法和调优",
+      "微服务设计",
+      "SpringCloud/kafka/flink/Redis框架",
+      "向量数据库",
+      "LangChain/LlamaIndex框架",
+      "RAG全链路优化",
+      "Agent多智能体协作",
+      "MCP协议",
+      "需求分析",
+      "前后端分离开发",
+      "前端开发",
+      "测试工具（Jira/SVN/Git/Postman/Wireshark）",
+      "Pytest/TestNG/JMeter/Jenkins",
+      "网络/操作系统/数据库/存储知识",
+      "虚拟化和容器技术",
+      "脚本语言或主流开发语言",
+      "Java开发",
+      "前后端开发框架",
+      "软件工程"
+    ],
+    "responsibilities": [
+      "需求分析、架构设计、核心代码开发",
+      "AI中台建设和AI业务场景落地",
+      "技术文档编写、架构评审、代码审评、上线评审",
+      "系统环境搭建、系统调试、集成与实施",
+      "交易系统和业务系统测试",
+      "软件缺陷管理与问题追踪定位",
+      "自动化测试方案设计与实施",
+      "信息技术系统应用运维",
+      "主机、网络、数据库规划建设与运维",
+      "涉密信息系统日常运维与技术运营",
+      "行业智算中心、云平台、大数据平台建设与运维",
+      "测试环境管理和IT技术支持",
+      "CMMI、DevOps等IT管理标准研究与转化",
+      "信息技术治理工具平台规划、建设与维护",
+      "docker和k8s环境运维及故障分析处理"
+    ],
+    "team_or_function": null
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Capital One",
+  "title": "Senior Associate, Corporate Strategy",
+  "critical": {
+    "deadline": {
+      "value": "within 5 business days",
+      "stated": true,
+      "evidence": "This role is expected to accept applications for a minimum of 5 business days."
+    },
+    "visa_sponsorship": {
+      "value": "no",
+      "stated": true,
+      "evidence": "At this time, Capital One will not sponsor a new applicant for employment authorization for this position."
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "McLean, Virginia",
+      "stated": true,
+      "evidence": "McLean, Virginia"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree",
+      "stated": true,
+      "evidence": "Bachelor's degree"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical thinking",
+      "problem-solving",
+      "financial modeling",
+      "investment research",
+      "written and verbal communication",
+      "financial analysis"
+    ],
+    "responsibilities": [
+      "Provide analytical support to senior management",
+      "Provide recurring and ad hoc research to support business lines",
+      "Benchmark Capital One's performance vs. industry competitors",
+      "Monitor financial and economic events",
+      "Analysis of large financial data sets",
+      "Deep dives and longer-term projects",
+      "Ad hoc project work with partner teams",
+      "Analyze and benchmark capital and balance sheet performance"
+    ],
+    "team_or_function": "Corporate Research team (within Corporate Strategy)"
+  }
+}
