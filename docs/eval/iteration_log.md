@@ -104,4 +104,24 @@ a stated deadline (value per the labeling conventions); any instruction to submi
 upload or fill in a resume/CV counts as materials_required including resume. Nothing
 else changes.
 
-**Result:** (filled in after adjudication)
+**Result:**
+
+| Metric | v2 | v3 | delta |
+|---|---|---|---|
+| Critical hallucination | 5 / 249 (2.0%) | 10 / 249 (4.0%) | +5 (+2.0pp) |
+| — of which fabricated | 3 / 5 (60.0%) | 7 / 10 (70.0%) | +4 |
+| — of which misfiled | 2 / 5 (40.0%) | 3 / 10 (30.0%) | +1 |
+| Critical accuracy | 45 / 50 (90.0%) | 55 / 63 (87.3%) | +10 (−2.7pp) |
+| Critical false-negative | 16 / 67 (23.9%) | 4 / 67 (6.0%) | −12 (−17.9pp) |
+| Important accuracy | 40 / 133 (30.1%) | 51 / 131 (38.9%) | +11 (+8.8pp) |
+| Reference recall | 235 / 552 (42.6%) | 250 / 552 (45.3%) | +15 (+2.7pp) |
+
+**Read:** Hypothesis half right. Critical FN fell from 16 to 4 of 67 (6.0%), past my
+8–12 range, and it's the first target met in any version. But the risk I named happened:
+critical hallucination doubled from 5 to 10 of 249. Four of the new ones claim "resume"
+from real quotes that never mention a resume ("we look forward to seeing your
+application", an apply link). The verbatim check passes them because it checks that a
+quote exists, not that it supports the value. Misfiled graduation windows also rose
+(2 → 3) on a field v3 didn't change, and one came from the very sentence v3's resume
+example pointed the model at. v3 is now the only version within the FN tolerance, so v4
+must cut hallucination without giving those misses back.

@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "中国银行股份有限公司",
+  "title": "2027年全球校园招聘",
+  "critical": {
+    "deadline": {
+      "value": "2026-10-09",
+      "stated": true,
+      "evidence": "报名截止时间为北京时间2026年10月9日24点。"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "5 per candidate",
+      "stated": true,
+      "evidence": "每人最多可申请5个岗位，其中应聘北京、上海、广东、深圳等境内一级分行或直属分行可申请1-2个岗位，应聘其他一级机构可申请1个岗位"
+    },
+    "materials_required": {
+      "value": "resume/CV and personal information",
+      "stated": true,
+      "evidence": "在线注册并填写个人信息后，选择相应机构的岗位进行在线报名"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Multiple locations in China and 64 countries/regions globally",
+      "stated": true,
+      "evidence": "在中国境内及境外64个国家和地区设有机构"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "German, French, Spanish, Portuguese, Swedish, Hungarian, Polish, Czech, Serbian for specific positions",
+      "stated": true,
+      "evidence": "招收语种：德语、法语、西班牙语、葡萄牙语、瑞典语、匈牙利语、波兰语、捷克语、塞尔维亚语。"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Recent graduates from domestic and international universities",
+      "stated": true,
+      "evidence": "面向境内外院校招收应届毕业生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "信息科技",
+      "业务发展",
+      "金融市场",
+      "风险合规",
+      "数据分析",
+      "系统开发",
+      "审计"
+    ],
+    "responsibilities": [
+      "业务及管理工作",
+      "信用卡业务管理和产品研发",
+      "养老金融研究和营销管理",
+      "数据运营和分析",
+      "信息系统生产运营管理",
+      "应用系统开发、测试和维护",
+      "国际结算业务处理",
+      "线上客服渠道建设和运营",
+      "培训研发工作",
+      "审计业务和数据分析",
+      "营销服务",
+      "柜面业务和厅堂服务"
+    ],
+    "team_or_function": "Multiple business divisions including Card Center, Pension Finance Center, Digital Asset Operations Center, IT Operations Center, Software Center, International Settlement Documentation Center, Centralized Operations Center, Remote Banking Center, Training Institutes, Audit Division, Domestic Branches, Hong Kong/Macau/Taiwan and Overseas Institutions, Comprehensive Operating Companies"
+  }
+}

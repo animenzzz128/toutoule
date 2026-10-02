@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Citi",
+  "title": "Banking - Corporate Banking, Summer Analyst, China – APAC, 2027",
+  "critical": {
+    "deadline": {
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "We encourage early applications as we recruit on a rolling basis."
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027-12 to 2028-06",
+      "stated": true,
+      "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution (graduating between Dec 2027 - June 2028)"
+    },
+    "application_cap": {
+      "value": "3 per region",
+      "stated": true,
+      "evidence": "Each applicant can apply to maximum of 3 summer internship programs in APAC region."
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai, China",
+      "stated": true,
+      "evidence": "Location(s): Shanghai, Shanghai Municipality, China"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Job Type: On-Site/Resident"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution"
+    }
+  },
+  "reference": {
+    "skills": [
+      "strategic advising",
+      "capital markets knowledge",
+      "financial analysis",
+      "communication",
+      "planning",
+      "organizational skills"
+    ],
+    "responsibilities": [
+      "provide advice to clients on strategic objectives",
+      "advise on mergers and acquisitions",
+      "work with capital markets teams",
+      "help clients raise capital in equity and debt markets",
+      "work on financial transactions"
+    ],
+    "team_or_function": "Corporate Banking"
+  }
+}

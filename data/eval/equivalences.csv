@@ -20,3 +20,5 @@ materials_required,resume + transcript,resume or CV; unofficial or official tran
 application_cap,5 per candidate,5个岗位,
 application_cap,5 per candidate; 2 subdirections within 1 direction,2个子方向，最多5个职位,
 application_cap,2 functions per program application,up to two functions,
+application_cap,2 functions per program application,2 functions,
+materials_required,resume + transcript,"resume/CV, transcript",

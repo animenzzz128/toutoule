@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "字节跳动",
+  "title": "产品经理实习生 - 国际化内容与服务广告",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京",
+      "stated": true,
+      "evidence": "北京"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "英语流利者优先",
+      "stated": true,
+      "evidence": "英语流利者优先"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上在读",
+      "stated": true,
+      "evidence": "本科及以上学历在读"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析能力",
+      "逻辑思维",
+      "沟通与协调能力",
+      "问题解决能力"
+    ],
+    "responsibilities": [
+      "协助国际化APP效果广告的产品策略设计",
+      "持续优化广告主投放效果与投放效率",
+      "协同设计、研发、算法、运营等跨部门团队",
+      "推动项目从需求、方案到落地全流程",
+      "关注行业动态，进行策略调整和产品创新"
+    ],
+    "team_or_function": "内容与服务广告团队"
+  }
+}

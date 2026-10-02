@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "上海证券交易所",
+  "title": "员工招聘",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "本次招聘简历投递截止时间为北京时间2026年3月8日24时"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01 to 2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间应为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "进入简历投递系统，选择\"员工招聘\"类别，填写简历"
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Master's or above for A01 (Accounting)",
+      "stated": true,
+      "evidence": "硕士研究生及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "accounting",
+      "audit",
+      "financial management",
+      "tax law",
+      "English language communication"
+    ],
+    "responsibilities": [],
+    "team_or_function": null
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "BlackRock",
+  "title": "Full-Time Analyst Program",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2026-09 to 2027-07",
+      "stated": true,
+      "evidence": "Undergraduate or master's students graduating between September 2026 through July 2027."
+    },
+    "application_cap": {
+      "value": "2 functions",
+      "stated": true,
+      "evidence": "Candidates can apply for up to two functions within that program (e.g., Investment Research and Analytics & Modeling)."
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "candidates who have graduated or will be graduating with a bachelor's or master's degree between September 2026 and July 2027"
+    }
+  },
+  "reference": {
+    "skills": [],
+    "responsibilities": [
+      "work on interesting projects",
+      "collaborate with teams around the globe",
+      "drive innovation",
+      "contribute to firm's mission",
+      "have a lasting impact on the firm"
+    ],
+    "team_or_function": null
+  }
+}
