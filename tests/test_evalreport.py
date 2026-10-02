@@ -86,3 +86,25 @@ def test_header_reports_temperature_default_and_single_run():
     header = "\n".join(evalreport._header("run1", _meta(), scores))
     assert "not set for either system (API default)" in header
     assert "One run per system" in header
+
+
+def test_header_shows_the_code_commit_when_the_run_recorded_one():
+    scores = {"pipeline": _score("pipeline")}
+    header = "\n".join(evalreport._header("run1", {**_meta(), "commit": "abc123-dirty"}, scores))
+    assert "- Code commit: abc123-dirty" in header
+
+
+def test_header_omits_commit_and_derivation_lines_when_the_run_has_none():
+    # Runs recorded before these keys existed must re-render byte for byte.
+    scores = {"pipeline": _score("pipeline")}
+    header = "\n".join(evalreport._header("run1", _meta(), scores))
+    assert "Code commit" not in header
+    assert "Derived from" not in header
+
+
+def test_header_names_the_run_a_derived_run_was_built_from():
+    scores = {"pipeline": _score("pipeline")}
+    meta = {**_meta(), "derived_from": "2026-10-02T2127", "api_calls": 0}
+    header = "\n".join(evalreport._header("run1-v4", meta, scores))
+    assert "- Derived from run 2026-10-02T2127" in header
+    assert "(0 API calls)" in header

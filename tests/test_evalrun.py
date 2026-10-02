@@ -53,6 +53,25 @@ def _case() -> evalset.CaseRow:
     )
 
 
+def test_default_meta_records_the_code_commit(tmp_path, monkeypatch):
+    # Two runs of the same prompt under different code (v3 and v4 both ran extract_v3)
+    # are only distinguishable by this.
+    monkeypatch.setattr(evalrun, "current_commit", lambda: "abc123-dirty")
+
+    meta = evalrun._default_meta("run1", MODEL)
+
+    assert meta["commit"] == "abc123-dirty"
+
+
+def test_current_commit_returns_none_when_git_is_unavailable(monkeypatch):
+    def _no_git(*_args, **_kwargs):
+        raise FileNotFoundError("git not installed")
+
+    monkeypatch.setattr(evalrun.subprocess, "run", _no_git)
+
+    assert evalrun.current_commit() is None
+
+
 def test_run_pipeline_case_skips_if_output_already_exists(tmp_path, monkeypatch):
     _redirect_paths(monkeypatch, tmp_path)
     engine = get_engine(f"sqlite:///{tmp_path / 'eval.db'}")

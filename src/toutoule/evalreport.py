@@ -101,6 +101,15 @@ def _header(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore]) -> l
         lines.append(banner)
         lines.append("")
     lines.append(f"- Model: {meta['model']}")
+    # Only printed when the run recorded them, so reports written before these keys
+    # existed re-render byte for byte.
+    if meta.get("commit"):
+        lines.append(f"- Code commit: {meta['commit']}")
+    if meta.get("derived_from"):
+        lines.append(
+            f"- Derived from run {meta['derived_from']} by re-running verification in code"
+            f" ({meta.get('api_calls', 0)} API calls)"
+        )
     versions = meta["prompt_versions"]
     lines.append(
         f"- Prompt versions: pipeline={versions['pipeline']}, baseline={versions['baseline']}"

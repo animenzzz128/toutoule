@@ -9,6 +9,7 @@ around a hidden cache; it just keeps each run's rows from piling up across runs.
 """
 
 import json
+import subprocess
 import time
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -45,12 +46,32 @@ def eval_db_url(run_id: str) -> str:
 # --- meta.json -----------------------------------------------------------------------------
 
 
+def current_commit() -> str | None:
+    """The HEAD commit, with "-dirty" appended when the tree has uncommitted changes.
+
+    Recorded per run so two runs of the same prompt under different code (v3 and v4 both
+    run extract_v3) can be told apart. None when git isn't available or this isn't a
+    checkout — a missing hash is better than a wrong one.
+    """
+    try:
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True, timeout=10
+        ).stdout.strip()
+        status = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, check=True, timeout=10
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return f"{head}-dirty" if status else head
+
+
 def _default_meta(
     run_id: str, model: str, pipeline_prompt_version: str | None = None
 ) -> dict[str, Any]:
     return {
         "run_id": run_id,
         "model": model,
+        "commit": current_commit(),
         "prompt_versions": {
             "pipeline": pipeline_prompt_version or extract.PROMPT_VERSION,
             "baseline": baseline.PROMPT_VERSION,
