@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "TikTok",
+  "title": "Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",
+  "critical": {
+    "deadline": {
+      "value": "rolling basis",
+      "stated": true,
+      "evidence": "Applications will be reviewed on a rolling basis."
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "2 per candidate",
+      "stated": true,
+      "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply."
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "Please state your availability and graduation date clearly in your resume."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Los Angeles",
+      "stated": true,
+      "evidence": "Location:\n\nLos Angeles"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027 Start (MBA)"
+    },
+    "degree_requirement": {
+      "value": "MBA",
+      "stated": true,
+      "evidence": "Individuals who are completing or have recently completed an MBA degree."
+    }
+  },
+  "reference": {
+    "skills": [
+      "logical thinking",
+      "business analysis ability",
+      "systematic thinking",
+      "critical thinking ability",
+      "learning ability",
+      "execution ability",
+      "stress resistance",
+      "communication",
+      "coordination",
+      "resource integration ability",
+      "project management ability",
+      "data analysis"
+    ],
+    "responsibilities": [
+      "disassemble project tasks and set priorities",
+      "develop and execute comprehensive strategy including goal/budget setting and performance review",
+      "conduct data analysis to evaluate merchandise and seller growth performance",
+      "collaborate with cross-functional teams to plan and execute strategy",
+      "participate in design and implementation of business operation management systems and processes",
+      "identify and mitigate risk during business development",
+      "establish communication mechanism with internal and external partners globally",
+      "coordinate projects across systems and departments"
+    ],
+    "team_or_function": "TikTok Shop US operation team"
+  }
+}

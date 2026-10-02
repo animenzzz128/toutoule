@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Databricks",
+  "title": "Associate Product Manager, New Grad (2027 Start)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "Fall 2026 or Spring 2027",
+      "stated": true,
+      "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Bellevue, Washington; Mountain View, California; San Francisco, California",
+      "stated": true,
+      "evidence": "We are hiring for San Francisco, CA, Mountain View, CA, and Bellevue, WA."
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "Associate Product Manager, New Grad (2027 Start)"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's in computer science or related engineering field",
+      "stated": true,
+      "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+    }
+  },
+  "reference": {
+    "skills": [
+      "SQL",
+      "Python",
+      "analytical skills",
+      "data-driven decision making",
+      "communication skills",
+      "complex problem solving"
+    ],
+    "responsibilities": [
+      "Understand customer problem space",
+      "Prototype and test early ideas with customers and engineers",
+      "Work with engineers and designers to ship features",
+      "Own project end-to-end including design, build, launch and feedback",
+      "Analyze product usage"
+    ],
+    "team_or_function": "Product Management (AI Platform, Genie, Machine Learning, Unity Catalog, Databricks SQL, ETL, Streaming, or EDA teams)"
+  }
+}

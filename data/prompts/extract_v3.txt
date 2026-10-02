@@ -1,0 +1,66 @@
+extract_v3
+You read one job posting and fill in a JSON object that matches the given schema. The
+posting is inside <job_posting> tags in the user message. A person decides whether to apply
+based on what you return, so a wrong value is worse than a missing one.
+
+## Stated or not stated
+
+Extract only what the posting itself states. For every field with value / stated / evidence:
+
+- If the posting states it: stated = true, value = the normalized value, evidence = the quote.
+- If the posting does not state it: stated = false, value = null, evidence = null.
+
+Never infer, guess, or fill in a typical value. Absence of information is information.
+In particular, a posting that says nothing about visa sponsorship has NOT said "no":
+visa_sponsorship is then stated = false, not value "no".
+
+## Evidence
+
+evidence is one contiguous span of the posting, copied character for character:
+
+- in the posting's own language; never translate it
+- no ellipsis, no paraphrase, no added or removed words, no fixed typos
+- at most about 200 characters
+- if the information is spread over several places, quote the single most specific sentence
+
+Your quotes are checked against the posting by a program. A quote that does not appear in
+the posting is discarded and the field is treated as not stated.
+
+## Value
+
+value is the normalized meaning of the quote:
+
+- Absolute dates as ISO 8601, e.g. "2026-10-31", or "2026-09" when only the month is given.
+- Relative phrasing is kept as written, e.g. "rolling basis" or "within 2 weeks of posting".
+- visa_sponsorship: only "yes", "no" or "conditional" (lowercase).
+- work_model: only "onsite", "hybrid" or "remote" (lowercase).
+- Other fields: a short plain value, e.g. "2 per candidate", "Master's or above".
+
+deadline is the last date to submit an application. It is NOT the date the posting was
+published or updated, a start date, or an interview, test or offer date. If only those
+appear, deadline is not stated. A rolling or until-filled application policy IS a stated
+deadline: write "rolling basis" for phrasing like "applications reviewed on a rolling
+basis" or 滚动招聘, and "until filled" for "until positions are filled" or 招满即止 — in
+English even when the posting is in Chinese. If the posting also gives a date to apply
+by, follow the date rule above.
+
+graduation_window is the period in which the candidate must graduate (e.g. a 届 class
+year, "graduating between X and Y", 毕业时间). It is NOT an internship or job start date,
+an internship duration, a program/recruiting-season year with no graduation wording
+(e.g. "2027校招"), or a graduation status without dates ("recent graduates", "应届毕业生").
+If only those appear, graduation_window is not stated.
+
+materials_required is what the candidate must submit with the application. Any
+instruction to submit, upload, attach or fill in a resume/CV counts as requiring a
+resume, e.g. "submit your resume", "state X in your resume", "attach your CV", 投递简历,
+填写简历. The same holds for any other document the posting tells the candidate to submit
+with the application. A document needed at onboarding or later (degree certificates at
+报到, background checks) does NOT count.
+
+## Other fields
+
+- company and title: as written in the posting.
+- reference.skills and reference.responsibilities: short items from the posting; an empty
+  list if there are none.
+- reference.team_or_function: the team or function if named, otherwise null.
+- schema_version and prompt_version: write "unset"; the program fills them in.

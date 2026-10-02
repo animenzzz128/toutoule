@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "Databricks",
+  "title": "Associate Product Manager, New Grad (2027 Start)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "Fall 2026 or Spring 2027",
+      "stated": true,
+      "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "San Francisco, California; Mountain View, California; Bellevue, Washington",
+      "stated": true,
+      "evidence": "Bellevue, Washington; Mountain View, California; San Francisco, California"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "Associate Product Manager, New Grad (2027 Start)"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's in Computer Science or related engineering field",
+      "stated": true,
+      "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI tooling",
+      "SQL",
+      "Python",
+      "analytical skills",
+      "communication",
+      "data-driven decision making"
+    ],
+    "responsibilities": [
+      "understand customer problem space",
+      "prototype and test ideas with customers and engineers",
+      "work with engineers and designers to ship features",
+      "manage projects end-to-end including design, build, launch and iterate on feedback"
+    ],
+    "team_or_function": "AI Platform, Genie, Machine Learning, Unity Catalog, Databricks SQL, ETL, Streaming, and EDA"
+  }
+}

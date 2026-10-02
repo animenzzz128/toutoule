@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "TikTok",
+  "title": "AI产品运营 - TikTok Shop",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027届校园招聘"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "上海、珠海",
+      "stated": true,
+      "evidence": "上海、珠海"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "English",
+      "stated": true,
+      "evidence": "熟练的英语能力，可以和跨国同事进行工作沟通与项目推进"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree or above",
+      "stated": true,
+      "evidence": "2027届获得本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析",
+      "结构化思维",
+      "表达能力",
+      "AI Agent能力理解",
+      "英语沟通"
+    ],
+    "responsibilities": [
+      "负责国际电商企业级对话式AI助手的产品运营工作",
+      "梳理用户需求、制定评测规则、沉淀知识、优化体验",
+      "联动产品和算法搭建AI能力评测体系",
+      "周期性进行用户满意度/NPS监控及分析",
+      "识别商家在不同场景中的具体问题，推进AI产品优化",
+      "跟踪企业级AI行业趋势，形成产品运营洞察"
+    ],
+    "team_or_function": "TikTok Shop"
+  }
+}

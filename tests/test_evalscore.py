@@ -251,6 +251,24 @@ def test_stale_adjudication_is_ignored():
     assert result.verdict is None
 
 
+def test_stale_adjudication_across_a_changed_outcome_is_ignored_not_raised():
+    # A v1-style row: recorded as "wrong" against a mismatch. A new prompt version (v2)
+    # now doesn't state the field at all, so the outcome is "missed", for which "wrong"
+    # isn't a valid verdict. The row no longer matches the current system_value, so it
+    # must be treated as stale before that validity check ever runs.
+    label = make_label(critical={"deadline": _field("2026-10-31")})
+    output = make_output()  # v2 doesn't state it: outcome is "missed"
+    adjudications = [_adjudication("deadline", "2026-11-01", "wrong")]
+
+    results = evalscore.score_case(
+        label, output, equivalences=set(), adjudications=adjudications, system="pipeline"
+    )
+
+    result = next(r for r in results if r.field == "deadline")
+    assert result.outcome == "missed"
+    assert result.verdict is None
+
+
 def test_invalid_verdict_for_outcome_raises_with_line_number():
     label = make_label(critical={"deadline": _field("2026-10-31")})
     output = make_output()  # system never stated it: outcome is "missed"

@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Tellius",
+  "title": "Strategic Account Manager (Post-Sales)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "Remote"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "consultative sales",
+      "stakeholder management",
+      "project management",
+      "use case ideation",
+      "customer onboarding",
+      "adoption enablement",
+      "account expansion",
+      "cross-sell and upsell strategies",
+      "data analysis",
+      "customer relationship management"
+    ],
+    "responsibilities": [
+      "Lead customer onboarding through use case ideation workshops and project roadmaps",
+      "Guide adoption through enablement sessions and executive briefings",
+      "Build trusted relationships with business executives and analytics teams",
+      "Own customer renewals and drive expansion opportunities",
+      "Identify risks to retention and address with tailored solutions",
+      "Drive account growth through expansion strategies",
+      "Act as customer advocate within Tellius",
+      "Monitor usage analytics and success metrics",
+      "Document customer activities and success stories",
+      "Communicate with customers through recurring meetings and webinars"
+    ],
+    "team_or_function": "post-sales / customer success"
+  }
+}

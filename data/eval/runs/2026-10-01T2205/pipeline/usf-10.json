@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "Charles River Associates",
+  "title": "Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": "yes",
+      "stated": true,
+      "evidence": "We offer a comprehensive total rewards program including a superior benefits package, wellness programming to support physical, mental, emotional and financial well-being, and in-house immigration support for foreign nationals and international business travelers."
+    },
+    "graduation_window": {
+      "value": "December 2027/Summer 2028",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree candidates graduating in December 2027/Summer 2028 with an academic focus in Accounting, Business, Finance, or a related area"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "Resume, Cover letter, Transcript",
+      "stated": true,
+      "evidence": "Resume – please include current address, personal email and telephone number; Cover letter – please describe your interest in CRA and how this role matches your goals. Also, please note if you have interest in a particular practice and/or a location preference; Transcript – may be unofficial."
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston, MA; Chicago, IL; Houston, TX; New York, NY; Oakland, CA",
+      "stated": true,
+      "evidence": "Boston, MA, United States; Chicago, IL, United States; Houston, Texas, United States; New York, NY, United States; Oakland, CA, United States"
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "We currently ask that individuals spend 3 to 4 days a week on average working in the office (which may include traveling to another CRA office or to a client's location), with specific days determined in coordination with your practice or team."
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "Summer 2027",
+      "stated": true,
+      "evidence": "Accounting/Business/Finance Consulting Analyst/Associate Intern (Summer 2027)"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "Bachelor's or Master's degree candidates graduating in December 2027/Summer 2028 with an academic focus in Accounting, Business, Finance, or a related area"
+    }
+  },
+  "reference": {
+    "skills": [
+      "Excel",
+      "Stata",
+      "R",
+      "Python",
+      "SQL",
+      "SAS",
+      "financial modeling",
+      "economic analysis",
+      "valuation",
+      "data analysis",
+      "research",
+      "accounting",
+      "financial data analysis"
+    ],
+    "responsibilities": [
+      "Conduct economic and industry research",
+      "Analyze client materials",
+      "Perform financial and economic analyses",
+      "Develop valuation models",
+      "Program and build models",
+      "Perform regression analyses",
+      "Investigate accounting irregularities",
+      "Prepare financial analyses",
+      "Analyze financial records and transactions",
+      "Identify trends and anomalies",
+      "Communicate findings to team and clients",
+      "Assist with drafting written reports"
+    ],
+    "team_or_function": "Finance or Intellectual Property practice areas"
+  }
+}

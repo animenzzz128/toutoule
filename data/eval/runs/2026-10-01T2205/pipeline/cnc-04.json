@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "上交所技术有限责任公司",
+  "title": "开发及产品类/测试类/运维服务与支持类/信息技术治理类",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01-01 to 2026-07-31",
+      "stated": true,
+      "evidence": "毕业时间一般为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "System architecture design",
+      "Core code development",
+      "AI platform development",
+      "SQL optimization",
+      "Microservices design",
+      "SpringCloud",
+      "Kafka",
+      "Flink",
+      "Redis",
+      "Vector database",
+      "LangChain/LlamaIndex",
+      "RAG optimization",
+      "Agent development",
+      "MCP protocol",
+      "Requirements analysis",
+      "Front-end development",
+      "Software testing tools",
+      "Pytest",
+      "TestNG",
+      "JMeter",
+      "Jenkins",
+      "Network management",
+      "Operating systems",
+      "Database management",
+      "Virtualization",
+      "Container technology",
+      "DevOps",
+      "CMMI",
+      "Java development"
+    ],
+    "responsibilities": [
+      "Core transaction system and business system development and architecture",
+      "AI platform construction and business scenario deployment",
+      "Technical documentation and code review",
+      "System environment setup and debugging",
+      "Software testing and defect management",
+      "Test process innovation and quality improvement",
+      "Application operations and maintenance",
+      "Infrastructure planning and management",
+      "Test environment management for market participants",
+      "IT governance standards research and implementation"
+    ],
+    "team_or_function": null
+  }
+}

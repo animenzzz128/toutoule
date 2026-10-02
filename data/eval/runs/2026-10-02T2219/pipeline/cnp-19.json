@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "",
+  "title": "策略产品经理",
+  "critical": {
+    "deadline": {
+      "value": "2026-09-30",
+      "stated": true,
+      "evidence": "2026-09-30"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "北京",
+      "stated": true,
+      "evidence": "北京"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上学历",
+      "stated": true,
+      "evidence": "本科及以上学历，计算机、数学等相关专业优先"
+    }
+  },
+  "reference": {
+    "skills": [
+      "逻辑思维能力",
+      "业务敏感性",
+      "数据敏感性",
+      "需求管理能力",
+      "项目推进能力",
+      "团队协作能力",
+      "数据分析",
+      "产品设计理解",
+      "用户体验理解",
+      "产品思维",
+      "创新意识"
+    ],
+    "responsibilities": [
+      "根据不同应用场景提出产品策略方案",
+      "推动策略迭代升级及产品化功能落地",
+      "深入了解业务场景",
+      "进行用户调研",
+      "进行数据分析",
+      "进行效果评估",
+      "收集内外部需求",
+      "跟踪行业竞品动态",
+      "挖掘策略优化点",
+      "学习业界最新动态",
+      "发现产品机会点"
+    ],
+    "team_or_function": "产品类 - 策略产品"
+  }
+}

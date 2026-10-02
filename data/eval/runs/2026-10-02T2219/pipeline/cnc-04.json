@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "上交所技术有限责任公司",
+  "title": "开发及产品类、测试类、运维服务与支持类、信息技术治理类",
+  "critical": {
+    "deadline": {
+      "value": "until filled",
+      "stated": true,
+      "evidence": "招满即止"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2025-01 to 2026-07",
+      "stated": true,
+      "evidence": "毕业时间一般为2025年1月1日至2026年7月31日"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "请登录技术公司指定网站https://ssetech2026.zhaopin.com，进入简历投递系统"
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "C/C++/JAVA编程",
+      "SQL语言",
+      "系统原理",
+      "数据结构",
+      "算法",
+      "多线程",
+      "分布式框架",
+      "机器学习",
+      "微服务设计",
+      "SpringCloud",
+      "Kafka",
+      "Flink",
+      "Redis",
+      "向量数据库",
+      "LangChain/LlamaIndex",
+      "RAG优化",
+      "需求分析",
+      "前后端开发",
+      "测试工具",
+      "Jira",
+      "SVN",
+      "Git",
+      "Postman",
+      "Wireshark",
+      "Pytest",
+      "TestNG",
+      "JMeter",
+      "Jenkins",
+      "网络",
+      "操作系统",
+      "虚拟化",
+      "容器技术",
+      "脚本语言",
+      "CMMI",
+      "DevOps",
+      "Docker",
+      "Kubernetes",
+      "Java",
+      "软件工程"
+    ],
+    "responsibilities": [
+      "负责核心交易系统、业务系统、数据中台、监管分析系统、内管系统等产品需求分析、架构设计、核心代码开发",
+      "参与AI中台建设，负责AI业务场景落地",
+      "编写技术文档，参与架构评审、代码审评、上线评审",
+      "参与搭建系统环境，完成系统调试、集成与实施",
+      "负责交易系统、业务系统等测试工作",
+      "负责软件缺険陷管理与问题追踪、定位",
+      "创新测试流程和方法，提升测试质量和效率",
+      "负责自动化测试方案的设计与实施",
+      "负责信息技术系统的应用运维",
+      "负责主机、网络、数据库的规划建设与日常运维管理",
+      "负责行业智算中心、云平台、大数据平台的建设与运维",
+      "负责面向市场参与者的测试环境管理",
+      "负责CMMI、DevOps等IT管理标准与最佳实践的研究与转化",
+      "负责信息技术治理类工具平台的规划、建设与维护"
+    ],
+    "team_or_function": "核心交易系统团队、业务系统团队、数据中台、监管分析系统团队、内管系统团队、AI中台、测试团队、运维团队、云平台团队、大数据团队"
+  }
+}

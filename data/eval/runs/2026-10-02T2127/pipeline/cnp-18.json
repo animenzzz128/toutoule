@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "unset",
+  "title": "产品管培生（上海）",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027届",
+      "stated": true,
+      "evidence": "2027届毕业生"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "简历投递"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "上海",
+      "stated": true,
+      "evidence": "产品管培生（上海）"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2026-09-01",
+      "stated": true,
+      "evidence": "2026-09-01"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "user demand analysis",
+      "product solution design",
+      "data analysis",
+      "communication and collaboration",
+      "logical thinking",
+      "problem solving",
+      "self-driven execution"
+    ],
+    "responsibilities": [
+      "analyze and break down B2B/C2C user needs and design product solutions",
+      "communicate and collaborate with R&D and design teams to execute tasks and drive project delivery",
+      "gain insights from user needs and data analysis to proactively identify problems and propose innovative solutions"
+    ],
+    "team_or_function": "Product"
+  }
+}

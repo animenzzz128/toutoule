@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Robinhood",
+  "title": "Investment Analyst Intern, Robinhood Ventures (Summer 2027)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Menlo Park, CA",
+      "stated": true,
+      "evidence": "This role is based in our Menlo Park, CA office with in-person attendance expected at least 3 days per week."
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "in-person attendance expected at least 3 days per week"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "Summer 2027",
+      "stated": true,
+      "evidence": "Investment Analyst Intern, Robinhood Ventures (Summer 2027)"
+    },
+    "degree_requirement": {
+      "value": "Currently enrolled in a full-time MBA program",
+      "stated": true,
+      "evidence": "Currently enrolled in a full-time MBA program"
+    }
+  },
+  "reference": {
+    "skills": [
+      "financial modeling",
+      "valuation analysis",
+      "market research",
+      "investment banking experience",
+      "private equity experience",
+      "deal evaluation",
+      "competitive analysis",
+      "cross-functional collaboration"
+    ],
+    "responsibilities": [
+      "Research markets and sectors",
+      "Identify key companies to meet",
+      "Own core diligence workstreams",
+      "Develop financial models",
+      "Conduct competitive analysis",
+      "Help shape investment theses",
+      "Work with Product, Operations, Marketing, Legal teams",
+      "Build platform experiences in Robinhood app"
+    ],
+    "team_or_function": "Robinhood Ventures"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "小红书",
+  "title": "产品经理培训生（RPT）--创新产品",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "2个子方向，最多5个职位",
+      "stated": true,
+      "evidence": "每人最多可投递 1 个职位方向中的 2 个子方向，最多 5 个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "上海市",
+      "stated": true,
+      "evidence": "工作地点：上海市"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "reference": {
+    "skills": [
+      "AI创新产品设计",
+      "用户洞察",
+      "产品决策",
+      "0到1产品开发"
+    ],
+    "responsibilities": [
+      "AI Native创新产品的产品管理",
+      "产品从0到1的完整过程主导",
+      "用户洞察和方向判断",
+      "核心产品决策把控",
+      "与设计研发运营团队协作"
+    ],
+    "team_or_function": "Lab 1327创新实验室"
+  }
+}

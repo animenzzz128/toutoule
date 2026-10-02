@@ -4,6 +4,15 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/).
 
+## [0.0.4] - 2026-10-02
+
+Checkpoint C: evaluation harness and tuned extraction.
+
+### Added
+- **Task 1.6 — Build the eval set (#7):** 50 real job descriptions with hand-checked labels, each `stated: true` critical field carrying a verbatim quote; drafted by a model from another family and owner-reviewed, with the method and its risk recorded as D-008.
+- **Task 1.7 — Eval harness and baseline run (#8):** `eval` scores both the pipeline and a plain-prompt baseline on the same 50 postings, reporting the three extraction tiers per run with every disagreement listed; adjudications and equivalences keep a verdict applying to later runs until the system's answer changes.
+- **Task 1.8 — Iteration to target (#9):** four logged versions with hypotheses written before each run. Shipped v4 — `extract_v3` plus a code check that every `materials_required` item be named by its own quote — at 6–8 / 249 critical hallucination and 5–6 / 67 missed across two runs, against the plain-prompt baseline's 20 / 249. Four of the five targets are not met and are reported as results under D-009's stopping rule, not iterated away.
+
 ## [0.0.3] - 2026-09-30
 
 Checkpoint B: extraction pipeline with evidence verification.

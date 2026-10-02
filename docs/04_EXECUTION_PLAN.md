@@ -116,6 +116,7 @@ the project stopped here, it would still be a credible interview showcase.
   metrics
 - **Acceptance:** critical-field hallucination 0%; critical accuracy ≥95%; important ≥90%;
   reference recall ≥80%. At least 3 logged iterations, each with its metric delta.
+- Acceptance amended by D-009 (stopping rule).
 
 🔖 **Checkpoint C** — tag `v0.0.4`, "evaluation harness and tuned extraction"
 

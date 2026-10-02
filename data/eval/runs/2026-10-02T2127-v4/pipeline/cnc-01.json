@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Citi",
+  "title": "Banking - Commercial Banking, Summer Analyst, China – APAC, 2027",
+  "critical": {
+    "deadline": {
+      "value": "2026-11-27",
+      "stated": true,
+      "evidence": "Application Deadline:  \nFriday, November 27, 2026 - 23:59 Beijing Time"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "Dec 2027 – June 2028",
+      "stated": true,
+      "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution (graduating between Dec 2027 – June 2028)."
+    },
+    "application_cap": {
+      "value": "3 per candidate",
+      "stated": true,
+      "evidence": "Each applicant can apply to maximum of 3 summer internship programs in Asia cluster."
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai, China",
+      "stated": true,
+      "evidence": "Location(s):\nShanghai, Shanghai Municipality, China"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "Job Type:\nOn-Site/Resident"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree",
+      "stated": true,
+      "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical skills",
+      "numerate",
+      "global perspective"
+    ],
+    "responsibilities": [
+      "work on projects for in-depth and immersive experience",
+      "relationship management",
+      "credit lending management",
+      "client segment strategy",
+      "business planning and analysis",
+      "KYC and control",
+      "process design"
+    ],
+    "team_or_function": "Commercial Banking"
+  }
+}

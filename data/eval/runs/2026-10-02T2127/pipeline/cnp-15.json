@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Unknown",
+  "title": "商业分析师（BA/DS）/Business Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3",
+      "stated": true,
+      "evidence": "最多可投递3个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Dubai",
+      "stated": true,
+      "evidence": "工作地点：迪拜"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "English",
+      "stated": true,
+      "evidence": "可将英语作为工作语言，能支持跨国家/地区的业务沟通"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "data analysis",
+      "business planning",
+      "strategy development",
+      "business acumen",
+      "analytical skills",
+      "large language models",
+      "AI tools",
+      "data visualization",
+      "natural language processing"
+    ],
+    "responsibilities": [
+      "participate in business planning and strategy development",
+      "conduct operational analysis and design solutions for complex business problems",
+      "use data analysis tools to discover business patterns and user needs",
+      "provide business insights and recommendations",
+      "build company-level experimentation platform",
+      "provide scientific support for major experimental decisions",
+      "explore applications of large language models in business analysis scenarios",
+      "assist in industry research using LLM",
+      "generate automated reports",
+      "intelligent data insights"
+    ],
+    "team_or_function": "International Business - Business Analysis / Data Science"
+  }
+}

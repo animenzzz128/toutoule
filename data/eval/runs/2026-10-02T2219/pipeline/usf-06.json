@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Inizio Ignite, Putnam",
+  "title": "Summer Associate Consultant (US) – 2027 Internship Program",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2028-06",
+      "stated": true,
+      "evidence": "with an expected graduation date of June 2028"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Boston, Massachusetts",
+      "stated": true,
+      "evidence": "Boston, Massachusetts"
+    },
+    "work_model": {
+      "value": "onsite",
+      "stated": true,
+      "evidence": "The Summer Internship Program is based in our Boston office"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or Master's degree in Life Sciences, Economics, Finance, or related field",
+      "stated": true,
+      "evidence": "current juniors pursuing a Bachelor's or Master's degree in Life Sciences, Economics, Finance, or a related field"
+    }
+  },
+  "reference": {
+    "skills": [
+      "analytical and problem-solving abilities",
+      "quantitative reasoning",
+      "slide development",
+      "storytelling",
+      "executive communication",
+      "primary research",
+      "secondary research synthesis",
+      "data analysis"
+    ],
+    "responsibilities": [
+      "Conduct primary research with physicians, patients, and other healthcare stakeholders",
+      "Gather and synthesize secondary research from scientific literature, industry publications, and internal knowledge resources",
+      "Analyze client, market, and healthcare data to identify key insights and support strategic recommendations",
+      "Collaborate with project teams to develop client-ready presentations",
+      "Contribute to solving complex business challenges"
+    ],
+    "team_or_function": "Putnam strategy consulting team"
+  }
+}

@@ -7,7 +7,7 @@ from typing import Any
 import pytest
 from sqlalchemy import select
 
-from toutoule import models
+from toutoule import evalset, models
 from toutoule.config import get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.redflags import (
@@ -139,6 +139,21 @@ def test_r2_unreadable_window_warns_and_does_not_fire(
 
     assert flag is None
     assert "R2 skipped" in caplog.text
+
+
+def test_r2_handles_cnp11s_real_day_level_label() -> None:
+    """Regression pin (05_EVAL_SPEC.md / Task 1.8 Part B): cnp-11's label states its
+    graduation window with day precision. R2 has parsed day-level dates since its first
+    commit (92fb460) by reducing each end to its month before comparing — this just
+    locks that behaviour to the real label value, so a future change can't silently
+    break it without failing here first."""
+    label = evalset.load_label("cnp-11", evalset.EVAL_DIR / "labels")
+    window = label.critical.graduation_window.value
+    assert window is not None  # the label states this field; see the label file itself
+
+    flag = rule_r2_graduation(make_extraction(graduation_window=stated(window)), PROFILE)
+
+    assert flag is None  # the owner's 2027-05 graduation falls inside cnp-11's window
 
 
 # --- R3: degree requirement -----------------------------------------------------------

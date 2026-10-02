@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "McKinsey",
+  "title": "Associate",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Multiple locations: Abu Dhabi, Addis Ababa, Almaty, Amsterdam, Astana, Athens, Atlanta, Auckland, Austin, Baku, Bangkok, Barcelona, Beijing, and 100+ more",
+      "stated": true,
+      "evidence": "Abu Dhabi\nAddis Ababa\nAlmaty\nAmsterdam\nAstana\nAthens\nAtlanta\nAuckland\nAustin\nBaku\nBangkok\nBarcelona\nBeijing\n+ 100 More"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "English and local office language(s)",
+      "stated": true,
+      "evidence": "Strong communication skills, both verbal and written, in English and local office language(s)"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Advanced graduate degree (e.g., MBA, PhD, etc.) or equivalent work experience",
+      "stated": true,
+      "evidence": "Typically, an advanced graduate degree (e.g., MBA, PhD, etc.) or equivalent work experience"
+    }
+  },
+  "reference": {
+    "skills": [
+      "rational decision making based on data, facts, and logical reasoning",
+      "creation of work product-focused materials (PowerPoint decks, Excel models, articles, written deliverables)",
+      "organization and independent task initiation",
+      "communication skills in English and local languages",
+      "time management",
+      "ability to work outside traditional business hours",
+      "ability to travel and work in varying environments"
+    ],
+    "responsibilities": [
+      "take ownership of a workstream to solve client challenges",
+      "uncover true challenges behind client strategy",
+      "create actionable plans that drive real change",
+      "combine research, data analysis, interviews, and brainstorming to generate insights",
+      "collaborate directly with clients to solve problems and refine strategies",
+      "help implement transformations",
+      "equip clients with tools and knowledge for continued innovation"
+    ],
+    "team_or_function": "Client service team"
+  }
+}

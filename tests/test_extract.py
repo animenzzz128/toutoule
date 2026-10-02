@@ -8,6 +8,7 @@ from fakes import FakeClient
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from toutoule import extract as extract_module
 from toutoule import models, schemas
 from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.extract import (
@@ -109,7 +110,22 @@ def test_normalize_text_rules(raw: str, expected: str) -> None:
 
 
 def test_prompt_version_comes_from_the_file_tag() -> None:
-    assert PROMPT_VERSION == "extract_v1"
+    # The tag inside the file must match the file's own name, or a run would record a
+    # version it didn't use.
+    assert PROMPT_VERSION == extract_module.DEFAULT_PROMPT
+
+
+def test_the_shipped_default_prompt_is_extract_v3() -> None:
+    # Task 1.8 shipped extract_v3 under D-009's ship rule. Pinned so the default can't
+    # change silently.
+    assert extract_module.DEFAULT_PROMPT == "extract_v3"
+
+
+def test_the_default_prompt_file_exists_and_is_tagged_with_its_own_name() -> None:
+    version, body = extract_module.load_prompt_by_name(extract_module.DEFAULT_PROMPT)
+
+    assert version == extract_module.DEFAULT_PROMPT
+    assert body  # not an empty file
 
 
 def test_load_prompt_splits_tag_from_body(tmp_path: Path) -> None:
@@ -117,6 +133,24 @@ def test_load_prompt_splits_tag_from_body(tmp_path: Path) -> None:
     prompt_file.write_text("extract_v9\nDo the thing.\n", encoding="utf-8")
 
     assert load_prompt(prompt_file) == ("extract_v9", "Do the thing.")
+
+
+def test_load_prompt_by_name_reads_the_matching_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(extract_module, "PROMPTS_DIR", tmp_path)
+    (tmp_path / "extract_v9.txt").write_text("extract_v9\nDo the thing.\n", encoding="utf-8")
+
+    assert extract_module.load_prompt_by_name("extract_v9") == ("extract_v9", "Do the thing.")
+
+
+def test_load_prompt_by_name_unknown_name_raises_with_the_path(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(extract_module, "PROMPTS_DIR", tmp_path)
+
+    with pytest.raises(extract_module.PromptNotFound, match="extract_v9"):
+        extract_module.load_prompt_by_name("extract_v9")
 
 
 # --- (d), (e) retry ----------------------------------------------------------------------
@@ -176,6 +210,111 @@ def test_every_call_logs_its_tokens(
     assert "output_tokens=300" in token_lines[0] and "stop_reason=end_turn" in token_lines[0]
 
 
+# --- materials_required support check (Task 1.8 v4) ---------------------------------------
+#
+# The verbatim check asks "does this quote exist in the posting?". These ask the next
+# question: "does this quote actually name the thing the value claims?". A quote can be
+# copied faithfully and still support nothing — "we look forward to your application"
+# does not say a resume is required.
+
+
+def _materials(value: str, evidence: str) -> schemas.Extraction:
+    """An Extraction whose materials_required says `value`, quoted from `evidence`."""
+    data = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    data["critical"]["materials_required"] = {
+        "value": value,
+        "stated": True,
+        "evidence": evidence,
+    }
+    return schemas.Extraction.model_validate(data)
+
+
+def _check(value: str, evidence: str) -> tuple[schemas.ExtractedField, list[tuple[str, str]]]:
+    """Run verify_evidence with the quote present in the source, and return the field.
+
+    The real source is appended to, not replaced, so every other field's quote still
+    verifies and only the materials check can change anything.
+    """
+    extraction = _materials(value, evidence)
+    verified, violations = extract_module.verify_evidence(extraction, f"{SOURCE}\n{evidence}")
+    return verified.critical.materials_required, violations
+
+
+def test_materials_item_with_no_support_in_its_quote_becomes_not_stated() -> None:
+    field, violations = _check("resume", "we look forward to your application")
+
+    assert (field.stated, field.value, field.evidence) == (False, None, None)
+    assert violations == [
+        ("critical.materials_required", "materials item not supported by quote: 'resume'")
+    ]
+
+
+def test_materials_drops_only_the_unsupported_item() -> None:
+    field, violations = _check("resume + transcript", "attach an updated CV")
+
+    # "CV" supports the resume item; nothing in the quote names a transcript.
+    assert (field.stated, field.value) == (True, "resume")
+    assert violations == [
+        ("critical.materials_required", "materials item not supported by quote: 'transcript'")
+    ]
+
+
+def test_chinese_resume_keyword_supports_a_resume_item() -> None:
+    field, violations = _check("resume", "请填写简历并投递")
+
+    assert (field.stated, field.value) == (True, "resume")
+    assert violations == []
+
+
+def test_traditional_chinese_resume_keyword_supports_a_resume_item() -> None:
+    field, _ = _check("resume", "請將簡歷投至信箱")
+
+    assert (field.stated, field.value) == (True, "resume")
+
+
+def test_unknown_item_is_supported_by_its_own_words() -> None:
+    field, violations = _check("writing sample", "Writing Sample - a sole-authored paper")
+
+    assert (field.stated, field.value) == (True, "writing sample")
+    assert violations == []
+
+
+def test_unknown_item_whose_words_are_absent_is_dropped() -> None:
+    field, _ = _check("resume + security clearance", "please upload your resume")
+
+    assert (field.stated, field.value) == (True, "resume")
+
+
+def test_cv_keyword_matches_a_whole_word_only() -> None:
+    # "cvs" is not "cv": a substring match here would support a resume item from any
+    # word that happens to contain those letters.
+    field, _ = _check("resume", "visit cvs.com for details")
+
+    assert (field.stated, field.value, field.evidence) == (False, None, None)
+
+
+def test_supported_materials_value_is_left_exactly_as_written() -> None:
+    # Nothing is dropped, so the value keeps the model's own separators and casing —
+    # rewriting it would invalidate labels and equivalences that already match it.
+    field, violations = _check("resume/CV, transcript", "attach a CV or resume, and a transcript")
+
+    assert field.value == "resume/CV, transcript"
+    assert violations == []
+
+
+def test_support_check_leaves_other_fields_alone() -> None:
+    evidence = "we look forward to your application"
+    extraction = _materials("resume", evidence)
+
+    verified, _ = extract_module.verify_evidence(extraction, f"{SOURCE}\n{evidence}")
+
+    before = extraction.model_dump(mode="json")
+    after = verified.model_dump(mode="json")
+    before["critical"].pop("materials_required")
+    after["critical"].pop("materials_required")
+    assert before == after  # only materials_required was touched
+
+
 # --- (b), (c), (e), (f) verification and saving ------------------------------------------
 
 
@@ -209,8 +348,10 @@ def test_fabricated_quote_is_downgraded_and_logged(
     violation = session.scalars(select(models.ExtractionViolation)).one()
     assert violation.field_path == "critical.deadline"
     assert "网申截止时间：2026年10月31日" in violation.reason
-    # Every other field is exactly what the model returned.
+    # Every other field is exactly what the model returned, except prompt_version,
+    # which code stamps over whatever the model wrote (the fixture says extract_v1).
     expected = json.loads(json.dumps(valid_answer))
+    expected["prompt_version"] = PROMPT_VERSION
     expected["critical"]["deadline"] = {"value": None, "stated": False, "evidence": None}
     saved = session.scalars(select(models.Extraction)).one().payload_json
     assert saved == expected  # the saved payload is the verified one

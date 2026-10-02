@@ -2,6 +2,32 @@
 
 One change per version. Hypothesis written before running. Regressions are kept.
 
+## Summary
+
+Every number below is taken from that run's report in `docs/eval/runs/`. All runs use
+the same 50 postings and the same model (claude-haiku-4-5). **v4 is the shipped
+configuration** (D-009): `extract_v3` plus the materials support check, run twice — once
+derived from v3's saved outputs to isolate the code change, once fresh to test stability.
+
+| Change | Critical halluc | Fabricated | Misfiled | Crit acc | Crit FN | Important acc | Recall |
+|---|---|---|---|---|---|---|---|
+| baseline (plain prompt) | 20 / 249 (8.0%) | 17 / 20 (85.0%) | 3 / 20 (15.0%) | 54 / 57 (94.7%) | 5 / 67 (7.5%) | 61 / 133 (45.9%) | 353 / 552 (63.9%) |
+| v1 extract_v1 | 14 / 249 (5.6%) | 6 / 14 (42.9%) | 8 / 14 (57.1%) | 47 / 50 (94.0%) | 13 / 67 (19.4%) | 45 / 136 (33.1%) | 254 / 552 (46.0%) |
+| v2 extract_v2 | 5 / 249 (2.0%) | 3 / 5 (60.0%) | 2 / 5 (40.0%) | 45 / 50 (90.0%) | 16 / 67 (23.9%) | 40 / 133 (30.1%) | 235 / 552 (42.6%) |
+| v3 extract_v3 | 10 / 249 (4.0%) | 7 / 10 (70.0%) | 3 / 10 (30.0%) | 55 / 63 (87.3%) | 4 / 67 (6.0%) | 51 / 131 (38.9%) | 250 / 552 (45.3%) |
+| **v4 derived (shipped)** | 6 / 249 (2.4%) | 3 / 6 (50.0%) | 3 / 6 (50.0%) | 55 / 62 (88.7%) | 5 / 67 (7.5%) | 51 / 131 (38.9%) | 250 / 552 (45.3%) |
+| **v4 repeat (shipped)** | 8 / 249 (3.2%) | 5 / 8 (62.5%) | 3 / 8 (37.5%) | 54 / 57 (94.7%) | 6 / 67 (9.0%) | 43 / 130 (33.1%) | 256 / 552 (46.4%) |
+
+## Targets
+
+Reported against the shipped version's two runs, per D-009's amended acceptance.
+
+- **Critical hallucination (0%): not met.** 6 / 249 (2.4%) derived, 8 / 249 (3.2%) repeat.
+- **Critical accuracy (≥95%): not met.** 55 / 62 (88.7%) derived, 54 / 57 (94.7%) repeat.
+- **Critical false-negative (≤10%): met.** 5 / 67 (7.5%) derived, 6 / 67 (9.0%) repeat.
+- **Important accuracy (≥90%): not met.** 51 / 131 (38.9%) derived, 43 / 130 (33.1%) repeat.
+- **Reference recall (≥80%): not met.** 250 / 552 (45.3%) derived, 256 / 552 (46.4%) repeat.
+
 ## v1 — 2026-10-01 — extract_v1 vs. baseline_plain_v1 (Task 1.7)
 
 **Hypothesis (written before running):**
@@ -48,3 +74,152 @@ deadline, was the biggest driver. The pipeline also misses more (19.4% FN vs 7.5
 mainly rolling-basis deadlines and resume requirements. v2 should tighten the field
 definitions for graduation_window and deadline in extract_v1, the single change with
 the largest expected effect on hallucination.
+
+Checked R2 against day-level graduation windows (cnp-11): already handled since the
+rule's first commit; regression test added, no behaviour change.
+
+## v2 — 2026-10-01 — extract_v2 (Task 1.8)
+
+**Hypothesis (written before running):** Misfiled critical values fall from 8 to ≤3 and
+total critical hallucination from 14 to ≤9 of 249, because extract_v1 never says what
+graduation_window and deadline are NOT, so the model fills them with the nearest date or
+status phrase in the posting (start dates, publish dates, "应届毕业生"). Fabricated values
+(6) should not change. Risk: critical false negatives rise slightly (from 13 of 67) as
+the model becomes more cautious on these two fields.
+
+**Change:** starting from extract_v1, rewrite only the graduation_window and deadline
+definitions to state what each field is not: graduation_window is not a start date,
+internship duration, program year (校招 year) or graduation status without dates;
+deadline is not a posting/publish date, start date, or interview/offer date. Nothing
+else in the prompt changes.
+
+**Result:**
+
+| Metric | v1 | v2 | delta |
+|---|---|---|---|
+| Critical hallucination | 14 / 249 (5.6%) | 5 / 249 (2.0%) | −9 (−3.6pp) |
+| — of which fabricated | 6 / 14 (42.9%) | 3 / 5 (60.0%) | −3 |
+| — of which misfiled | 8 / 14 (57.1%) | 2 / 5 (40.0%) | −6 |
+| Critical accuracy | 47 / 50 (94.0%) | 45 / 50 (90.0%) | −2 (−4.0pp) |
+| Critical false-negative | 13 / 67 (19.4%) | 16 / 67 (23.9%) | +3 (+4.5pp) |
+| Important accuracy | 45 / 136 (33.1%) | 40 / 133 (30.1%) | −5 (−3.0pp) |
+| Reference recall | 254 / 552 (46.0%) | 235 / 552 (42.6%) | −19 (−3.4pp) |
+
+**Read:** Hypothesis mostly right. Critical hallucination fell from 14 to 5 of 249,
+better than my ≤9 prediction, and misfiled values fell from 8 to 2. As predicted, the
+model became more cautious: critical FN rose from 13 to 16 of 67. The remaining misses
+are a rolling-basis deadline, resume requirements and one application cap, which is v3's
+target. Critical accuracy fell 47/50 → 45/50, mostly application_cap values that keep
+only part of the rule, on a field v2 didn't touch. Important accuracy and recall also
+moved (−5, −19) with no related change, so differences that size are run-to-run noise,
+and I'll judge later deltas against that. One misfiling survived: a dated preference
+("2027年应届毕业生优先") still went into graduation_window.
+
+## v3 — 2026-10-02 — extract_v3 (Task 1.8)
+
+**Hypothesis (written before running):** Critical FN falls from 16 to ≤10 of 67,
+because v2's misses are fields the posting does state in forms the definitions never
+name: rolling-basis / until-filled deadlines and resume requirements phrased as
+instructions ("submit your resume", "state X in your resume", 投递简历). Critical
+hallucination stays ≤6 of 249. Risk: the model starts treating any mention of a
+document as a requirement.
+
+**Change:** starting from extract_v2, add to the deadline and materials_required
+definitions what DOES count as stated: a rolling / until-filled application policy is
+a stated deadline (value per the labeling conventions); any instruction to submit,
+upload or fill in a resume/CV counts as materials_required including resume. Nothing
+else changes.
+
+**Result:**
+
+| Metric | v2 | v3 | delta |
+|---|---|---|---|
+| Critical hallucination | 5 / 249 (2.0%) | 10 / 249 (4.0%) | +5 (+2.0pp) |
+| — of which fabricated | 3 / 5 (60.0%) | 7 / 10 (70.0%) | +4 |
+| — of which misfiled | 2 / 5 (40.0%) | 3 / 10 (30.0%) | +1 |
+| Critical accuracy | 45 / 50 (90.0%) | 55 / 63 (87.3%) | +10 (−2.7pp) |
+| Critical false-negative | 16 / 67 (23.9%) | 4 / 67 (6.0%) | −12 (−17.9pp) |
+| Important accuracy | 40 / 133 (30.1%) | 51 / 131 (38.9%) | +11 (+8.8pp) |
+| Reference recall | 235 / 552 (42.6%) | 250 / 552 (45.3%) | +15 (+2.7pp) |
+
+**Read:** Hypothesis half right. Critical FN fell from 16 to 4 of 67 (6.0%), past my
+8–12 range, and it's the first target met in any version. But the risk I named happened:
+critical hallucination doubled from 5 to 10 of 249. Four of the new ones claim "resume"
+from real quotes that never mention a resume ("we look forward to seeing your
+application", an apply link). The verbatim check passes them because it checks that a
+quote exists, not that it supports the value. Misfiled graduation windows also rose
+(2 → 3) on a field v3 didn't change, and one came from the very sentence v3's resume
+example pointed the model at. v3 is now the only version within the FN tolerance, so v4
+must cut hallucination without giving those misses back.
+
+## v4 — 2026-10-02 — extract_v3 + materials support check (Task 1.8)
+
+**Hypothesis (written before running):** Critical hallucination falls from 10 to about
+6 of 249 (range 4–8), because 4 of v3's hallucinations are materials_required items
+whose evidence quote never names the item, and a deterministic check removes exactly
+those. Critical FN rises slightly, from 4 to at most 6 of 67, staying within the 10%
+tolerance, because some correct items are quoted from the wrong sentence and will be
+dropped. Other fields should move only by run-to-run noise.
+
+**Change:** a code rule in evidence verification, prompt unchanged (extract_v3): every
+item in materials_required must be named in its own evidence quote (resume/CV/简历,
+cover letter/求职信, transcript/成绩单, …; any other item's own words). Unsupported
+items are dropped; if none remain, the field becomes not stated and an
+extraction_violation is logged. This extends the check from "the quote exists" to
+"the quote supports the value".
+
+**Method:** measured by applying the support check to the saved outputs of run
+2026-10-02T2127 (derived run 2026-10-02T2127-v4, 0 API calls), so every change is
+caused by the rule. The keyword table includes traditional Chinese variants, added
+after noticing 簡歷 in a v3 output.
+
+**Result:**
+
+| Metric | v3 | v4 | delta |
+|---|---|---|---|
+| Critical hallucination | 10 / 249 (4.0%) | 6 / 249 (2.4%) | −4 (−1.6pp) |
+| — of which fabricated | 7 / 10 (70.0%) | 3 / 6 (50.0%) | −4 |
+| — of which misfiled | 3 / 10 (30.0%) | 3 / 6 (50.0%) | 0 |
+| Critical accuracy | 55 / 63 (87.3%) | 55 / 62 (88.7%) | 0 (+1.4pp) |
+| Critical false-negative | 4 / 67 (6.0%) | 5 / 67 (7.5%) | +1 (+1.5pp) |
+| Important accuracy | 51 / 131 (38.9%) | 51 / 131 (38.9%) | 0 (0.0pp) |
+| Reference recall | 250 / 552 (45.3%) | 250 / 552 (45.3%) | 0 (0.0pp) |
+
+**Read:** Hypothesis right on its central estimate. Applying the support check to v3's
+saved outputs cut critical hallucination from 10 to 6 of 249; all four removed values
+were "resume" claims whose quotes never mention a resume. FN rose from 4 to 5 of 67: on
+cnc-02 the resume requirement is real, but the model quoted the registration line, so
+the check dropped a true item. That's the asymmetry working as designed: a missing value
+is cheaper than an unsupported one. What remains is 3 misfiled graduation windows (a
+preference, an onboarding date, a cohort start) and 3 fabricated values. Whether these
+numbers hold on a fresh model run is tested by the stability re-run.
+
+## v4 repeat — 2026-10-02 — stability re-run of the shipped version
+
+**Expectation (written before running):** On a fresh model run with the same prompt
+(extract_v3) and code (support check), critical hallucination is 6 ± 3 of 249 and
+critical FN 5 ± 3 of 67; important accuracy and recall move within the noise seen
+between v1 and v3 (about ±10 and ±20). If hallucination is above 9, v4's improvement
+over v3 can't be told apart from noise, and the PR will say so.
+
+**Result:**
+
+| Metric | Target | v4 derived | v4 repeat | Expectation |
+|---|---|---|---|---|
+| Critical hallucination | 0% | 6 / 249 (2.4%) | 8 / 249 (3.2%) | 6 ± 3 — in range |
+| — of which fabricated | — | 3 / 6 (50.0%) | 5 / 8 (62.5%) | — |
+| — of which misfiled | — | 3 / 6 (50.0%) | 3 / 8 (37.5%) | — |
+| Critical accuracy | ≥95% | 55 / 62 (88.7%) | 54 / 57 (94.7%) | — |
+| Critical false-negative | ≤10% | 5 / 67 (7.5%) | 6 / 67 (9.0%) | 5 ± 3 — in range |
+| Important accuracy | ≥90% | 51 / 131 (38.9%) | 43 / 130 (33.1%) | −8, within ±10 |
+| Reference recall | ≥80% | 250 / 552 (45.3%) | 256 / 552 (46.4%) | +6, within ±20 |
+
+**Read:** The repeat confirms v4, narrowly. Fresh-run critical hallucination is 8/249
+against 6 on the derived run, inside the 6 ± 3 I wrote before running and under the 9
+where v4 would stop being distinguishable from v3's 10, so I report v4 as 6–8/249 rather
+than 6. FN is 6/67 (9.0%), inside 5 ± 3 but close to the 10% limit. The support check held
+on fresh output: materials_required had 0 hallucinations in both v4 runs, at the cost of 3
+misses (cnc-02, usf-09, ust-04). What's left is mostly application_cap (3 of 5 fabricated
+values invent "per candidate", plus 3 of the 6 misses), the only critical field no version
+changed, and a failure v3 introduced: a rolling-review sentence given as the deadline when
+the posting states a date (cnp-04). Those are the first targets after M1.

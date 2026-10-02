@@ -20,13 +20,34 @@ from toutoule import models, schemas
 
 logger = logging.getLogger(__name__)
 
-PROMPT_PATH = Path(__file__).parents[2] / "data" / "prompts" / "extract_v1.txt"
+PROMPTS_DIR = Path(__file__).parents[2] / "data" / "prompts"
+# The shipped prompt version, named once here (Task 1.8, D-009). Everything that needs a
+# default — the pipeline itself and `eval --prompt` — reads it from here, so shipping a
+# new version is a one-line change and the two can never disagree.
+DEFAULT_PROMPT = "extract_v3"
+PROMPT_PATH = PROMPTS_DIR / f"{DEFAULT_PROMPT}.txt"
 
 
 def load_prompt(path: Path = PROMPT_PATH) -> tuple[str, str]:
     """Return (version tag, prompt body). The tag is the file's first line."""
     version, _, body = path.read_text(encoding="utf-8").partition("\n")
     return version.strip(), body.strip()
+
+
+class PromptNotFound(Exception):
+    """No file named data/prompts/<name>.txt."""
+
+
+def load_prompt_by_name(name: str) -> tuple[str, str]:
+    """Load a prompt by its file name, e.g. "extract_v2" -> data/prompts/extract_v2.txt.
+
+    Used by the eval CLI (Task 1.8) to select which prompt version the pipeline runs
+    against, without editing the shipped prompt file or the extraction code path itself.
+    """
+    path = PROMPTS_DIR / f"{name}.txt"
+    if not path.exists():
+        raise PromptNotFound(f"no prompt file at {path}")
+    return load_prompt(path)
 
 
 PROMPT_VERSION, PROMPT_BODY = load_prompt()
@@ -112,13 +133,13 @@ class ModelClient(Protocol):
 
 
 def _call_model(
-    client: ModelClient, model: str, messages: list[dict[str, str]]
+    client: ModelClient, model: str, messages: list[dict[str, str]], prompt_body: str
 ) -> tuple[str, int, int]:
     """Make one API call. Return (reply text, input tokens, output tokens)."""
     response = client.messages.create(
         model=model,
         max_tokens=MAX_TOKENS,
-        system=PROMPT_BODY,
+        system=prompt_body,
         messages=messages,
         output_config={"format": OUTPUT_FORMAT},
     )
@@ -148,18 +169,22 @@ def describe_errors(error: ValidationError) -> str:
 
 
 def request_extraction(
-    client: ModelClient, model: str, raw_text: str
+    client: ModelClient, model: str, raw_text: str, prompt_body: str | None = None
 ) -> tuple[schemas.Extraction, int, int]:
     """Ask the model for an Extraction, retrying once if its answer fails validation.
+
+    prompt_body=None resolves to the current PROMPT_BODY at call time (not def time), so
+    a test or caller that monkeypatches extract.PROMPT_BODY still takes effect.
 
     Returns (extraction, input tokens, output tokens), tokens summed over all calls.
     Raises ExtractionFailed on a second failure. Network and API errors are not retried
     here: the SDK already retries those itself.
     """
+    prompt_body = prompt_body if prompt_body is not None else PROMPT_BODY
     messages = [{"role": "user", "content": f"<job_posting>\n{raw_text}\n</job_posting>"}]
     input_tokens = output_tokens = 0
     for attempt in (1, 2):
-        text, used_in, used_out = _call_model(client, model, messages)
+        text, used_in, used_out = _call_model(client, model, messages, prompt_body)
         input_tokens += used_in
         output_tokens += used_out
         try:
@@ -187,6 +212,94 @@ def request_extraction(
 EVIDENCE_GROUPS = ("critical", "important")
 REASON_QUOTE_LIMIT = 200
 
+# --- materials_required support check (Task 1.8 v4) ---
+#
+# The verbatim check above answers "is this quote really in the posting?". It cannot
+# answer "does this quote say what the value claims?" — a faithfully copied sentence
+# like "we look forward to your application" supports no document at all. So each item
+# of materials_required must be named by its own quote.
+#
+# Document types and the words that name them. Traditional and simplified spellings are
+# both listed for the same reason "résumé" and "cv" are: they are the same word written
+# the way a given posting writes it. Nothing here is taken from the eval set's postings.
+MATERIAL_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "resume": ("resume", "résumé", "cv", "curriculum vitae", "简历", "簡歷", "履历", "履歷"),
+    "cover letter": ("cover letter", "求职信", "求職信", "自荐信", "自薦信"),
+    "transcript": ("transcript", "成绩单", "成績單"),
+    "portfolio": ("portfolio", "作品集"),
+    "recommendation": ("recommendation", "reference letter", "推荐信", "推薦信"),
+}
+
+# NFKC (in normalize_text) already folds the full-width forms of + , ; / to ASCII, so
+# only the ideographic comma needs listing. " and " needs its spaces: "and" inside a
+# word is not a separator.
+_ITEM_SEPARATOR = re.compile(r"\s*(?:[+,;/、]|\band\b)\s*")
+# A run of ASCII word characters, or a run of CJK characters. CJK is not space-delimited,
+# so each run is one token rather than one word.
+_ITEM_TOKEN = re.compile(r"[a-z0-9]+|[一-鿿]+")
+# Too common to carry any evidence on their own.
+_ITEM_STOPWORDS = frozenset({"a", "an", "and", "of", "or", "the", "with", "your"})
+
+
+def _mentions(keyword: str, text: str) -> bool:
+    """True if `text` contains `keyword`, matching ASCII keywords on word boundaries.
+
+    Without the boundary an ASCII keyword matches inside unrelated words — "cv" would
+    be found in "cvs.com". CJK has no word boundaries to anchor to, and its terms are
+    long enough not to need them, so those stay plain substring matches.
+    """
+    if keyword.isascii():
+        return re.search(rf"\b{re.escape(keyword)}\b", text) is not None
+    return keyword in text
+
+
+def _item_supported(item: str, quote: str) -> bool:
+    """True if `quote` names the document `item` asks for, both already normalized.
+
+    A known document type is supported by any of that type's spellings: a quote saying
+    "CV" supports an item that says "resume". An item outside the table is supported
+    only when every content word it uses appears in the quote.
+    """
+    for keywords in MATERIAL_KEYWORDS.values():
+        if any(_mentions(keyword, item) for keyword in keywords):
+            return any(_mentions(keyword, quote) for keyword in keywords)
+    tokens = [t for t in _ITEM_TOKEN.findall(item) if t not in _ITEM_STOPWORDS]
+    if not tokens:
+        return False  # nothing left to check against: cannot be shown to be supported
+    return all(_mentions(token, quote) for token in tokens)
+
+
+def check_materials_support(field: schemas.ExtractedField) -> tuple[list[str], list[str]]:
+    """Split a stated materials_required value into (supported items, dropped items)."""
+    normalized_quote = normalize_text(field.evidence or "").casefold()
+    supported, dropped = [], []
+    for item in _ITEM_SEPARATOR.split(field.value or ""):
+        if not item.strip():
+            continue
+        if _item_supported(normalize_text(item).casefold(), normalized_quote):
+            supported.append(item.strip())
+        else:
+            dropped.append(item.strip())
+    return supported, dropped
+
+
+def _verify_materials(
+    field: schemas.ExtractedField,
+) -> tuple[schemas.ExtractedField | None, list[str]]:
+    """Apply the support check to one stated materials_required field.
+
+    Returns (replacement field or None if it stands as written, violation reasons).
+    """
+    supported, dropped = check_materials_support(field)
+    reasons = [f"materials item not supported by quote: {item!r}" for item in dropped]
+    if not supported:
+        return type(field)(value=None, stated=False, evidence=None), reasons
+    if not dropped:
+        # Left exactly as written: an untouched value keeps the model's own wording,
+        # which the labels and equivalences already match.
+        return None, reasons
+    return field.model_copy(update={"value": " + ".join(supported)}), reasons
+
 
 def verify_evidence(
     extraction: schemas.Extraction, raw_text: str
@@ -208,28 +321,48 @@ def verify_evidence(
                 downgraded[field_name] = type(field)(value=None, stated=False, evidence=None)
                 reason = f"quote not found in source: {quote[:REASON_QUOTE_LIMIT]!r}"
                 violations.append((f"{group_name}.{field_name}", reason))
+                continue
+            if field.stated and (group_name, field_name) == ("critical", "materials_required"):
+                replacement, reasons = _verify_materials(field)
+                violations.extend((f"{group_name}.{field_name}", reason) for reason in reasons)
+                if replacement is not None:
+                    downgraded[field_name] = replacement
         new_groups[group_name] = group.model_copy(update=downgraded)
     return extraction.model_copy(update=new_groups), violations
 
 
 def extract_job(
-    session: Session, job: models.Job, client: ModelClient, model: str
+    session: Session,
+    job: models.Job,
+    client: ModelClient,
+    model: str,
+    prompt_version: str | None = None,
+    prompt_body: str | None = None,
 ) -> schemas.Extraction:
     """Extract, verify and save one job. Commits the session.
+
+    prompt_version/prompt_body=None resolve to the current default PROMPT_VERSION/
+    PROMPT_BODY at call time (not def time), so a monkeypatch of those module attributes
+    still takes effect. The eval harness (Task 1.8) passes an explicit pair to run the
+    same code against another prompt version without touching this function's callers
+    in production.
 
     On success: one extractions row, one extraction_violations row per rejected quote, and
     job.status "extracted". On ExtractionFailed: job.status "extraction_failed", no
     extractions row, and the error is raised again for the caller to report.
     """
+    prompt_version = prompt_version if prompt_version is not None else PROMPT_VERSION
     try:
-        extraction, input_tokens, output_tokens = request_extraction(client, model, job.raw_text)
+        extraction, input_tokens, output_tokens = request_extraction(
+            client, model, job.raw_text, prompt_body
+        )
     except ExtractionFailed:
         job.status = models.JobStatus.EXTRACTION_FAILED
         session.commit()
         raise
     # Versions describe our code, so code sets them; whatever the model wrote is ignored.
     extraction = extraction.model_copy(
-        update={"schema_version": schemas.SCHEMA_VERSION, "prompt_version": PROMPT_VERSION}
+        update={"schema_version": schemas.SCHEMA_VERSION, "prompt_version": prompt_version}
     )
     extraction, violations = verify_evidence(extraction, job.raw_text)
     for field_path, reason in violations:

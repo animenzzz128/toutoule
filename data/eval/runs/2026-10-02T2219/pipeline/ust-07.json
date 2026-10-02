@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "Solace",
+  "title": "Associate Product Manager (College Grad 2027)",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "Associate Product Manager (College Grad 2027)"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Redwood City, CA",
+      "stated": true,
+      "evidence": "Location\nRedwood City, CA"
+    },
+    "work_model": {
+      "value": "hybrid",
+      "stated": true,
+      "evidence": "Location Type\nHybrid"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2027-07",
+      "stated": true,
+      "evidence": "Start date: July 2027."
+    },
+    "degree_requirement": {
+      "value": "College graduate",
+      "stated": true,
+      "evidence": "This is an in-person role for new college graduates in our Redwood City office"
+    }
+  },
+  "reference": {
+    "skills": [
+      "research",
+      "product management",
+      "writing specs",
+      "data analysis",
+      "user research",
+      "product decision-making"
+    ],
+    "responsibilities": [
+      "research, organize, and test ideas",
+      "build new features",
+      "help launch faster",
+      "partner with engineers, designers, and clinicians",
+      "keep projects moving forward",
+      "make sure deadlines are hit",
+      "test, document, and ship features"
+    ],
+    "team_or_function": "Product"
+  }
+}

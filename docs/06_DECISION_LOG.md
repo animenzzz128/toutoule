@@ -156,6 +156,42 @@ Priority Scores (`human_scores.csv`) are the owner's alone.
 
 ---
 
+## D-009 · 2026-10-01 · Task 1.8 stopping rule
+
+**Context.** Task 1.8's acceptance asks for all four extraction targets (critical
+hallucination 0%, critical accuracy ≥95%, important accuracy ≥90%, reference recall ≥80%)
+plus at least 3 logged iterations. The v1 pipeline (run 2026-10-01T1940) is far from all
+four. The M1 target is 2026-10-04 and the ByteDance application window opens 2026-10-06.
+Iterating until every target is met has no bounded cost.
+
+**Options.** (a) Iterate until all targets are met. (b) Iterate under a stopping rule
+decided before the first new run, and report unmet targets as results.
+
+**Decision.** (b). Task 1.8 stops at the first of: all four targets met; 5 logged
+versions after v1 (v2–v6); two consecutive versions that don't improve critical
+hallucination; or end of day 2026-10-03. At least 3 versions are run regardless. The
+shipped prompt is the version with the lowest critical hallucination whose critical
+false-negative rate is ≤10%; if none qualifies, the lowest hallucination overall, with
+the FN rate stated next to it. The shipped version is re-run once to check that its
+numbers are stable. Changes are limited to general field definitions and rules: no eval
+text, company names or dates go into prompts, and few-shot examples are written fresh,
+not taken from the eval set.
+
+**Consequences.** Task 1.8 acceptance becomes "≥3 logged versions with deltas, each
+target reported as met or not met". Unmet targets are listed in the README as known
+limits. Checkpoint C (v0.0.4) is tagged when the stopping rule fires. There is no
+held-out set, so tuning on the eval set can overstate performance on new postings; the
+README says so.
+
+**Amendment (2026-10-02).** Stopped after v4, before any stop condition fired.
+v4 (extract_v3 + materials support check) reached 6/249 critical hallucination with
+FN 5/67. The remaining errors (3 misfiled graduation windows, 3 fabricated values)
+suggested a further prompt change would move 1–2 fields, within observed run-to-run
+noise, while M1 (Tasks 1.9, 1.11, 1.12) is due 2026-10-04. v4 ships under the ship
+rule and is re-run once for stability as planned.
+
+---
+
 ## Template for new entries
 
 ```markdown

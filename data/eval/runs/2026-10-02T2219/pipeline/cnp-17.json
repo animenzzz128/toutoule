@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "腾讯",
+  "title": "战略商业分析师",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "work_model": {
+      "value": "remote",
+      "stated": true,
+      "evidence": "远程面试"
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "应届毕业生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "商业分析",
+      "逻辑推理",
+      "行业洞察",
+      "战略思维",
+      "沟通能力"
+    ],
+    "responsibilities": [
+      "与高管团队直接对话，参与公司级战略决策",
+      "分析前沿赛道，挖掘下一个增长机会",
+      "跨界联动业务与投资，见证战略实际落地"
+    ],
+    "team_or_function": "企业发展事业群"
+  }
+}

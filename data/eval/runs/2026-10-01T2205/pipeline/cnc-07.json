@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "上海证券交易所",
+  "title": "实习生",
+  "critical": {
+    "deadline": {
+      "value": "2026-03-08",
+      "stated": true,
+      "evidence": "实习生招收简历投递截止时间为北京时间2026年3月8日24时"
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": "2027",
+      "stated": true,
+      "evidence": "2027年应届毕业生优先"
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": "resume",
+      "stated": true,
+      "evidence": "简历投递"
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Shanghai",
+      "stated": true,
+      "evidence": "2026年暑期能够在上交所实习"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": "2026 summer",
+      "stated": true,
+      "evidence": "2026年暑期能够在上交所实习"
+    },
+    "degree_requirement": {
+      "value": "Bachelor's or above",
+      "stated": true,
+      "evidence": "本科及以上学历在读学生"
+    }
+  },
+  "reference": {
+    "skills": [
+      "accounting",
+      "audit",
+      "tax law",
+      "international and domestic accounting standards"
+    ],
+    "responsibilities": [],
+    "team_or_function": null
+  }
+}

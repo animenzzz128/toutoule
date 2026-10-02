@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v3",
+  "company": "SHEIN",
+  "title": "Associate Buyer",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "Los Angeles",
+      "stated": true,
+      "evidence": "Los Angeles"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "Bachelor's degree in Fashion Merchandising, Business, Creative Arts, or a related field preferred, or equivalent experience",
+      "stated": true,
+      "evidence": "Bachelor's degree in Fashion Merchandising, Business, Creative Arts, or a related field preferred, or equivalent experience."
+    }
+  },
+  "reference": {
+    "skills": [
+      "Microsoft Excel",
+      "product tracking systems",
+      "shared drive management",
+      "fashion trends analysis",
+      "commercial styling",
+      "visual presentation",
+      "attention to detail",
+      "organizational skills",
+      "communication",
+      "multitasking",
+      "data accuracy"
+    ],
+    "responsibilities": [
+      "Assist Senior Buyer with product styling and outfit coordination",
+      "Prepare photoshoot presentations (PPT)",
+      "Coordinate with Creative and Studio teams for photoshoots",
+      "Organize and track clothing, shoes, and accessory samples",
+      "Monitor new item launching schedule and SKC targets",
+      "Submit weekly launch plans",
+      "Review launch readiness audits",
+      "Maintain sample room inventory",
+      "Provide photo documentation of sample room",
+      "Serve as communication bridge between Merchandising, Creative/Studio, and backend teams",
+      "Track operational bottlenecks and propose corrective actions"
+    ],
+    "team_or_function": "Merchandising/Buying"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "prompt_version": "extract_v2",
+  "company": "未指定",
+  "title": "商业分析师（BA/DS）/Business Analyst",
+  "critical": {
+    "deadline": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "visa_sponsorship": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "graduation_window": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "application_cap": {
+      "value": "3",
+      "stated": true,
+      "evidence": "最多可投递3个职位"
+    },
+    "materials_required": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    }
+  },
+  "important": {
+    "location": {
+      "value": "迪拜",
+      "stated": true,
+      "evidence": "工作地点：迪拜"
+    },
+    "work_model": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "language_requirement": {
+      "value": "英语",
+      "stated": true,
+      "evidence": "可将英语作为工作语言，能支持跨国家/地区的业务沟通"
+    },
+    "start_date": {
+      "value": null,
+      "stated": false,
+      "evidence": null
+    },
+    "degree_requirement": {
+      "value": "本科及以上",
+      "stated": true,
+      "evidence": "本科及以上学历"
+    }
+  },
+  "reference": {
+    "skills": [
+      "数据分析",
+      "商业分析",
+      "策略制定",
+      "经营分析",
+      "大语言模型应用",
+      "AI工具使用",
+      "数据可视化",
+      "SQL",
+      "自然语言处理"
+    ],
+    "responsibilities": [
+      "参与业务规划、策略制定、经营分析，为复杂的商业问题设计解决方案",
+      "使用数据分析工具和技能，洞察商业规律、用户需求，为业务出谋划策",
+      "参与建设公司级实验中台，为重大实验决策提供科学方案支撑",
+      "探索大模型在商业分析场景的应用，如利用LLM辅助行业研究、自动化报告生成、智能数据洞察、自然语言数据查询"
+    ],
+    "team_or_function": "商业分析与数据科学团队"
+  }
+}
