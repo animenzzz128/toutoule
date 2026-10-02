@@ -183,6 +183,13 @@ limits. Checkpoint C (v0.0.4) is tagged when the stopping rule fires. There is n
 held-out set, so tuning on the eval set can overstate performance on new postings; the
 README says so.
 
+**Amendment (2026-10-02).** Stopped after v4, before any stop condition fired.
+v4 (extract_v3 + materials support check) reached 6/249 critical hallucination with
+FN 5/67. The remaining errors (3 misfiled graduation windows, 3 fabricated values)
+suggested a further prompt change would move 1–2 fields, within observed run-to-run
+noise, while M1 (Tasks 1.9, 1.11, 1.12) is due 2026-10-04. v4 ships under the ship
+rule and is re-run once for stability as planned.
+
 ---
 
 ## Template for new entries

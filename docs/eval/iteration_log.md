@@ -167,3 +167,13 @@ the check dropped a true item. That's the asymmetry working as designed: a missi
 is cheaper than an unsupported one. What remains is 3 misfiled graduation windows (a
 preference, an onboarding date, a cohort start) and 3 fabricated values. Whether these
 numbers hold on a fresh model run is tested by the stability re-run.
+
+## v4 repeat — 2026-10-02 — stability re-run of the shipped version
+
+**Expectation (written before running):** On a fresh model run with the same prompt
+(extract_v3) and code (support check), critical hallucination is 6 ± 3 of 249 and
+critical FN 5 ± 3 of 67; important accuracy and recall move within the noise seen
+between v1 and v3 (about ±10 and ±20). If hallucination is above 9, v4's improvement
+over v3 can't be told apart from noise, and the PR will say so.
+
+**Result:** (filled in after adjudication)
