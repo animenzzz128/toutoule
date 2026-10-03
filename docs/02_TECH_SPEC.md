@@ -154,7 +154,9 @@ decide", never "discard".
 
 ## 5. Match scoring
 
-`score.py`. Inputs: an `Extraction`, plus one resume version from `data/profile/`.
+`score.py`. Inputs: the raw posting text, plus one resume version.
+The scorer reads the raw posting, not the `Extraction` (D-010): evidence must quote the
+posting itself, and that is one dependency fewer.
 
 Output:
 ```python
@@ -167,10 +169,12 @@ class MatchResult(BaseModel):
 ```
 
 Scored against three dimensions, weights configurable in `config.py`:
-domain fit 40, skills overlap 35, seniority/eligibility fit 25.
+domain fit 40, skills overlap 35, seniority fit 25 (level and experience; eligibility
+is decided by rules, D-010).
 
-Calibration is defined in `05_EVAL_SPEC.md` §4. The owner's existing tracker already
-contains 13 manually assigned Priority Scores — these are the initial human baseline.
+Calibration is defined in `05_EVAL_SPEC.md` §4. The human baseline is the 20 manual scores
+given during Task 1.6 (`data/eval/human_scores.csv`); the tracker's scores were AI-assigned
+and are not used (D-010).
 
 ## 6. Ranking and digest selection (Phase 2)
 

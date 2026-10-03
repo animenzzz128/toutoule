@@ -98,7 +98,9 @@ def load_meta(rdir: Path) -> dict[str, Any]:
 
 def save_meta(rdir: Path, meta: dict[str, Any]) -> None:
     (rdir / "meta.json").write_text(
-        json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(meta, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -162,11 +164,12 @@ def run_pipeline_case(
         out_path.write_text(
             json.dumps({"failed": True, "error": f"{type(error).__name__}: {error}"}),
             encoding="utf-8",
+            newline="\n",
         )
         meta["failures"]["pipeline"].append(case.case_id)
     else:
         elapsed = time.monotonic() - start
-        out_path.write_text(extraction.model_dump_json(indent=2), encoding="utf-8")
+        out_path.write_text(extraction.model_dump_json(indent=2), encoding="utf-8", newline="\n")
         stored = session.scalars(
             select(models.Extraction).where(models.Extraction.job_id == job.id)
         ).one()
@@ -205,11 +208,12 @@ def run_baseline_case(
         failed_path.write_text(
             json.dumps({"failed": True, "error": f"{type(error).__name__}: {error}"}),
             encoding="utf-8",
+            newline="\n",
         )
         meta["failures"]["baseline"].append(case.case_id)
     else:
         elapsed = time.monotonic() - start
-        text_path.write_text(text, encoding="utf-8")
+        text_path.write_text(text, encoding="utf-8", newline="\n")
         _accumulate_tokens(meta, "baseline", input_tokens, output_tokens)
     meta["seconds"]["baseline"][case.case_id] = elapsed
     save_meta(rdir, meta)

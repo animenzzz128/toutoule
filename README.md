@@ -17,6 +17,12 @@ the reasoning behind each version are in [`docs/eval/iteration_log.md`](docs/eva
 | Critical false-negative ≤10% | **met** | 5 / 67 (7.5%) · 6 / 67 (9.0%) |
 | Important accuracy ≥90% | not met | 51 / 131 (38.9%) · 43 / 130 (33.1%) |
 | Reference recall ≥80% | not met | 250 / 552 (45.3%) · 256 / 552 (46.4%) |
+| Match score within ±10 of owner | not met | 3 / 20 (constant guess 10 / 20; target 14 / 20) |
+
+The match-score row has no plain-prompt baseline: one was not run. The disagreement is
+not a tuning problem — the owner's 20 scores record which postings he wants to apply to,
+and the scorer rates résumé fit. The analysis, and why no adjustment was made, are in
+[`docs/eval/scoring.md`](docs/eval/scoring.md).
 
 The remaining critical errors are concentrated in `application_cap` — the one critical
 field no prompt version changed — and in values filed under the wrong field. Iteration

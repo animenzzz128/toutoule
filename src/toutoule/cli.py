@@ -11,7 +11,18 @@ from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from toutoule import evalreport, evalrun, evalset, extract, models, schemas
+from toutoule import (
+    calibrate,
+    calibratereport,
+    config,
+    evalreport,
+    evalrun,
+    evalset,
+    extract,
+    models,
+    schemas,
+    score,
+)
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 
@@ -244,6 +255,133 @@ def _print_report(session: Session, row: models.Extraction, cached: bool = False
     print(f"{label}: input {row.input_tokens}, output {row.output_tokens}")
 
 
+def score_job_command(job_id: int, sample: bool) -> int:
+    """Score one stored job against all three resume versions. Returns the exit code."""
+    try:
+        settings = get_settings()
+    except ConfigError as error:
+        print(error, file=sys.stderr)
+        return 1
+    engine = get_engine(settings.database_url)
+    init_db(engine)
+    with get_session_factory(engine)() as session:
+        job = session.get(models.Job, job_id)
+        if job is None:
+            print(f"No job with id {job_id}.", file=sys.stderr)
+            return 1
+        client = Anthropic(api_key=settings.anthropic_api_key.get_secret_value())
+        try:
+            scored = score.score_job(
+                job.raw_text, client, sample=sample, model=settings.score_model
+            )
+        except (score.ResumeNotFound, score.ScoringFailed) as error:
+            print(f"Scoring failed for job {job_id}: {error}", file=sys.stderr)
+            return 1
+        score.save_scores(session, job, scored)
+        _print_scores(job, scored, sample)
+    return 0
+
+
+def _print_scores(job: models.Job, scored: list[score.VersionScore], sample: bool) -> None:
+    """Print each version's score, then the recommended one and what it cost.
+
+    Only verified evidence pairs are shown. The unverified ones stay in the stored payload
+    so a fabricated quote can still be audited; they are simply not offered as evidence.
+    """
+    source = "redacted sample resumes" if sample else "real resumes"
+    print(f"{job.company or '(no company)'} | {job.title or '(no title)'}  [{source}]")
+    print()
+    for item in scored:
+        result = item.result
+        print(f"{result.resume_version:<18} {result.score:>3}/100")
+        for name in config.SCORE_WEIGHTS:
+            dimension = getattr(result.dimensions, name)
+            print(f"    {name:<16} {dimension.score:>2}/10  {dimension.reason}")
+        for pair in result.evidence_pairs:
+            if pair.verified:
+                print(f"    evidence  {pair.requirement[:60]!r} <- {pair.experience[:60]!r}")
+        if result.unverified_pairs:
+            hidden = result.unverified_pairs
+            print(f"    {hidden} evidence pair(s) hidden: quote not found in source")
+        for gap in result.gaps:
+            print(f"    gap       {gap}")
+        print()
+    recommended = scored[0].result.recommended_version
+    print(f"Recommended version: {recommended}")
+    print(f"Model {scored[0].result.model}, prompt {scored[0].result.prompt_version}")
+    print("Settings: " + ", ".join(f"{k} {v}" for k, v in score.MODEL_SETTINGS.items()))
+    total_in = sum(item.input_tokens for item in scored)
+    total_out = sum(item.output_tokens for item in scored)
+    print(f"Tokens: input {total_in}, output {total_out} (3 calls)")
+
+
+def calibrate_command(
+    do_run: bool,
+    rescore: str | None,
+    limit: int | None,
+    cases_arg: str | None,
+    weights_arg: str | None,
+    sample: bool,
+) -> int:
+    """Score the calibration postings, or recompute a stored run. Returns the exit code."""
+    try:
+        settings = get_settings()
+        weights = calibrate.parse_weights(weights_arg) if weights_arg else None
+    except (ConfigError, ValueError) as error:
+        print(error, file=sys.stderr)
+        return 1
+
+    if do_run:
+        try:
+            case_ids = cases_arg.split(",") if cases_arg else None
+            cases = calibrate.load_calibration_cases(limit=limit, case_ids=case_ids)
+        except (FileNotFoundError, KeyError) as error:
+            print(error, file=sys.stderr)
+            return 1
+        run_id = calibrate.new_run_id()
+        client = Anthropic(api_key=settings.anthropic_api_key.get_secret_value())
+        print(f"Scoring {len(cases)} postings against 3 resume versions: {len(cases) * 3} calls.")
+        meta = calibrate.run_calibration(run_id, cases, client, settings.score_model, sample)
+    else:
+        if rescore is None:
+            print("Pass --run or --rescore <run_id>.", file=sys.stderr)
+            return 1
+        try:
+            run_id, meta = calibrate.rescore_run(rescore, weights)
+        except (FileNotFoundError, calibrate.AdjustmentSpent) as error:
+            print(error, file=sys.stderr)
+            return 1
+
+    rdir = calibrate.run_dir(run_id)
+    payloads = calibrate.load_payloads(rdir, meta)
+    if not payloads:
+        print(f"No scored postings in {run_id}.", file=sys.stderr)
+        return 1
+    metrics = calibrate.compute_metrics(list(payloads.values()))
+    public_path, private_path = calibratereport.write_reports(run_id, meta, metrics, payloads)
+
+    engine = get_engine(settings.database_url)
+    init_db(engine)
+    with get_session_factory(engine)() as session:
+        calibrate.save_score_run(
+            session, run_id, meta["model"], metrics, not do_run, meta["prompt_version"]
+        )
+
+    print()
+    print(f"Run {run_id}")
+    print(f"Agreement within ±10: {metrics.agreement}")
+    print(
+        f"Constant guess ({metrics.floor_guess}) within ±10: "
+        f"{metrics.floor.within} / {metrics.floor.total}"
+    )
+    print(f"Mean signed error: {metrics.mean_signed_error:+.1f}")
+    for failure in meta["failures"]:
+        print(f"  failed: {failure['case_id']}: {failure['error'][:120]}", file=sys.stderr)
+    print(f"Public report:  {public_path}")
+    print(f"Private report: {private_path}")
+    return 0
+
+
 def _use_utf8_output() -> None:
     """Write stdout and stderr as UTF-8, so Chinese text prints on every platform.
 
@@ -263,6 +401,21 @@ def main(argv: list[str] | None = None) -> int:
     commands.add_parser("init-db", help="create the database tables at DATABASE_URL")
     extract_parser = commands.add_parser("extract", help="extract one job posting from a file")
     extract_parser.add_argument("path", help="UTF-8 text file with the pasted job posting")
+    score_parser = commands.add_parser("score", help="score a stored job against each resume")
+    score_parser.add_argument("job_id", type=int, help="jobs.id of a job already in the database")
+    score_parser.add_argument(
+        "--sample", action="store_true", help="use the redacted sample resumes, not the real ones"
+    )
+    cal_parser = commands.add_parser("calibrate", help="calibrate match scoring (Task 1.9)")
+    cal_group = cal_parser.add_mutually_exclusive_group(required=True)
+    cal_group.add_argument("--run", action="store_true", help="score the calibration postings")
+    cal_group.add_argument("--rescore", metavar="RUN_ID", help="recompute a run, no API calls")
+    cal_parser.add_argument("--limit", type=int, help="score only the first N postings")
+    cal_parser.add_argument("--cases", help="comma-separated case ids, default all")
+    cal_parser.add_argument(
+        "--weights", help="e.g. domain_fit=40,skills_overlap=35,seniority_fit=25"
+    )
+    cal_parser.add_argument("--sample", action="store_true", help="use the redacted sample resumes")
     commands.add_parser("eval-init", help="write blank label templates for new cases.csv rows")
     eval_check_parser = commands.add_parser(
         "eval-check", help="check the eval set and report composition progress"
@@ -291,6 +444,12 @@ def main(argv: list[str] | None = None) -> int:
     logging.getLogger("toutoule").setLevel(logging.INFO)
     if args.command == "extract":
         return extract_file(args.path)
+    if args.command == "score":
+        return score_job_command(args.job_id, args.sample)
+    if args.command == "calibrate":
+        return calibrate_command(
+            args.run, args.rescore, args.limit, args.cases, args.weights, args.sample
+        )
     if args.command == "eval-init":
         return eval_init()
     if args.command == "eval-check":

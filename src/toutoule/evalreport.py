@@ -70,13 +70,24 @@ METRIC_SPECS = [
 ]
 
 
+def was_run(score: RunScore | None) -> bool:
+    """True only if this system actually scored cases in this run.
+
+    score_run() returns a RunScore for a system whose run folder is empty, with every
+    ratio at 0 / 0. Rendered as a result that reads as 0.0%, and "0 critical hallucinations
+    out of 0 fields" then satisfies the 0% target and earns a ✅ — a system that never ran
+    appearing to beat one that did. A system with no scored cases is reported as "—".
+    """
+    return score is not None and bool(score.scored_cases)
+
+
 def tier_table(scores: dict[str, RunScore]) -> str:
     lines = ["| Metric | Target | pipeline | baseline |", "|---|---|---|---|"]
     for spec in METRIC_SPECS:
         cells = [spec.label, spec.target_text]
         for system in SYSTEMS:
             score = scores.get(system)
-            if score is None:
+            if not was_run(score):
                 cells.append("—")
                 continue
             ratio = spec.get_ratio(score)
@@ -88,7 +99,7 @@ def tier_table(scores: dict[str, RunScore]) -> str:
     missed_cells = ["Important missed", "no target"]
     for system in SYSTEMS:
         score = scores.get(system)
-        missed_cells.append(str(score.metrics.important_missed) if score else "—")
+        missed_cells.append(str(score.metrics.important_missed) if was_run(score) else "—")
     lines.append("| " + " | ".join(missed_cells) + " |")
     return "\n".join(lines)
 
@@ -118,7 +129,7 @@ def _header(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore]) -> l
     lines.append(f"- Cases in this run: {len(meta['cases'])}")
     for system in SYSTEMS:
         score = scores.get(system)
-        if score is None:
+        if not was_run(score):
             continue
         critical_scored = sum(
             1 for r in score.results if r.tier == "critical" and r.outcome != "excluded"
@@ -137,7 +148,7 @@ def _header(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore]) -> l
             f"{failures} failed extractions, tokens in {tokens['input']} / out {tokens['output']}, "
             f"avg {avg_seconds:.1f}s/JD"
         )
-    if "pipeline" in scores:
+    if was_run(scores.get("pipeline")):
         violations = sum(meta["violations"].values())
         lines.append(f"- extraction_violations caught by the verbatim check: {violations}")
     return lines
@@ -166,7 +177,7 @@ def write_report(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore])
     parts = [*_header(run_id, meta, scores), "", "## Tier table", "", tier_table(scores), ""]
     for system in SYSTEMS:
         score = scores.get(system)
-        if score is None:
+        if not was_run(score):
             continue
         parts.append(f"## {system} failures")
         parts.append("")
@@ -174,5 +185,10 @@ def write_report(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore])
         parts.append("")
     path = DOCS_RUNS_DIR / f"{run_id}.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(parts) + "\n", encoding="utf-8")
+    # newline="\n" turns off the platform translation write_text does by default. Without
+    # it Windows rewrites every "\n" as "\r\n", including inside evidence text that already
+    # ends its lines with "\r\n" — producing "\r\r\n", which reads back as two newlines on
+    # Linux and one on Windows. The stored report then depended on which machine generated
+    # it, and the byte-for-byte test below passed locally while failing in CI.
+    path.write_text("\n".join(parts) + "\n", encoding="utf-8", newline="\n")
     return path

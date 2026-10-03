@@ -221,7 +221,12 @@ __marimo__/
 data/private/
 data/*.db
 data/*.db-journal
-data/profile/real_*
+# data/profile/ is the committed demo directory. Only redacted sample_* files belong
+# in it, so everything is ignored by default and the samples are added back by name:
+# a real resume dropped in here cannot be committed by accident (tech spec §11, D-010).
+data/profile/*
+!data/profile/.gitkeep
+!data/profile/sample_*.md
 # Already covered by data/private/ above; explicit so EVAL_DB_DIR's intent is never
 # accidentally relied on only the broader rule (Task 1.7 Part B).
 data/private/eval/*.db
