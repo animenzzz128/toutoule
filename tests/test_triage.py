@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from anthropic import Anthropic
 from fakes import FakeClient
 from pydantic import ValidationError
 from sqlalchemy import select
@@ -447,3 +448,72 @@ def test_changing_a_decision_adds_a_row_and_leaves_the_first_one_untouched(
     assert session.get(models.Job, job_id).status == models.JobStatus.APPROVED
     latest = triage.load_triage(session, job_id).decision
     assert latest is not None and latest.action == "approved"
+
+
+# --- The view follows the active profile -------------------------------------------------
+
+REAL_RESUME = "Built a pricing model for a payments team\nShipped a billing migration"
+
+
+def write_real_profile(directory: Path) -> None:
+    """Resumes for the 'real' profile whose words appear nowhere in the sample ones."""
+    directory.mkdir(exist_ok=True)
+    for version in config.RESUME_VERSIONS:
+        (directory / f"{version}.md").write_text(REAL_RESUME, encoding="utf-8")
+
+
+def test_a_job_scored_on_one_profile_shows_no_scores_under_the_other(
+    session: Session, settings: Settings, profiles: Path
+) -> None:
+    write_real_profile(profiles)
+    job_id = triage_once(session, full_run(), settings, sample=True)
+
+    view = triage.load_triage(session, job_id, sample=False)
+
+    assert view.profile == "real"
+    assert view.scores == []  # the sample scores are not shown under the real profile
+    assert view.recommended_version is None
+    assert view.critical  # the extraction itself does not depend on the profile
+
+
+def test_the_two_profiles_keep_their_own_evidence(
+    session: Session, settings: Settings, profiles: Path
+) -> None:
+    """The pairs quote the resume, so one profile's view must never carry the other's words."""
+    write_real_profile(profiles)
+    triage_once(session, full_run(), settings, sample=True)
+    job_id = triage_once(session, FakeClient(*[score_answer()] * 3), settings, sample=False)
+
+    sample_view = triage.load_triage(session, job_id, sample=True)
+    real_view = triage.load_triage(session, job_id, sample=False)
+
+    quoted = [pair.experience for item in sample_view.scores for pair in item.verified_pairs]
+    assert quoted and all(line in RESUME for line in quoted)
+    # The same answers quote the sample resume, which the real one does not contain, so
+    # every pair fails verification there: nothing of either resume crosses over.
+    assert [item.unverified_pairs for item in real_view.scores] == [3, 3, 3]
+    assert all(item.verified_pairs == [] for item in real_view.scores)
+
+
+# --- The sidebar and the client seam -----------------------------------------------------
+
+
+def test_recent_jobs_lists_the_newest_first_and_stops_at_the_limit(
+    session: Session, settings: Settings
+) -> None:
+    for number in range(3):
+        triage_once(session, full_run(), settings, raw_text=f"{POSTING}\nreference {number}")
+
+    listed = triage.recent_jobs(session, limit=2)
+
+    assert [item.title for item in listed] == ["AI Product Manager"] * 2
+    assert [item.job_id for item in listed] == [3, 2]
+    assert listed[0].status == models.JobStatus.SCORED
+
+
+def test_build_client_returns_something_that_can_take_a_message(settings: Settings) -> None:
+    """Constructed, not called: no request is made, and the key is never read back out."""
+    client = triage.build_client(settings)
+
+    assert isinstance(client, Anthropic)
+    assert callable(client.messages.create)
