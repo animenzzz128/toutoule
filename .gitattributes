@@ -1,0 +1,8 @@
+# Generated run reports are compared byte for byte by the test suite, and they quote
+# evidence verbatim from the postings — including the CR characters those postings use
+# for their own line breaks. git must not translate line endings in either direction
+# here: a checkout that rewrote "\n" as "\r\n" would turn an embedded "\r\n" into
+# "\r\r\n", which reads back as two newlines on Linux and one on Windows, and the
+# reproducibility test would pass on one platform and fail on the other.
+docs/eval/runs/*.md -text
+docs/eval/scoring/*.md -text

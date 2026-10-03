@@ -109,7 +109,9 @@ def load_meta(rdir: Path) -> dict[str, Any]:
 
 def save_meta(rdir: Path, meta: dict[str, Any]) -> None:
     (rdir / "meta.json").write_text(
-        json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(meta, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -125,7 +127,7 @@ def snapshot_resumes(rdir: Path, sample: bool = False) -> dict[str, str]:
     texts = {}
     for version in config.RESUME_VERSIONS:
         text = score.load_resume(version, sample=sample)
-        (directory / f"{version}.md").write_text(text, encoding="utf-8")
+        (directory / f"{version}.md").write_text(text, encoding="utf-8", newline="\n")
         texts[version] = text
     return texts
 
@@ -251,7 +253,9 @@ def score_one_case(
         },
     }
     (rdir / f"{case.case_id}.json").write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
     return payload
 
@@ -541,7 +545,9 @@ def rescore_run(run_id: str, weights: dict[str, int] | None = None) -> tuple[str
     for case_id in meta["cases"]:
         payload = rescore_case(load_case_payload(target_rdir, case_id), weights, resumes)
         (target_rdir / f"{case_id}.json").write_text(
-            json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+            newline="\n",
         )
     save_meta(target_rdir, meta)
     if target_id != run_id:

@@ -187,7 +187,11 @@ def write_blank_labels(eval_dir: Path) -> tuple[int, int]:
         label_path = labels_dir / f"{case.case_id}.json"
         if label_path.exists():
             continue
-        label_path.write_text(blank_label(case).model_dump_json(indent=2) + "\n", encoding="utf-8")
+        label_path.write_text(
+            blank_label(case).model_dump_json(indent=2) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
         written += 1
     return written, len(cases) - written
 

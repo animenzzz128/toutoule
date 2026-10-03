@@ -185,5 +185,10 @@ def write_report(run_id: str, meta: dict[str, Any], scores: dict[str, RunScore])
         parts.append("")
     path = DOCS_RUNS_DIR / f"{run_id}.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(parts) + "\n", encoding="utf-8")
+    # newline="\n" turns off the platform translation write_text does by default. Without
+    # it Windows rewrites every "\n" as "\r\n", including inside evidence text that already
+    # ends its lines with "\r\n" — producing "\r\r\n", which reads back as two newlines on
+    # Linux and one on Windows. The stored report then depended on which machine generated
+    # it, and the byte-for-byte test below passed locally while failing in CI.
+    path.write_text("\n".join(parts) + "\n", encoding="utf-8", newline="\n")
     return path

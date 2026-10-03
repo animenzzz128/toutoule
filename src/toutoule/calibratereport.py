@@ -168,7 +168,9 @@ def write_reports(
     """Write both reports and return (public path, private path)."""
     public_path = calibrate.PUBLIC_REPORT_DIR / f"{run_id}.md"
     public_path.parent.mkdir(parents=True, exist_ok=True)
-    public_path.write_text(public_report(run_id, meta, m), encoding="utf-8")
+    public_path.write_text(public_report(run_id, meta, m), encoding="utf-8", newline="\n")
     private_path = calibrate.run_dir(run_id) / "report_full.md"
-    private_path.write_text(private_report(run_id, meta, m, payloads), encoding="utf-8")
+    private_path.write_text(
+        private_report(run_id, meta, m, payloads), encoding="utf-8", newline="\n"
+    )
     return public_path, private_path
