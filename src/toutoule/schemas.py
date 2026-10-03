@@ -6,7 +6,7 @@ These rules are checked here, in code, so a model that ignores its prompt still 
 
 from typing import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 SCHEMA_VERSION = "1.0"
 
@@ -97,3 +97,84 @@ class Extraction(_StrictModel):
     critical: CriticalFields
     important: ImportantFields
     reference: ReferenceFields
+
+
+# --- Match scoring (tech spec §5, D-010) -------------------------------------------------
+#
+# Two schemas, not one. ScoreDraft is what the model is allowed to return; MatchResult is
+# what code builds from it. The split is what makes D-010 §1 ("the model never outputs the
+# total") a rule the code enforces rather than a sentence in a prompt: ScoreDraft has no
+# score field, and extra="forbid" turns a model that writes one anyway into a
+# ValidationError.
+
+
+class DimensionScore(_StrictModel):
+    """One rated dimension: 0-10 with a one-line reason. The rubric defines the anchors."""
+
+    score: int = Field(ge=0, le=10)
+    reason: str = Field(min_length=1)
+
+
+class Dimensions(_StrictModel):
+    """The three dimensions of tech spec §5. Weights live in config, never here."""
+
+    domain_fit: DimensionScore
+    skills_overlap: DimensionScore
+    # Level and experience only. Visa, location and graduation windows are decided by the
+    # red-flag rules, never by a score (D-010 §5, non-negotiable constraint 3).
+    seniority_fit: DimensionScore
+
+
+class PairDraft(_StrictModel):
+    """An evidence pair as the model returns it: two quotes, no verdict on either."""
+
+    requirement: str = Field(min_length=1)  # quoted from the posting
+    experience: str = Field(min_length=1)  # quoted from the resume
+
+
+class EvidencePair(PairDraft):
+    """A pair after code checked both quotes against their sources.
+
+    verified is set by score.verify_pairs(), never by the model: a model that could mark
+    its own quote verified could mark a fabricated one verified too.
+    """
+
+    verified: bool = False
+
+
+class ScoreDraft(_StrictModel):
+    """Exactly what one model call must return. No total, no version tags, no verdicts."""
+
+    dimensions: Dimensions
+    # min_length/max_length are part of the JSON schema the model is given, as well as
+    # being checked here, so "exactly 3" is stated twice and enforced once.
+    evidence_pairs: list[PairDraft] = Field(min_length=3, max_length=3)
+    gaps: list[str] = Field(min_length=2, max_length=2)
+
+
+class MatchResult(_StrictModel):
+    """One resume version scored against one posting. Stored in scores.payload_json.
+
+    All 3 evidence pairs are kept whatever their verified flag, so a fabricated quote stays
+    auditable; the display layer hides the unverified ones and unverified_pairs records how
+    many there were (D-010 §3).
+    """
+
+    resume_version: Literal["consulting", "strategy_bizops", "ai_product"]
+    score: int = Field(ge=0, le=100)  # computed by score.combine(), never by the model
+    dimensions: Dimensions
+    evidence_pairs: list[EvidencePair] = Field(min_length=3, max_length=3)
+    gaps: list[str] = Field(min_length=2, max_length=2)
+    unverified_pairs: int = Field(ge=0, le=3)
+    # None until score_job() has scored all three versions and can compare them.
+    recommended_version: str | None = None
+    prompt_version: str
+    model: str
+
+    @model_validator(mode="after")
+    def _check_unverified_count(self) -> Self:
+        # Kept in step with the flags, so the stored count can never drift from the pairs.
+        actual = sum(not pair.verified for pair in self.evidence_pairs)
+        if self.unverified_pairs != actual:
+            raise ValueError(f"unverified_pairs is {self.unverified_pairs}, but {actual} failed")
+        return self
