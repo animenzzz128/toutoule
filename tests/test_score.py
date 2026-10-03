@@ -156,3 +156,107 @@ def test_two_bad_answers_raise_scoring_failed() -> None:
 def test_recommended_version_is_none_until_all_versions_are_scored() -> None:
     got = score.score_version(POSTING, RESUME, "ai_product", FakeClient(answer()), model="m")
     assert got.result.recommended_version is None
+
+
+# --- recommended version -------------------------------------------------------------------
+
+
+def result(version: str, total: int) -> schemas.MatchResult:
+    """A MatchResult with only the fields recommend() looks at made meaningful."""
+    return schemas.MatchResult(
+        resume_version=version,  # type: ignore[arg-type]
+        score=total,
+        dimensions=dimensions(),
+        evidence_pairs=[
+            schemas.EvidencePair(requirement="a", experience="b", verified=True) for _ in range(3)
+        ],
+        gaps=["g1", "g2"],
+        unverified_pairs=0,
+        prompt_version="score_v1",
+        model="m",
+    )
+
+
+def test_the_highest_total_wins() -> None:
+    results = [result("ai_product", 60), result("strategy_bizops", 80), result("consulting", 70)]
+    assert score.recommend(results) == "strategy_bizops"
+
+
+def test_a_three_way_tie_goes_to_the_first_version_in_config_order() -> None:
+    results = [result("consulting", 75), result("strategy_bizops", 75), result("ai_product", 75)]
+    assert score.recommend(results) == "ai_product"
+
+
+def test_a_tie_below_ai_product_goes_to_strategy_bizops() -> None:
+    results = [result("ai_product", 60), result("strategy_bizops", 75), result("consulting", 75)]
+    assert score.recommend(results) == "strategy_bizops"
+
+
+def test_a_tie_between_ai_product_and_consulting_goes_to_ai_product() -> None:
+    results = [result("consulting", 75), result("ai_product", 75), result("strategy_bizops", 60)]
+    assert score.recommend(results) == "ai_product"
+
+
+def test_the_tie_break_does_not_depend_on_the_order_the_versions_were_scored() -> None:
+    """Otherwise the recommendation would depend on which call happened to finish first."""
+    tied = [result("ai_product", 75), result("strategy_bizops", 75), result("consulting", 75)]
+    for rotation in range(3):
+        rotated = tied[rotation:] + tied[:rotation]
+        assert score.recommend(rotated) == "ai_product"
+
+
+def test_the_tie_break_order_is_the_one_config_declares() -> None:
+    """Pins the behaviour to config, not to a list repeated inside score.py."""
+    assert config.RESUME_VERSIONS[0] == "ai_product"
+    results = [result(version, 75) for version in config.RESUME_VERSIONS]
+    assert score.recommend(results) == config.RESUME_VERSIONS[0]
+
+
+# --- score_job -----------------------------------------------------------------------------
+
+
+@pytest.fixture
+def sample_profiles(tmp_path, monkeypatch: pytest.MonkeyPatch):  # type: ignore[no-untyped-def]
+    """Three throwaway sample resumes, so score_job does not read the owner's real ones."""
+    for version in config.RESUME_VERSIONS:
+        (tmp_path / f"sample_{version}.md").write_text(
+            f"Wrote SQL daily. Ran 14 pricing tests. Owned the merchant roadmap. ({version})",
+            encoding="utf-8",
+        )
+    monkeypatch.setattr(config, "SAMPLE_PROFILE_DIR", tmp_path)
+    return tmp_path
+
+
+def test_score_job_scores_every_version_once(sample_profiles) -> None:  # type: ignore[no-untyped-def]
+    client = FakeClient(answer(), answer(), answer())
+    scored = score.score_job(POSTING, client, sample=True, model="m")
+    assert len(scored) == 3
+    assert len(client.requests) == 3
+    assert [item.result.resume_version for item in scored] == list(config.RESUME_VERSIONS)
+
+
+def test_score_job_puts_the_same_recommendation_on_every_result(sample_profiles) -> None:  # type: ignore[no-untyped-def]
+    client = FakeClient(
+        answer(domain=5, skills=5, seniority=5),  # ai_product     -> 50
+        answer(domain=9, skills=9, seniority=9),  # strategy_bizops -> 90
+        answer(domain=1, skills=1, seniority=1),  # consulting      -> 10
+    )
+    scored = score.score_job(POSTING, client, sample=True, model="m")
+    assert [item.result.score for item in scored] == [50, 90, 10]
+    assert {item.result.recommended_version for item in scored} == {"strategy_bizops"}
+
+
+def test_score_job_reads_the_sample_resumes_when_asked(sample_profiles) -> None:  # type: ignore[no-untyped-def]
+    client = FakeClient(answer(), answer(), answer())
+    score.score_job(POSTING, client, sample=True, model="m")
+    sent = [request["messages"][0]["content"] for request in client.requests]
+    assert all("<resume>" in content for content in sent)
+    assert sum("(consulting)" in content for content in sent) == 1
+
+
+def test_a_missing_resume_names_the_path_it_tried(tmp_path, monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    """Points at an empty directory on purpose: this must fail for the right reason once
+    the real sample_*.md files exist, not pass because they happen to be missing."""
+    monkeypatch.setattr(config, "SAMPLE_PROFILE_DIR", tmp_path)
+    with pytest.raises(score.ResumeNotFound, match="sample_ai_product.md"):
+        score.load_resume("ai_product", sample=True)

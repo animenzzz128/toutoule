@@ -185,3 +185,65 @@ def score_version(
         model=model,
     )
     return VersionScore(result, input_tokens, output_tokens)
+
+
+class ResumeNotFound(Exception):
+    """No resume file for this version. The message names the path that was tried."""
+
+
+def load_resume(version: str, sample: bool = False) -> str:
+    """Read one resume version, the real one by default or the redacted sample.
+
+    Real resumes live in data/private/ and are never committed; the sample_* files in
+    data/profile/ are what the demo and every test use (tech spec §11, D-010 §9).
+    """
+    path = config.profile_path(version, sample)
+    if not path.exists():
+        raise ResumeNotFound(f"no resume at {path}")
+    return path.read_text(encoding="utf-8")
+
+
+def recommend(results: list[schemas.MatchResult]) -> str:
+    """The version with the highest total; ties broken by config.RESUME_VERSIONS order.
+
+    The key sorts by descending score, then by position in RESUME_VERSIONS, so an equal
+    total always resolves to the same version rather than to whichever was scored first
+    (D-010 §2).
+    """
+    best = min(
+        results,
+        key=lambda r: (-r.score, config.RESUME_VERSIONS.index(r.resume_version)),
+    )
+    return best.resume_version
+
+
+def score_job(
+    raw_text: str,
+    client: extract.ModelClient,
+    sample: bool = False,
+    model: str | None = None,
+) -> list[VersionScore]:
+    """Score one posting against all three resume versions. Three model calls.
+
+    The prompt is loaded once, so all three scores are produced by the same version of the
+    rubric. Every returned result carries the same recommended_version.
+    """
+    model = model or config.get_settings().score_model
+    prompt_version, prompt_body = extract.load_prompt_by_name(config.SCORE_PROMPT)
+    scored = [
+        score_version(
+            raw_text,
+            load_resume(version, sample),
+            version,
+            client,
+            model=model,
+            prompt_version=prompt_version,
+            prompt_body=prompt_body,
+        )
+        for version in config.RESUME_VERSIONS
+    ]
+    winner = recommend([item.result for item in scored])
+    return [
+        item._replace(result=item.result.model_copy(update={"recommended_version": winner}))
+        for item in scored
+    ]
