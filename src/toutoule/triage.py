@@ -11,6 +11,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import NamedTuple, get_args
 
+from anthropic import Anthropic
 from pydantic import BaseModel
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
@@ -222,7 +223,9 @@ class TriageView(BaseModel, frozen=True):
     has_hard_flag: bool
     scores: list[ScoreView]
     recommended_version: str | None
-    profile: str | None
+    # The profile the page asked for, not one read off a stored row: scores is empty when
+    # this job has never been scored against it.
+    profile: score.ProfileKind
     decision: DecisionView | None
 
 
@@ -243,17 +246,28 @@ def _field_views(group: BaseModel) -> list[FieldView]:
     ]
 
 
-def _latest_scores(session: Session, job_id: int) -> list[models.Score]:
-    """The newest score for each resume version. A rescore replaces what the page shows."""
+def _latest_scores(session: Session, job_id: int, profile: score.ProfileKind) -> list[models.Score]:
+    """The newest score per resume version, from this profile only.
+
+    Never falls back to the other profile's rows. The two sets of resumes give different
+    totals and quote different documents, so showing one under the other's name would put
+    the real resume's words on a page labelled "sample".
+    """
     rows = session.scalars(
         select(models.Score).where(models.Score.job_id == job_id).order_by(models.Score.id)
     ).all()
-    newest = {row.resume_version: row for row in rows}  # later rows overwrite earlier ones
+    newest = {  # later rows overwrite earlier ones, so the newest per version survives
+        row.resume_version: row for row in rows if row.payload_json.get("profile") == profile
+    }
     return list(newest.values())
 
 
-def load_triage(session: Session, job_id: int) -> TriageView:
-    """Read one job's whole triage record. Makes no model call and writes nothing.
+def load_triage(session: Session, job_id: int, sample: bool = False) -> TriageView:
+    """Read one job's triage record, as scored against the active profile. Writes nothing.
+
+    sample selects the profile the same way run_triage does, and .profile reports which one
+    was asked for. A job with no scores from that profile comes back with scores empty —
+    not with the other profile's — so the page can say it has not been scored yet.
 
     A job whose extraction failed has no fields and no scores; it still loads, so the page
     can say so rather than crash.
@@ -273,7 +287,8 @@ def load_triage(session: Session, job_id: int) -> TriageView:
         FlagView(rule_id=row.rule_id, severity=row.severity, evidence=row.evidence)
         for row in session.scalars(select(models.RedFlag).where(models.RedFlag.job_id == job_id))
     ]
-    score_rows = _latest_scores(session, job_id)
+    profile = active_profile_dir(sample).kind
+    score_rows = _latest_scores(session, job_id, profile)
     results = [schemas.MatchResult.model_validate(row.payload_json["result"]) for row in score_rows]
     decision = session.scalars(
         select(models.Decision)
@@ -303,7 +318,7 @@ def load_triage(session: Session, job_id: int) -> TriageView:
             for result in results
         ],
         recommended_version=results[0].recommended_version if results else None,
-        profile=score_rows[0].payload_json.get("profile") if score_rows else None,
+        profile=profile,
         decision=DecisionView(
             action=decision.action,
             reject_reason=decision.reject_reason,
@@ -375,3 +390,38 @@ def record_decision(
     session.commit()
     logger.info("job %s %s (%s)", job_id, action, reject_reason or "no reason needed")
     return decision.id
+
+
+# --- What the app needs that is not a rule -----------------------------------------------
+
+
+class JobSummary(BaseModel, frozen=True):
+    """One line in the sidebar's recent list."""
+
+    job_id: int
+    company: str
+    title: str
+    status: str
+
+
+def recent_jobs(session: Session, limit: int = 10) -> list[JobSummary]:
+    """The most recently seen jobs, newest first. Keeps queries out of the app file."""
+    rows = session.scalars(
+        select(models.Job)
+        .order_by(models.Job.last_seen_at.desc(), models.Job.id.desc())
+        .limit(limit)
+    )
+    return [
+        JobSummary(job_id=row.id, company=row.company, title=row.title, status=row.status)
+        for row in rows
+    ]
+
+
+def build_client(settings: Settings) -> extract.ModelClient:
+    """The real Anthropic client, with the key read exactly as the CLI reads it.
+
+    This is also the seam the app's tests replace: they swap this function for one that
+    returns a fake, which works because the app looks the name up on this module at call
+    time rather than holding its own copy.
+    """
+    return Anthropic(api_key=settings.anthropic_api_key.get_secret_value())
