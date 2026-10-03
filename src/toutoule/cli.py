@@ -277,7 +277,7 @@ def score_job_command(job_id: int, sample: bool) -> int:
         except (score.ResumeNotFound, score.ScoringFailed) as error:
             print(f"Scoring failed for job {job_id}: {error}", file=sys.stderr)
             return 1
-        score.save_scores(session, job, scored)
+        score.save_scores(session, job, scored, "sample" if sample else "real")
         _print_scores(job, scored, sample)
     return 0
 
