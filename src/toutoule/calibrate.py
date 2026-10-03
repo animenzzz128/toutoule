@@ -9,8 +9,10 @@ posting carries quotes from the owner's real resume (D-010 §9). Only the public
 docs/eval/scoring/ leaves that directory, and it carries no resume text at all.
 """
 
+import csv
 import json
 import shutil
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -56,19 +58,28 @@ class RecordingClient:
         self.inner = inner
         self.messages = self  # so client.messages.create(...) lands on create below
         self.api_calls = 0
-        self._responses: list[str] = []
+        self.input_tokens = 0
+        self.output_tokens = 0
+        self._recorded: list[tuple[str, str]] = []
 
     def create(self, **kwargs: Any) -> Any:
         response = self.inner.messages.create(**kwargs)
         self.api_calls += 1
-        self._responses.append(
-            "".join(block.text for block in response.content if block.type == "text")
+        self.input_tokens += response.usage.input_tokens
+        self.output_tokens += response.usage.output_tokens
+        # The first user turn carries both the posting and the resume, which is what lets
+        # a reply be attributed to the version that produced it, retries included.
+        self._recorded.append(
+            (
+                str(kwargs["messages"][0]["content"]),
+                "".join(block.text for block in response.content if block.type == "text"),
+            )
         )
         return response
 
-    def take(self) -> list[str]:
-        """Return the responses recorded since the last call, and start a new batch."""
-        recorded, self._responses = self._responses, []
+    def take(self) -> list[tuple[str, str]]:
+        """Return (request, reply) pairs recorded since the last call, and start a batch."""
+        recorded, self._recorded = self._recorded, []
         return recorded
 
 
@@ -141,3 +152,106 @@ def current_prompt_version() -> str:
 def copy_run(source: Path, destination: Path) -> None:
     """Copy a run folder so a derived run starts from exactly what the base run saw."""
     shutil.copytree(source, destination, dirs_exist_ok=False)
+
+
+# --- the calibration set ------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class CalibrationCase:
+    """One posting the owner scored by hand during Task 1.6, joined to its raw text."""
+
+    case_id: str
+    human_score: int
+    reason: str
+    segment: str
+
+
+def load_calibration_cases(
+    limit: int | None = None, case_ids: list[str] | None = None
+) -> list[CalibrationCase]:
+    """The rows of human_scores.csv, in file order, joined to cases.csv for the segment.
+
+    Raises FileNotFoundError naming the case if a row has no posting in data/eval/raw/:
+    a calibration set that silently drops a posting would report agreement over a
+    different denominator than the one it claims.
+    """
+    segments = {
+        case.case_id: case.segment for case in evalset.load_cases(evalset.EVAL_DIR / "cases.csv")
+    }
+    rows: list[CalibrationCase] = []
+    with HUMAN_SCORES.open(encoding="utf-8-sig", newline="") as handle:
+        for row in csv.DictReader(handle):
+            case_id = row["case_id"].strip()
+            if case_ids is not None and case_id not in case_ids:
+                continue
+            read_raw_posting(case_id)  # fail now, by name, rather than mid-run
+            rows.append(
+                CalibrationCase(
+                    case_id=case_id,
+                    human_score=int(row["score"]),
+                    reason=(row.get("reason") or "").strip(),
+                    segment=segments.get(case_id, "unknown"),
+                )
+            )
+    if case_ids is not None:
+        missing = [c for c in case_ids if c not in {r.case_id for r in rows}]
+        if missing:
+            raise KeyError(f"not in human_scores.csv: {', '.join(missing)}")
+    return rows[:limit] if limit else rows
+
+
+# --- running ------------------------------------------------------------------------------
+
+
+def _attribute(recorded: list[tuple[str, str]], resumes: dict[str, str]) -> dict[str, list[str]]:
+    """Group raw replies by the resume version whose text appears in their request."""
+    by_version: dict[str, list[str]] = {version: [] for version in resumes}
+    for request, reply in recorded:
+        for version, text in resumes.items():
+            if text in request:
+                by_version[version].append(reply)
+                break
+    return by_version
+
+
+def score_one_case(
+    rdir: Path,
+    case: CalibrationCase,
+    client: RecordingClient,
+    resumes: dict[str, str],
+    model: str,
+    sample: bool = False,
+) -> dict[str, Any]:
+    """Score one posting against all three versions and write <case_id>.json. 3 calls."""
+    raw_text = read_raw_posting(case.case_id)
+    client.take()  # drop anything left from a previous case
+    scored = score.score_job(raw_text, client, sample=sample, model=model)
+    by_version = _attribute(client.take(), resumes)
+    recommended = scored[0].result.recommended_version
+    system_score = next(s.result.score for s in scored if s.result.resume_version == recommended)
+    payload = {
+        "case_id": case.case_id,
+        "segment": case.segment,
+        "human_score": case.human_score,
+        "reason": case.reason,
+        "recommended_version": recommended,
+        "system_score": system_score,
+        "versions": {
+            item.result.resume_version: {
+                "result": item.result.model_dump(mode="json"),
+                "raw_responses": by_version.get(item.result.resume_version, []),
+                "input_tokens": item.input_tokens,
+                "output_tokens": item.output_tokens,
+            }
+            for item in scored
+        },
+    }
+    (rdir / f"{case.case_id}.json").write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    return payload
+
+
+def load_case_payload(rdir: Path, case_id: str) -> dict[str, Any]:
+    return json.loads((rdir / f"{case_id}.json").read_text(encoding="utf-8"))
