@@ -1,5 +1,30 @@
 # toutoule
 
+## Run the app
+
+```bash
+uv sync                                        # install dependencies
+cp .env.example .env                           # then fill in ANTHROPIC_API_KEY
+uv run python -m toutoule.cli check-config     # confirm the settings parse
+uv run python -m toutoule.cli init-db          # create the tables
+uv run streamlit run app/streamlit_app.py
+```
+
+Paste a job description, pick the market if you know it, and click **Triage**. The page
+extracts the fields with their quotes, runs the red-flag rules, scores the posting against
+all three résumé versions, and waits for you to approve or reject it. Nothing is submitted
+anywhere: the system ranks and recommends, and the decision stays yours.
+
+The sidebar toggle switches between the real résumés in `data/private/profile` (never
+committed) and the redacted samples in `data/profile`. A job scored against one profile is
+not shown under the other — the evidence pairs quote the résumé, so the two never mix.
+
+<!-- Screenshots to add (docs/img/):
+![Paste a job description](docs/img/paste.png)
+![Evidence beside every critical field](docs/img/evidence.png)
+![Approve or reject with a structured reason](docs/img/decision.png)
+-->
+
 ## Known limits
 
 Stated plainly, because volunteering a limit is more useful than being caught by it.
