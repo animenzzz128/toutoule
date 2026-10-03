@@ -22,6 +22,7 @@ from toutoule import (
     models,
     schemas,
     score,
+    triage,
 )
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
@@ -82,7 +83,7 @@ def extract_file(path: str) -> int:
             return 0
 
         job = models.Job(
-            source_id=_manual_source(session).id,
+            source_id=triage.manual_source(session).id,
             company="",  # filled from the extraction below
             title="",
             url=Path(path).resolve().as_uri(),
@@ -216,16 +217,6 @@ def _select_cases(run_id: str, resume: str | None, cases_arg: str | None) -> lis
     else:
         return all_cases
     return [case for case in all_cases if case.case_id in wanted]
-
-
-def _manual_source(session: Session) -> models.Source:
-    """The single 'manual' source for pasted postings (ADR-005), created on first use."""
-    source = session.scalars(select(models.Source).where(models.Source.adapter == "manual")).first()
-    if source is None:
-        source = models.Source(name="manual", tier=3, url="", adapter="manual")
-        session.add(source)
-        session.commit()
-    return source
 
 
 def _print_report(session: Session, row: models.Extraction, cached: bool = False) -> None:
