@@ -13,8 +13,9 @@ from typing import NamedTuple
 
 from anthropic import transform_schema
 from pydantic import ValidationError
+from sqlalchemy.orm import Session
 
-from toutoule import config, extract, schemas
+from toutoule import config, extract, models, schemas
 
 logger = logging.getLogger(__name__)
 
@@ -247,3 +248,34 @@ def score_job(
         item._replace(result=item.result.model_copy(update={"recommended_version": winner}))
         for item in scored
     ]
+
+
+def save_scores(
+    session: Session, job: models.Job, scored: list[VersionScore]
+) -> list[models.Score]:
+    """Write one scores row per resume version and mark the job scored. Commits.
+
+    payload_json holds the whole MatchResult — including all three evidence pairs whatever
+    their verified flag, since unverified pairs are hidden at display but never deleted
+    from the record (D-010 §3) — alongside the weights that produced the total, the token
+    counts for the call, and the model settings the call was made with.
+    """
+    rows = []
+    for item in scored:
+        row = models.Score(
+            job_id=job.id,
+            resume_version=item.result.resume_version,
+            score=item.result.score,
+            payload_json={
+                "result": item.result.model_dump(mode="json"),
+                "weights": config.SCORE_WEIGHTS,
+                "input_tokens": item.input_tokens,
+                "output_tokens": item.output_tokens,
+                "model_settings": MODEL_SETTINGS,
+            },
+        )
+        session.add(row)
+        rows.append(row)
+    job.status = models.JobStatus.SCORED
+    session.commit()
+    return rows
