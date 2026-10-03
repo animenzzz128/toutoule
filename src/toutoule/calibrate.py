@@ -18,7 +18,9 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any
 
-from toutoule import config, evalrun, evalset, extract, schemas, score
+from sqlalchemy.orm import Session
+
+from toutoule import config, evalrun, evalset, extract, models, schemas, score
 
 # Private: raw responses, parsed results, resume snapshots, the full report.
 SCORE_RUNS_DIR = Path(__file__).parents[2] / "data" / "private" / "score_runs"
@@ -494,3 +496,115 @@ def rescore_run(run_id: str, weights: dict[str, int] | None = None) -> tuple[str
     if target_id != run_id:
         record_adjustment(run_id, "weights", target_id)
     return target_id, meta
+
+
+# --- orchestration --------------------------------------------------------------------------
+
+
+def run_calibration(
+    run_id: str,
+    cases: list[CalibrationCase],
+    client: score.extract.ModelClient,
+    model: str,
+    sample: bool = False,
+) -> dict[str, Any]:
+    """Score every calibration posting. 3 API calls per posting, or more on a retry.
+
+    meta.json is saved after each posting, so an interrupted run keeps what it paid for.
+    One posting failing validation twice is recorded and the run continues: a run that
+    stops halfway would cost the remaining postings nothing but tell us nothing either.
+    """
+    rdir = run_dir(run_id)
+    rdir.mkdir(parents=True, exist_ok=True)
+    meta = default_meta(run_id, model, current_prompt_version(), config.SCORE_WEIGHTS)
+    save_meta(rdir, meta)
+    resumes = snapshot_resumes(rdir, sample=sample)
+    recorder = RecordingClient(client)
+    for case in cases:
+        try:
+            score_one_case(rdir, case, recorder, resumes, model, sample)
+            meta["cases"].append(case.case_id)
+        except score.ScoringFailed as error:
+            meta["failures"].append({"case_id": case.case_id, "error": str(error)[:300]})
+        meta["api_calls"] = recorder.api_calls
+        meta["tokens"] = {"input": recorder.input_tokens, "output": recorder.output_tokens}
+        save_meta(rdir, meta)
+    return meta
+
+
+def load_payloads(rdir: Path, meta: dict[str, Any]) -> dict[str, Any]:
+    return {case_id: load_case_payload(rdir, case_id) for case_id in meta["cases"]}
+
+
+def score_run_metrics_json(
+    run_id: str, model: str, metrics: CalibrationMetrics, rescore: bool
+) -> dict[str, Any]:
+    """metrics_json for one models.EvalRun row, holding the scoring tier (Part B item 4).
+
+    Shaped like evalrun.eval_run_metrics_json so the scoring tier sits beside the three
+    extraction tiers in the same table, with "tier" saying which one this row is.
+    """
+    return {
+        "run_id": run_id,
+        "model": model,
+        "tier": "match_score",
+        "rescore": rescore,
+        "agreement_within_10": {
+            "count": metrics.agreement.within,
+            "denominator": metrics.agreement.total,
+        },
+        "constant_guess_floor": {
+            "guess": metrics.floor_guess,
+            "count": metrics.floor.within,
+            "denominator": metrics.floor.total,
+        },
+        "mean_signed_error": round(metrics.mean_signed_error, 2),
+        "mean_absolute_error": round(metrics.mean_absolute_error, 2),
+        "evidence_verified": {
+            "count": metrics.evidence_verified[0],
+            "denominator": metrics.evidence_verified[1],
+        },
+        "recommended_counts": metrics.recommended_counts,
+    }
+
+
+def save_score_run(
+    session: Session,
+    run_id: str,
+    model: str,
+    metrics: CalibrationMetrics,
+    rescore: bool,
+    prompt_version: str,
+) -> models.EvalRun:
+    """Insert one eval_runs row carrying the scoring tier, mirroring save_eval_run."""
+    row = models.EvalRun(
+        prompt_version=prompt_version,
+        metrics_json=score_run_metrics_json(run_id, model, metrics, rescore),
+    )
+    session.add(row)
+    session.commit()
+    return row
+
+
+def parse_weights(text: str) -> dict[str, int]:
+    """ "domain_fit=40,skills_overlap=35,seniority_fit=25" -> a weights dict.
+
+    Every dimension must be named: a partial set would silently keep a default for the
+    missing one, and the report would describe weights the run did not use.
+    """
+    weights: dict[str, int] = {}
+    for part in text.split(","):
+        name, _, value = part.partition("=")
+        name = name.strip()
+        if name not in config.SCORE_WEIGHTS:
+            raise ValueError(
+                f"unknown dimension {name!r}; expected one of {list(config.SCORE_WEIGHTS)}"
+            )
+        try:
+            weights[name] = int(value)
+        except ValueError:
+            raise ValueError(f"weight for {name!r} must be a whole number, got {value!r}") from None
+    missing = [name for name in config.SCORE_WEIGHTS if name not in weights]
+    if missing:
+        raise ValueError(f"missing weight(s): {', '.join(missing)}")
+    return weights
