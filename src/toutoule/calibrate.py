@@ -15,6 +15,7 @@ import shutil
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from statistics import mean, median
 from typing import Any
 
 from toutoule import config, evalrun, evalset, extract, score
@@ -255,3 +256,135 @@ def score_one_case(
 
 def load_case_payload(rdir: Path, case_id: str) -> dict[str, Any]:
     return json.loads((rdir / f"{case_id}.json").read_text(encoding="utf-8"))
+
+
+# --- agreement (D-010 §7) -------------------------------------------------------------------
+
+# |system − human| ≤ 10 counts as agreement. The boundary is inclusive: a 10-point gap
+# agrees, an 11-point gap does not.
+AGREEMENT_TOLERANCE = 10
+
+
+@dataclass(frozen=True)
+class Agreement:
+    within: int
+    total: int
+
+    @property
+    def percent(self) -> float:
+        return 100.0 * self.within / self.total if self.total else 0.0
+
+    def __str__(self) -> str:
+        return f"{self.within} / {self.total} ({self.percent:.0f}%)"
+
+
+@dataclass(frozen=True)
+class CaseOutcome:
+    """One posting's human score beside the system's, with what produced it."""
+
+    case_id: str
+    segment: str
+    human: int
+    system: int
+    recommended: str
+    dimensions: dict[str, int]
+    version_scores: dict[str, int]
+
+    @property
+    def diff(self) -> int:
+        """system − human: positive means the system rated the posting higher."""
+        return self.system - self.human
+
+    @property
+    def agrees(self) -> bool:
+        return abs(self.diff) <= AGREEMENT_TOLERANCE
+
+
+@dataclass(frozen=True)
+class CalibrationMetrics:
+    outcomes: list[CaseOutcome]
+    agreement: Agreement
+    floor_guess: int
+    floor: Agreement
+    mean_signed_error: float
+    mean_absolute_error: float
+    by_segment: dict[str, Agreement]
+    segment_errors: dict[str, tuple[float, float]]
+    recommended_counts: dict[str, int]
+    evidence_verified: tuple[int, int]
+
+
+def constant_guess(human_scores: list[int]) -> int:
+    """The score a system that does no work would give every posting: the human median.
+
+    D-010 §7 credits the system only with agreement above this floor. Without it, a
+    calibration set clustered around one value can be half-matched by a constant.
+    """
+    return round(median(human_scores))
+
+
+def _agreement(outcomes: list[CaseOutcome]) -> Agreement:
+    return Agreement(sum(1 for o in outcomes if o.agrees), len(outcomes))
+
+
+def compute_metrics(payloads: list[dict[str, Any]]) -> CalibrationMetrics:
+    """Everything both reports need, from the saved per-case files. No API calls."""
+    outcomes = [
+        CaseOutcome(
+            case_id=p["case_id"],
+            segment=p["segment"],
+            human=p["human_score"],
+            system=p["system_score"],
+            recommended=p["recommended_version"],
+            dimensions={
+                name: p["versions"][p["recommended_version"]]["result"]["dimensions"][name]["score"]
+                for name in config.SCORE_WEIGHTS
+            },
+            version_scores={v: d["result"]["score"] for v, d in p["versions"].items()},
+        )
+        for p in payloads
+    ]
+    humans = [o.human for o in outcomes]
+    guess = constant_guess(humans)
+    diffs = [o.diff for o in outcomes]
+
+    segments = sorted({o.segment for o in outcomes})
+    by_segment, segment_errors = {}, {}
+    for segment in segments:
+        rows = [o for o in outcomes if o.segment == segment]
+        by_segment[segment] = _agreement(rows)
+        segment_errors[segment] = (
+            mean(o.diff for o in rows),
+            mean(abs(o.diff) for o in rows),
+        )
+
+    verified = sum(
+        1
+        for p in payloads
+        for version in p["versions"].values()
+        for pair in version["result"]["evidence_pairs"]
+        if pair["verified"]
+    )
+    pairs_total = sum(
+        len(version["result"]["evidence_pairs"])
+        for p in payloads
+        for version in p["versions"].values()
+    )
+    counts = {version: 0 for version in config.RESUME_VERSIONS}
+    for outcome in outcomes:
+        counts[outcome.recommended] = counts.get(outcome.recommended, 0) + 1
+
+    return CalibrationMetrics(
+        outcomes=outcomes,
+        agreement=_agreement(outcomes),
+        floor_guess=guess,
+        floor=Agreement(
+            sum(1 for h in humans if abs(guess - h) <= AGREEMENT_TOLERANCE), len(humans)
+        ),
+        mean_signed_error=mean(diffs) if diffs else 0.0,
+        mean_absolute_error=mean(abs(d) for d in diffs) if diffs else 0.0,
+        by_segment=by_segment,
+        segment_errors=segment_errors,
+        recommended_counts=counts,
+        evidence_verified=(verified, pairs_total),
+    )
