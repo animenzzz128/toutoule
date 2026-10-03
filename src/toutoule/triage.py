@@ -9,8 +9,9 @@ saves what they return, the way the CLI already does.
 import logging
 from datetime import UTC, date, datetime
 from pathlib import Path
-from typing import NamedTuple
+from typing import NamedTuple, get_args
 
+from pydantic import BaseModel
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
@@ -162,3 +163,215 @@ def run_triage(
     job.status = models.JobStatus.SCORED
     session.commit()
     return job.id
+
+
+# --- What the page reads -----------------------------------------------------------------
+#
+# The view models below are frozen: pydantic rejects assignment to their attributes, so a
+# page that renders one cannot edit the record by accident. Nothing here decides anything;
+# it reads what the pipeline already stored.
+
+
+class FieldView(BaseModel, frozen=True):
+    """One extracted field as the page shows it: name, value, statedness and the quote."""
+
+    name: str
+    value: str | None
+    stated: bool
+    evidence: str | None
+
+
+class FlagView(BaseModel, frozen=True):
+    """One stored red flag. The message is not stored, so the page renders the rule id."""
+
+    rule_id: str
+    severity: str
+    evidence: str | None
+
+
+class ScoreView(BaseModel, frozen=True):
+    """One resume version's score. Only verified pairs are offered as evidence (D-010 §3)."""
+
+    resume_version: str
+    score: int
+    dimensions: schemas.Dimensions
+    verified_pairs: list[schemas.EvidencePair]
+    unverified_pairs: int
+    gaps: list[str]
+
+
+class DecisionView(BaseModel, frozen=True):
+    """The latest decision on a job, if a human has made one."""
+
+    action: str
+    reject_reason: str | None
+    decided_at: datetime
+
+
+class TriageView(BaseModel, frozen=True):
+    """Everything one job's page needs, and nothing it could write back."""
+
+    job_id: int
+    company: str
+    title: str
+    url: str
+    status: str
+    critical: list[FieldView]
+    other: list[FieldView]
+    flags: list[FlagView]
+    has_hard_flag: bool
+    scores: list[ScoreView]
+    recommended_version: str | None
+    profile: str | None
+    decision: DecisionView | None
+
+
+class JobNotFound(Exception):
+    """No job with that id. The message names the id that was asked for."""
+
+
+def _field_views(group: BaseModel) -> list[FieldView]:
+    """Every field of one extraction group, in the order the schema declares them."""
+    return [
+        FieldView(
+            name=name,
+            value=getattr(group, name).value,
+            stated=getattr(group, name).stated,
+            evidence=getattr(group, name).evidence,
+        )
+        for name in type(group).model_fields
+    ]
+
+
+def _latest_scores(session: Session, job_id: int) -> list[models.Score]:
+    """The newest score for each resume version. A rescore replaces what the page shows."""
+    rows = session.scalars(
+        select(models.Score).where(models.Score.job_id == job_id).order_by(models.Score.id)
+    ).all()
+    newest = {row.resume_version: row for row in rows}  # later rows overwrite earlier ones
+    return list(newest.values())
+
+
+def load_triage(session: Session, job_id: int) -> TriageView:
+    """Read one job's whole triage record. Makes no model call and writes nothing.
+
+    A job whose extraction failed has no fields and no scores; it still loads, so the page
+    can say so rather than crash.
+    """
+    job = session.get(models.Job, job_id)
+    if job is None:
+        raise JobNotFound(f"no job with id {job_id}")
+
+    stored = session.scalars(
+        select(models.Extraction)
+        .where(models.Extraction.job_id == job_id)
+        .order_by(models.Extraction.id.desc())
+    ).first()
+    extraction = schemas.Extraction.model_validate(stored.payload_json) if stored else None
+
+    flags = [
+        FlagView(rule_id=row.rule_id, severity=row.severity, evidence=row.evidence)
+        for row in session.scalars(select(models.RedFlag).where(models.RedFlag.job_id == job_id))
+    ]
+    score_rows = _latest_scores(session, job_id)
+    results = [schemas.MatchResult.model_validate(row.payload_json["result"]) for row in score_rows]
+    decision = session.scalars(
+        select(models.Decision)
+        .where(models.Decision.job_id == job_id)
+        .order_by(models.Decision.id.desc())
+    ).first()
+
+    return TriageView(
+        job_id=job_id,
+        company=job.company,
+        title=job.title,
+        url=job.url,
+        status=job.status,
+        critical=_field_views(extraction.critical) if extraction else [],
+        other=_field_views(extraction.important) if extraction else [],
+        flags=flags,
+        has_hard_flag=any(flag.severity == models.FlagSeverity.HARD for flag in flags),
+        scores=[
+            ScoreView(
+                resume_version=result.resume_version,
+                score=result.score,
+                dimensions=result.dimensions,
+                verified_pairs=[pair for pair in result.evidence_pairs if pair.verified],
+                unverified_pairs=result.unverified_pairs,
+                gaps=result.gaps,
+            )
+            for result in results
+        ],
+        recommended_version=results[0].recommended_version if results else None,
+        profile=score_rows[0].payload_json.get("profile") if score_rows else None,
+        decision=DecisionView(
+            action=decision.action,
+            reject_reason=decision.reject_reason,
+            decided_at=decision.decided_at,
+        )
+        if decision
+        else None,
+    )
+
+
+# --- Decisions (PRD F10, PD-4) -----------------------------------------------------------
+
+REJECT_REASONS = get_args(schemas.RejectReason)
+DECISION_ACTIONS = get_args(schemas.DecisionAction)
+
+
+class DecisionRefused(Exception):
+    """The decision breaks one of the rules below. Nothing was written."""
+
+
+def record_decision(
+    session: Session,
+    job_id: int,
+    action: str,
+    reject_reason: str | None = None,
+    confirm_hard: bool = False,
+) -> int:
+    """Record one human decision and return its decisions.id. Commits.
+
+    Append-only: every call inserts a row, and no earlier row is ever updated or deleted,
+    so changing one's mind leaves both decisions in the record. jobs.status follows the
+    newest action; digest_id is NULL, because a job triaged in the app came from a paste
+    rather than from a digest.
+
+    The rules, all enforced here rather than in the page:
+      - a rejection carries one of the five PD-4 reasons; anything else is refused;
+      - an approval carries no reason;
+      - approving a job with a HARD red flag needs confirm_hard=True, so discarding the
+        rules is a deliberate act and not a mis-click (constraint 3);
+      - an unknown job id is refused.
+    Each refusal raises before anything is added to the session, so a refused decision
+    writes nothing at all.
+    """
+    job = session.get(models.Job, job_id)
+    if job is None:
+        raise JobNotFound(f"no job with id {job_id}")
+    if action not in DECISION_ACTIONS:
+        raise DecisionRefused(f"action must be one of {DECISION_ACTIONS}, not {action!r}")
+    if action == "rejected" and reject_reason not in REJECT_REASONS:
+        raise DecisionRefused(
+            f"a rejection needs a reason, one of {REJECT_REASONS}, not {reject_reason!r}"
+        )
+    if action == "approved" and reject_reason is not None:
+        raise DecisionRefused(f"an approval has no reject reason, but got {reject_reason!r}")
+    if action == "approved" and not confirm_hard and load_triage(session, job_id).has_hard_flag:
+        raise DecisionRefused(
+            f"job {job_id} has a HARD red flag; approve again with confirm_hard=True to override"
+        )
+
+    decision = models.Decision(
+        job_id=job_id,
+        digest_id=None,
+        action=action,
+        reject_reason=reject_reason,
+        decided_at=models.utc_now(),
+    )
+    session.add(decision)
+    job.status = models.JobStatus(action)
+    session.commit()
+    logger.info("job %s %s (%s)", job_id, action, reject_reason or "no reason needed")
+    return decision.id
