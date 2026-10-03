@@ -1,15 +1,19 @@
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, get_args
 
 import pytest
 from pydantic import ValidationError
 
+from toutoule.models import JobStatus
 from toutoule.schemas import (
+    REJECT_REASON_LABELS,
     SCHEMA_VERSION,
+    DecisionAction,
     ExtractedField,
     Extraction,
     ReferenceFields,
+    RejectReason,
     VisaSponsorshipField,
     WorkModelField,
 )
@@ -157,3 +161,29 @@ def test_json_schema_builds_with_vocabulary_and_no_extra_keys() -> None:
     text = json.dumps(schema)
     assert '"conditional"' in text and '"hybrid"' in text
     assert schema["additionalProperties"] is False
+
+
+# (i) Reject reasons (PD-4). get_args() reads the members out of a Literal type, so the
+# vocabulary is checked against the type itself rather than against a second hand-written
+# list that could drift from it.
+def test_the_five_reject_reasons_are_the_ones_pd4_names() -> None:
+    assert set(get_args(RejectReason)) == {
+        "no_sponsorship",
+        "wrong_location",
+        "wrong_function",
+        "already_applied",
+        "not_interested",
+    }
+
+
+def test_every_reject_reason_has_display_text_and_no_label_is_orphaned() -> None:
+    assert set(REJECT_REASON_LABELS) == set(get_args(RejectReason))
+    assert all(label.strip() for label in REJECT_REASON_LABELS.values())
+
+
+def test_the_two_decision_actions_are_the_job_statuses_they_write() -> None:
+    assert set(get_args(DecisionAction)) == {"approved", "rejected"}
+    assert {JobStatus(action) for action in get_args(DecisionAction)} == {
+        JobStatus.APPROVED,
+        JobStatus.REJECTED,
+    }

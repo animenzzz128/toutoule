@@ -172,7 +172,7 @@ class Decision(Base):
     job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"))
     # Empty for jobs decided outside a digest, e.g. pasted in by hand.
     digest_id: Mapped[int | None] = mapped_column(ForeignKey("digests.id"))
-    action: Mapped[str]  # approve | reject | snooze
+    action: Mapped[str]  # a DecisionAction: "approved" or "rejected"
     reject_reason: Mapped[str | None] = mapped_column(Text)
     decided_at: Mapped[datetime] = mapped_column(default=utc_now)
 
