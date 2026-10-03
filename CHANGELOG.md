@@ -4,6 +4,11 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Task 1.9 — Match scoring (#10):** 0–100 score against three résumé versions with 3 verified evidence pairs, 2 gaps and a recommended version; the model rates three dimensions and code computes the total. Calibration against the owner's 20 hand scores returned 3 / 20 within ±10 against a constant-guess floor of 10 / 20; no adjustment was made, because the two scales measure different things — see [`docs/eval/scoring.md`](docs/eval/scoring.md) and D-010.
+
 ## [0.0.4] - 2026-10-02
 
 Checkpoint C: evaluation harness and tuned extraction.

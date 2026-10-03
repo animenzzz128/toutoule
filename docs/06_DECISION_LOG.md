@@ -243,6 +243,8 @@ adjustment is measured on the postings it was chosen from, so it is an upper bou
 AI-assigned tracker scores stay out of the repo and out of every metric; the tracker file is
 kept only for Task 1.12's format.
 
+2026-10-03: first run 3/20 vs floor 10/20; no adjustment made, see docs/eval/scoring.md.
+
 ---
 
 ## Template for new entries
