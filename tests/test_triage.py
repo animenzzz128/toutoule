@@ -12,6 +12,7 @@ from typing import Any
 
 import pytest
 from fakes import FakeClient
+from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -69,8 +70,12 @@ def extraction_answer(**overrides: dict[str, Any]) -> str:
     )
 
 
-def score_answer() -> str:
-    """One model reply for a scoring call. Both sides of every pair are real quotes."""
+def score_answer(fabricate: bool = False) -> str:
+    """One model reply for a scoring call. Both sides of every pair are real quotes.
+
+    fabricate=True invents the third pair's resume quote, so verification must reject it.
+    """
+    invented = "Ran a team of nine data scientists"  # in neither the posting nor the resume
     return json.dumps(
         {
             "dimensions": {
@@ -83,7 +88,9 @@ def score_answer() -> str:
                 {"requirement": "own a roadmap", "experience": "Led pricing research"},
                 {
                     "requirement": "run pricing experiments",
-                    "experience": "Shipped an AI assistant used by 40 teams",
+                    "experience": invented
+                    if fabricate
+                    else "Shipped an AI assistant used by 40 teams",
                 },
             ],
             "gaps": ["no people management", "no payments experience"],
@@ -284,3 +291,159 @@ def test_the_real_profile_is_used_when_it_exists(profiles: Path) -> None:
 def test_force_sample_wins_over_a_present_real_profile(profiles: Path) -> None:
     profiles.mkdir()
     assert triage.active_profile_dir(force_sample=True) == (config.SAMPLE_PROFILE_DIR, "sample")
+
+
+# --- What the page reads -----------------------------------------------------------------
+
+
+def test_load_triage_shows_every_critical_field_with_its_quote(
+    session: Session, settings: Settings
+) -> None:
+    view = triage.load_triage(session, triage_once(session, full_run(), settings))
+
+    assert [item.name for item in view.critical] == [
+        "deadline",
+        "visa_sponsorship",
+        "graduation_window",
+        "application_cap",
+        "materials_required",
+    ]
+    deadline = view.critical[0]
+    assert (deadline.value, deadline.stated) == ("2026-12-31", True)
+    assert deadline.evidence == "Applications close on 2026-12-31."
+    assert view.other[0].name == "location" and view.other[0].value == "New York, NY"
+
+
+def test_a_field_the_posting_never_stated_shows_as_not_stated_with_no_value(
+    session: Session, settings: Settings
+) -> None:
+    """F3: absence is shown as absence, never as a plausible default."""
+    view = triage.load_triage(session, triage_once(session, full_run(), settings))
+
+    window = next(item for item in view.critical if item.name == "graduation_window")
+    assert window.stated is False
+    assert window.value is None
+    assert window.evidence is None
+
+
+def test_load_triage_offers_only_verified_pairs_but_still_counts_the_rest(
+    session: Session, settings: Settings
+) -> None:
+    """D-010 §3: an unverified quote is hidden from the page, not deleted from the record."""
+    client = FakeClient(extraction_answer(), *[score_answer(fabricate=True)] * 3)
+
+    view = triage.load_triage(session, triage_once(session, client, settings))
+
+    first = view.scores[0]
+    assert [pair.verified for pair in first.verified_pairs] == [True, True]
+    assert first.unverified_pairs == 1
+    assert len(first.gaps) == 2
+
+
+def test_load_triage_reports_the_scores_the_recommendation_and_the_profile(
+    session: Session, settings: Settings
+) -> None:
+    view = triage.load_triage(session, triage_once(session, full_run(), settings, market="US"))
+
+    assert {item.resume_version for item in view.scores} == set(config.RESUME_VERSIONS)
+    assert view.recommended_version == config.RESUME_VERSIONS[0]  # a three-way tie
+    assert view.profile == "sample"
+    assert [(flag.rule_id, flag.severity) for flag in view.flags] == [("R1", "HARD")]
+    assert view.has_hard_flag is True
+    assert view.decision is None
+
+
+def test_load_triage_refuses_an_unknown_job_id(session: Session) -> None:
+    with pytest.raises(triage.JobNotFound, match="404"):
+        triage.load_triage(session, 404)
+
+
+def test_a_view_cannot_be_written_through(session: Session, settings: Settings) -> None:
+    """Frozen models: the page renders the record, it does not edit it."""
+    view = triage.load_triage(session, triage_once(session, full_run(), settings))
+
+    with pytest.raises(ValidationError):
+        view.status = "approved"  # type: ignore[misc]
+
+
+# --- Decisions (PD-4) --------------------------------------------------------------------
+
+
+def decisions(session: Session, job_id: int) -> list[models.Decision]:
+    return rows(session, models.Decision, job_id)
+
+
+def test_a_rejection_writes_one_decisions_row_with_its_reason(
+    session: Session, settings: Settings
+) -> None:
+    """The plan's acceptance test for Task 1.11."""
+    job_id = triage_once(session, full_run(), settings)
+
+    decision_id = triage.record_decision(session, job_id, "rejected", "wrong_location")
+
+    stored = decisions(session, job_id)
+    assert [row.id for row in stored] == [decision_id]
+    assert (stored[0].action, stored[0].reject_reason) == ("rejected", "wrong_location")
+    assert stored[0].digest_id is None  # a pasted job was never in a digest
+    assert stored[0].decided_at.tzinfo is not None  # stored as UTC, not a naive timestamp
+    assert session.get(models.Job, job_id).status == models.JobStatus.REJECTED
+
+
+@pytest.mark.parametrize(
+    ("action", "reason"),
+    [
+        ("rejected", None),  # a rejection must say why
+        ("rejected", "changed_my_mind"),  # not one of the five
+        ("approved", "wrong_location"),  # an approval has no reason
+        ("snoozed", None),  # not an action the app offers
+    ],
+)
+def test_a_decision_that_breaks_a_rule_is_refused_and_writes_nothing(
+    session: Session, settings: Settings, action: str, reason: str | None
+) -> None:
+    job_id = triage_once(session, full_run(), settings)
+
+    with pytest.raises(triage.DecisionRefused):
+        triage.record_decision(session, job_id, action, reason)
+
+    assert decisions(session, job_id) == []
+    assert session.get(models.Job, job_id).status == models.JobStatus.SCORED
+
+
+def test_a_decision_on_an_unknown_job_is_refused(session: Session) -> None:
+    with pytest.raises(triage.JobNotFound, match="404"):
+        triage.record_decision(session, 404, "rejected", "not_interested")
+
+
+def test_approving_a_job_with_a_hard_flag_needs_confirmation(
+    session: Session, settings: Settings
+) -> None:
+    """Constraint 3: the rules decide eligibility, so overriding one is a deliberate act."""
+    job_id = triage_once(session, full_run(), settings, market="US")  # R1 HARD
+
+    with pytest.raises(triage.DecisionRefused, match="confirm_hard"):
+        triage.record_decision(session, job_id, "approved")
+
+    assert decisions(session, job_id) == []
+    assert triage.record_decision(session, job_id, "approved", confirm_hard=True) > 0
+    assert session.get(models.Job, job_id).status == models.JobStatus.APPROVED
+
+
+def test_changing_a_decision_adds_a_row_and_leaves_the_first_one_untouched(
+    session: Session, settings: Settings
+) -> None:
+    """Append-only: the reject reasons are the F18 signal, and an overwrite is not a signal."""
+    job_id = triage_once(session, full_run(), settings)
+    first_id = triage.record_decision(session, job_id, "rejected", "already_applied")
+    before = decisions(session, job_id)[0]
+    original = (before.action, before.reject_reason, before.decided_at)
+
+    second_id = triage.record_decision(session, job_id, "approved")
+
+    stored = decisions(session, job_id)
+    assert [row.id for row in stored] == [first_id, second_id]
+    assert (stored[0].action, stored[0].reject_reason, stored[0].decided_at) == original
+    assert (stored[1].action, stored[1].reject_reason) == ("approved", None)
+    assert session.get(models.Job, job_id).status == models.JobStatus.APPROVED
+    latest = triage.load_triage(session, job_id).decision
+    assert latest is not None and latest.action == "approved"
