@@ -18,7 +18,7 @@ from pathlib import Path
 from statistics import mean, median
 from typing import Any
 
-from toutoule import config, evalrun, evalset, extract, score
+from toutoule import config, evalrun, evalset, extract, schemas, score
 
 # Private: raw responses, parsed results, resume snapshots, the full report.
 SCORE_RUNS_DIR = Path(__file__).parents[2] / "data" / "private" / "score_runs"
@@ -388,3 +388,109 @@ def compute_metrics(payloads: list[dict[str, Any]]) -> CalibrationMetrics:
         recommended_counts=counts,
         evidence_verified=(verified, pairs_total),
     )
+
+
+# --- rescoring (0 API calls) ----------------------------------------------------------------
+
+
+class AdjustmentSpent(Exception):
+    """This base run has already had its one adjustment (D-010 §8)."""
+
+
+def check_adjustment_available(run_id: str) -> None:
+    """Refuse a second adjustment of any kind against the same base run.
+
+    D-010 §8 allows at most one adjustment after the first full run — reweighting offline
+    or a score_v2 rubric re-run — chosen by reading the disagreements. Allowing a second
+    would be a grid search over the same 20 postings, which §8 rules out by name. The rule
+    lives here rather than in a note, so it holds when nobody remembers it.
+    """
+    meta = load_meta(run_dir(run_id))
+    spent = meta.get("adjustment")
+    if spent:
+        raise AdjustmentSpent(
+            f"{run_id} already spent its one adjustment: {spent['kind']} -> {spent['run_id']}. "
+            "D-010 §8 allows one adjustment per base run, of either kind. Report what you have."
+        )
+    derived = derived_run_id(run_id)
+    if run_dir(derived).exists():
+        raise AdjustmentSpent(
+            f"{derived} already exists, so {run_id} has spent its one adjustment. D-010 §8."
+        )
+
+
+def record_adjustment(run_id: str, kind: str, derived: str) -> None:
+    """Mark the base run's one adjustment as spent. kind is "weights" or "prompt"."""
+    rdir = run_dir(run_id)
+    meta = load_meta(rdir)
+    meta["adjustment"] = {"kind": kind, "run_id": derived}
+    save_meta(rdir, meta)
+
+
+def rescore_case(
+    payload: dict[str, Any], weights: dict[str, int], resumes: dict[str, str]
+) -> dict[str, Any]:
+    """Recompute one case from its stored replies under possibly different weights.
+
+    The last stored reply is the one that validated: an earlier entry is an answer that
+    failed and was retried, which must not be the one replayed.
+    """
+    raw_text = read_raw_posting(payload["case_id"])
+    results = []
+    versions: dict[str, Any] = {}
+    for version, stored in payload["versions"].items():
+        draft = schemas.ScoreDraft.model_validate_json(stored["raw_responses"][-1])
+        pairs = score.verify_pairs(draft.evidence_pairs, raw_text, resumes[version])
+        result = schemas.MatchResult(
+            resume_version=version,  # type: ignore[arg-type]
+            score=score.combine(draft.dimensions, weights),
+            dimensions=draft.dimensions,
+            evidence_pairs=pairs,
+            gaps=draft.gaps,
+            unverified_pairs=sum(not pair.verified for pair in pairs),
+            prompt_version=stored["result"]["prompt_version"],
+            model=stored["result"]["model"],
+        )
+        results.append(result)
+        versions[version] = {**stored, "result": result.model_dump(mode="json")}
+    recommended = score.recommend(results)
+    for version in versions:
+        versions[version]["result"]["recommended_version"] = recommended
+    return {
+        **payload,
+        "recommended_version": recommended,
+        "system_score": next(r.score for r in results if r.resume_version == recommended),
+        "versions": versions,
+    }
+
+
+def rescore_run(run_id: str, weights: dict[str, int] | None = None) -> tuple[str, dict[str, Any]]:
+    """Recompute a whole run. Returns (run id written, meta). Never calls the API.
+
+    Same weights: the run is recomputed in place, which is what makes a report
+    reproducible. Different weights: the run is copied to <run_id>-w2 and recomputed
+    there, so the original stays exactly as it was measured.
+    """
+    base_rdir = run_dir(run_id)
+    meta = load_meta(base_rdir)
+    target_id, target_rdir = run_id, base_rdir
+    if weights is not None and weights != meta["weights"]:
+        check_adjustment_available(run_id)
+        target_id = derived_run_id(run_id)
+        target_rdir = run_dir(target_id)
+        copy_run(base_rdir, target_rdir)
+        meta = load_meta(target_rdir)
+        meta["derived_from"] = run_id
+        meta["weights"] = dict(weights)
+        meta["api_calls"] = 0
+    weights = weights or meta["weights"]
+    resumes = {v: load_resume_snapshot(target_rdir, v) for v in meta["resume_versions"]}
+    for case_id in meta["cases"]:
+        payload = rescore_case(load_case_payload(target_rdir, case_id), weights, resumes)
+        (target_rdir / f"{case_id}.json").write_text(
+            json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+        )
+    save_meta(target_rdir, meta)
+    if target_id != run_id:
+        record_adjustment(run_id, "weights", target_id)
+    return target_id, meta
