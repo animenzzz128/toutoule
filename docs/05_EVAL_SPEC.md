@@ -143,7 +143,7 @@ owner's own judgment.
 1. The human baseline is the 20 manual scores given during Task 1.6
    (`data/eval/human_scores.csv`); the tracker's scores were AI-assigned and are not used
    (D-010).
-2. Score 20 more eval postings manually **before** running the system, to avoid anchoring.
+2. These 20 were scored **before** any system scoring, to avoid anchoring.
 3. Measure agreement: the fraction of postings where system and human are within ±10.
 4. Target ≥70%. Below that, inspect the largest disagreements — they usually reveal a
    weighting problem, not a model problem.
