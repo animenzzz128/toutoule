@@ -1,3 +1,4 @@
+Fictional sample for the public demo. Names, employers, schools and all numbers are invented.
 ALEX MORGAN
 United States | contact details withheld in this sample
 

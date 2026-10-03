@@ -1,3 +1,4 @@
+Fictional sample for the public demo. Names, employers, schools and all numbers are invented.
 ALEX MORGAN
 United States | contact details withheld in this sample
 
@@ -37,7 +38,7 @@ PROJECTS
 AN LLM JOB-TRIAGE AGENT WITH VERIFIED EXTRACTION	independent project
 Independent product: PRD, evaluation design, build, launch	Oct 2027 - Present
 •	Built an LLM pipeline (Python, Claude API) that extracts deadlines, visa sponsorship, and application caps from job postings; code verifies each field's verbatim source quote, and rules, not the model, decide eligibility.
-•	Designed a tiered evaluation weighted by cost of error on 40 hand-labeled postings: critical-field hallucination 0% vs. 12% for a plain-prompt baseline and critical accuracy 96%, across 4 logged iterations.
+•	Designed a tiered evaluation weighted by cost of error on hand-labeled postings; cut critical-field errors versus a plain-prompt baseline across logged prompt versions.
 
 ADDITIONAL INFORMATION	
 
