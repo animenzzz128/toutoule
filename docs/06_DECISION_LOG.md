@@ -192,6 +192,59 @@ rule and is re-run once for stability as planned.
 
 ---
 
+## D-010 · 2026-10-02 · Match scoring design and calibration rule
+
+**Context.** Task 1.9 needs a 0–100 match score with 3 evidence pairs, 2 gaps and a
+recommended resume version, calibrated against the owner's own scores. The plan named 13
+tracker Priority Scores; on inspection (2026-10-02) the tracker holds 32 scores, all
+assigned by an AI during an earlier job search, for postings outside this project. They are
+not a human baseline and are not used. The owner's real scores are the 20 given by hand
+during Task 1.6, before any system scoring. The target is ≥70% within ±10, or a written
+analysis. Weights can be recomputed offline, so without a rule decided in advance it is
+easy to tune until 20 points agree.
+
+**Decision.**
+1. *Scoring.* One model call per (posting, resume version). The model rates three
+   dimensions, each 0–10 with a one-line reason: domain fit, skills overlap,
+   seniority fit (level and experience, not visa or graduation rules). The model never
+   outputs the total. Code computes total = round(10 × Σ wᵢ·sᵢ / Σ wᵢ) with weights from
+   config (domain 40, skills 35, seniority 25, per tech spec §5).
+2. *Recommended version.* Code picks the version with the highest total (ties by the order
+   ai_product, strategy_bizops, consulting). The posting's score is that version's score.
+3. *Evidence.* Each evidence pair quotes the posting and the resume verbatim; code checks
+   both sides with the same normalization as the extraction verifier. Pairs that fail are
+   dropped from what is shown and counted. Gaps (exactly 2) are free text.
+4. *Inputs.* The scorer reads the raw posting text and one resume, not the Extraction
+   (tech spec §5 amended): evidence must quote the posting, and one dependency fewer.
+5. *Eligibility.* The score never excludes a job. HARD red flags stay separate (rules decide
+   eligibility).
+6. *Model.* SCORE_MODEL in config = claude-sonnet-5-5 (larger model for scoring, PRD
+   risk table). No temperature is sent (the model rejects a non-default value) and
+   thinking stays at the model default; both settings are recorded in each run's
+   meta.json. Runs are therefore not bit-identical, which the optional repeat run
+   measures.
+7. *Calibration.* The 20 Task 1.6 hand scores (`data/eval/human_scores.csv`). Agreement =
+   |system − human| ≤ 10, reported as N / D, with mean signed error (system − human).
+   *Floor:* the report also shows the agreement of a constant guess (the median human
+   score); the system is credited only with agreement above it. Plan acceptance amended:
+   "13 tracker Priority Scores" becomes these 20 hand scores. No held-out set (owner's
+   choice, to save time before the ByteDance window).
+8. *Adjustment rule.* Human scores are never edited after system scores are seen, and no
+   posting is dropped for disagreeing. After the first full run, at most **one** adjustment
+   (weights offline, or a rubric change as score_v2 with a re-run), chosen by reading the
+   20 disagreements, with its hypothesis committed before it is applied. Before and after
+   are both reported, on the same 20, and the report says so. No grid
+   search over weights. After that one adjustment, stop and report, whatever the number.
+9. *Privacy.* Real resumes and any output that quotes them stay in `data/private/`. The repo
+   gets redacted sample resumes, numbers, and per-case numbers for the eval postings only.
+
+**Consequences.** One run of 3 × 20 calls, plus at most one re-run. Any gain from the
+adjustment is measured on the postings it was chosen from, so it is an upper bound. The
+AI-assigned tracker scores stay out of the repo and out of every metric; the tracker file is
+kept only for Task 1.12's format.
+
+---
+
 ## Template for new entries
 
 ```markdown

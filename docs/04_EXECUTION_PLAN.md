@@ -130,6 +130,7 @@ the project stopped here, it would still be a credible interview showcase.
 - Score, 3 evidence pairs, 2 gaps, recommended version
 - **Acceptance:** calibration against the owner's 13 existing manual Priority Scores; ≥70%
   agreement within ±10 points, or a written analysis of why not and what was adjusted
+- Design and calibration rule: D-010.
 
 **Task 1.10 — Rewrite suggestions (F9)** · `feat` · 3h
 - 3 bullet suggestions, **only callable for jobs with an approved decision** — enforced in

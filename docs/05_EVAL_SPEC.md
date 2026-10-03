@@ -140,8 +140,9 @@ rests on it.
 Unlike extraction, match scoring has no objective ground truth. The human baseline is the
 owner's own judgment.
 
-1. The owner's existing tracker contains 13 manually assigned Priority Scores — the initial
-   baseline.
+1. The human baseline is the 20 manual scores given during Task 1.6
+   (`data/eval/human_scores.csv`); the tracker's scores were AI-assigned and are not used
+   (D-010).
 2. Score 20 more eval postings manually **before** running the system, to avoid anchoring.
 3. Measure agreement: the fraction of postings where system and human are within ±10.
 4. Target ≥70%. Below that, inspect the largest disagreements — they usually reveal a
