@@ -241,3 +241,46 @@ def test_the_private_report_does_contain_it(run_env: Path) -> None:
     assert "no quixotic certification" in text
     assert "UNVERIFIED" in text
     assert private_path.parent == calibrate.run_dir("r6")
+
+
+# --- the committed run ------------------------------------------------------------------
+
+
+COMMITTED_RUN = "2026-10-03T0132-score"
+REPO_ROOT = Path(__file__).parents[1]
+
+
+def test_rescoring_the_committed_run_reproduces_its_public_report() -> None:
+    """The report in docs/eval/scoring/ must be derivable from the stored run.
+
+    Skipped where the run folder is absent: it lives under data/private/, so CI and a
+    fresh clone do not have it. Locally it is the check that the committed numbers were
+    not hand-edited.
+    """
+    rdir = calibrate.run_dir(COMMITTED_RUN)
+    if not rdir.exists():
+        pytest.skip(f"{rdir} not present (private, gitignored)")
+    committed = (REPO_ROOT / "docs" / "eval" / "scoring" / f"{COMMITTED_RUN}.md").read_text(
+        encoding="utf-8"
+    )
+    meta = calibrate.load_meta(rdir)
+    payloads = calibrate.load_payloads(rdir, meta)
+    metrics = calibrate.compute_metrics(list(payloads.values()))
+
+    assert calibratereport.public_report(COMMITTED_RUN, meta, metrics) == committed
+
+
+def test_correlation_is_not_defined_without_variance() -> None:
+    """A flat set of system scores has no correlation; reporting 0.0 would read as
+    "no relationship" when the truth is that it cannot be computed."""
+    flat = [payload(f"c{i}", human=h, system=70) for i, h in enumerate((50, 60, 70, 80))]
+    metrics = calibrate.compute_metrics(flat)
+    assert metrics.correlation_all is None
+
+
+def test_spread_reports_both_sides() -> None:
+    rows = [payload("a", human=20, system=40), payload("b", human=80, system=60)]
+    metrics = calibrate.compute_metrics(rows)
+    assert (metrics.human_spread.minimum, metrics.human_spread.maximum) == (20, 80)
+    assert (metrics.system_spread.minimum, metrics.system_spread.maximum) == (40, 60)
+    assert metrics.system_spread.sd < metrics.human_spread.sd

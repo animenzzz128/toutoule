@@ -14,6 +14,11 @@ from typing import Any
 from toutoule import calibrate, config
 
 
+def _r(value: float | None) -> str:
+    """Pearson r, or "not defined" when there were too few points or no variance."""
+    return "not defined" if value is None else f"{value:+.3f}"
+
+
 def _header(run_id: str, meta: dict[str, Any]) -> list[str]:
     weights = ", ".join(f"{name} {value}" for name, value in meta["weights"].items())
     settings = ", ".join(f"{k} {v}" for k, v in meta["model_settings"].items())
@@ -51,13 +56,30 @@ def public_report(run_id: str, meta: dict[str, Any], m: calibrate.CalibrationMet
         "",
         f"- Agreement within ±10: {m.agreement}",
         f"- Constant guess ({m.floor_guess}) within ±10: {m.floor.within} / {m.floor.total}",
-        f"- Mean signed error (system − human): {m.mean_signed_error:+.1f}",
-        f"- Mean absolute error: {m.mean_absolute_error:.1f}",
+        f"- Mean signed error (system − human): {m.mean_signed_error:+.2f}",
+        f"- Mean absolute error: {m.mean_absolute_error:.2f}",
         f"- Evidence pairs verified (all versions): "
         f"{m.evidence_verified[0]} / {m.evidence_verified[1]}",
         "",
         "The constant guess is the rounded median of the human scores: what a system that",
         "reads nothing would achieve. The system is credited only with agreement above it.",
+        "",
+        "## Spread and correlation",
+        "",
+        "| | Mean | Min | Max | SD |",
+        "|---|---|---|---|---|",
+        f"| Human | {m.human_spread.mean:.2f} | {m.human_spread.minimum} "
+        f"| {m.human_spread.maximum} | {m.human_spread.sd:.2f} |",
+        f"| System | {m.system_spread.mean:.2f} | {m.system_spread.minimum} "
+        f"| {m.system_spread.maximum} | {m.system_spread.sd:.2f} |",
+        "",
+        f"- Pearson correlation, all {m.agreement.total}: {_r(m.correlation_all)}",
+        f"- Pearson correlation, excluding {len(m.excluded_cases)} postings a single "
+        f"condition rules out ({', '.join(m.excluded_cases)}): {_r(m.correlation_excluding)}",
+        "",
+        "Correlation says whether the two rankings move together at all, which agreement",
+        "within ±10 cannot: a system offset by a constant would disagree everywhere and",
+        "still rank perfectly.",
         "",
         "## By segment",
         "",

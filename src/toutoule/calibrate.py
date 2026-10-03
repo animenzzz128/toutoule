@@ -15,7 +15,7 @@ import shutil
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from statistics import mean, median
+from statistics import StatisticsError, correlation, mean, median, stdev
 from typing import Any
 
 from sqlalchemy.orm import Session
@@ -266,6 +266,12 @@ def load_case_payload(rdir: Path, case_id: str) -> dict[str, Any]:
 # agrees, an 11-point gap does not.
 AGREEMENT_TOLERANCE = 10
 
+# Postings whose human score reports a single disqualifying condition rather than a
+# judgement of fit: cnc-01 "this is an intern not a full time", cnp-01 "this is for mba
+# only", usf-06 "this is an internship program". A scorer that rates fit cannot reproduce
+# those numbers and is not meant to, so correlation is reported with and without them.
+SINGLE_CONDITION_CASES = ("cnc-01", "cnp-01", "usf-06")
+
 
 @dataclass(frozen=True)
 class Agreement:
@@ -303,6 +309,16 @@ class CaseOutcome:
 
 
 @dataclass(frozen=True)
+class Spread:
+    """Where a set of scores sits and how far it ranges."""
+
+    mean: float
+    minimum: int
+    maximum: int
+    sd: float
+
+
+@dataclass(frozen=True)
 class CalibrationMetrics:
     outcomes: list[CaseOutcome]
     agreement: Agreement
@@ -314,6 +330,11 @@ class CalibrationMetrics:
     segment_errors: dict[str, tuple[float, float]]
     recommended_counts: dict[str, int]
     evidence_verified: tuple[int, int]
+    human_spread: Spread
+    system_spread: Spread
+    correlation_all: float | None
+    correlation_excluding: float | None
+    excluded_cases: tuple[str, ...]
 
 
 def constant_guess(human_scores: list[int]) -> int:
@@ -327,6 +348,27 @@ def constant_guess(human_scores: list[int]) -> int:
 
 def _agreement(outcomes: list[CaseOutcome]) -> Agreement:
     return Agreement(sum(1 for o in outcomes if o.agrees), len(outcomes))
+
+
+def _spread(values: list[int]) -> Spread:
+    return Spread(
+        mean=mean(values),
+        minimum=min(values),
+        maximum=max(values),
+        sd=stdev(values) if len(values) > 1 else 0.0,
+    )
+
+
+def _pearson(humans: list[int], systems: list[int]) -> float | None:
+    """Pearson r, or None when it is undefined (fewer than 2 points, or no variance).
+
+    Undefined is reported as "not defined" rather than as 0.0, which would read as "no
+    relationship" when the truth is "this cannot be computed".
+    """
+    try:
+        return correlation(humans, systems)
+    except StatisticsError:
+        return None
 
 
 def compute_metrics(payloads: list[dict[str, Any]]) -> CalibrationMetrics:
@@ -376,7 +418,16 @@ def compute_metrics(payloads: list[dict[str, Any]]) -> CalibrationMetrics:
     for outcome in outcomes:
         counts[outcome.recommended] = counts.get(outcome.recommended, 0) + 1
 
+    systems = [o.system for o in outcomes]
+    kept = [o for o in outcomes if o.case_id not in SINGLE_CONDITION_CASES]
     return CalibrationMetrics(
+        human_spread=_spread(humans),
+        system_spread=_spread(systems),
+        correlation_all=_pearson(humans, systems),
+        correlation_excluding=_pearson([o.human for o in kept], [o.system for o in kept]),
+        excluded_cases=tuple(
+            c for c in SINGLE_CONDITION_CASES if c in {o.case_id for o in outcomes}
+        ),
         outcomes=outcomes,
         agreement=_agreement(outcomes),
         floor_guess=guess,
