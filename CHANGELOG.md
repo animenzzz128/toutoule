@@ -7,6 +7,7 @@ follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **Task 1.11 — Streamlit app (#12):** paste a job description and get extraction with verbatim quotes, the red-flag rules, a score against each résumé version, and an approve/reject decision with one of five structured reject reasons. The rules live in `triage.py`, not in the page: a rejection without a reason, an approval carrying one, and an approval past a HARD flag without explicit confirmation are each refused in code. Scores are shown only for the profile in use, so the real résumés' words never appear under the sample label.
 - **Task 1.9 — Match scoring (#10):** 0–100 score against three résumé versions with 3 verified evidence pairs, 2 gaps and a recommended version; the model rates three dimensions and code computes the total. Calibration against the owner's 20 hand scores returned 3 / 20 within ±10 against a constant-guess floor of 10 / 20; no adjustment was made, because the two scales measure different things — see [`docs/eval/scoring.md`](docs/eval/scoring.md) and D-010.
 
 ## [0.0.4] - 2026-10-02

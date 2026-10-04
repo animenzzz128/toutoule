@@ -58,6 +58,25 @@ class RedFlag(BaseModel):
     message: str  # one plain English sentence for the digest and the app
 
 
+# What each rule means, in one sentence, for a reader who sees only a stored flag.
+#
+# red_flags keeps rule_id, severity and the evidence quote, not the message a rule built
+# when it fired, so the app has to say what R1 means from the id alone. The wording lives
+# here, beside the rules it describes, for the same reason REJECT_REASON_LABELS lives
+# beside RejectReason: a page that wrote its own sentence could describe a rule the code
+# no longer applies, and a column to store the message would need a migration this
+# project does not yet have. A rule's own message, where one exists, is more specific
+# than these: it names the dates and degrees that made the rule fire.
+RULE_DESCRIPTIONS: dict[str, str] = {
+    "R1": "The posting says it does not sponsor visas, for a US role you need sponsorship for.",
+    "R2": "Your graduation month falls outside the posting's stated window.",
+    "R3": "The posting's degree requirement rules out your degree.",
+    "R4": "Applications are capped, so this one has to be spent deliberately.",
+    "R5": "The deadline is three days away or less.",
+    "R6": "The deadline has already passed.",
+}
+
+
 def _stated_value(field: ExtractedField) -> str:
     """The value of a stated field. schemas.py guarantees it is a non-empty string."""
     if field.value is None:

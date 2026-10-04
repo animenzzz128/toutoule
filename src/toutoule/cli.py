@@ -22,6 +22,7 @@ from toutoule import (
     models,
     schemas,
     score,
+    triage,
 )
 from toutoule.config import ConfigError, get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
@@ -82,7 +83,7 @@ def extract_file(path: str) -> int:
             return 0
 
         job = models.Job(
-            source_id=_manual_source(session).id,
+            source_id=triage.manual_source(session).id,
             company="",  # filled from the extraction below
             title="",
             url=Path(path).resolve().as_uri(),
@@ -218,16 +219,6 @@ def _select_cases(run_id: str, resume: str | None, cases_arg: str | None) -> lis
     return [case for case in all_cases if case.case_id in wanted]
 
 
-def _manual_source(session: Session) -> models.Source:
-    """The single 'manual' source for pasted postings (ADR-005), created on first use."""
-    source = session.scalars(select(models.Source).where(models.Source.adapter == "manual")).first()
-    if source is None:
-        source = models.Source(name="manual", tier=3, url="", adapter="manual")
-        session.add(source)
-        session.commit()
-    return source
-
-
 def _print_report(session: Session, row: models.Extraction, cached: bool = False) -> None:
     """Print the 10 evidence fields, the violations and the token counts.
 
@@ -277,7 +268,7 @@ def score_job_command(job_id: int, sample: bool) -> int:
         except (score.ResumeNotFound, score.ScoringFailed) as error:
             print(f"Scoring failed for job {job_id}: {error}", file=sys.stderr)
             return 1
-        score.save_scores(session, job, scored)
+        score.save_scores(session, job, scored, "sample" if sample else "real")
         _print_scores(job, scored, sample)
     return 0
 

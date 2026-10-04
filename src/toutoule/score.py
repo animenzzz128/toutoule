@@ -9,7 +9,7 @@ Unlike extraction, the scorer reads the raw posting text rather than the Extract
 """
 
 import logging
-from typing import NamedTuple
+from typing import Literal, NamedTuple
 
 from anthropic import transform_schema
 from pydantic import ValidationError
@@ -188,6 +188,12 @@ def score_version(
     return VersionScore(result, input_tokens, output_tokens)
 
 
+# Which set of resumes produced a score: the owner's real ones or the redacted samples.
+# Recorded with every score, because the two give different numbers for the same posting
+# and nothing else in the scores row says which was read (Task 1.11).
+ProfileKind = Literal["real", "sample"]
+
+
 class ResumeNotFound(Exception):
     """No resume file for this version. The message names the path that was tried."""
 
@@ -251,14 +257,19 @@ def score_job(
 
 
 def save_scores(
-    session: Session, job: models.Job, scored: list[VersionScore]
+    session: Session,
+    job: models.Job,
+    scored: list[VersionScore],
+    profile: ProfileKind = "real",
 ) -> list[models.Score]:
     """Write one scores row per resume version and mark the job scored. Commits.
 
     payload_json holds the whole MatchResult — including all three evidence pairs whatever
     their verified flag, since unverified pairs are hidden at display but never deleted
     from the record (D-010 §3) — alongside the weights that produced the total, the token
-    counts for the call, and the model settings the call was made with.
+    counts for the call, the model settings the call was made with, and which profile
+    was read. A row written before "profile" existed has no such key, and a caller
+    comparing profiles treats that as matching neither (Task 1.11).
     """
     rows = []
     for item in scored:
@@ -272,6 +283,7 @@ def save_scores(
                 "input_tokens": item.input_tokens,
                 "output_tokens": item.output_tokens,
                 "model_settings": MODEL_SETTINGS,
+                "profile": profile,
             },
         )
         session.add(row)

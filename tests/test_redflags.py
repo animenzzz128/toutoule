@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import date, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, get_args
 
 import pytest
 from sqlalchemy import select
@@ -11,8 +11,10 @@ from toutoule import evalset, models
 from toutoule.config import get_settings
 from toutoule.db import get_engine, get_session_factory, init_db
 from toutoule.redflags import (
+    RULE_DESCRIPTIONS,
     Market,
     OwnerProfile,
+    RuleId,
     evaluate,
     has_hard_flag,
     rule_r1_visa,
@@ -366,3 +368,16 @@ def test_owner_profile_from_overridden_settings(monkeypatch: pytest.MonkeyPatch)
     profile = OwnerProfile.from_settings(get_settings(env_file=None))
 
     assert profile == OwnerProfile(requires_sponsorship=False, graduation=(2026, 12), degree="phd")
+
+
+# --- Rule descriptions ---------------------------------------------------------------
+
+
+def test_every_rule_the_module_defines_has_a_description() -> None:
+    """The app shows a stored flag, which carries an id and no sentence.
+
+    get_args reads the ids out of the RuleId type, so adding R7 later fails this test
+    until its wording is written, rather than showing a blank banner.
+    """
+    assert set(RULE_DESCRIPTIONS) == set(get_args(RuleId))
+    assert all(text.strip().endswith(".") for text in RULE_DESCRIPTIONS.values())

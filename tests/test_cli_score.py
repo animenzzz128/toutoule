@@ -182,3 +182,19 @@ def test_no_real_resume_is_tracked_by_git() -> None:
     for path in in_profile:
         name = path.removeprefix("data/profile/")
         assert name == ".gitkeep" or name.startswith("sample_"), path
+
+
+@pytest.mark.usefixtures("valid_env")
+def test_the_payload_records_which_profile_was_read(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, stored_job: int
+) -> None:
+    """Real and sample resumes give different numbers, so a row has to say which it read.
+
+    The "real" side of this is covered in test_triage.py, which scores against a
+    temporary profile folder rather than the owner's own files.
+    """
+    monkeypatch.setattr("toutoule.cli.Anthropic", lambda **_: FakeClient(*[answer()] * 3))
+
+    main(["score", str(stored_job), "--sample"])
+
+    assert {row.payload_json["profile"] for row in stored_scores(tmp_path)} == {"sample"}

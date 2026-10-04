@@ -178,3 +178,33 @@ class MatchResult(_StrictModel):
         if self.unverified_pairs != actual:
             raise ValueError(f"unverified_pairs is {self.unverified_pairs}, but {actual} failed")
         return self
+
+
+# --- Decisions (PRD F10, PD-4) -----------------------------------------------------------
+#
+# PD-4: a reject reason is a training signal, not UI politeness. It is the feedback for F18
+# and the source of the approval-rate trend, so the five reasons are a closed vocabulary
+# checked in code — free text would be unusable for either.
+
+RejectReason = Literal[
+    "no_sponsorship",
+    "wrong_location",
+    "wrong_function",
+    "already_applied",
+    "not_interested",
+]
+
+# Display text, kept beside the values so the app never invents its own wording. The keys
+# are exactly the RejectReason members; a test holds the two in step.
+REJECT_REASON_LABELS: dict[str, str] = {
+    "no_sponsorship": "No visa sponsorship",
+    "wrong_location": "Wrong location",
+    "wrong_function": "Wrong function",
+    "already_applied": "Already applied",
+    "not_interested": "Not interested",
+}
+
+# What a human can decide in the app. These are also the two JobStatus values a decision
+# writes to jobs.status, so the action needs no translation on the way to the database.
+# "snoozed" is a status the app does not yet offer; it is deliberately not an action here.
+DecisionAction = Literal["approved", "rejected"]
