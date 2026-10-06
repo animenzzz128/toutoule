@@ -18,7 +18,9 @@ from zoneinfo import ZoneInfo
 
 from openpyxl import load_workbook
 from openpyxl.cell.cell import Cell
+from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.utils import get_column_letter, range_boundaries
+from openpyxl.worksheet.cell_range import MultiCellRange
 from openpyxl.worksheet.worksheet import Worksheet
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -310,6 +312,51 @@ def _widen_table(worksheet: Worksheet, last_row: int) -> None:
         worksheet.auto_filter.ref = _with_last_row(worksheet.auto_filter.ref, last_row)
 
 
+def _extended_sqref(ranges: MultiCellRange, last_row: int) -> str | None:
+    """The same ranges with any that stop short grown to last_row, or None if none did.
+
+    Returning None for "nothing to do" is what keeps an export that fits inside the
+    existing ranges from rewriting them at all.
+    """
+    parts: list[str] = []
+    grew = False
+    for cell_range in ranges:
+        max_row = cell_range.max_row
+        if max_row < last_row:
+            max_row, grew = last_row, True
+        parts.append(
+            f"{get_column_letter(cell_range.min_col)}{cell_range.min_row}:"
+            f"{get_column_letter(cell_range.max_col)}{max_row}"
+        )
+    return " ".join(parts) if grew else None
+
+
+def _extend_validations(worksheet: Worksheet, last_row: int) -> None:
+    """Keep the dropdowns covering every row. They stop at row 200 in the owner's file."""
+    for validation in worksheet.data_validations.dataValidation:
+        grown = _extended_sqref(validation.sqref, last_row)
+        if grown is not None:
+            validation.sqref = MultiCellRange(grown)
+
+
+def _extend_conditional_formatting(worksheet: Worksheet, last_row: int) -> None:
+    """Keep the colour rules covering every row, by rebuilding the collection.
+
+    openpyxl keys conditional formatting by its range, so a range cannot simply be edited
+    in place; the rules are re-added under the grown range instead. The whole collection
+    is left alone unless at least one range stopped short.
+    """
+    entries = list(worksheet.conditional_formatting)
+    if not any(_extended_sqref(entry.sqref, last_row) for entry in entries):
+        return
+    rebuilt = ConditionalFormattingList()
+    for entry in entries:
+        grown = _extended_sqref(entry.sqref, last_row) or str(entry.sqref)
+        for rule in entry.rules:
+            rebuilt.add(grown, rule)
+    worksheet.conditional_formatting = rebuilt
+
+
 def export_jobs(
     session: Session,
     base_path: Path,
@@ -384,6 +431,8 @@ def export_jobs(
 
     if added:
         _widen_table(worksheet, row_number)
+        _extend_validations(worksheet, row_number)
+        _extend_conditional_formatting(worksheet, row_number)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     try:

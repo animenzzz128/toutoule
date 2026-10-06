@@ -412,3 +412,71 @@ def test_exporting_the_same_job_into_an_output_that_has_it_adds_nothing(
     second = export_xlsx.export_jobs(session, out, tmp_path / "again.xlsx")
     assert (second.added, second.skipped) == (0, 1)
     assert sheet(tmp_path / "again.xlsx").max_row == 4
+
+
+# --- keeping the dropdowns and colour rules over the new rows -----------------------------
+
+
+def fill_to_row(base: Path, last_row: int) -> None:
+    """Pad the base file with filler rows so the next export crosses row 200."""
+    workbook = load_workbook(base)
+    worksheet = workbook.worksheets[0]
+    for row in range(4, last_row + 1):
+        worksheet.cell(row=row, column=1, value=f"Filler {row}")
+        worksheet.cell(row=row, column=2, value="Role")
+        worksheet.cell(row=row, column=4, value=f"https://example.com/filler/{row}")
+    worksheet.tables["JobApplicationTracker"].ref = f"A1:R{last_row}"
+    workbook.save(base)
+
+
+def ranges(worksheet: Worksheet) -> tuple[list[str], list[str]]:
+    return (
+        [str(d.sqref) for d in worksheet.data_validations.dataValidation],
+        [str(r.sqref) for r in worksheet.conditional_formatting],
+    )
+
+
+def test_ranges_are_left_alone_when_the_new_rows_already_fit(
+    session: Session, base: Path, out: Path
+) -> None:
+    before = ranges(sheet(base))
+    add_job(session)
+    export_xlsx.export_jobs(session, base, out)
+    assert ranges(sheet(out)) == before
+    assert ranges(sheet(out))[0] == ["C2:C200", "E2:E200", "H2:H200"]
+
+
+def test_ranges_grow_once_an_export_passes_the_row_they_stop_at(
+    session: Session, base: Path, out: Path
+) -> None:
+    fill_to_row(base, 200)
+    add_job(session, company="Row 201 Co", url="https://example.com/201")
+    export_xlsx.export_jobs(session, base, out)
+
+    validations, formats = ranges(sheet(out))
+    assert validations == ["C2:C201", "E2:E201", "H2:H201"]
+    assert formats == ["C2:C201", "N2:N201"]
+    assert sheet(out).tables["JobApplicationTracker"].ref == "A1:R201"
+
+
+def test_a_grown_dropdown_keeps_its_allowed_values(session: Session, base: Path, out: Path) -> None:
+    fill_to_row(base, 200)
+    add_job(session, company="Row 201 Co", url="https://example.com/201")
+    export_xlsx.export_jobs(session, base, out)
+
+    status = next(
+        d for d in sheet(out).data_validations.dataValidation if str(d.sqref).startswith("C2")
+    )
+    assert "To Apply" in status.formula1
+    assert value(sheet(out), 201, "Status") == "To Apply"
+
+
+def test_a_grown_colour_rule_keeps_its_rules(session: Session, base: Path, out: Path) -> None:
+    fill_to_row(base, 200)
+    add_job(session, company="Row 201 Co", url="https://example.com/201")
+    export_xlsx.export_jobs(session, base, out)
+
+    by_range = {str(entry.sqref): entry for entry in sheet(out).conditional_formatting}
+    assert [rule.type for rule in by_range["C2:C201"].rules] == ["expression"] * 3
+    assert [rule.type for rule in by_range["N2:N201"].rules] == ["colorScale"]
+    assert by_range["N2:N201"].rules[0].colorScale is not None
