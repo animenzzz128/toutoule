@@ -104,3 +104,20 @@ def test_the_default_output_goes_under_data_private(
     assert main(["export", "--base", str(base)]) == 0
     written = list((tmp_path / "data" / "private" / "exports").glob("tracker_*.xlsx"))
     assert len(written) == 1
+
+
+@pytest.mark.usefixtures("valid_env", "database")
+def test_the_output_names_each_job_it_added_and_skipped(
+    database: Path, base: Path, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # An id on the command line says nothing about which posting it is, so the run names
+    # what it acted on.
+    seed(database, company="Northwind Labs", title="AI Product Manager")
+    seed(database, company="Already There", title="Staff PM", url="https://example.com/jobs/1")
+    out = tmp_path / "export.xlsx"
+
+    assert main(["export", "--base", str(base), "--out", str(out)]) == 0
+    printed = capsys.readouterr().out
+    assert "added 1, skipped 1 already in tracker" in printed
+    assert "  + Northwind Labs - AI Product Manager" in printed
+    assert "  - Already There - Staff PM (already in tracker)" in printed

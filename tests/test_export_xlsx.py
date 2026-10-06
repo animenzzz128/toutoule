@@ -425,7 +425,10 @@ def fill_to_row(base: Path, last_row: int) -> None:
         worksheet.cell(row=row, column=1, value=f"Filler {row}")
         worksheet.cell(row=row, column=2, value="Role")
         worksheet.cell(row=row, column=4, value=f"https://example.com/filler/{row}")
-    worksheet.tables["JobApplicationTracker"].ref = f"A1:R{last_row}"
+    for table in worksheet.tables.values():  # a repaired tracker may have none
+        table.ref = f"A1:R{last_row}"
+    if worksheet.auto_filter.ref:
+        worksheet.auto_filter.ref = f"A1:R{last_row}"
     workbook.save(base)
 
 
@@ -480,3 +483,57 @@ def test_a_grown_colour_rule_keeps_its_rules(session: Session, base: Path, out: 
     assert [rule.type for rule in by_range["C2:C201"].rules] == ["expression"] * 3
     assert [rule.type for rule in by_range["N2:N201"].rules] == ["colorScale"]
     assert by_range["N2:N201"].rules[0].colorScale is not None
+
+
+# --- a base file whose table Excel removed ------------------------------------------------
+
+
+def strip_table(base: Path) -> None:
+    """Drop the table and leave a worksheet-level filter, as Excel's repair does.
+
+    The owner's real tracker was repaired this way once ("Removed Feature: Table from
+    /xl/tables/table1.xml"), so a base file with no table is a real shape, not a theory.
+    """
+    workbook = load_workbook(base)
+    worksheet = workbook.worksheets[0]
+    del worksheet.tables["JobApplicationTracker"]
+    worksheet.auto_filter.ref = "A1:R3"
+    workbook.save(base)
+
+
+def test_a_base_with_no_table_exports_correctly(session: Session, base: Path, out: Path) -> None:
+    strip_table(base)
+    add_job(session, score=77)
+    assert export_xlsx.export_jobs(session, base, out).added == 1
+
+    new = sheet(out)
+    assert not new.tables  # nothing invented to replace what Excel removed
+    assert new.auto_filter.ref == "A1:R4"  # the sheet filter grew instead
+    assert [cell.value for cell in new[1]] == list(COLUMNS)
+    assert value(new, 4, "Company") == "Example Co"
+    assert value(new, 4, "Candidate Fit") == 77
+    assert value(new, 4, "Priority Score") is None
+    assert [cell.fill.fill_type for cell in new[4]] == [None] * 18
+    assert new.freeze_panes == "C2"
+
+
+def test_a_base_with_no_table_still_grows_its_dropdowns(
+    session: Session, base: Path, out: Path
+) -> None:
+    strip_table(base)
+    fill_to_row(base, 200)
+    add_job(session, company="Row 201 Co", url="https://example.com/201")
+    export_xlsx.export_jobs(session, base, out)
+
+    validations, formats = ranges(sheet(out))
+    assert validations == ["C2:C201", "E2:E201", "H2:H201"]
+    assert formats == ["C2:C201", "N2:N201"]
+
+
+def test_the_summary_names_the_jobs_it_acted_on(session: Session, base: Path, out: Path) -> None:
+    add_job(session, company="Northwind Labs", title="AI Product Manager")
+    add_job(session, company="Already There", title="Staff PM", url="https://example.com/jobs/1")
+
+    summary = export_xlsx.export_jobs(session, base, out)
+    assert summary.added_jobs == ("Northwind Labs - AI Product Manager",)
+    assert summary.skipped_jobs == ("Already There - Staff PM",)

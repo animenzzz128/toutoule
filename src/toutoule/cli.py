@@ -303,6 +303,10 @@ def export_command(base: str, out: str | None, jobs: str | None, sample: bool) -
             print(f"Export refused: {error}", file=sys.stderr)
             return 1
     print(f"added {summary.added}, skipped {summary.skipped} already in tracker")
+    for label in summary.added_jobs:
+        print(f"  + {label}")
+    for label in summary.skipped_jobs:
+        print(f"  - {label} (already in tracker)")
     print(f"Wrote {summary.path}")
     print("The tracker you pointed at was not changed. Check the new file, then replace it.")
     return 0

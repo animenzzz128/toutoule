@@ -150,11 +150,18 @@ class ExportRefused(Exception):
 
 
 class ExportSummary(NamedTuple):
-    """What one export did. Printed by the CLI and asserted by the tests."""
+    """What one export did. Printed by the CLI and asserted by the tests.
+
+    added_jobs and skipped_jobs name the postings, "Company - Title", so the CLI can show
+    which jobs it acted on rather than only how many: an id on the command line says
+    nothing about which posting it is.
+    """
 
     added: int
     skipped: int
     path: Path
+    added_jobs: tuple[str, ...] = ()
+    skipped_jobs: tuple[str, ...] = ()
 
 
 def approved_job_ids(session: Session) -> list[int]:
@@ -412,6 +419,8 @@ def export_jobs(
             )
         prepared.append((job, build_row(job, extraction, result, _flags(session, job_id))))
 
+    added_jobs: list[str] = []
+    skipped_jobs: list[str] = []
     existing = _existing_keys(worksheet)
     style_row = 2 if worksheet.max_row >= 2 else None
     date_format = _date_format(worksheet, style_row)
@@ -419,14 +428,17 @@ def export_jobs(
     added = skipped = 0
 
     for job, values in prepared:
+        label = f"{job.company} - {job.title}"
         if _is_duplicate(job, existing):
-            logger.info("job %s (%s) is already in the tracker", job.id, job.company)
+            logger.info("job %s (%s) is already in the tracker", job.id, label)
+            skipped_jobs.append(label)
             skipped += 1
             continue
         row_number += 1
         _write_row(worksheet, row_number, values, style_row, date_format)
         existing.urls.add((job.url or "").strip())
         existing.all_names.add(_name_key(job.company, job.title))
+        added_jobs.append(label)
         added += 1
 
     if added:
@@ -440,7 +452,13 @@ def export_jobs(
     except PermissionError as error:
         raise ExportRefused(f"Close {out_path} in Excel and try again.") from error
     logger.info("added %s, skipped %s already in tracker", added, skipped)
-    return ExportSummary(added=added, skipped=skipped, path=out_path)
+    return ExportSummary(
+        added=added,
+        skipped=skipped,
+        path=out_path,
+        added_jobs=tuple(added_jobs),
+        skipped_jobs=tuple(skipped_jobs),
+    )
 
 
 def _date_format(worksheet: Worksheet, style_row: int | None) -> str:
