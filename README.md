@@ -54,6 +54,13 @@ field no prompt version changed — and in values filed under the wrong field. I
 stopped under a stopping rule fixed before the first run
 ([D-009](docs/06_DECISION_LOG.md)), not because the targets were reached.
 
+**The tracker export leaves two columns blank by design.** Priority Score stays empty:
+the match score is a measure of résumé fit and goes to Candidate Fit, and D-010 measured
+fit and the owner's priorities as different scales. Market stays empty because the market
+is an argument to the red-flag rules and is never stored, so there is nothing to write at
+export time; persisting it is deferred past M1. Export is CLI-only in M1 — there is no
+button in the Streamlit app.
+
 **No held-out set.** The prompts were tuned on the same 50 postings they are scored on,
 so these results may overstate performance on postings the system has not seen.
 

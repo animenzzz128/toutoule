@@ -245,6 +245,47 @@ kept only for Task 1.12's format.
 
 2026-10-03: first run 3/20 vs floor 10/20; no adjustment made, see docs/eval/scoring.md.
 
+## D-011 · 2026-10-06 · Tracker export mapping
+
+**Context.** Task 1.12 writes into the owner's existing 18-column tracker. Which column
+each stored field goes to is a product decision, not an implementation detail: the file is
+his, and a value in the wrong column is worse than no value.
+
+**Decision.**
+1. *Nine columns are filled by the system*: Company, Title, Link, Geography, Deadline,
+   Candidate Fit, Main Skills Required, Recommended Resume, Last Verified. Status is a
+   constant. Notes is written only when a job has red flags.
+2. *Fit is not priority.* The match score goes to **Candidate Fit**. **Priority Score stays
+   blank**, always. D-010 measured the two as different scales (3 / 20 agreement); writing
+   a fit number into a priority column would assert an equivalence the data denies.
+3. *Status is translated, not copied.* `JobStatus` and the tracker's dropdown are different
+   vocabularies. Every exported job gets **"To Apply"** — the tracker's words for "decided
+   yes, not yet applied" — which is also a member of the column's own dropdown, asserted in
+   a test that reads the list out of the file.
+4. *Market is deferred.* The market is an argument to the red-flag rules and is never
+   persisted, so at export time it is unrecoverable. The column is left blank; no schema
+   change in M1. Listed under README known limits.
+5. *Six columns are the owner's* and are always blank: Application Date, Interview Stage,
+   Interviewer, Next Action, Urgency, Market. The flags go in Notes, so Urgency stays his.
+6. *Approved only*, enforced in code. Decisions are append-only, so the latest one per job
+   decides. A job named in `--jobs` that is not approved raises, as does one with no
+   extraction or no score for the active profile — a blank fit column would be
+   indistinguishable from a real one.
+7. *Verbatim.* Deadline is written exactly as extracted, with no date parsing; an unstated
+   field writes "Not stated", for all five critical and all five important fields.
+   Last Verified is our own timestamp, converted to America/New_York before the date is
+   taken.
+8. *Never writes in place.* The export reads the owner's file and writes a new one.
+
+**Consequences.** The fixture `tests/fixtures/tracker_template.xlsx` carries the owner's
+header row, styling, widths, dropdowns and conditional formatting with fabricated data
+rows, and the round-trip test compares against it. Two format notes from building it: new
+rows copy the base row's font, border, alignment and number format but never its fill,
+because the real tracker's first data row carries a one-off highlight that would otherwise
+repeat forever; and the worksheet-level autoFilter was moved onto the table, because the
+two covered the same range, which is invalid OOXML and made Excel offer to repair the
+file. Nothing should restore it.
+
 ---
 
 ## Template for new entries
