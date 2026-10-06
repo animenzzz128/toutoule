@@ -4,6 +4,7 @@ import argparse
 import io
 import logging
 import sys
+from datetime import datetime
 from pathlib import Path
 
 from anthropic import Anthropic
@@ -18,6 +19,7 @@ from toutoule import (
     evalreport,
     evalrun,
     evalset,
+    export_xlsx,
     extract,
     models,
     schemas,
@@ -273,6 +275,39 @@ def score_job_command(job_id: int, sample: bool) -> int:
     return 0
 
 
+def export_command(base: str, out: str | None, jobs: str | None, sample: bool) -> int:
+    """Append every approved job to a copy of the owner's tracker. Returns the exit code.
+
+    --base is required and has no default: a default path could quietly point at the real
+    tracker, and this command should never write near a file it was not handed.
+    """
+    try:
+        settings = get_settings()
+    except ConfigError as error:
+        print(error, file=sys.stderr)
+        return 1
+    try:
+        job_ids = [int(part) for part in jobs.split(",")] if jobs else None
+    except ValueError:
+        print(f"--jobs takes comma-separated job ids, not {jobs!r}.", file=sys.stderr)
+        return 1
+
+    stamp = datetime.now(export_xlsx.TRACKER_TZ).strftime("%Y-%m-%d_%H%M")
+    out_path = Path(out) if out else Path("data/private/exports") / f"tracker_{stamp}.xlsx"
+    engine = get_engine(settings.database_url)
+    init_db(engine)
+    with get_session_factory(engine)() as session:
+        try:
+            summary = export_xlsx.export_jobs(session, Path(base), out_path, job_ids, sample=sample)
+        except export_xlsx.ExportRefused as error:
+            print(f"Export refused: {error}", file=sys.stderr)
+            return 1
+    print(f"added {summary.added}, skipped {summary.skipped} already in tracker")
+    print(f"Wrote {summary.path}")
+    print("The tracker you pointed at was not changed. Check the new file, then replace it.")
+    return 0
+
+
 def _print_scores(job: models.Job, scored: list[score.VersionScore], sample: bool) -> None:
     """Print each version's score, then the recommended one and what it cost.
 
@@ -407,6 +442,17 @@ def main(argv: list[str] | None = None) -> int:
         "--weights", help="e.g. domain_fit=40,skills_overlap=35,seniority_fit=25"
     )
     cal_parser.add_argument("--sample", action="store_true", help="use the redacted sample resumes")
+    export_parser = commands.add_parser(
+        "export", help="append approved jobs to a copy of the tracker"
+    )
+    export_parser.add_argument("--base", required=True, help="the tracker to copy and append to")
+    export_parser.add_argument(
+        "--out", help="where to write; default data/private/exports/tracker_<date_time>.xlsx"
+    )
+    export_parser.add_argument("--jobs", help="comma-separated job ids, default every approved job")
+    export_parser.add_argument(
+        "--sample", action="store_true", help="use scores from the redacted sample resumes"
+    )
     commands.add_parser("eval-init", help="write blank label templates for new cases.csv rows")
     eval_check_parser = commands.add_parser(
         "eval-check", help="check the eval set and report composition progress"
@@ -441,6 +487,8 @@ def main(argv: list[str] | None = None) -> int:
         return calibrate_command(
             args.run, args.rescore, args.limit, args.cases, args.weights, args.sample
         )
+    if args.command == "export":
+        return export_command(args.base, args.out, args.jobs, args.sample)
     if args.command == "eval-init":
         return eval_init()
     if args.command == "eval-check":
