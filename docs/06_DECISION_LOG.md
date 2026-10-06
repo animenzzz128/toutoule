@@ -286,6 +286,11 @@ repeat forever; and the worksheet-level autoFilter was moved onto the table, bec
 two covered the same range, which is invalid OOXML and made Excel offer to repair the
 file. Nothing should restore it.
 
+2026-10-06: the manual Excel check found the owner's own tracker carried a corrupt table
+part — Excel repaired it with "Removed Feature: Table from /xl/tables/table1.xml"; the
+data rows were intact. The exporter therefore handles a base file with or without a table,
+growing the worksheet filter when there is none, and both shapes are tested.
+
 ---
 
 ## Template for new entries
