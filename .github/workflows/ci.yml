@@ -23,3 +23,7 @@ jobs:
       - run: uv run ruff format --check
 
       - run: uv run pytest
+
+      # Streamlit Cloud installs from requirements.txt, not uv.lock. Fail if it drifted.
+      - run: uv export --no-dev --no-hashes -o requirements.txt
+      - run: git diff --exit-code requirements.txt
