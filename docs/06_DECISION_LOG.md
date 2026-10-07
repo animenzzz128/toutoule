@@ -293,6 +293,43 @@ growing the worksheet filter when there is none, and both shapes are tested.
 
 ---
 
+## D-012 · 2026-10-06 · Close M1 with the critical-hallucination target not met
+
+**Context.** The M1 checklist requires 0% critical-field hallucination on 50 cases
+(`docs/04_EXECUTION_PLAN.md`, Milestone M1). The shipped pipeline (v4) measures 6/249
+derived and 8/249 fresh (`docs/eval/iteration_log.md`) — not zero. The scoring tier also
+missed its target: 3/20 within ±10 of the owner's hand scores, against a constant-guess
+floor of 10/20 and a target of 14/20 (D-010, `docs/eval/scoring.md`).
+
+**Options.**
+(a) Keep iterating extraction and scoring before declaring M1 done.
+(b) Close M1 on schedule and report both misses plainly, as the measured result rather
+than a claim.
+
+**Decision.** (b), for the reasons D-009's amendment of 2026-10-02 already gave when the
+owner chose to stop at v4 early, before any of D-009's stop conditions had fired: the
+remaining critical-field errors (3 misfiled graduation windows, 3 fabricated values,
+mostly `application_cap`) looked like run-to-run noise against the 2026-10-04 M1 target,
+so another prompt iteration was expected to move 1–2 fields, not close the gap. For
+scoring, D-010's own adjustment rule already permits at most one change and
+`docs/eval/scoring.md` explains why zero was the right number of adjustments to make, not
+a missed opportunity.
+
+**Consequences.**
+- The README and release notes show target vs. measured result for every tier (critical
+  hallucination, critical accuracy, critical false negative — the one target met, 5/67
+  derived and 6/67 fresh, against ≤10% — important accuracy, reference recall, scoring
+  agreement), not a single pass/fail line.
+- The M1 checklist box for "critical-field hallucination rate: 0% on 50 cases" stays
+  unticked, with a pointer back to this entry and to `docs/eval/iteration_log.md`.
+- The resume bullet and any public-facing claim about this project never states "0%
+  hallucination" or "a calibrated score" — the measured numbers are 6–8/249 and 3/20,
+  and that is what gets cited.
+- Task 1.10 stays after M1 (D-007); `application_cap` is the first extraction change
+  when extraction work resumes.
+
+---
+
 ## Template for new entries
 
 ```markdown
