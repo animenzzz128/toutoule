@@ -17,17 +17,6 @@ I've approved it. Nothing is ever submitted for me.
 
 ## Results
 
-The same 50 real job descriptions were run through a plain-prompt baseline (same model,
-same field definitions, no schema, no evidence, no verification) and through the pipeline.
-
-| Metric | Target | Plain-prompt baseline | v1 | v4 shipped (derived / fresh) | Met? |
-|---|---|---|---|---|---|
-| Critical hallucination | 0 / 249 | 20 / 249 (8.0%) | 14 / 249 (5.6%) | 6 / 249 (2.4%) · 8 / 249 (3.2%) | No |
-| Critical false negative | ≤ 10% of 67 | 5 / 67 (7.5%) | 13 / 67 (19.4%) | 5 / 67 (7.5%) · 6 / 67 (9.0%) | **Yes** |
-| Critical accuracy | ≥ 95% of stated fields | 54 / 57 (94.7%) | 47 / 50 (94.0%) | 55 / 62 (88.7%) · 54 / 57 (94.7%) | No |
-| Important accuracy | ≥ 90% of stated fields | 61 / 133 (45.9%) | 45 / 136 (33.1%) | 51 / 131 (38.9%) · 43 / 130 (33.1%) | No |
-| Reference recall | ≥ 80% of 552 | 353 / 552 (63.9%) | 254 / 552 (46.0%) | 250 / 552 (45.3%) · 256 / 552 (46.4%) | No |
-| Match score within ±10 of my score | 14 / 20 (70%) | — | — | 3 / 20 (15%); constant-guess floor 10 / 20 (50%) | No |
 
 Runs: baseline and v1 `2026-10-01T1940`; v4 derived `2026-10-02T2127-v4` (v3's saved
 outputs re-verified in code, 0 API calls); v4 fresh `2026-10-02T2219`; match score
