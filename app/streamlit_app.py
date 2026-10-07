@@ -59,13 +59,19 @@ def model_client(_settings: Settings) -> extract.ModelClient:
 def sidebar(session) -> bool:  # type: ignore[no-untyped-def]
     """Profile in use, the toggle that changes it, and the recent jobs. Returns the toggle."""
     st.sidebar.title("投投乐")
+    # No real profile on disk means the deployed demo, where the samples are all there is
+    # (D-010 §9). Disable the toggle rather than leave a control that cannot change anything.
+    only_sample = not config.PROFILE_DIR.exists()
     use_sample = st.sidebar.toggle(
         "Use sample profile",
         key="use_sample",
-        value=False,
+        value=only_sample,
+        disabled=only_sample,
         help="Score against the redacted sample resumes instead of the real ones.",
     )
     st.sidebar.caption(f"Profile in use: **{triage.active_profile_dir(use_sample).kind}**")
+    if only_sample:
+        st.sidebar.caption("This deployment has no real profile, so only the sample is available.")
 
     st.sidebar.subheader("Recent jobs")
     jobs = triage.recent_jobs(session)

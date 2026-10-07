@@ -17,6 +17,7 @@ from fakes import FakeClient
 from postings import POSTING, RESUME, extraction_answer, score_answer
 from sqlalchemy import select
 from streamlit.testing.v1 import AppTest
+from streamlit.testing.v1.errors import AppTestError
 
 from toutoule import config, models, triage
 from toutoule.db import get_engine, get_session_factory
@@ -268,6 +269,40 @@ def test_flipping_to_the_sample_profile_hides_the_real_resumes_words(
     text = page_text(at)
     assert REAL_LINE not in text
     assert "Not scored with the sample profile yet." in text
+
+
+def test_with_no_real_profile_the_toggle_is_disabled_and_the_page_says_which(
+    make_app: AppFactory,
+) -> None:
+    """The deployed demo: data/private/ is gitignored, so the samples are all there is."""
+    at = make_app()  # profile_dirs leaves the real folder uncreated
+
+    toggle = at.toggle(key="use_sample")
+    assert toggle.disabled
+    assert toggle.value is True
+    text = page_text(at)
+    assert "Profile in use: **sample**" in text
+    assert "no real profile" in text
+    # AppTest refuses interactions a browser user could not perform, so this is the real
+    # guarantee: there is no way to reach the real profile from the deployed page.
+    with pytest.raises(AppTestError):
+        toggle.set_value(False)
+
+
+def test_with_a_real_profile_the_toggle_still_works_and_starts_on_real(
+    make_app: AppFactory, profile_dirs: tuple[Path, Path]
+) -> None:
+    real, _ = profile_dirs
+    real.mkdir()
+
+    at = make_app()
+
+    toggle = at.toggle(key="use_sample")
+    assert not toggle.disabled
+    assert toggle.value is False
+    text = page_text(at)
+    assert "Profile in use: **real**" in text
+    assert "no real profile" not in text
 
 
 def test_a_sidebar_entry_reopens_its_job(make_app: AppFactory) -> None:
