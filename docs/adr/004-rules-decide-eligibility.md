@@ -1,68 +1,49 @@
 # ADR-004: Rules, not the LLM, decide eligibility
 
-**Status:** Accepted · 2026-09-30
+**Status:** Accepted · 2026-10-06
 
 ## Context
 
-Some jobs are ones the owner cannot apply to: the employer will not sponsor a US visa,
-the graduation window misses the owner's graduation month, the role needs a PhD, or the
-deadline has passed. Showing those jobs wastes attention. Hiding a job the owner *could*
-apply to is worse, because nobody finds out it existed.
+Some jobs are ones the owner cannot apply to: no US visa sponsorship, a graduation window
+that misses his month, a PhD-only requirement, a passed deadline. Showing those wastes
+attention; hiding a job he *could* apply to is worse, because nobody finds out it existed.
 
-The simplest design asks the model "is this candidate eligible?" That is what the
-scheduled-prompt baseline does (PRD §1a, D-004), and it has three problems:
-
-- **It cannot be tested.** The same posting can get a different verdict on a different
-  day or after a model upgrade. No test pins it down.
-- **It cannot be explained.** A "no" comes with a fluent reason, but nothing ties that
-  reason to a sentence in the posting.
-- **It guesses in the costly direction.** Asked to decide, a model fills gaps. A posting
-  that says nothing about sponsorship easily becomes "probably no sponsorship", and a
-  real opportunity disappears.
+Asking the model "is this candidate eligible?" — what the scheduled-prompt baseline does
+(PRD §1a, D-004) — cannot be tested (the same posting can get a different verdict on a
+different day), cannot be explained (a fluent "no" ties to no sentence in the posting),
+and guesses in the costly direction (silence on sponsorship easily becomes "probably no").
 
 ## Decision
 
 The model only extracts and cites (ADR-003). Six deterministic rules in `redflags.py`
-decide (tech spec §4). R1, R2, R3 and R6 are HARD and exclude the job. R4 (SCARCE) and
-R5 (URGENT) only change how it is shown.
+decide (tech spec §4). R1, R2, R3, R6 are HARD and exclude the job; R4 (SCARCE) and R5
+(URGENT) only change how it is shown.
 
 - **Pure functions.** Each rule takes the extraction, the owner's profile, the market and
-  today's date as arguments. It reads no database, no clock and no settings, so the same
-  input always gives the same flags, and each rule is a one-line test.
-- **The asymmetry.** A field with `stated: false` never fires any rule. That check is the
-  first line of every rule. Unknown is shown to the human; it is never a reason to
-  exclude.
-- **Evidence travels with the flag.** Every flag carries the field's verbatim quote, which
-  ADR-003 has already checked against the posting. A HARD flag can always be traced to
-  words the employer actually wrote.
-
-### Three kinds of "no flag"
-
-A rule that returns nothing means one of three different things:
-
-1. **Not stated.** The posting is silent. That is information, and the human sees it.
-2. **Stated and fine.** The rule read the value and the owner passes: "conditional"
-   sponsorship, a window that includes 2027-05, "Bachelor's or above".
-3. **Stated but unreadable.** The value is not in a format the rule understands, e.g. a
-   graduation window of "2027-06" alone or a deadline of "rolling basis". R2 logs a
-   warning for this case. The deadline rules stay silent, because relative deadlines are
-   normal.
-
-All three leave the job in the digest. Only a positive, evidenced match excludes it.
+  today's date as arguments — no database, no clock, no settings — so the same input
+  always gives the same flags.
+- **"Not stated" never excludes.** A field with `stated: false` never fires a rule; this
+  is the first check in every rule function and is pinned down by
+  `tests/test_redflags.py::test_not_stated_never_triggers_hard`.
+- **A HARD flag can be overridden, but not silently.** `triage.record_decision` refuses an
+  `approved` decision on a job with any HARD flag unless the caller passes
+  `confirm_hard=True` — so discarding the rules' verdict is a deliberate, logged act, not
+  a mis-click.
+- **Evidence travels with the flag.** Every flag carries the field's verbatim quote,
+  already checked against the posting by ADR-003.
 
 ## Consequences
 
 - Every exclusion is reproducible and explainable: rule id, field, quote, one sentence.
-- **Known limit: R3 is deliberately narrow.** It fires only when the normalized degree
-  requirement exactly equals an entry on a short list (e.g. "phd required", "博士及以上",
-  "undergraduates only"). "PhD degree required" or any other wording the list does not
-  contain is missed, and the job reaches the human. That is the safe error. Widening the
-  list is a code change with a test, never fuzzy or LLM-based matching.
-- **Known limit: R2, R5 and R6 depend on the value format.** They read only the ISO forms
-  extract_v1 asks for ("2026-10-31", "2026-09") and the ranges "A to B" / "A - B". The
-  prompt does not pin down a range format, so model drift ("Sept 2026 – Aug 2027") turns
-  R2 silent rather than wrong. Pinning the range format is a candidate for extract_v2,
-  and the R2 warning count shows how often it happens.
+- **Known limit: R3 is deliberately narrow.** It fires only on an exact match against a
+  short list of excluding requirements (e.g. "phd required", "博士及以上"). Any other
+  wording is missed, and the job reaches the human — the safe direction.
+- **Finding (fixed in Task 1.11): R1 depended on an input that, in practice, never
+  arrived until the app supplied it.** `market` was always an explicit parameter (never
+  read off the `location` field), but the only caller that supplies a real value — the
+  Streamlit app's market selector (`app/streamlit_app.py`) — did not exist until Task
+  1.11. Before it, every real call to `run_triage` left `market=None`, so R1 could never
+  fire outside a test that passed a market directly, however the input data looked.
 - A month-only deadline fires R6 only after that whole month is over, and never fires R5.
-- The market is an explicit input, not guessed from the location field. Until sources
-  supply it, `None` means unknown, and R1 does not fire.
+- Rules only know what the model extracted and verified; a field the extractor misses or
+  misfiles (ADR-003) is invisible to every rule, whatever the posting actually says.

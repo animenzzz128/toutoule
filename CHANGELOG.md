@@ -6,6 +6,27 @@ follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-07
+
+M1: core engine. Closed with the critical-hallucination and match-score targets not met;
+the decision and the measured results are in D-012 and the README.
+
+### M1 summary
+- **Task 1.1 — Project scaffolding:** uv project, package layout, settings from `.env`, CI running ruff and pytest.
+- **Task 1.2 — Data model:** SQLAlchemy tables on SQLite with portable types, and a repeat-safe `init_db()`.
+- **Task 1.3 — Pydantic schemas:** every field says whether it was stated and quotes its evidence.
+- **Task 1.4 — Extraction with evidence verification:** quotes not found in the posting are downgraded and logged.
+- **Task 1.5 — Red-flag rules:** six deterministic rules; a field that isn't stated never excludes a job.
+- **Task 1.6 — Eval set:** 50 real job descriptions with model-drafted, owner-reviewed labels (D-008).
+- **Task 1.7 — Eval harness and baseline:** the pipeline and a plain-prompt baseline scored on the same 50 postings.
+- **Task 1.8 — Iteration:** four logged versions; shipped v4 at 6 / 249 (derived) and 8 / 249 (fresh) critical hallucination against the baseline's 20 / 249.
+- **Task 1.9 — Match scoring:** 3 / 20 within ±10 of the owner's scores against a constant-guess floor of 10 / 20; no adjustment made.
+- **Task 1.11 — Streamlit app:** paste, evidence, flags, scores, and approve/reject with a structured reason.
+- **Task 1.12 — Tracker export:** approved jobs appended to a copy of the owner's 18-column tracker, format preserved.
+
+Task 1.10 (rewrite suggestions) moved after M1 under D-007; ADR-007 records the design.
+ADRs 001, 003, 004 and 007 are written.
+
 ### Added
 - **Task 1.12 — Tracker export (#13):** `export` appends approved jobs to a copy of the owner's 18-column tracker, preserving header text, column order, styling, widths, freeze panes, dropdowns and conditional formatting; the file it reads is never written to. The match score goes to Candidate Fit and Priority Score is always blank (D-010, D-011). Refuses before writing anything if the header row is not the owner's, if a named job is not approved, or if a job has no extraction or score. A job already in the tracker is skipped.
 - **Task 1.11 — Streamlit app (#12):** paste a job description and get extraction with verbatim quotes, the red-flag rules, a score against each résumé version, and an approve/reject decision with one of five structured reject reasons. The rules live in `triage.py`, not in the page: a rejection without a reason, an approval carrying one, and an approval past a HARD flag without explicit confirmation are each refused in code. Scores are shown only for the profile in use, so the real résumés' words never appear under the sample label.
@@ -19,6 +40,8 @@ Checkpoint C: evaluation harness and tuned extraction.
 - **Task 1.6 — Build the eval set (#7):** 50 real job descriptions with hand-checked labels, each `stated: true` critical field carrying a verbatim quote; drafted by a model from another family and owner-reviewed, with the method and its risk recorded as D-008.
 - **Task 1.7 — Eval harness and baseline run (#8):** `eval` scores both the pipeline and a plain-prompt baseline on the same 50 postings, reporting the three extraction tiers per run with every disagreement listed; adjudications and equivalences keep a verdict applying to later runs until the system's answer changes.
 - **Task 1.8 — Iteration to target (#9):** four logged versions with hypotheses written before each run. Shipped v4 — `extract_v3` plus a code check that every `materials_required` item be named by its own quote — at 6–8 / 249 critical hallucination and 5–6 / 67 missed across two runs, against the plain-prompt baseline's 20 / 249. Four of the five targets are not met and are reported as results under D-009's stopping rule, not iterated away.
+
+Correction (2026-10-07): labels were model-drafted and owner-reviewed, not hand-checked (D-008); v4 was an early stop recorded as a D-009 amendment, before any stop condition fired.
 
 ## [0.0.3] - 2026-09-30
 

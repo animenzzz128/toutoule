@@ -156,12 +156,12 @@ the project stopped here, it would still be a credible interview showcase.
 ## 🏁 MILESTONE M1 — Core Engine
 **Due 2026-10-04 (target, D-007); fallback 2026-10-08**
 
-- [ ] Paste-to-decision loop works end to end
-- [ ] Critical-field hallucination rate: 0% on 50 cases
-- [ ] Plain-prompt baseline scored on the same 50 cases; delta reported in the README
-- [ ] Iteration log with ≥3 documented versions and metric deltas
-- [ ] Export preserves the tracker format
-- [ ] ADRs 001, 003, 004, 007 written
+- [x] Paste-to-decision loop works end to end
+- [ ] Critical-field hallucination rate: 0% on 50 cases — not met: 6/249 derived, 8/249 fresh; see D-012
+- [x] Plain-prompt baseline scored on the same 50 cases; delta reported in the README
+- [x] Iteration log with ≥3 documented versions and metric deltas
+- [x] Export preserves the tracker format
+- [x] ADRs 001, 003, 004, 007 written
 - [ ] README with screenshots and metrics
 - [ ] Deployed to Streamlit Community Cloud on the redacted sample profile
 - [ ] Repository made public
