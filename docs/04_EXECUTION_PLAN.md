@@ -162,9 +162,9 @@ the project stopped here, it would still be a credible interview showcase.
 - [x] Iteration log with ≥3 documented versions and metric deltas
 - [x] Export preserves the tracker format
 - [x] ADRs 001, 003, 004, 007 written
-- [ ] README with screenshots and metrics
-- [ ] Deployed to Streamlit Community Cloud on the redacted sample profile
-- [ ] Repository made public
+- [x] README with screenshots and metrics
+- [x] Deployed to Streamlit Community Cloud on the redacted sample profile
+- [x] Repository made public
 - [ ] Tagged `v0.1.0`
 
 **At M1 the project is resume-ready.** Write the bullet now, with the real numbers.

@@ -64,15 +64,18 @@ The stack is deliberately small: Python, Pydantic, SQLAlchemy on SQLite, the Ant
 SDK and Streamlit. There's no frontend framework, vector database or orchestration
 library ([ADR-001](docs/adr/001-stack-minimalism.md)).
 
-<!-- Screenshots (sample profile only), to add in docs/img/:
-![Paste a job description](docs/img/paste.png)
-![Evidence beside every critical field](docs/img/evidence.png)
-![Approve or reject with a structured reason](docs/img/decision.png)
--->
+## Screenshots
+
+Taken from the live demo, which runs on the redacted sample profile.
+
+![The triage form, with the sidebar reporting the sample profile in use](docs/img/paste.png)
+
+*Paste a posting and pick its market. The deployment ships no real profile, so the
+sidebar toggle is disabled and says which profile is in use.*
 
 ## Live demo
 
-Live demo: \<link added after deploy\>
+[toutoule-uz7gtw3pxwffgea8l8mgwq.streamlit.app](https://toutoule-uz7gtw3pxwffgea8l8mgwq.streamlit.app/)
 
 It runs on a redacted sample profile, not my real résumés, and may stop answering once its
 monthly API budget is used up.
