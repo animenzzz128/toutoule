@@ -6,6 +6,8 @@ from pathlib import Path
 import pytest
 import ui
 from streamlit import config as streamlit_config
+from streamlit.proto.NewSession_pb2 import CustomThemeConfig
+from streamlit.runtime.theme_util import parse_fonts_with_source
 
 CONFIG = Path(__file__).parents[1] / ".streamlit" / "config.toml"
 
@@ -48,3 +50,22 @@ def test_every_theme_key_is_an_option_the_installed_streamlit_knows() -> None:
     known = streamlit_config.get_config_options()
 
     assert [key for key in theme if f"theme.{key}" not in known] == []
+
+
+def test_the_theme_fonts_parse_the_way_a_browser_session_parses_them() -> None:
+    """Fonts are only parsed when a browser connects, so a bad one passes every other check.
+
+    This calls the parser Streamlit runs for each new session. It is internal to Streamlit,
+    which is the point: it is the code that raised on the first font setting tried here.
+    """
+    theme = tomllib.loads(CONFIG.read_text(encoding="utf-8"))["theme"]
+
+    message = parse_fonts_with_source(
+        CustomThemeConfig(),
+        body_font_config=theme.get("font"),
+        code_font_config=theme.get("codeFont"),
+        heading_font_config=theme.get("headingFont"),
+        section="theme",
+    )
+
+    assert message.body_font == "Inter"

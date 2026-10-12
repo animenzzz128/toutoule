@@ -20,6 +20,8 @@ codeBackgroundColor = "#F2F4F7"
 borderColor = "#D0D5DD"
 showWidgetBorder = true
 baseRadius = "small"
-# A font loads from a URL written as "<name>:<url>"; the names after it are fallbacks.
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap, Noto Sans SC:https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap, sans-serif"
-codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap, monospace"
+# A font loads from a URL written as "<name>:<url>". Streamlit 1.64 takes one font per URL
+# and nothing after it, so Noto Sans SC cannot be loaded too: Chinese text falls back to the
+# system's Chinese font, which browsers do character by character. Quotes keep Streamlit's
+# own monospace font (Source Code Pro), which ships with it and needs no download.
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
