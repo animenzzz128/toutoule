@@ -100,7 +100,7 @@ def paste_form(session, settings: Settings, use_sample: bool) -> None:  # type: 
             "Market", list(MARKETS), key="market", help="Decides whether rule R1 can fire."
         )
         raw_text = st.text_area("Job description *", height=240, key="posting")
-        submitted = st.form_submit_button("Triage")
+        submitted = st.form_submit_button("Triage", type="primary")
     if not submitted:
         return
 
@@ -143,22 +143,22 @@ def red_flag_banners(view: triage.TriageView) -> None:
         st.write("No red flags from the rules.")
         return
     for flag in view.flags:
-        text = f"**{flag.severity} · {flag.rule_id}** — {redflags.RULE_DESCRIPTIONS[flag.rule_id]}"
-        if flag.evidence:
-            text += f"\n\n> {ui.md_escape(flag.evidence)}"
-        banner = st.error if flag.severity == "HARD" else st.warning
-        banner(text)
+        ui.flag_banner(flag)
 
 
-def field_cards(view: triage.TriageView) -> None:
-    st.subheader("Critical fields")
-    ui.field_grid(view.critical, group="critical")
-    with st.expander("All fields"):
+def evidence_tabs(view: triage.TriageView) -> None:
+    # st.tabs draws every tab's contents on each run and only hides the inactive ones, so
+    # switching tabs costs nothing and the tests can read all three.
+    critical, other, fit = st.tabs(["Critical fields", "All fields", "Résumé fit"])
+    with critical:
+        ui.field_grid(view.critical, group="critical")
+    with other:
         ui.field_grid(view.other, group="other")
+    with fit:
+        score_section(view)
 
 
 def score_section(view: triage.TriageView) -> None:
-    st.subheader("Match score")
     if not view.scores:
         st.info(f"Not scored with the {view.profile} profile yet. Click Triage to score it.")
         return
@@ -207,30 +207,31 @@ def _save_decision(session, job_id: int, action: str, reason: str | None, confir
 
 
 def decision_section(session, view: triage.TriageView) -> None:  # type: ignore[no-untyped-def]
-    st.subheader("Decision")
-    flash = st.session_state.pop("flash", None)
-    if flash:
-        st.success(flash)
-    st.markdown(f"Status: **{view.status}**")
+    with st.container(border=True, key=f"{ui.CARD_KEY_PREFIX}decision"):
+        st.subheader("Decision")
+        flash = st.session_state.pop("flash", None)
+        if flash:
+            st.success(flash)
+        st.markdown(f"Status: **{view.status}**")
 
-    approve_column, reject_column = st.columns(2)
-    with approve_column:
-        confirmed = False
-        if view.has_hard_flag:
-            confirmed = st.checkbox("I've read the HARD flag above", key="confirm_hard")
-        if st.button("Approve"):
-            _save_decision(session, view.job_id, "approved", None, confirmed)
-    with reject_column:
-        reason = st.selectbox(
-            "Reason",
-            list(REJECT_REASON_LABELS),
-            key="reason",
-            index=None,  # nothing preselected: the reason is a signal, not a default
-            format_func=lambda key: REJECT_REASON_LABELS[key],
-            placeholder="Choose a reason",
-        )
-        if st.button("Reject"):
-            _save_decision(session, view.job_id, "rejected", reason, False)
+        approve_column, reject_column = st.columns(2)
+        with approve_column:
+            confirmed = False
+            if view.has_hard_flag:
+                confirmed = st.checkbox("I've read the HARD flag above", key="confirm_hard")
+            if st.button("Approve", type="primary"):
+                _save_decision(session, view.job_id, "approved", None, confirmed)
+        with reject_column:
+            reason = st.selectbox(
+                "Reason",
+                list(REJECT_REASON_LABELS),
+                key="reason",
+                index=None,  # nothing preselected: the reason is a signal, not a default
+                format_func=lambda key: REJECT_REASON_LABELS[key],
+                placeholder="Choose a reason",
+            )
+            if st.button("Reject"):
+                _save_decision(session, view.job_id, "rejected", reason, False)
 
 
 # --- Page --------------------------------------------------------------------------------
@@ -265,9 +266,11 @@ def main() -> None:
         st.header(f"{company} — {title}")
         if view.url:
             st.markdown(view.url)
+        ui.summary_strip(view)
+        if view.scores:  # a score is never shown without saying what it is not
+            st.caption(SCORE_CAPTION)
         red_flag_banners(view)
-        field_cards(view)
-        score_section(view)
+        evidence_tabs(view)
         decision_section(session, view)
 
 
