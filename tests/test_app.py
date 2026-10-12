@@ -7,7 +7,8 @@ which a script AppTest executes in its own namespace still shares with this test
 """
 
 import json
-from collections.abc import Callable
+import re
+from collections.abc import Callable, Iterator
 from pathlib import Path
 from typing import Any
 
@@ -487,3 +488,55 @@ def test_a_web_address_becomes_a_link_and_anything_else_stays_text(make_app: App
     at = triage_posting(at)
     assert link_buttons(at) == []
     assert "javascript:alert(1)" in [text.value for text in at.text]
+
+
+# --- Across every page -------------------------------------------------------------------
+
+HOW_IT_WORKS = "views/how_it_works.py"
+README = Path(__file__).parents[1] / "README.md"
+# A number as the docs write it, with the count it is out of when there is one: "6 / 249",
+# "3 of 6", "6–8 of 249", "45.3%", "0–100". Matching the whole phrase matters: a lone "3"
+# or "6" is somewhere in any README, so "2 of 6" checked digit by digit would pass.
+NUMBER = re.compile(
+    r"\d+(?:\.\d+)?%?(?:\s*[–-]\s*\d+(?:\.\d+)?%?)?(?:\s*/\s*\d+(?:\.\d+)?|\s+of\s+\d+)?"
+)
+
+
+def every_page(at: AppTest) -> Iterator[AppTest]:
+    """The page as it stands, then each other page in turn. AppTest changes in place."""
+    yield at
+    for path in (HISTORY, HOW_IT_WORKS):
+        yield at.switch_page(path).run()
+
+
+def test_every_number_on_how_it_works_is_one_the_readme_states(make_app: AppFactory) -> None:
+    """The page copies the README; a number found only here would be a claim made only here."""
+    at = make_app().switch_page(HOW_IT_WORKS).run()
+
+    assert not at.exception
+    readme = " ".join(README.read_text(encoding="utf-8").split())
+    text = re.sub(r"\]\([^)]*\)", "]", page_text(at))  # a link's address is not a claim
+    numbers = {" ".join(found.group().split()) for found in NUMBER.finditer(text)}
+    assert {"6 / 249", "3 / 20", "6–8 of 249", "3 of 6", "5 of 8"} <= numbers  # not empty
+    assert sorted(number for number in numbers if number not in readme) == []
+
+
+def test_no_page_uses_marketing_words_or_calls_the_score_calibrated(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()), market="United States")
+
+    for page in every_page(at):
+        text = page_text(page).lower()
+        assert "ai-powered" not in text
+        assert re.search(r"\bsmart", text) is None
+        for found in re.finditer("calibrated", text):
+            assert text[max(0, found.start() - 4) : found.start()] == "not "
+
+
+def test_no_page_offers_an_apply_or_submit_control(make_app: AppFactory) -> None:
+    """The system ranks and recommends; the human applies, elsewhere (constraint 8)."""
+    at = triage_posting(make_app(*full_answers()), market="United States")
+
+    for page in every_page(at):
+        labels = [button.label for button in page.button]
+        labels += [link.label for link in link_buttons(page)]
+        assert [label for label in labels if re.search("apply|submit", label, re.I)] == []
