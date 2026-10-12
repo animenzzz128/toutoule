@@ -151,6 +151,16 @@ the project stopped here, it would still be a credible interview showcase.
 
 🔖 **Checkpoint D** — tag `v0.1.0`
 
+**Task 1.13 — Demo UI polish** · `feat` · 6h · added by D-013
+- Streamlit theme (`.streamlit/config.toml`), card layout for evidence, three pages
+  (Triage, History, How it works); no new dependencies, no change to `src/toutoule/` logic
+- **Acceptance:** all existing app tests pass unchanged in meaning, none skipped; every
+  stated critical field shows its quote beside its value; unstated fields show "Not stated";
+  cards are built from native Streamlit elements so tests can read them; any external text
+  rendered as HTML is escaped first (test); live demo updated; README screenshots refreshed
+
+🔖 **Checkpoint D′** — tag `v0.1.1`, "demo UI polish"
+
 ---
 
 ## 🏁 MILESTONE M1 — Core Engine
