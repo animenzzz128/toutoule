@@ -279,6 +279,14 @@ def test_the_decision_controls_sit_together_in_one_card(make_app: AppFactory) ->
     assert card.selectbox(key="reason") is not None
 
 
+def test_only_the_primary_actions_take_the_accent_colour(make_app: AppFactory) -> None:
+    """Teal marks primary actions and nothing else (D-013): Triage and Approve, not Reject."""
+    at = triage_posting(make_app(*full_answers()))
+
+    kinds = {button.label: button.proto.type for button in at.main.button}
+    assert kinds == {"Triage": "primary", "Approve": "primary", "Reject": "secondary"}
+
+
 # --- The acceptance test, end to end -----------------------------------------------------
 
 

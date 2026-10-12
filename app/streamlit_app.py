@@ -100,7 +100,7 @@ def paste_form(session, settings: Settings, use_sample: bool) -> None:  # type: 
             "Market", list(MARKETS), key="market", help="Decides whether rule R1 can fire."
         )
         raw_text = st.text_area("Job description *", height=240, key="posting")
-        submitted = st.form_submit_button("Triage")
+        submitted = st.form_submit_button("Triage", type="primary")
     if not submitted:
         return
 
