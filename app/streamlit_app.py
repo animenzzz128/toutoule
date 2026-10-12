@@ -15,6 +15,7 @@ import ui
 from toutoule import config, triage
 
 TRIAGE = st.Page("views/triage.py", title="Triage", icon=":material/fact_check:", default=True)
+HISTORY = st.Page("views/history.py", title="History", icon=":material/history:")
 
 
 def sidebar(session) -> None:  # type: ignore[no-untyped-def]
@@ -51,7 +52,7 @@ def main() -> None:
     st.set_page_config(page_title="投投乐 · job triage", layout="wide")
     st.html(ui.CARD_CSS)
     settings = resources.settings()
-    page = st.navigation([TRIAGE])
+    page = st.navigation([TRIAGE, HISTORY])
     with resources.session_factory(settings.database_url)() as session:
         sidebar(session)
     page.run()

@@ -416,3 +416,74 @@ def test_a_sidebar_entry_reopens_its_job(make_app: AppFactory) -> None:
 
     assert at.session_state["job_id"] == job_id
     assert "Critical fields" in page_text(at)
+
+
+# --- Pages and the posting link ----------------------------------------------------------
+#
+# AppTest renders one page per run, starting from the entry point; switch_page picks which
+# page file the next run() shows. The sidebar comes from the entry point on every page.
+
+HISTORY = "views/history.py"
+
+
+def link_buttons(at: AppTest) -> list[Any]:
+    """AppTest has no reader for st.link_button, so take the raw element and its fields."""
+    return [node.proto for node in at.main if getattr(node, "type", None) == "link_button"]
+
+
+def test_history_lists_each_triaged_job_with_its_status(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()))
+
+    at = at.switch_page(HISTORY).run()
+
+    assert not at.exception
+    rows = at.dataframe[0].value.to_dict("records")
+    assert [(row["company"], row["title"], row["status"]) for row in rows] == [
+        ("Example Co", "AI Product Manager", "scored")
+    ]
+
+
+def test_history_with_nothing_triaged_says_so(make_app: AppFactory) -> None:
+    at = make_app().switch_page(HISTORY).run()
+
+    assert "Nothing triaged yet." in at.info[0].value
+    assert at.dataframe == []
+
+
+def test_the_profile_toggle_keeps_its_value_across_pages(
+    make_app: AppFactory, profile_dirs: tuple[Path, Path]
+) -> None:
+    profile_dirs[0].mkdir()  # a real profile, so the toggle can be changed
+    at = make_app()
+    at.toggle(key="use_sample").set_value(True).run()
+
+    at = at.switch_page(HISTORY).run()
+    at = at.switch_page("views/triage.py").run()
+
+    assert at.toggle(key="use_sample").value is True
+    assert "Profile in use: **sample**" in page_text(at)
+
+
+def test_a_recent_job_picked_on_another_page_opens_on_triage(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()))
+    at = at.switch_page(HISTORY).run()
+
+    at = click(at, "Example Co · AI Product Manager — scored")
+
+    assert at.dataframe == []  # no longer on History
+    assert at.get_by_key("card-critical-deadline") is not None
+
+
+def test_a_web_address_becomes_a_link_and_anything_else_stays_text(make_app: AppFactory) -> None:
+    at = make_app(*full_answers())
+    at.text_input(key="url").set_value("https://example.com/jobs/1")
+    at = triage_posting(at)
+    assert [(link.label, link.url) for link in link_buttons(at)] == [
+        ("Open the posting", "https://example.com/jobs/1")
+    ]
+
+    at = make_app(*full_answers())
+    at.text_input(key="url").set_value("javascript:alert(1)")
+    at = triage_posting(at)
+    assert link_buttons(at) == []
+    assert "javascript:alert(1)" in [text.value for text in at.text]

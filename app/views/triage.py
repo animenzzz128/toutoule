@@ -85,6 +85,15 @@ def paste_form(session, settings: Settings, use_sample: bool) -> None:  # type: 
 # --- Result ------------------------------------------------------------------------------
 
 
+def posting_link(url: str) -> None:
+    """A link to the posting, but only to a web address. Anything else, a "javascript:"
+    URL for one, is shown as plain text, so pasting a URL can never run code on click."""
+    if url.startswith(("https://", "http://")):
+        st.link_button("Open the posting", url, icon=":material/open_in_new:")
+    else:
+        st.text(url)
+
+
 def red_flag_banners(view: triage.TriageView) -> None:
     st.subheader("Red flags")
     if not view.flags:
@@ -206,7 +215,7 @@ def main() -> None:
         title = ui.md_escape(view.title) if view.title else "(no title)"
         st.header(f"{company} — {title}")
         if view.url:
-            st.markdown(view.url)
+            posting_link(view.url)
         ui.summary_strip(view)
         if view.scores:  # a score is never shown without saying what it is not
             st.caption(SCORE_CAPTION)
