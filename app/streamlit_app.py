@@ -10,6 +10,7 @@ Run it with: uv run streamlit run app/streamlit_app.py
 """
 
 import streamlit as st
+import ui
 
 from toutoule import config, extract, redflags, score, triage
 from toutoule.config import ConfigError, Settings, get_settings
@@ -78,7 +79,9 @@ def sidebar(session) -> bool:  # type: ignore[no-untyped-def]
     if not jobs:
         st.sidebar.caption("Nothing triaged yet.")
     for item in jobs:
-        label = f"{item.company or '(no company)'} · {item.title or '(no title)'} — {item.status}"
+        company = ui.md_escape(item.company) if item.company else "(no company)"
+        title = ui.md_escape(item.title) if item.title else "(no title)"
+        label = f"{company} · {title} — {item.status}"
         if st.sidebar.button(label, key=f"job-{item.job_id}"):
             st.session_state["job_id"] = item.job_id
     return use_sample
@@ -142,25 +145,16 @@ def red_flag_banners(view: triage.TriageView) -> None:
     for flag in view.flags:
         text = f"**{flag.severity} · {flag.rule_id}** — {redflags.RULE_DESCRIPTIONS[flag.rule_id]}"
         if flag.evidence:
-            text += f"\n\n> {flag.evidence}"
+            text += f"\n\n> {ui.md_escape(flag.evidence)}"
         banner = st.error if flag.severity == "HARD" else st.warning
         banner(text)
 
 
-def _field_row(item: triage.FieldView) -> dict[str, str]:
-    """One table row. An unstated field says so and quotes nothing (F3)."""
-    return {
-        "field": item.name,
-        "value": item.value if item.stated else "Not stated",
-        "evidence": item.evidence or "",
-    }
-
-
-def field_tables(view: triage.TriageView) -> None:
+def field_cards(view: triage.TriageView) -> None:
     st.subheader("Critical fields")
-    st.table([_field_row(item) for item in view.critical])
+    ui.field_grid(view.critical, group="critical")
     with st.expander("All fields"):
-        st.table([_field_row(item) for item in view.other])
+        ui.field_grid(view.other, group="other")
 
 
 def score_section(view: triage.TriageView) -> None:
@@ -244,6 +238,7 @@ def decision_section(session, view: triage.TriageView) -> None:  # type: ignore[
 
 def main() -> None:
     st.set_page_config(page_title="投投乐 · job triage", layout="wide")
+    st.html(ui.CARD_CSS)
     try:
         settings = get_settings()
     except ConfigError as error:
@@ -265,11 +260,13 @@ def main() -> None:
             st.error(str(error))
             return
 
-        st.header(f"{view.company or '(no company)'} — {view.title or '(no title)'}")
+        company = ui.md_escape(view.company) if view.company else "(no company)"
+        title = ui.md_escape(view.title) if view.title else "(no title)"
+        st.header(f"{company} — {title}")
         if view.url:
             st.markdown(view.url)
         red_flag_banners(view)
-        field_tables(view)
+        field_cards(view)
         score_section(view)
         decision_section(session, view)
 
