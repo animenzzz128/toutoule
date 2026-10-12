@@ -13,6 +13,7 @@ linkColor = "#0F6E6E"
 redColor = "#B42318"                  # HARD flags only
 yellowColor = "#B54708"               # amber: st.warning takes its colour from yellow; SCARCE only
 orangeColor = "#B54708"
+blueColor = "#475467"                 # slate: st.info, which draws URGENT (deadline) flags
 grayColor = "#475467"                 # slate: the "Not stated" pill
 grayBackgroundColor = "#EEF0F3"
 codeTextColor = "#1B2333"             # quotes; Streamlit's default here is green

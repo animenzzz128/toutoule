@@ -246,6 +246,39 @@ def test_a_posting_with_no_flags_says_so(make_app: AppFactory) -> None:
     assert at.error == []
 
 
+def test_a_flag_banner_says_which_rule_decided_it(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()), market="United States")
+
+    assert "decided by rule R1" in at.error[0].value
+
+
+# --- Summary and layout ------------------------------------------------------------------
+
+
+def test_the_summary_strip_shows_stated_fields_flags_and_the_best_fit(
+    make_app: AppFactory,
+) -> None:
+    at = triage_posting(make_app(*full_answers()), market="United States")
+
+    strip = {metric.label: metric.value for metric in at.metric[:3]}
+    recommended = at.metric[3]  # the Résumé fit tab's own headline number
+    assert strip == {
+        "Critical fields stated": "3 / 5",  # graduation_window and application_cap are not
+        "Rule flags": "1 HARD",
+        "Best résumé fit": recommended.value,
+    }
+    assert at.caption[0].value.startswith("Fit to resume only.")  # right under the strip
+
+
+def test_the_decision_controls_sit_together_in_one_card(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()), market="United States")
+
+    card = at.get_by_key("card-decision")
+    assert [button.label for button in card.button] == ["Approve", "Reject"]
+    assert card.checkbox[0].label == "I've read the HARD flag above"
+    assert card.selectbox(key="reason") is not None
+
+
 # --- The acceptance test, end to end -----------------------------------------------------
 
 

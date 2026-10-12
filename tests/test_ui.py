@@ -9,6 +9,8 @@ from streamlit import config as streamlit_config
 from streamlit.proto.NewSession_pb2 import CustomThemeConfig
 from streamlit.runtime.theme_util import parse_fonts_with_source
 
+from toutoule import redflags, triage
+
 CONFIG = Path(__file__).parents[1] / ".streamlit" / "config.toml"
 
 
@@ -69,3 +71,63 @@ def test_the_theme_fonts_parse_the_way_a_browser_session_parses_them() -> None:
     )
 
     assert message.body_font == "Inter"
+
+
+# --- Flags and summary -------------------------------------------------------------------
+
+
+def view(flags: list[triage.FlagView]) -> triage.TriageView:
+    """A job with two critical fields, one stated, and no scores."""
+    critical = [
+        triage.FieldView(
+            name="deadline", value="2026-12-31", stated=True, evidence="By 2026-12-31."
+        ),
+        triage.FieldView(name="application_cap", value=None, stated=False, evidence=None),
+    ]
+    return triage.TriageView(
+        job_id=1,
+        company="Example Co",
+        title="PM",
+        url="",
+        status="scored",
+        critical=critical,
+        other=[],
+        flags=flags,
+        has_hard_flag=False,
+        scores=[],
+        recommended_version=None,
+        profile="sample",
+        decision=None,
+    )
+
+
+@pytest.mark.parametrize(
+    ("severity", "kind"), [("HARD", "error"), ("SCARCE", "warning"), ("URGENT", "info")]
+)
+def test_each_severity_has_its_own_banner_and_only_hard_is_red(severity: str, kind: str) -> None:
+    assert ui.banner_kind(severity) == kind
+
+
+def test_a_banner_names_the_rule_that_decided_and_escapes_the_quote() -> None:
+    flag = triage.FlagView(rule_id="R4", severity="SCARCE", evidence="One [application](x)")
+
+    text = ui.flag_banner_text(flag)
+
+    assert text.startswith("**SCARCE · R4** — decided by rule R4. ")
+    assert redflags.RULE_DESCRIPTIONS["R4"] in text
+    assert text.endswith(r"> One \[application\]\(x\)")
+
+
+def test_the_summary_counts_stated_fields_and_flags_and_says_when_nothing_is_scored() -> None:
+    flags = [
+        triage.FlagView(rule_id="R1", severity="HARD", evidence=None),
+        triage.FlagView(rule_id="R4", severity="SCARCE", evidence=None),
+        triage.FlagView(rule_id="R5", severity="URGENT", evidence=None),
+    ]
+
+    assert ui.summary_values(view(flags)) == [
+        ("Critical fields stated", "1 / 2"),
+        ("Rule flags", "1 HARD · 1 SCARCE · 1 URGENT"),
+        ("Best résumé fit", "Not scored"),
+    ]
+    assert ui.summary_values(view([]))[1] == ("Rule flags", "None")
