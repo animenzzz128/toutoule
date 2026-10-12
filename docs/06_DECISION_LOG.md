@@ -330,6 +330,28 @@ a missed opportunity.
 
 ---
 
+## D-013 · 2026-10-11 · Polish the demo UI on Streamlit before Phase 2
+
+**Context.** M1 shipped a working but bare Streamlit page. The live demo is the first thing
+an interviewer opens, and the page did not make the product's claim (verbatim evidence,
+"Not stated" as a value, rule-decided flags) visible at a glance.
+
+**Options.** (a) Leave the UI and start Phase 2. (b) Rebuild the frontend in a JS framework
+(React/Next.js). (c) Restyle within Streamlit: theme, card layout, three pages; timeboxed.
+
+**Decision.** (c), as Task 1.13, 6 hours, hard stop at 12. (b) was rejected: it contradicts
+ADR-001, discards the AppTest suite that proves the UI rules, and would be redone for
+Task 2.6's email links. The decision serves the "demonstrable in an interview" test
+(`00_START_HERE.md` §0), not appearance for its own sake. Cards use native Streamlit
+elements rather than HTML strings, because AppTest cannot read `st.html` and the evidence
+rules must stay testable.
+
+**Consequences.** Phase 2 starts about one working day later; M2's 2026-10-20 date is
+unchanged and absorbs it. No new dependencies; ADR-001 stands. The README screenshots
+added at M1 are retaken after this task.
+
+---
+
 ## Template for new entries
 
 ```markdown
