@@ -1,0 +1,27 @@
+# The demo's look (Task 1.13, D-013): an "evidence ledger". Ink on paper, white cards,
+# and each accent colour kept for one meaning only. Every key here is checked against the
+# installed Streamlit's own option list (tests/test_ui.py), because Streamlit ignores a
+# misspelled key without saying so.
+
+[theme]
+base = "light"
+textColor = "#1B2333"                 # ink
+backgroundColor = "#FAFAF7"           # paper
+secondaryBackgroundColor = "#FFFFFF"  # inputs and the sidebar
+primaryColor = "#0F6E6E"              # teal: primary actions and "Found in source" only
+linkColor = "#0F6E6E"
+redColor = "#B42318"                  # HARD flags only
+yellowColor = "#B54708"               # amber: st.warning takes its colour from yellow; SCARCE only
+orangeColor = "#B54708"
+grayColor = "#475467"                 # slate: the "Not stated" pill
+grayBackgroundColor = "#EEF0F3"
+codeTextColor = "#1B2333"             # quotes; Streamlit's default here is green
+codeBackgroundColor = "#F2F4F7"
+borderColor = "#D0D5DD"
+showWidgetBorder = true
+baseRadius = "small"
+# A font loads from a URL written as "<name>:<url>". Streamlit 1.64 takes one font per URL
+# and nothing after it, so Noto Sans SC cannot be loaded too: Chinese text falls back to the
+# system's Chinese font, which browsers do character by character. Quotes keep Streamlit's
+# own monospace font (Source Code Pro), which ships with it and needs no download.
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"

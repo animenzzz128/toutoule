@@ -38,3 +38,6 @@ select = ["E", "W", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# The page's helpers live beside it in app/ (Streamlit puts that folder on the import path
+# when it runs the page); this lets the tests import them the same way.
+pythonpath = ["app"]

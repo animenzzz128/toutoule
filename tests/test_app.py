@@ -14,7 +14,7 @@ from typing import Any
 import pytest
 import streamlit as st
 from fakes import FakeClient
-from postings import POSTING, RESUME, extraction_answer, score_answer
+from postings import POSTING, RESUME, extraction_answer, field, score_answer
 from sqlalchemy import select
 from streamlit.testing.v1 import AppTest
 from streamlit.testing.v1.errors import AppTestError
@@ -99,8 +99,26 @@ def triage_posting(at: AppTest, market: str = "Unknown", text: str = POSTING) ->
     return click(at, "Triage")
 
 
-def table_rows(at: AppTest, index: int = 0) -> list[dict[str, Any]]:
-    return at.table[index].value.to_dict("records")  # type: ignore[no-any-return]
+def field_cards(at: AppTest, group: str = "critical") -> dict[str, dict[str, Any]]:
+    """Each field card, read back as the row the old st.table showed: field, value, evidence.
+
+    A card is a keyed container, found by its key. Its value is "Not stated" when it carries
+    that pill, otherwise its st.text; its evidence is its code block, or "" when it has none.
+    """
+    prefix = f"card-{group}-"
+    rows: dict[str, dict[str, Any]] = {}
+    for node in at.main:
+        key = getattr(node, "key", None) or ""
+        if not key.startswith(prefix):
+            continue
+        pill = any("badge[Not stated]" in item.value for item in node.markdown)
+        name = key.removeprefix(prefix)
+        rows[name] = {
+            "field": name,
+            "value": "Not stated" if pill else node.text[0].value,
+            "evidence": node.code[0].value if node.code else "",
+        }
+    return rows
 
 
 def page_text(at: AppTest) -> str:
@@ -134,11 +152,52 @@ def test_the_critical_table_shows_not_stated_and_the_evidence_quote(
     at = triage_posting(make_app(*full_answers()))
 
     assert not at.exception
-    rows = {row["field"]: row for row in table_rows(at)}
+    rows = field_cards(at)
     assert rows["graduation_window"]["value"] == "Not stated"
     assert rows["graduation_window"]["evidence"] == ""
     assert rows["deadline"]["value"] == "2026-12-31"
     assert rows["deadline"]["evidence"] == "Applications close on 2026-12-31."
+
+
+def test_an_unstated_field_is_a_not_stated_pill_and_nothing_else(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()))
+
+    for name in ("graduation_window", "application_cap"):  # the posting is silent on both
+        card = at.get_by_key(f"card-critical-{name}")
+        assert any("badge[Not stated]" in item.value for item in card.markdown)
+        assert card.code == []  # no quote
+        assert card.text == []  # no value, and no blank where one would be
+
+
+def test_every_stated_critical_card_shows_its_verbatim_quote(make_app: AppFactory) -> None:
+    at = triage_posting(make_app(*full_answers()))
+
+    quotes = {
+        "deadline": "Applications close on 2026-12-31.",
+        "visa_sponsorship": "We do not sponsor work visas for this role.",
+        "materials_required": "Please submit a resume and cover",
+    }
+    for name, quote in quotes.items():
+        card = at.get_by_key(f"card-critical-{name}")
+        assert [block.value for block in card.code] == [quote]
+        assert any("Found in source" in item.value for item in card.markdown)
+
+
+def test_markup_in_a_posting_is_shown_as_text_and_never_rendered(
+    make_app: AppFactory,
+) -> None:
+    markup = "<script>alert(1)</script>"
+    line = f"One application per candidate {markup}."
+    answer = extraction_answer(application_cap=field(f"one per candidate {markup}", line))
+
+    at = triage_posting(make_app(answer, *full_answers()[1:]), text=f"{POSTING}{line}\n")
+
+    card = field_cards(at)["application_cap"]
+    assert card["value"] == f"one per candidate {markup}"  # st.text shows it as written
+    assert card["evidence"] == line  # and so does the code block
+    banner = at.warning[0].value  # R4 SCARCE quotes the same line, through Markdown
+    assert markup not in banner
+    assert r"\<script\>alert\(1\)\</script\>" in banner
 
 
 def test_a_posting_too_short_to_be_real_is_refused_before_any_call(
