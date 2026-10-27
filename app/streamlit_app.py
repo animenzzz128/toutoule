@@ -46,6 +46,7 @@ def sidebar(session) -> None:  # type: ignore[no-untyped-def]
         label = f"{company} · {title} — {item.status}"
         if st.sidebar.button(label, key=f"job-{item.job_id}"):
             st.session_state["job_id"] = item.job_id
+            st.session_state.pop("demo_case", None)  # a real job replaces an example
             st.switch_page(TRIAGE)  # a job opens on Triage, whichever page it was picked on
 
 

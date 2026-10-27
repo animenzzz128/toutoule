@@ -8,10 +8,15 @@ which a script AppTest executes in its own namespace still shares with this test
 
 import json
 import re
+import sys
+import types
 from collections.abc import Callable, Iterator
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
+import anthropic
+import httpx2
 import pytest
 import streamlit as st
 from fakes import FakeClient
@@ -20,6 +25,7 @@ from sqlalchemy import select
 from streamlit.testing.v1 import AppTest
 from streamlit.testing.v1.errors import AppTestError
 
+import toutoule
 from toutoule import config, models, triage
 from toutoule.db import get_engine, get_session_factory
 
@@ -52,6 +58,70 @@ def profile_dirs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> tuple[Path,
     monkeypatch.setattr(config, "PROFILE_DIR", real)
     monkeypatch.setattr(config, "SAMPLE_PROFILE_DIR", sample)
     return real, sample
+
+
+# The saved examples (#42) as the page sees them. These tests use a fake module with the
+# agreed interface, so they never depend on the files in data/demo.
+DEMO_CASES = [
+    SimpleNamespace(
+        id="cnp-demo", company="Example Platform", title="AI Product Manager", market="CN"
+    ),
+    SimpleNamespace(id="broken", company="Broken Co", title="Corrupt file", market=None),
+]
+
+
+def demo_view(case_id: str) -> triage.TriageView:
+    deadline = triage.FieldView(
+        name="deadline", value="2026-11-15", stated=True, evidence="Apply by 15 November 2026."
+    )
+    visa = triage.FieldView(name="visa_sponsorship", value=None, stated=False, evidence=None)
+    return triage.TriageView(
+        job_id=1,
+        company="Example Platform",
+        title="AI Product Manager",
+        url="https://example.com/jobs/demo",
+        status="scored",
+        critical=[deadline, visa],
+        other=[],
+        flags=[],
+        has_hard_flag=False,
+        scores=[],
+        recommended_version=None,
+        profile="sample",
+        decision=None,
+    )
+
+
+@pytest.fixture(autouse=True)
+def fake_demo(monkeypatch: pytest.MonkeyPatch) -> types.ModuleType:
+    """Stand in for toutoule.demo: two cases, one of which fails to load as a bad file would.
+
+    The package attribute is replaced too: once a module is imported, "from toutoule import
+    demo" finds it there before it looks in sys.modules.
+    """
+    fake = types.ModuleType("toutoule.demo")
+
+    def load(case_id: str) -> triage.TriageView:
+        if case_id == "broken":
+            raise ValueError(f"unknown demo case: {case_id!r}")
+        return demo_view(case_id)
+
+    fake.list_cases = lambda: list(DEMO_CASES)  # type: ignore[attr-defined]
+    fake.load = load  # type: ignore[attr-defined]
+    monkeypatch.setitem(sys.modules, "toutoule.demo", fake)
+    monkeypatch.setattr(toutoule, "demo", fake, raising=False)
+    return fake
+
+
+class DownClient:
+    """A client whose every call fails the way a spent budget or a dead network does."""
+
+    def __init__(self) -> None:
+        self.messages = self
+
+    def create(self, **kwargs: Any) -> None:
+        request = httpx2.Request("POST", "https://api.anthropic.com/v1/messages")
+        raise anthropic.APIConnectionError(request=request)
 
 
 @pytest.fixture
@@ -285,7 +355,12 @@ def test_only_the_primary_actions_take_the_accent_colour(make_app: AppFactory) -
     at = triage_posting(make_app(*full_answers()))
 
     kinds = {button.label: button.proto.type for button in at.main.button}
-    assert kinds == {"Triage": "primary", "Approve": "primary", "Reject": "secondary"}
+    assert kinds == {
+        "Triage": "primary",
+        "Show example": "secondary",
+        "Approve": "primary",
+        "Reject": "secondary",
+    }
 
 
 # --- The acceptance test, end to end -----------------------------------------------------
@@ -488,6 +563,89 @@ def test_a_web_address_becomes_a_link_and_anything_else_stays_text(make_app: App
     at = triage_posting(at)
     assert link_buttons(at) == []
     assert "javascript:alert(1)" in [text.value for text in at.text]
+
+
+# --- Precomputed examples (#43) ----------------------------------------------------------
+
+
+def show_example(at: AppTest, case_id: str = "cnp-demo") -> AppTest:
+    at.selectbox(key="demo_pick").select(case_id)
+    return click(at, "Show example")
+
+
+def test_with_nothing_triaged_the_example_picker_is_open(make_app: AppFactory) -> None:
+    at = make_app()
+
+    assert not at.exception
+    assert [(e.label, e.proto.expanded) for e in at.expander] == [
+        ("Try a sample posting, no API call", True)
+    ]
+
+
+def test_an_example_shows_its_evidence_without_calling_the_model(
+    make_app: AppFactory, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    at = make_app()
+    built: list[object] = []
+    monkeypatch.setattr(triage, "build_client", lambda _settings: built.append(1))
+
+    at = show_example(at)
+
+    assert not at.exception
+    assert built == []
+    assert any("Precomputed example" in info.value for info in at.info)
+    assert at.header[0].value == "Example Platform — AI Product Manager"
+    rows = field_cards(at)
+    assert rows["deadline"]["evidence"] == "Apply by 15 November 2026."
+    assert rows["visa_sponsorship"]["value"] == "Not stated"
+
+
+def test_an_example_offers_no_decision(make_app: AppFactory) -> None:
+    at = show_example(make_app())
+
+    labels = [button.label for button in at.button]
+    assert "Approve" not in labels and "Reject" not in labels
+
+
+def test_an_example_that_fails_to_load_is_a_message_not_a_traceback(
+    make_app: AppFactory,
+) -> None:
+    at = show_example(make_app(), "broken")
+
+    assert not at.exception
+    assert [error.value for error in at.error] == [
+        "That example could not be loaded: unknown demo case: 'broken'"
+    ]
+
+
+def test_when_the_model_does_not_answer_the_page_offers_the_examples(
+    make_app: AppFactory, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    at = make_app()
+    monkeypatch.setattr(triage, "build_client", lambda _settings: DownClient())
+
+    at = triage_posting(at)
+
+    assert not at.exception
+    assert at.error == []
+    assert ["APIConnectionError" in warning.value for warning in at.warning] == [True]
+    assert at.expander[0].proto.expanded
+    assert jobs_with_scores(at) == 0
+
+
+def test_triaging_a_posting_replaces_the_example(make_app: AppFactory) -> None:
+    at = show_example(make_app(*full_answers()))
+
+    at = triage_posting(at)
+
+    assert not any("Precomputed example" in info.value for info in at.info)
+    assert at.header[0].value.startswith("Example Co — ")  # the live job, not the example
+    assert "Approve" in [button.label for button in at.button]
+
+
+def jobs_with_scores(at: AppTest) -> int:
+    """How many score metrics the page shows: none means nothing was scored."""
+    return sum(1 for metric in at.metric if metric.label.startswith("Recommended résumé"))
 
 
 # --- Across every page -------------------------------------------------------------------
