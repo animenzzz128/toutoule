@@ -1,0 +1,209 @@
+{
+  "case": {
+    "id": "ust-01",
+    "company": "Databricks",
+    "title": "Associate Product Manager, New Grad (2027 Start)",
+    "market": "US"
+  },
+  "view": {
+    "job_id": 3,
+    "company": "Databricks",
+    "title": "Associate Product Manager, New Grad (2027 Start)",
+    "url": "https://www.databricks.com/company/careers/university-recruiting---product/associate-product-manager-new-grad-2027-start-7586263002",
+    "status": "scored",
+    "critical": [
+      {
+        "name": "deadline",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "visa_sponsorship",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "graduation_window",
+        "value": "Fall 2026 or Spring 2027",
+        "stated": true,
+        "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+      },
+      {
+        "name": "application_cap",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "materials_required",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      }
+    ],
+    "other": [
+      {
+        "name": "location",
+        "value": "Bellevue, Washington; Mountain View, California; San Francisco, California",
+        "stated": true,
+        "evidence": "We are hiring for San Francisco, CA, Mountain View, CA, and Bellevue, WA."
+      },
+      {
+        "name": "work_model",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "language_requirement",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "start_date",
+        "value": "2027",
+        "stated": true,
+        "evidence": "Associate Product Manager, New Grad (2027 Start)"
+      },
+      {
+        "name": "degree_requirement",
+        "value": "Bachelor's or Master's in Computer Science or related engineering field",
+        "stated": true,
+        "evidence": "You will graduate in Fall 2026 or Spring 2027 with a bachelors or masters degree in computer science or related engineering practice"
+      }
+    ],
+    "flags": [],
+    "has_hard_flag": false,
+    "scores": [
+      {
+        "resume_version": "ai_product",
+        "score": 50,
+        "dimensions": {
+          "domain_fit": {
+            "score": 4,
+            "reason": "Strong product, analytics and LLM-app work, but no work in data/AI infrastructure or on a developer platform, and the roles are strategy ops and consulting rather than product management."
+          },
+          "skills_overlap": {
+            "score": 6,
+            "reason": "Python, SQL, data-driven analysis, AI tooling use and prototyping are all shown in work; there's no shipped platform feature, engineering collaboration or customer problem discovery."
+          },
+          "seniority_fit": {
+            "score": 5,
+            "reason": "The posting is a new-grad APM role requiring a CS or engineering degree; the resume shows a management/economics background with a master's, which sits one step off the stated profile despite strong internship depth."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "You've used AI tooling for both personal productivity and development projects",
+            "experience": "Built an LLM pipeline (Python, Claude API) that extracts deadlines, visa sponsorship, and application caps from job postings",
+            "verified": true
+          },
+          {
+            "requirement": "You use analytical skills to make data-driven decisions (e.g. analyzing product usage)",
+            "experience": "Defined campaign KPIs and built 40+ monitoring dashboards from scratch over 150K+ seller, creator, product, and campaign data points to diagnose operational gaps.",
+            "verified": true
+          },
+          {
+            "requirement": "Prototype and test early ideas with customers and engineers to validate direction before the team commits to a build",
+            "experience": "Prototyped 25+ pages of a digital retail platform in Axure, turning sales insights from 8 data-visualization reports into implementation-ready concepts for the client's implementation blueprint.",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "Posting asks for a computer science or engineering degree; the resume shows economics and management degrees with no CS degree.",
+          "No experience shipping features with engineers on a data or developer platform, or working on infrastructure scalability and security."
+        ]
+      },
+      {
+        "resume_version": "strategy_bizops",
+        "score": 44,
+        "dimensions": {
+          "domain_fit": {
+            "score": 3,
+            "reason": "Resume is business strategy, analytics and consulting; there is no product management or software/data platform work, though it shows some cross-functional work with Data Science and Engineering."
+          },
+          "skills_overlap": {
+            "score": 5,
+            "reason": "Python use and data-driven analysis are shown, and SQL is only listed; AI tooling and hands-on building or prototyping are not shown."
+          },
+          "seniority_fit": {
+            "score": 6,
+            "reason": "New-grad APM level matches a candidate with several internships and a master's, but the degrees are in business and economics rather than the CS or engineering the posting asks for."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "You have some first hand experience with SQL and/or Python",
+            "experience": "Cleaned and analyzed 22K+ retail records using Python and Tableau",
+            "verified": true
+          },
+          {
+            "requirement": "You use analytical skills to make data-driven decisions (e.g. analyzing product usage)",
+            "experience": "Built 40+ Excel campaign-monitoring dashboards from scratch, defining KPIs and analyzing 150K+ cumulative seller-, creator-, product-, and campaign-level data points",
+            "verified": true
+          },
+          {
+            "requirement": "You can make complex topics simple and communicate nuance to partners (engineers, customers, field) in both written and verbal form",
+            "experience": "Supported 7 client meetings, produced 60+ PPT slides, contributed to 4 internal alignment meetings, and drafted 12 evaluation reports to communicate analyses and implementation recommendations.",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "No evidence of using AI tooling for productivity or development projects, which the posting lists as a requirement.",
+          "No computer science or engineering background and no shipped software features or coded prototypes; the posting expects building, testing and shipping on a data platform."
+        ]
+      },
+      {
+        "resume_version": "consulting",
+        "score": 41,
+        "dimensions": {
+          "domain_fit": {
+            "score": 3,
+            "reason": "Resume is business strategy, analytics and consulting; no product management, software shipping or data/AI platform work, so only the analytical side transfers."
+          },
+          "skills_overlap": {
+            "score": 4,
+            "reason": "Python and SQL are listed and Python is used in a consulting project with analytics, but there is no AI tooling use, no prototyping or building with engineers, and no usage analysis of a software product."
+          },
+          "seniority_fit": {
+            "score": 6,
+            "reason": "New-grad APM suits someone with several internships and a bachelor's, though the posting asks for a CS or engineering degree and the resume is economics and management."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "You have some first hand experience with SQL and/or Python",
+            "experience": "Cleaned and analyzed 22K+ retail records using Python and Tableau, applying exploratory and predictive analyses to identify actionable metrics for a three-year business outlook for a large building-materials retailer.",
+            "verified": true
+          },
+          {
+            "requirement": "You use analytical skills to make data-driven decisions (e.g. analyzing product usage)",
+            "experience": "Built 40+ Excel campaign-monitoring dashboards from scratch, defining KPIs and analyzing 150K+ cumulative seller-, creator-, product-, and campaign-level data points to monitor performance and diagnose post-campaign gaps.",
+            "verified": true
+          },
+          {
+            "requirement": "You can make complex topics simple and communicate nuance to partners (engineers, customers, field) in both written and verbal form",
+            "experience": "Supported 7 client meetings, produced 60+ PPT slides, contributed to 4 internal alignment meetings, and drafted 12 evaluation reports to communicate analyses and recommendations.",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "No experience shipping software features or working day to day with engineers and designers to build a product; the posting centers on this.",
+          "No evidence of AI tooling use for productivity or development projects, and no computer science or engineering coursework or projects shown."
+        ]
+      }
+    ],
+    "recommended_version": "ai_product",
+    "profile": "sample",
+    "decision": null
+  },
+  "built_on": "2026-10-27",
+  "extraction_model": "claude-haiku-4-5",
+  "score_model": "claude-sonnet-5-5"
+}

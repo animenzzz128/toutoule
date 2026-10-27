@@ -1,0 +1,215 @@
+{
+  "case": {
+    "id": "cnp-01",
+    "company": "ByteDance (TikTok)",
+    "title": "Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",
+    "market": "CN"
+  },
+  "view": {
+    "job_id": 2,
+    "company": "ByteDance (TikTok)",
+    "title": "Special Project Strategist Graduate (TikTok Shop - Electronics, Books, Hardlines & Virtual Goods) - 2027 Start (MBA)",
+    "url": "https://lifeattiktok.com/search/7669561412465510709",
+    "status": "scored",
+    "critical": [
+      {
+        "name": "deadline",
+        "value": "rolling basis",
+        "stated": true,
+        "evidence": "Applications will be reviewed on a rolling basis."
+      },
+      {
+        "name": "visa_sponsorship",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "graduation_window",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "application_cap",
+        "value": "2 per candidate",
+        "stated": true,
+        "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply."
+      },
+      {
+        "name": "materials_required",
+        "value": "Resume",
+        "stated": true,
+        "evidence": "Please state your availability and graduation date clearly in your resume."
+      }
+    ],
+    "other": [
+      {
+        "name": "location",
+        "value": "Los Angeles",
+        "stated": true,
+        "evidence": "Location: Los Angeles"
+      },
+      {
+        "name": "work_model",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "language_requirement",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "start_date",
+        "value": "2027",
+        "stated": true,
+        "evidence": "2027 Start (MBA)"
+      },
+      {
+        "name": "degree_requirement",
+        "value": "MBA",
+        "stated": true,
+        "evidence": "Individuals who are completing or have recently completed an MBA degree."
+      }
+    ],
+    "flags": [
+      {
+        "rule_id": "R4",
+        "severity": "SCARCE",
+        "evidence": "Candidates can apply to a maximum of two positions and will be considered for jobs in the order you apply."
+      }
+    ],
+    "has_hard_flag": false,
+    "scores": [
+      {
+        "resume_version": "ai_product",
+        "score": 72,
+        "dimensions": {
+          "domain_fit": {
+            "score": 8,
+            "reason": "Resume shows seller and creator strategy work on a short-video e-commerce platform, closely matching the TikTok Shop strategy role, though only at intern scope."
+          },
+          "skills_overlap": {
+            "score": 7,
+            "reason": "Data analysis, KPI dashboards, target decomposition and cross-team coordination are shown in real work; budget setting, compliance and process-system design are not."
+          },
+          "seniority_fit": {
+            "score": 6,
+            "reason": "A graduate-level strategy role suits a master's student with several internships, but the posting asks for an MBA and the resume shows a Master of Management Science and intern-level ownership only."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Conduct data analysis to evaluate the performance of merchandise and seller growth, identify trends, and make recommendations for optimization.",
+            "experience": "Defined campaign KPIs and built 40+ monitoring dashboards from scratch over 150K+ seller, creator, product, and campaign data points to diagnose operational gaps.",
+            "verified": true
+          },
+          {
+            "requirement": "Develop and execute comprehensive strategy, including goal/budget setting and performance review.",
+            "experience": "Independently decomposed regional targets for 9 major campaigns into country-, seller-, and creator-level goals from historical data; tracked execution daily.",
+            "verified": true
+          },
+          {
+            "requirement": "Familiar with TikTok and other content platforms; experience in content-based eCommerce (brand and/or platform-side) is highly preferred.",
+            "experience": "Ran seller and creator targeting for 4K+ accounts across five Southeast Asian markets",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "Posting asks for risk mitigation and regulatory/policy compliance; the resume shows none in a commerce setting.",
+          "Posting asks for an MBA and a network with brands or retailers; the resume shows a Master of Management Science and no brand or retailer relationships."
+        ]
+      },
+      {
+        "resume_version": "strategy_bizops",
+        "score": 74,
+        "dimensions": {
+          "domain_fit": {
+            "score": 8,
+            "reason": "Strategy operations and special projects at a short-video e-commerce platform, covering seller and creator growth, which matches the role closely."
+          },
+          "skills_overlap": {
+            "score": 7,
+            "reason": "Shows use of target setting, KPI dashboards, seller and merchandise performance analysis and cross-functional work; there is little on budgeting, risk and compliance, or process design."
+          },
+          "seniority_fit": {
+            "score": 7,
+            "reason": "Graduate-level strategy role and the resume shows internship-level ownership with a master's in management, but the degree is not labeled an MBA and the work is intern scope."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Conduct data analysis to evaluate the performance of merchandise and seller growth, identify trends, and make recommendations for optimization.",
+            "experience": "Built 40+ Excel campaign-monitoring dashboards from scratch, defining KPIs and analyzing 150K+ cumulative seller-, creator-, product-, and campaign-level data points",
+            "verified": true
+          },
+          {
+            "requirement": "Develop and execute comprehensive strategy, including goal/budget setting and performance review.",
+            "experience": "Supported target setting across 9 major e-commerce campaigns using historical performance data",
+            "verified": true
+          },
+          {
+            "requirement": "Collaborate with cross-functional teams to plan and execute the Strategy.",
+            "experience": "evaluating historical performance and projected value to support cross-functional investment with Data Science and Engineering teams",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "Posting asks for an MBA; the resume shows master's degrees in management but no MBA.",
+          "No stated network or connections with brands or retailers, which the posting lists as preferred, and no budgeting, risk or compliance work."
+        ]
+      },
+      {
+        "resume_version": "consulting",
+        "score": 72,
+        "dimensions": {
+          "domain_fit": {
+            "score": 8,
+            "reason": "Strategy operations internship at a global short-video e-commerce platform covering campaign targets, sellers and creators closely matches the role's content-commerce strategy work, though it is intern scope."
+          },
+          "skills_overlap": {
+            "score": 7,
+            "reason": "Shows goal setting, seller/creator performance analysis, dashboards and cross-functional coordination; lacks budget setting, risk/compliance work and brand/retailer network named in the posting."
+          },
+          "seniority_fit": {
+            "score": 6,
+            "reason": "Posting wants an MBA graduate; the resume shows a master's-level degree (Master of Management Science, MIM) plus internships only, not an MBA, so level matches but the degree is slightly off."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Develop and execute comprehensive strategy, including goal/budget setting and performance review.",
+            "experience": "Supported target setting across 9 major e-commerce campaigns in five Southeast Asian markets, using historical performance data to decompose regional targets into country-, seller-, and creator-level objectives.",
+            "verified": true
+          },
+          {
+            "requirement": "Conduct data analysis to evaluate the performance of merchandise and seller growth, identify trends, and make recommendations for optimization.",
+            "experience": "Built 40+ Excel campaign-monitoring dashboards from scratch, defining KPIs and analyzing 150K+ cumulative seller-, creator-, product-, and campaign-level data points to monitor performance and diagnose post-campaign gaps.",
+            "verified": true
+          },
+          {
+            "requirement": "Collaborate with cross-functional teams to plan and execute the Strategy.",
+            "experience": "Built the analytics and business case for automating bundled merchant packages (BMP), evaluating historical performance and projected value to support cross-functional investment with Data Science and Engineering teams",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "Posting asks for an MBA; the resume shows a Master of Management Science and a MIM, not an MBA.",
+          "No evidence of risk mitigation, regulatory/policy compliance work, or established brand and retailer relationships that the posting lists."
+        ]
+      }
+    ],
+    "recommended_version": "strategy_bizops",
+    "profile": "sample",
+    "decision": null
+  },
+  "built_on": "2026-10-27",
+  "extraction_model": "claude-haiku-4-5",
+  "score_model": "claude-sonnet-5-5"
+}
