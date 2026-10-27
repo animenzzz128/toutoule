@@ -182,6 +182,9 @@ the project stopped here, it would still be a credible interview showcase.
 ---
 
 # PHASE 2 — Automation
+
+> **Superseded by [Roadmap v2](07_ROADMAP_V2.md) (D-014, 2026-10-27).** Phases 2 and 3 below
+> are kept as originally written. Current tasks live in Phase A–E there and on GitHub.
 **Milestone M2 · 2026-10-09 → 2026-10-20 · ~30 hours**
 
 > **Scheduling note:** the ByteDance application window falls between 2026-10-06 and

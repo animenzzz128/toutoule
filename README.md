@@ -123,7 +123,7 @@ Full list: [eval spec §7](docs/05_EVAL_SPEC.md).
   [003](docs/adr/003-structured-output-with-verification.md) ·
   [004](docs/adr/004-rules-decide-eligibility.md) ·
   [007](docs/adr/007-post-approval-rewrites.md)
-- [Execution plan](docs/04_EXECUTION_PLAN.md)
+- [Execution plan](docs/04_EXECUTION_PLAN.md) · [Roadmap v2](docs/07_ROADMAP_V2.md), after M1
 
 ## Setup and run
 
