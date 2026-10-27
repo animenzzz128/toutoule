@@ -1,5 +1,38 @@
 # 投投乐 (TouTouLe)
 
+[![CI](https://github.com/animenzzz128/toutoule/actions/workflows/ci.yml/badge.svg)](https://github.com/animenzzz128/toutoule/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/animenzzz128/toutoule)](https://github.com/animenzzz128/toutoule/releases)
+[![Live demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://toutoule-uz7gtw3pxwffgea8l8mgwq.streamlit.app/)
+
+**Paste a job posting and get a decision record you can check: every critical field quotes
+the posting, code verifies the quote, tested rules decide eligibility, and the error rate is
+published.**
+
+> 投投乐是我为自己求职做的 AI 岗位筛选工具。粘贴 JD 后，模型抽取截止日期、签证担保、届别、投递
+> 次数限制等关键字段，每个字段都附原文引用，并由代码核验；资格由确定性规则判断，最后由我本人
+> 批准。在 50 个真实 JD 上，凭空编造的关键字段从 17 个降到 3–5 个。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/hallucination-dark.svg">
+  <img alt="Critical-field hallucinations out of 249: plain-prompt baseline 20 (17 fabricated, 3 misfiled); shipped v4 6 on the derived run and 8 on the fresh run (3–5 fabricated, 3 misfiled)." src="docs/img/hallucination.svg">
+</picture>
+
+Not zero: 6–8 of 249 critical fields are still wrong, and the match score does not agree with
+my own ratings. Both are explained below, in [Results](#results) and
+[What this does not claim](#what-this-does-not-claim).
+
+**Five minutes?** Read in this order:
+1. [Why this exists at all](docs/01_PRD.md#1a-why-not-just-a-scheduled-assistant-task): the
+   scheduled-prompt baseline it has to beat (D-004)
+2. [Why the eval is tiered](docs/05_EVAL_SPEC.md#1-why-tiered-evaluation): errors cost
+   different amounts
+3. [Iteration log](docs/eval/iteration_log.md): four versions, each with a hypothesis written
+   before the run
+4. [Scoring write-up](docs/eval/scoring.md): a missed target traced to a specification error,
+   not a tuning error
+
+## What it is
+
 An LLM-powered triage tool for one job seeker: me. I'm a business student applying to AI
 Product Manager roles in China and the US. For every posting, the same few questions decide
 whether it's worth one of my applications: am I eligible, is there a cap on applications,
@@ -51,6 +84,22 @@ these targets missed is [D-012](docs/06_DECISION_LOG.md).
 
 ## How it works
 
+```mermaid
+flowchart LR
+    A[Pasted posting] --> B["Extract with evidence<br/>(Pydantic schema)"]
+    B --> C{"Quote in the posting<br/>and supports the value?"}
+    C -- no --> D["Not stated<br/>+ violation logged"]
+    C -- yes --> E["Rules R1–R6<br/>(eligibility, caps, deadline)"]
+    D --> E
+    E --> F["Score fit × 3 résumés<br/>(model rates, code totals)"]
+    F --> G{I decide}
+    G -- approve --> H[Copy of my tracker]
+    G -- "reject + reason" --> I[Decision record]
+```
+
+The model only reads and cites. Code checks every quote, rules decide eligibility, and nothing
+reaches the tracker without my approval.
+
 - **Paste** a job description, with company, title and URL, into the Streamlit app.
 - **Extract with evidence.** The model fills a fixed Pydantic schema. Every stated field
   carries a verbatim quote, and "Not stated" is a value of its own. The same text pasted
@@ -74,6 +123,22 @@ these targets missed is [D-012](docs/06_DECISION_LOG.md).
 The stack is deliberately small: Python, Pydantic, SQLAlchemy on SQLite, the Anthropic
 SDK and Streamlit. There's no frontend framework, vector database or orchestration
 library ([ADR-001](docs/adr/001-stack-minimalism.md)).
+
+## How this compares
+
+Open-source pipelines such as [career-ops](https://github.com/santifer/career-ops) and
+commercial tools such as [Jobright](https://jobright.ai) also rate postings against a
+résumé, and they cover far more than this does. Of 17 comparable tools surveyed on 2026-10-27,
+I found none that publishes an extraction error rate, and most decide eligibility inside the
+prompt ([survey](docs/07_ROADMAP_V2.md#2-comparable-work-surveyed-2026-10-27)). TouTouLe's
+difference is deliberately narrow: quotes checked in code, eligibility decided by tested rules,
+and a measured error rate, including where it misses. Anthropic's
+[Citations](https://platform.claude.com/docs/en/build-with-claude/citations) feature is
+documented as not combinable with structured outputs. This project takes the other route:
+quotes are part of the schema and verified in code
+([ADR-003](docs/adr/003-structured-output-with-verification.md)).
+
+It never submits an application, and auto-apply is out of scope by design.
 
 ## Screenshots
 
