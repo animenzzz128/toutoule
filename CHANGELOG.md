@@ -6,6 +6,29 @@ follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **Roadmap v2 (D-014, #39):** Phases 2–3 of the execution plan are superseded by
+  `docs/07_ROADMAP_V2.md`: Phases A–E at ~5 h/week, one issue per task (#40–#75), and
+  path-based lanes so a Claude Code window and a Codex window work in parallel.
+
+## [0.1.1] - 2026-10-11
+
+Checkpoint D′: demo UI polish (Task 1.13, D-013). No change to `src/toutoule/` logic.
+
+### Added
+- **Task 1.13a — Theme and evidence cards (#31):** an "evidence ledger" Streamlit theme;
+  every stated critical field shows its verbatim quote beside its value, and unstated fields
+  show "Not stated". Summary strip, flag banners named after the rule that raised them,
+  tabs, and a decision card.
+- **Task 1.13b — Pages (#32):** a page menu with Triage, History and How it works. How it
+  works is copied from the README, so the page cannot claim more than the README does. The
+  posting link under a job's title is a button for http(s) addresses only; anything else,
+  such as `javascript:`, is shown as plain text.
+- Cards use native Streamlit elements so AppTest can read them; external text rendered as
+  HTML is escaped first.
+
+The Source tab with highlighted quotes (#33, the stretch part) moved to Roadmap v2 Phase C.
+
 ## [0.1.0] - 2026-10-07
 
 M1: core engine. Closed with the critical-hallucination and match-score targets not met;
