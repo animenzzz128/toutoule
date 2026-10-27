@@ -6,10 +6,31 @@ follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-27
+
+Phase A — Packaging (Roadmap v2, D-014). The first release built by two agent windows in
+parallel: the Codex lane wrote the demo engine (#42), the Claude lane the page and docs.
+
+### Added
+- **Task A4 — Examples that need no API call (#42, #43):** three saved triage results on the
+  sample profile in `data/demo/`, read by `demo.list_cases()` and `demo.load()` without a
+  model client or a database, and rebuilt by `scripts/build_demo.py`. The Triage page offers
+  them in a "Try a sample posting, no API call" picker, open when the page is empty or right
+  after the model fails (`anthropic.APIError`: spent budget, revoked key, no network). An
+  example is labelled as precomputed and offers no decision; an unreadable example file
+  leaves the page working.
+- **Task A3 — README first screen (#44):** badges, a one-line claim, a Chinese summary, a
+  light/dark chart of critical hallucinations by error type, a demo GIF, a reading path, a
+  pipeline diagram and a "How this compares" section.
+- **Task A5 — M1 retrospective (#45):** `docs/retro/2026-10-M1.md`. It records that the
+  PRD's 15–20 min per posting was never checked against the measured 5 min median.
+
 ### Changed
 - **Roadmap v2 (D-014, #39):** Phases 2–3 of the execution plan are superseded by
   `docs/07_ROADMAP_V2.md`: Phases A–E at ~5 h/week, one issue per task (#40–#75), and
   path-based lanes so a Claude Code window and a Codex window work in parallel.
+- **Tasks A1, A2 (#40, #41):** tags and GitHub Releases for v0.1.0 and v0.1.1; the package
+  version follows the release; the repository has a description, topics and a homepage.
 
 ## [0.1.1] - 2026-10-11
 
