@@ -352,6 +352,40 @@ added at M1 are retaken after this task.
 
 ---
 
+## D-014 · 2026-10-27 · Re-plan after M1: portfolio first, two agent windows in parallel
+
+**Context.** M1 closed on 2026-10-07 and Task 1.13 merged on 2026-10-11. M2 (due 2026-10-20)
+never started. The recruiting window is still open, so interview preparation still comes first
+(PRD §6), and the project gets about 5 hours a week. A review on 2026-10-27 found the published
+numbers partly understated (English labels against correct Chinese answers) and entirely
+in-sample, and the scoring miss pointing at a specification gap (priority ≠ fit), not a tuning
+gap. A survey of 17 comparable projects found none that publishes an extraction error rate.
+
+**Options.** (a) Resume the original Phase 2: automation first. (b) Re-plan around what an
+interviewer checks: credible numbers, the fit/priority fix, a demo that always works, with
+automation reduced to a lean version.
+
+**Decision.** (b), as five phases in [`07_ROADMAP_V2.md`](07_ROADMAP_V2.md): A Packaging,
+B Eval 2.0, C Fit vs Priority, D Lean Discovery, E Distribution & Pilot (optional).
+1. *Cut from the original Phase 2:* Tier 2 career-page watching and HMAC one-click email links.
+   Discovery is public ATS APIs only (Greenhouse, Lever, Ashby) plus manual paste.
+2. *Never cut:* the multilingual re-scoring (B1) and the held-out set (B2).
+3. *Two windows.* A Claude Code window and a Codex window work in parallel. Ownership is by
+   path, so no file has two owners: Claude owns docs, `app/`, eval data and GitHub operations;
+   Codex owns `src/toutoule/`, tests, prompts, scripts, CI and dependencies. Each window works in
+   its own git worktree, and coordination happens in GitHub issues. Rules are in `AGENTS.md` and
+   `CLAUDE.md`.
+4. *GitHub.* Milestones M1–M3 are closed as superseded; Phase A–E milestones hold one issue per
+   task (#39–#75; #11 and #33 re-scoped into Phase C).
+
+**Consequences.** Phases 2–3 of `04_EXECUTION_PLAN.md` are superseded but kept as written. M2's
+original exit criteria (5 days of digests, email approve/reject) are dropped. Codex PRs do not
+edit docs, README or CHANGELOG; release notes are consolidated per phase on the Claude side.
+Two windows add coordination cost; if the lane rules are broken more than once, fall back to one
+window.
+
+---
+
 ## Template for new entries
 
 ```markdown

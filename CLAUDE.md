@@ -48,6 +48,43 @@ If a requirement in the docs is wrong, infeasible, or would produce bad architec
 and propose an alternative. Do not silently work around it, and do not implement something
 you believe is wrong because it is written down.
 
+## Parallel lanes (D-014)
+
+Two agent windows work on this repository at the same time: **Claude Code** (Claude lane) and
+**Codex** (Codex lane). If you are Claude Code, you are the Claude lane; if you are Codex, the
+Codex lane. Ownership is by path, so no file ever has two owners. Plan:
+`docs/07_ROADMAP_V2.md`.
+
+| Path | Owner |
+|---|---|
+| `docs/**`, `README.md`, `CHANGELOG.md`, `CLAUDE.md`, `AGENTS.md` | Claude |
+| `app/**`, `.streamlit/**`, `tests/test_app.py`, `tests/test_ui.py` | Claude |
+| `data/eval/raw/**`, `data/eval/labels/**`, `data/eval/heldout/**`, `data/eval/cases.csv`, `data/eval/human_scores*.csv`, `data/profile/**` | Claude |
+| GitHub issues, milestones, labels, releases, tags; `version` in `pyproject.toml` at release | Claude |
+| `src/toutoule/**`, all other `tests/**` and `tests/fixtures/**` | Codex |
+| `data/prompts/**`, `data/demo/**`, `data/eval/equivalences.csv`, `data/eval/adjudications.csv` | Codex |
+| `scripts/**`, `.github/workflows/**`, dependencies in `pyproject.toml`, `uv.lock`, `requirements.txt` | Codex |
+
+Generated eval outputs (`data/eval/runs/**`, `docs/eval/runs/**`, `docs/eval/scoring/**`) are
+added, never edited, by whichever lane ran the eval, as its issue says.
+
+1. **Work only on issues labelled with your lane** (`lane:claude` / `lane:codex`), in milestone
+   order, and change only the files the issue lists under "Files allowed to change". If you need
+   another file, comment on the issue and stop; do not edit it.
+2. **Codex PRs do not touch docs, README or CHANGELOG.** Put the change summary and any metrics in
+   the PR description; the Claude lane folds them into docs at the end of each phase.
+3. **Cross-lane interfaces are fixed in the issue first.** When UI needs a new engine function,
+   the signature and return model are agreed in an issue comment; Codex implements it, and the
+   Claude lane uses a fake in its tests until that PR merges.
+4. **One git worktree per window.** Claude works in `toutoule/`, Codex in `../toutoule-codex/`.
+   Branch from fresh `origin/main`, rebase before opening a PR, never stack unmerged branches,
+   never commit to `main`. The owner merges.
+5. **Coordinate through GitHub issues**: "Blocked by #n" in the body, a comment when a blocking PR
+   merges. There is no shared status file.
+6. **Release-only exception:** a version bump changes `version` in `pyproject.toml` and the
+   `toutoule` entry in `uv.lock` (via `uv lock`). The Claude lane does it only when no open Codex
+   PR touches dependencies.
+
 ## Non-negotiable constraints
 
 **1. Evidence verification is mandatory.**
