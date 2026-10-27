@@ -21,6 +21,11 @@ Not zero: 6–8 of 249 critical fields are still wrong, and the match score does
 my own ratings. Both are explained below, in [Results](#results) and
 [What this does not claim](#what-this-does-not-claim).
 
+![The live demo opening a precomputed example: rule flags with their quotes, critical fields marked "Found in source" or "Not stated", and résumé fit with verified evidence pairs](docs/img/demo.gif)
+
+*A precomputed example from the live demo, on the redacted sample profile. It needs no API
+call, so the demo keeps working after its monthly budget runs out.*
+
 **Five minutes?** Read in this order:
 1. [Why this exists at all](docs/01_PRD.md#1a-why-not-just-a-scheduled-assistant-task): the
    scheduled-prompt baseline it has to beat (D-004)
