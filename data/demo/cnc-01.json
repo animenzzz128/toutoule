@@ -1,0 +1,220 @@
+{
+  "case": {
+    "id": "cnc-01",
+    "company": "Citi",
+    "title": "Banking - Commercial Banking, Summer Analyst, China – APAC, 2027",
+    "market": "CN"
+  },
+  "view": {
+    "job_id": 1,
+    "company": "Citi",
+    "title": "Banking - Commercial Banking, Summer Analyst, China – APAC, 2027",
+    "url": "https://jobs.citi.com/job/shanghai/banking-commercial-banking-summer-analyst-china-apac-2027/287/98836109904",
+    "status": "scored",
+    "critical": [
+      {
+        "name": "deadline",
+        "value": "2026-11-27",
+        "stated": true,
+        "evidence": "Application Deadline:  Friday, November 27, 2026 - 23:59 Beijing Time"
+      },
+      {
+        "name": "visa_sponsorship",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "graduation_window",
+        "value": "2027-12 to 2028-06",
+        "stated": true,
+        "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution (graduating between Dec 2027 – June 2028)."
+      },
+      {
+        "name": "application_cap",
+        "value": "3 per candidate",
+        "stated": true,
+        "evidence": "Each applicant can apply to maximum of 3 summer internship programs in Asia cluster."
+      },
+      {
+        "name": "materials_required",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      }
+    ],
+    "other": [
+      {
+        "name": "location",
+        "value": "Shanghai, China",
+        "stated": true,
+        "evidence": "Location(s): Shanghai, Shanghai Municipality, China"
+      },
+      {
+        "name": "work_model",
+        "value": "onsite",
+        "stated": true,
+        "evidence": "Job Type: On-Site/Resident"
+      },
+      {
+        "name": "language_requirement",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "start_date",
+        "value": null,
+        "stated": false,
+        "evidence": null
+      },
+      {
+        "name": "degree_requirement",
+        "value": "Bachelor's or Master's degree",
+        "stated": true,
+        "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution"
+      }
+    ],
+    "flags": [
+      {
+        "rule_id": "R2",
+        "severity": "HARD",
+        "evidence": "You are in your penultimate year of a Bachelor's or Master's degree in any discipline from a top academic institution (graduating between Dec 2027 – June 2028)."
+      },
+      {
+        "rule_id": "R4",
+        "severity": "SCARCE",
+        "evidence": "Each applicant can apply to maximum of 3 summer internship programs in Asia cluster."
+      }
+    ],
+    "has_hard_flag": true,
+    "scores": [
+      {
+        "resume_version": "ai_product",
+        "score": 42,
+        "dimensions": {
+          "domain_fit": {
+            "score": 3,
+            "reason": "Resume shows e-commerce strategy, consulting and healthcare analytics; no banking, credit, lending or KYC work, so commercial banking would be new subject matter."
+          },
+          "skills_overlap": {
+            "score": 5,
+            "reason": "Strong numerate and analytical work (Python, SQL, dashboards, target decomposition), but the posting's banking project areas like credit lending, relationship management and KYC are not shown."
+          },
+          "seniority_fit": {
+            "score": 5,
+            "reason": "Posting is an entry-level summer program with no experience required; the resume shows three internships and graduate study, so the person is a level above it and somewhat underused."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Someone who is highly numerate with first-class analytical skills",
+            "experience": "Defined campaign KPIs and built 40+ monitoring dashboards from scratch over 150K+ seller, creator, product, and campaign data points to diagnose operational gaps.",
+            "verified": true
+          },
+          {
+            "requirement": "Business planning and analysis",
+            "experience": "Independently decomposed regional targets for 9 major campaigns into country-, seller-, and creator-level goals from historical data; tracked execution daily.",
+            "verified": true
+          },
+          {
+            "requirement": "Someone with a global outlook",
+            "experience": "Ran seller and creator targeting for 4K+ accounts across five Southeast Asian markets",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "No credit, lending, relationship management or KYC experience, which are the posting's named project areas.",
+          "No exposure to commercial banking products or mid-sized/SME corporate clients, which the posting stresses."
+        ]
+      },
+      {
+        "resume_version": "strategy_bizops",
+        "score": 47,
+        "dimensions": {
+          "domain_fit": {
+            "score": 3,
+            "reason": "The resume shows e-commerce strategy, retail consulting and healthcare analytics, with no banking, lending, credit or KYC work, so only the analytical habits transfer."
+          },
+          "skills_overlap": {
+            "score": 5,
+            "reason": "The central ask of numerate, analytical ability and business planning-style work is shown in dashboards and target setting, but none of the banking areas listed appear."
+          },
+          "seniority_fit": {
+            "score": 7,
+            "reason": "This is an entry-level summer analyst role with no experience required, and the resume shows several internships and advanced degrees, so the person is slightly above the level but a sound match."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Someone who is highly numerate with first-class analytical skills",
+            "experience": "Built 40+ Excel campaign-monitoring dashboards from scratch, defining KPIs and analyzing 150K+ cumulative seller-, creator-, product-, and campaign-level data points",
+            "verified": true
+          },
+          {
+            "requirement": "Business planning and analysis",
+            "experience": "Supported target setting across 9 major e-commerce campaigns using historical performance data",
+            "verified": true
+          },
+          {
+            "requirement": "Results-oriented and a good team player",
+            "experience": "coordinating campaign execution with 25+ local-market stakeholders and driving 0.4–0.7pp higher ad take rate",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "No exposure to banking, credit lending, relationship management or KYC and control, which are the posting's named project areas.",
+          "The resume shows no interest in or work with SME or trade-oriented corporate clients, which the posting highlights."
+        ]
+      },
+      {
+        "resume_version": "consulting",
+        "score": 42,
+        "dimensions": {
+          "domain_fit": {
+            "score": 3,
+            "reason": "Resume shows strategy analytics, consulting and healthcare data work, but nothing in commercial banking, lending, credit or KYC, so the person would be starting over on the subject matter."
+          },
+          "skills_overlap": {
+            "score": 5,
+            "reason": "Numeracy, analytical work and business planning and analysis are well evidenced, but the posting names no banking tools and the resume shows no lending, credit or KYC exposure."
+          },
+          "seniority_fit": {
+            "score": 5,
+            "reason": "The posting is a penultimate-year student internship with no experience required; the resume shows three internships and a master's already in progress, so the person is somewhat above the intended entry level."
+          }
+        },
+        "verified_pairs": [
+          {
+            "requirement": "Someone who is highly numerate with first-class analytical skills",
+            "experience": "Cleaned and analyzed 22K+ retail records using Python and Tableau, applying exploratory and predictive analyses to identify actionable metrics for a three-year business outlook for a large building-materials retailer.",
+            "verified": true
+          },
+          {
+            "requirement": "Business planning and analysis",
+            "experience": "Supported target setting across 9 major e-commerce campaigns in five Southeast Asian markets, using historical performance data to decompose regional targets into country-, seller-, and creator-level objectives.",
+            "verified": true
+          },
+          {
+            "requirement": "Results-oriented and a good team player",
+            "experience": "Managed targeting for 4K+ sellers and creators across five regional markets and coordinated execution with 25+ local-market stakeholders, driving 0.4-0.7pp higher ad take rate and 0.3-0.5pp higher incremental take rate across targeted pools.",
+            "verified": true
+          }
+        ],
+        "unverified_pairs": 0,
+        "gaps": [
+          "No banking, lending, credit or KYC experience, which are the core business areas the posting lists for projects.",
+          "No evidence of interest in or work with SMEs or commercial clients such as trade-oriented mid-sized companies."
+        ]
+      }
+    ],
+    "recommended_version": "strategy_bizops",
+    "profile": "sample",
+    "decision": null
+  },
+  "built_on": "2026-10-27",
+  "extraction_model": "claude-haiku-4-5",
+  "score_model": "claude-sonnet-5-5"
+}
