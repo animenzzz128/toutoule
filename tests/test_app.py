@@ -618,6 +618,21 @@ def test_an_example_that_fails_to_load_is_a_message_not_a_traceback(
     ]
 
 
+def test_unreadable_examples_leave_the_page_working(
+    make_app: AppFactory, fake_demo: types.ModuleType, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def broken() -> list[SimpleNamespace]:
+        raise ValueError("demo id does not match filename: cnp-01.json")
+
+    monkeypatch.setattr(fake_demo, "list_cases", broken)
+    at = make_app()
+
+    assert not at.exception
+    assert at.expander == []
+    assert "The saved examples could not be read: ValueError." in [c.value for c in at.caption]
+    assert at.text_area(key="posting") is not None  # the paste form still works
+
+
 def test_when_the_model_does_not_answer_the_page_offers_the_examples(
     make_app: AppFactory, monkeypatch: pytest.MonkeyPatch
 ) -> None:

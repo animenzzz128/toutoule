@@ -105,7 +105,11 @@ def paste_form(session, settings: Settings, use_sample: bool) -> None:  # type: 
 
 def demo_picker(expanded: bool) -> None:
     """Saved examples that need no API call. Picking one replaces whatever job is shown."""
-    cases = demo.list_cases()
+    try:
+        cases = demo.list_cases()
+    except (ValueError, ValidationError) as error:  # one bad file must not take the page down
+        st.caption(f"The saved examples could not be read: {type(error).__name__}.")
+        return
     if not cases:
         return
     labels = {case.id: f"{case.company} · {case.title}" for case in cases}
