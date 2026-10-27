@@ -9,11 +9,13 @@ longer applies.
 The sidebar and the page menu live in app/streamlit_app.py, which runs this file.
 """
 
+import anthropic
 import resources
 import streamlit as st
 import ui
+from pydantic import ValidationError
 
-from toutoule import config, extract, redflags, score, triage
+from toutoule import config, demo, extract, redflags, score, triage
 from toutoule.config import ConfigError, Settings
 from toutoule.schemas import REJECT_REASON_LABELS
 
@@ -33,6 +35,17 @@ SCORE_CAPTION = (
 # Failures with a message worth showing as written. Everything else is caught below and
 # shown as its type and message, because a traceback on the page helps nobody.
 PIPELINE_ERRORS = (extract.ExtractionFailed, score.ScoringFailed, score.ResumeNotFound, ConfigError)
+
+# The live demo has a monthly API budget; once it is spent, every call fails. The examples
+# are saved outputs of the same pipeline (#42), so the page still shows what it does.
+API_DOWN = (
+    "The live model didn't answer ({error}). The examples below are precomputed and need "
+    "no model call."
+)
+DEMO_NOTICE = (
+    "Precomputed example: the saved output of this pipeline on the redacted sample profile. "
+    "Nothing on this view calls the model, and there is no decision to record."
+)
 
 
 # --- Paste and triage --------------------------------------------------------------------
@@ -76,10 +89,47 @@ def paste_form(session, settings: Settings, use_sample: bool) -> None:  # type: 
     except PIPELINE_ERRORS as error:
         st.error(str(error))
         return
+    except anthropic.APIError as error:  # budget spent, key revoked, network down
+        st.warning(API_DOWN.format(error=type(error).__name__), icon=":material/cloud_off:")
+        st.session_state["api_down"] = True
+        return
     except Exception as error:  # noqa: BLE001 — a page shows a message, never a traceback
         st.error(f"{type(error).__name__}: {error}")
         return
     st.session_state["job_id"] = job_id
+    st.session_state.pop("demo_case", None)  # a live result replaces an example
+
+
+# --- Precomputed examples ----------------------------------------------------------------
+
+
+def demo_picker(expanded: bool) -> None:
+    """Saved examples that need no API call. Picking one replaces whatever job is shown."""
+    try:
+        cases = demo.list_cases()
+    except (ValueError, ValidationError) as error:  # one bad file must not take the page down
+        st.caption(f"The saved examples could not be read: {type(error).__name__}.")
+        return
+    if not cases:
+        return
+    labels = {case.id: f"{case.company} · {case.title}" for case in cases}
+    with st.expander("Try a sample posting, no API call", expanded=expanded):
+        case_id = st.selectbox(
+            "Example", list(labels), format_func=labels.__getitem__, key="demo_pick"
+        )
+        if st.button("Show example"):
+            st.session_state.pop("job_id", None)
+            st.session_state["demo_case"] = case_id
+
+
+def show_demo(case_id: str) -> None:
+    try:
+        view = demo.load(case_id)
+    except (ValueError, ValidationError) as error:
+        st.error(f"That example could not be loaded: {error}")
+        return
+    st.info(DEMO_NOTICE, icon=":material/inventory_2:")
+    show_result(view)
 
 
 # --- Result ------------------------------------------------------------------------------
@@ -194,6 +244,20 @@ def decision_section(session, view: triage.TriageView) -> None:  # type: ignore[
 # --- Page --------------------------------------------------------------------------------
 
 
+def show_result(view: triage.TriageView) -> None:
+    """One job's evidence, flags and scores: the same for a live job and a saved example."""
+    company = ui.md_escape(view.company) if view.company else "(no company)"
+    title = ui.md_escape(view.title) if view.title else "(no title)"
+    st.header(f"{company} — {title}")
+    if view.url:
+        posting_link(view.url)
+    ui.summary_strip(view)
+    if view.scores:  # a score is never shown without saying what it is not
+        st.caption(SCORE_CAPTION)
+    red_flag_banners(view)
+    evidence_tabs(view)
+
+
 def main() -> None:
     settings = resources.settings()
     use_sample = st.session_state["use_sample"]  # the sidebar toggle, drawn before this page
@@ -202,6 +266,13 @@ def main() -> None:
         paste_form(session, settings, use_sample)
 
         job_id = st.session_state.get("job_id")
+        empty = job_id is None and "demo_case" not in st.session_state
+        demo_picker(expanded=empty or st.session_state.pop("api_down", False))
+
+        if "demo_case" in st.session_state:
+            show_demo(st.session_state["demo_case"])
+            return
+        job_id = st.session_state.get("job_id")  # "Show example" may have just cleared it
         if job_id is None:
             st.info("Paste a job description above, then click Triage.")
             return
@@ -210,17 +281,7 @@ def main() -> None:
         except triage.JobNotFound as error:
             st.error(str(error))
             return
-
-        company = ui.md_escape(view.company) if view.company else "(no company)"
-        title = ui.md_escape(view.title) if view.title else "(no title)"
-        st.header(f"{company} — {title}")
-        if view.url:
-            posting_link(view.url)
-        ui.summary_strip(view)
-        if view.scores:  # a score is never shown without saying what it is not
-            st.caption(SCORE_CAPTION)
-        red_flag_banners(view)
-        evidence_tabs(view)
+        show_result(view)
         decision_section(session, view)
 
 
